@@ -11,6 +11,7 @@
 \usepackage{datetime}
 \usepackage[table,xcdraw]{xcolor}
 \usepackage{graphicx}
+\usepackage{longtable}
 
 \DeclareGraphicsExtensions{.pdf,.png,.jpg,.jpeg,.gif}
 \newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
@@ -22,7 +23,7 @@
 	\normalsize 
 	\huge{Pflichtenheft Buchhandlung Schiller}
 	\horrule{0.5pt}
-	\paragraph{Version: 0.5}
+	\paragraph{Version: 0.4}
 	\paragraph{Status: in Arbeit}
 	\paragraph{Stand: \today}
 	\horrule{2pt}
@@ -49,10 +50,11 @@
 \begin{tabular}{|r|r|c|l|c|}
 	\hline
 	\rowcolor[HTML]{C0C0C0} 
-	Version & Status    & Datum      & Bearbeiter       & Erläuterung    \\ \hline
-	0.1     & In Arbeit & 30.10.2014 & Christoph Kepler & Initial Commit \\ \hline
-	0.2     & In Arbeit & 01.11.2014 & Christoph Kepler & Diagramme      \\ \hline
-	0.3     & In Arbeit & 07.11.2014 & Christoph Kepler & Letzte Punkte  \\ \hline
+	Version & Status    & Datum      & Bearbeiter       & Erläuterung    	\\ \hline
+	0.1     & In Arbeit & 30.10.2014 & Christoph Kepler & Initial Commit 	\\ \hline
+	0.2     & In Arbeit & 01.11.2014 & Christoph Kepler & Diagramme      	\\ \hline
+	0.3     & In Arbeit & 07.11.2014 & Christoph Kepler & Letzte Punkte  	\\ \hline
+	0.4		& In Arbeit & 09.11.2014 & Christoph Kepler	& \LaTeX			\\ \hline
 \end{tabular}
 
 \section*{Reviewnachweis}
@@ -101,13 +103,13 @@ Als zusätzliches Feature wünscht der Buchhandel SCHILLER sich einen Kalender a
 
 \subsection{Akteure}
 
-\begin{tabular}{|l|l|}
+\begin{tabular}{|p{100px}|p{250px}|}
 	\hline
 	\rowcolor[HTML]{C0C0C0} 
 	Name & Beschreibung	\\ \hline
 	Guest & Der Guest ist ein unauthentifizierter Nutzer der Anwendung.\\ \hline
 	Customer & Der Customer ist ein authentifizierter Nutzer der Anwendung.\\ \hline
-	Employee & Der Employee ist ein Mitarbeiter der Firma.\\ \hline
+	Employee & Der Employee ist ein MitarbKlasse stellt die Umsetzung einer Kategorie dar.eiter der Firma.\\ \hline
 	User Manager & Der User Manager ist der Verwalter von registrierten Nutzern im System.\\ \hline
 	Article Manager & Der Article Manager ist der Verwalter vom Artikelbestand im System.\\ \hline
 	Reading Manager & Der Reading Manager ist der Verwalter der Lesungen im System.\\ \hline
@@ -117,6 +119,41 @@ Als zusätzliches Feature wünscht der Buchhandel SCHILLER sich einen Kalender a
 
 \subsection{Anwendungsfallbeschreibung}
 
+\begin{longtable}{|p{100px}|p{250px}|}
+	\hline
+	\rowcolor[HTML]{C0C0C0}
+	Use Case ID & Beschreibung \\ \hline
+	\multicolumn{2}{|l|}{Usermanagement:}  \\ \hline
+	UC01 & Login/Logout  \\ \hline
+	UC02 & Register as user  \\ \hline
+	\multicolumn{2}{|l|}{Userdata:} \\ \hline
+	UC03 & different role management  \\ \hline
+	UC04 & Manipulate  \\ \hline
+	UC05 & View own  \\ \hline
+	UC06 & View costumer  \\ \hline
+	UC07 & Reset Password  \\ \hline
+	\multicolumn{2}{|l|}{Article Management:}  \\ \hline
+	UC08 & View Articles (Books, CD, DVD)  \\ \hline
+	UC09 & Search articles via different criteria  \\ \hline
+	UC10 & manipulate article inventory  \\ \hline
+	UC11 & manipulate categories  \\ \hline
+	\multicolumn{2}{|l|}{Sales Management:}  \\ \hline
+	\multicolumn{2}{|l|}{Cart Management:}  \\ \hline
+	UC12 & fill/empty cart  \\ \hline
+	UC13 & checkout  \\ \hline
+	\multicolumn{2}{|l|}{Order Management:}  \\ \hline
+	UC14 & view order  \\ \hline
+	UC15 & cancel/ get return  \\ \hline
+	\multicolumn{2}{|l|}{Bill Management:}  \\ \hline
+	UC16 & view \\ \hline
+	UC17 & statistics \\ \hline
+	\multicolumn{2}{|l|}{Reading Management:} \\ \hline
+	UC18 & view/ manipulate calender \\ \hline
+	UC19 & manipulate reading events \\ \hline
+	UC20 & manipulate rooms \\ \hline
+\end{longtable}
+
+\begin{comment}
 \begin{itemize}
 	\item[\textbf{Usermanagement:}]
 	\item Login/Logout
@@ -150,6 +187,7 @@ Als zusätzliches Feature wünscht der Buchhandel SCHILLER sich einen Kalender a
 	\item manipulate reading events
 	\item manipulate rooms
 \end{itemize}
+\end{comment}
 
 \section{Sequenzdiagramme}
 
@@ -173,8 +211,39 @@ Als zusätzliches Feature wünscht der Buchhandel SCHILLER sich einen Kalender a
 
 \subsection{Musskriterien}
 
+\begin{longtable}{|p{100px}|p{250px}|}
+	\hline
+	\rowcolor[HTML]{C0C0C0}
+	Criteria ID & Beschreibung \\ \hline
+	CUM01 & Akteure: Mitarbeiter, nicht eingeloggter Nutzer, eingeloggter Nutzer, Chef, Administrator, Personalverwalter \\ \hline
+	CUM02 & Nutzeraccount kann mehrere Rollen haben \\ \hline
+	CUM03 & mind. ein Root im System  \\ \hline
+	CAM01 & artikelspezifische Kategorien  \\ \hline
+	CCM01 & Kalender für wöchentliche Lesungen  \\ \hline
+	\multicolumn{2}{|l|}{Guest kann:} \\ \hline
+	CAM02 & Artikel suchen \\ \hline
+	CCM02 & Artikel in Warenkorb legen \\ \hline
+	CSM01 & nicht kaufen \\ \hline
+	\multicolumn{2}{|l|}{Customer kann:} \\ \hline
+	CSM02 & kaufen \\ \hline
+	CSM03 & Übersicht über bereits gekaufte Artikel anzeigen \\ \hline
+	CBM01 & Rechnung online anzeigen lassen und herunterladen \\ \hline
+	\multicolumn{2}{|l|}{Employee kann:} \\ \hline
+	CAM03 & Artikelbestand sehen \\ \hline
+	CAM04 & ggf. nachbestellen \\ \hline
+	\multicolumn{2}{|l|}{User Manager kann:} \\ \hline
+	CUM04 & Rollen der anderen Nutzer verändern, außer Root \\ \hline
+	\multicolumn{2}{|l|}{Chef kann:]} \\ \hline
+	CSM04 & wöchentliche Verkaufsbilanzen anzeigen \\ \hline
+	\multicolumn{2}{|l|}{Root kann:} \\ \hline
+	CUM05 & alles \\ \hline
+	CAM05 & Kategorien manipulieren \\ \hline
+	CRM01 & Räume manipulieren \\ \hline
+\end{longtable}
+
+\begin{comment}
 \begin{itemize}
-	\item Akteure: Mitarbeiter, nicht eingeloggter Nutzer, eingeloggter Nutzer, Chef,\ Administrator, Personalverwalter
+	\item Akteure: Mitarbeiter, nicht eingeloggter Nutzer, eingeloggter Nutzer, Chef, Administrator, Personalverwalter
 	\item Nutzeraccount kann mehrere Rollen haben
 	\item mind. ein Root im System
 	\item artikelspezifische Kategorien
@@ -199,22 +268,45 @@ Als zusätzliches Feature wünscht der Buchhandel SCHILLER sich einen Kalender a
 	\item Kategorien manipulieren
 	\item Räume manipulieren
 \end{itemize}
+\end{comment}
 
 \subsection{Kannkriterien}
 
+\begin{longtable}{|p{100px}|p{250px}|}
+	\hline
+	\rowcolor[HTML]{C0C0C0}
+	Criteria ID & Beschreibung \\ \hline
+	CUM06 & Meldung, wenn Benutzername bereits vergeben  \\ \hline
+	CUM07 & Meldung, wenn E-Mail syntaktisch nicht richtig  \\ \hline
+	CBM02 & pdf-Rechnung per Mail and den Kunden  \\ \hline
+	CAM06 & Artikel haben verschiedene Kaufs- und Verkaufspreise  \\ \hline
+\end{longtable}
+
+\begin{comment}
 \begin{itemize}
 	\item Meldung, wenn Benutzername bereits vergeben
 	\item Meldung, wenn E-Mail syntaktisch nicht richtig
 	\item pdf-Rechnung per Mail and den Kunden
 	\item Artikel haben verschiedene Kaufs- und Verkaufspreise
 \end{itemize}
+\end{comment}
 
 \subsection{Wunschkriterien}
 
+\begin{longtable}{|p{100px}|p{250px}|}
+	\hline
+	\rowcolor[HTML]{C0C0C0}
+	Criteria ID & Beschreibung \\ \hline
+	CAM07 & Möglichkeit Artikel nach Kategorien zu filtern  \\ \hline
+	CSM05 & grafische Visualisierung der Bilanzen (Chart.js)  \\ \hline
+\end{longtable}
+
+\begin{comment}
 \begin{itemize}
 	\item Möglichkeit Artikel nach Kategorien zu filtern
 	\item grafische Visualisierung der Bilanzen (Chart.js)
 \end{itemize}
+\end{comment}
 
 \section{Dialoge (GUI-Prototyp)}
 
@@ -242,68 +334,85 @@ Als zusätzliches Feature wünscht der Buchhandel SCHILLER sich einen Kalender a
 
 \subsection{Klassen und Enumerationen}
 
-\begin{tabular}{|l|l|}
+\begin{longtable}{|p{100px}|p{250px}|}
 	\hline
 	\rowcolor[HTML]{C0C0C0} 
 	Klasse/Enumeration & Beschreibung \\ \hline
-	BookShopSchiller &  \\ \hline
-	Guest &  \\ \hline
-	Costumer &  \\ \hline
-	Employee &  \\ \hline
-	UserManager &  \\ \hline
-	ReadingManager &  \\ \hline
-	SaleManager &  \\ \hline
-	ArticleManager &  \\ \hline
-	Admin &  \\ \hline
-	Chef &  \\ \hline
-	Lieferadresse &  \\ \hline
-	SaleManagement &  \\ \hline
-	CartManagement &  \\ \hline
-	OrderManagement &  \\ \hline
-	Cart &  \\ \hline
-	Order &  \\ \hline
-	BillViewer &  \\ \hline
-	Bill &  \\ \hline
-	Account	 &  \\ \hline
-	UserManagement  &  \\ \hline
-	ProfileManagement &  \\ \hline
-	RegisterManagement &  \\ \hline
-	ProfileViewer &  \\ \hline
-	LogInOut &  \\ \hline
-	ArticleManagement &  \\ \hline
-	CategoryManagement &  \\ \hline
-	BookManagement &  \\ \hline
-	DVDManagement &  \\ \hline
-	CDManagement &  \\ \hline
-	BookViewer &  \\ \hline
-	DVDViewer &  \\ \hline
-	CDViewer &  \\ \hline
-	Article &  \\ \hline
-	Category &  \\ \hline
-	Book &  \\ \hline
-	DVD &  \\ \hline
-	CD &  \\ \hline
-	Genre <Enumeration> &  \\ \hline
-	ReadingManagement &  \\ \hline
-	RoomManagement &  \\ \hline
-	CalenderManagement &  \\ \hline
-	CalenderViewer &  \\ \hline
-	Room &  \\ \hline
-	Calender &  \\ \hline
-	Event &  \\ \hline
-\end{tabular}
+	BookShopSchiller & Hauptklasse, die alle Funktionen zusammenführt. \\ \hline
+	Guest & Klasse für einen  uneingeloggten Benutzer, kann den Einkaufswagen nutzen, sich über das Benutzermanagement einloggen oder kann sich registrieren, kann außerdem die Suchfunktion nutzen. \\ \hline
+	Costumer & Klasse für einen eingeloggten Benutzer als Kunde, erbt von dem Guest und kann des weiteren auf sein Konto zugreifen. \\ \hline
+	Employee & Klasse für einen Angestellten, erbt ebenfalls von Guest.  \\ \hline
+	UserManager & Klasse erbt von Employee und kann außerdem auf die Verwaltung der Profile zugreifen. \\ \hline
+	ReadingManager & Klasse erbt von Employee und kann außerdem auf die Verwaltung der Veranstaltungen zugreifen \\ \hline
+	SaleManager & Klasse erbt von Employee und kann außerdem auf die Verwaltung der Bestellungen zugreifen. \\ \hline
+	ArticleManager & Klasse erbt von Employee und kann außerdem auf die Verwaltung der Artikel zugreifen. \\ \hline
+	Admin & Klasse erbt von den „Manager“-Klassen, um Gewalt über alle Funktionalitäten zu haben. \\ \hline
+	Chef & Klasse erbt von Employee und kann außerdem Einsicht in die finanziellen Bilanzen bekommen. \\ \hline
+	Lieferadresse & Enumeration gehört zu jedem Costumer. Sie enthält die Daten eines Kunden(Hausnummer, Straße, Etage) \\ \hline
+	SaleManagement & Ist die Oberklasse zur Verwaltung/Funktionalität des Verkaufs. Sie regelt daher den Verkauf an Kunden. Der SaleManager benutzt die Funktionalitäten dieser Klasse. \\ \hline
+	CartManagement & Klasse kümmert sich um die Verwaltung des Einkaufswagen durch einen Costumer. \\ \hline
+	OrderManagement & Klasse verwaltet und bietet die Funktionalitäten einer jeden Bestellung. \\ \hline
+	BalanceSheet & Klasse bietet Funktionalitäten zum Einsehen der Ein- und Ausgaben. Enthält Werte für Einkommen und Ausgaben und die Berechnung einer Bilanz. \\ \hline
+	Cart & Klasse stellt die Umsetzung eines Einkaufswagens dar. \\ \hline
+	Order & Klasse stellt die Umsetzung einer Bestellung dar. \\ \hline
+	BillViewer & Klasse liefert die Funktionalitäten des Einsehens einer Rechnung für den Kunden \\ \hline
+	Bill & Klasse stellt die Umsetzung einer Rechnung dar. \\ \hline
+	Account	 & Klasse stellt die Umsetzung eines Personenkontos dar. \\ \hline
+	UserManagement  & Ist die Oberklasse zur Verwaltung/Funktionalität des Profils/Kontos. Sie regelt also das Interagieren mit dem Account für den Kunden. Der UserManager benutzt die Funktionalitäten dieser Klasse \\ \hline
+	ProfileManagement & Klasse verwaltet die Profile und bietet Funktionalitäten für jeden Nutzer. \\ \hline
+	RegisterManagement & Klasse bietet Funktionalitäten zum Registrieren eines jeden Nutzers. \\ \hline
+	ProfileViewer & Klasse liefert Funktionalitäten des Einsehens eines Profils für den Benutzer. \\ \hline
+	LogInOut & Klasse kümmert sich um die Funktionen des Ein- und Ausloggens. \\ \hline
+	ArticleManagement & Die Oberklasse bietet Funktionalitäten zur Verwaltung sämtlicher Artikel. Diese bietet Funktionalitäten zum Durchsuchen der Artikelbestände, sowie zum verwalten dieser. Sie wird vom ArticleManager benutzt. \\ \hline
+	CategoryManagement & Klasse kümmert sich um die Kategorisierungs-/Verwaltungsfunktionalitäten jeglicher Artikel. \\ \hline
+	BookManagement & Klasse erbt von ArticleManagement und  bietet  Kategorisierungs-/Verwaltungsfunktionalitäten von Büchern \\ \hline
+	DVDManagement & Klasse erbt von ArticleManagement und  bietet  Kategorisierungs-/Verwaltungsfunktionalitäten von DVDs \\ \hline
+	CDManagement & Klasse erbt von ArticleManagement und  bietet  Kategorisierungs-/Verwaltungsfunktionalitäten von CDs \\ \hline
+	Storage & Klasse stellt Umsetzung eines Lagers dar. \\ \hline
+	ArticleViewer & Klasse liefert Funktionalitäten zum Anzeigen eines jeden Artikels. \\ \hline
+	BookViewer & Klasse erbt von ArticleViewer und liefert Funktionalitäten zum Anzeigen eines Buches. \\ \hline
+	DVDViewer & Klasse erbt von ArticleViewer und liefert Funktionalitäten zum Anzeigen einer DVD. \\ \hline
+	CDViewer & Klasse erbt von ArticleViewer und liefert Funktionalitäten zum Anzeigen einer CD. \\ \hline
+	Article & Klasse stellt die Umsetzung eines Artikels dar. Enthält Werte für den Titel, Cover und eine Beschreibung. \\ \hline
+	Category & Klasse stellt die Umsetzung einer Kategorie dar. \\ \hline
+	Book & Klasse erbt von Article und stellt die Umsetzung eines Buches dar. Enthält Werte für den Autor, Verlag und die ISBN-Nummer. \\ \hline
+	DVD & Klasse erbt von Article und stellt die Umsetzung einer DVD dar. Enthält Werte für Regisseur \\ \hline
+	CD & Klasse erbt von Article und stellt die Umsetzung einer CD dar. Enthält Werte für Interpret. \\ \hline
+	Genre <Enumeration> & Enumeration ist Teil einer Kategorienklasse und listet alle Genres auf. Enthält die Werte Fiktion, Sachbuch, Unterhaltung, Ratgeber. \\ \hline
+	ReadingManagement & Oberklasse bietet Funktionalitäten zur Verwaltung und Einsicht von Veranstaltungen. \\ \hline
+	RoomManagement & Klasse kümmert sich um die Verwaltung von Räumlichkeiten. \\ \hline
+	CalenderManagement & Klasse verwaltet die Organisation von Veranstaltungen in einem Kalender. \\ \hline
+	CalenderViewer & Klasse liefert Einsicht in den Kalender für alle Nutzer \\ \hline
+	Room & Klasse stellt die Umsetzung eines Raumes dar. Enthält Werte für Namen und Nummer des Raumes. \\ \hline
+	Calender & Klasse stellt die Umsetzung eines Kalenders dar. \\ \hline
+	Event & Klasse stellt die Umsetzung einer Veranstaltung dar. Enthält Werte für Namen der Veranstaltung und dessen Datum. \\ \hline
+\end{longtable}
 
 
 \section{Akzeptanzfälle}
 
-\textit{
-<Mithilfe von Akzeptanztests wird geprüft, ob die Software die funktionalen Erwartungen und Anforderungen im Gebrauch erfüllt. Diese sollen und können aus den Anwendungsfallbeschreibungen und den UML-Sequenzdiagrammen abgeleitet werden. D.h., pro (komplexen) Anwendungsfall gibt es typischerweise mindestens ein Sequenzdiagramm (welches ein Szenarium beschreibt). Für jedes Szenarium sollte es einen Akzeptanztestfall geben. Listen Sie alle Akzeptanztestfälle in tabellarischer Form auf.> 
-}
+\begin{longtable}{|p{50px}|p{250px}|p{50px}|}
+	\hline
+	\rowcolor[HTML]{C0C0C0} 
+	Test Case ID & Beschreibung & Ergebnis \\ \hline
+	TC00000 & Try to change anything without proper permissions & Fail \\ \hline
+	TCUC011 & Wrong Username & Login Fail \\ \hline
+	TCUC012 & Wrong Password & Login Fail \\ \hline
+	TCUC021 & E-Mail Adress format wrong & Reenter E-Mail \\ \hline
+	TCUC022 & Username already in use & new username \\ \hline
+	TCUC031 & delete last admin & Fail \\ \hline
+	TCUC061 & user not existing & no result \\ \hline
+	TCUC091 & Category not found & no result \\ \hline
+	TCUC131 & checkout as guest & redirect to login \\ \hline
+	TCUC191 & place reading in same room and time & fail \\ \hline
+	TCUC201 & create similiar rooms & fail \\ \hline
+\end{longtable}
 
 \section{Offene Punkte}
 
-\textit{
-<Offene Punkte werden entweder direkt in der Spezifikation notiert. Wenn das Pflichtenheft  zum finalen Review vorgelegt wird, sollte es keine offenen Punkte mehr geben.>
-}
+\begin{itemize}
+	\item GUI
+	\item Akzeptanzfälle
+\end{itemize}
 
 \end{document}
