@@ -1,0 +1,102 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english,german]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\setlength{\parindent}{0pt}
+
+\author{Protokollführer: Till Köhler}
+\title{Sitzungsprotokoll Gruppentreffen 2014-10-27}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\subsection*{Anwesenheit}
+\medskip
+\begin{itemize}
+\item Philipp Waack (Chefprogrammierer)
+\item Philipp Jäschke (Assistent)
+\item Christoph Kepler (Operator)
+\item Maximilian Dühr (Testverantwortlicher)
+\item Till Köhler (Sekretär)
+\end{itemize}
+
+\subsection*{Dauer des Treffens}
+\medskip
+\begin{itemize}
+\item Beginn: 13:30 Uhr
+\item Ende: 15:30 Uhr
+\end{itemize}
+
+\noindent\rule{\textwidth}{1pt}
+
+\subsection*{Tagespunkte}
+\medskip
+
+\subsubsection*{Neue Rollenverteilung (!)}
+\begin{itemize}
+\item Testverantworticher: Max (Grund: bessere technische Kenntnisse)
+\item Sekretär: Till (Grund: {\LaTeX}-Kenntnisse)
+\end{itemize}
+
+\subsubsection*{Installation von MagicDraw}
+\begin{itemize}
+\item für alle ohne bisherige MagicDraw-Lizenz
+\item Installationsdatei und Lizenzschlüssel von Till bereitgestellt
+\end{itemize}
+
+\subsubsection*{Vorstellung von Anwendungsfällen und Use-Case-Diagramm}
+(durch Till) 
+\begin{itemize}
+\item Frage: Wer registriert den Administrator? Lösung: Nutzer 0 erhält alle Rechte (automatischer Administrator)
+\item Änderung von requestDeleteProfile zu deleteProfile(Grund: direktes Löschen des eigenen Profils muss möglich sein)
+\item requestPasswortReset muss durch Guest möglich sein (Grund: Customer ist zu diesem Zeitpunkt nicht eingeloggt)
+\item UserManager darf Kontodaten nicht ändern (nur Admin im äußersten Notfall!)
+\item Entfernen von resetPasswordOfCustomer (Grund: Automatische, systeminterne Verwaltung)
+\item Änderung von sendBackArticle zu printReturnsNote (Grund: das eigentliche Rücksenden des Artikel geschieht nicht über das System, sondern per Retourenschein und Post) 
+\item Einführung eines BillManagaments zur Verwaltung der Rechnungen
+\item Einführung weiterer Überklassen (?)
+\end{itemize}
+
+\subsubsection*{Vorstellung von Top-Level-Architektur und Kontextmodell}
+(durch Philipp W. und Max)
+\begin{itemize}
+\item Konsistenz zum Anwendungsfalldiagramm (!)
+\item Überarbeitung auf Basis des überarbeiteten Anwendungsfalldiagrammes durch Philipp W. und Max
+\item Frage: Wie sollen Anwendungsfälle ohne Überklassen dargestellt werden?
+\end{itemize}
+
+\subsubsection*{Absprache zu den Sequenzdiagrammen}
+\begin{itemize}
+\item Frage: Welche Szenarien sollen umgesetzt werden? Beispiele?
+\item Philipp J. kümmert sich um die Erstellung
+\end{itemize}
+
+\subsubsection*{Absprache zur überarbeiteten Website}
+\begin{itemize}
+\item allgemeine Zustimmung
+\item kleine Verbesserungen in der Formatierung noch nötig
+\end{itemize}
+
+\subsubsection*{Aufgaben bis zum Tutorentreffen 2014-10-29}
+\begin{itemize}
+\item Till: Überarbeitung der Anwendungsfälle und des Use-Case-Diagrammes
+\item Philipp und Max: Überarbeitung von Top-Level-Architektur und Kontextmodell
+\end{itemize}
+
+\subsubsection*{Aufgaben bis nächste Woche}
+\begin{itemize}
+\item Chris: Fertigstellung des Pflichtenheftes
+\item Philipp J.: Fertigstellung der Sequenzdiagramme
+\item Philipp W. und Max: Fertigstellung des Analyse-Klassendiagrammes
+\item Till: Hilfe beim Analyse-Klassendiagramm
+\item Alle: Ansehen des Salespoint-Frameworks und der Programmierbeispiele Guestbook und Videoshop
+\end{itemize}
+
+\end{document}

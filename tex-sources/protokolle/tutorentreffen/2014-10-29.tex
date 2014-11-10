@@ -1,0 +1,133 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english,german]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\setlength{\parindent}{0pt}
+
+\author{Protokollführer: Till Köhler}
+\title{Sitzungsprotokoll Tutorentreffen 2014-10-29}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\subsection*{Anwesenheit}
+\medskip
+\begin{itemize}
+\item Christoph Biering (Kunde, Tutor)
+\item Philipp Waack (Chefprogrammierer)
+\item Philipp Jäschke (Assistent)
+\item Christoph Kepler (Operator)
+\item Maximilian Dühr (Testverantwortlicher)
+\item Till Köhler (Sekretär)
+\end{itemize}
+
+\subsection*{Dauer des Treffens}
+\medskip
+\begin{itemize}
+\item Beginn: 11:00 Uhr
+\item Ende: 12:15 Uhr
+\end{itemize}
+
+\noindent\rule{\textwidth}{1pt}
+
+\subsection*{Tagespunkte}
+\medskip
+
+\subsubsection*{Arbeitszeiten}
+\begin{itemize}
+\item sind von der Website verlinkt
+\item müssen im MediaWiki des public-Repositories aktuell gehalten werden (!)
+\item Philipp W., Max und Philipp J.: Arbeitszeiten eintragen
+\end{itemize}
+
+\subsubsection*{Auswertung des Use-Case-Diagrammes}
+(von Till erstellt)
+\begin{itemize}
+\item Feedback: sehr gut
+\item Kleinigkeiten, die noch verändert werden sollten:
+\begin{itemize}
+\item Customer soll sich nicht nochmal registrieren dürfen (als Kommentar an den Vererbungspfeil schreiben)
+\item Einführung eines Chefs
+\item Administrator und UserManager muss Employee neue Rollen zuweisen dürfen
+\item für CD's und DVD's extra Kategorien einführen
+\item Übersicht über bestellte Artikel muss für Customer abrufbar sein
+\item Einführung eines Warenbestands
+\end{itemize}
+\end{itemize}
+
+\subsubsection*{Auswertung der Top-Level-Architektur und des Kontextmodells}
+(von Philipp W. und Max erstellt)
+\begin{itemize}
+\item Feedback: sehr gut
+\end{itemize}
+
+\subsubsection*{Absprache zu den Sequenzdiagrammen}
+(wird von Philipp erstellt)
+\begin{itemize}
+\item Darstellung von wichtigen Anwendungsbeispielen
+\item müssen nur über die größeren Module angefertigt werden
+\item keine nähere Spezifikation der Akteure (aber dargestellte Akteure dazuschreiben)
+\end{itemize}
+
+\subsubsection*{Absprache zum angefangenen Analyse-Klassendiagramm}
+(von Philipp W. und Max erstellt)
+\begin{itemize}
+\item Feedback: guter Ansatz
+\item grobe Struktur ist wie im bereits fertiggestellten Use-Case-Diagrammen eingehalten, muss aber noch an neueste Versionen angepasst werden
+\item einige Änderungen wegen bereits bereitgestellten Salespoint-Klassen
+\item zusätzlich mit darzustellen: Zusammenhang von UserManagement, Warenkorb und den Salespoint-Klassen
+\item Einbauen von CD- und DVD-Verwaltung mit extra Kategorien
+\end{itemize}
+
+\subsubsection*{Absprache zum Pflichtenheft}
+\begin{itemize}
+\item Muss-Kriterien:
+\begin{itemize}
+\item Akteure: Mitarbeiter, nicht eingeloggter Nutzer, eingeloggter Nutzer, Chef, Administrator, Personalverwalter
+\item Nutzer kann mehrere Rollen haben
+\item es muss immer mindestens ein Administrator im System existieren
+\item Personalverwalter kann Rollen der anderen Nutzer verändern, außer die des Admins
+\item nicht eingeloggter Nutzer kann Artikel suchen und in den Warenkorb legen, aber nicht kaufen
+\item kaufen können nur registrierte Kunden
+\item Kunde kann sich Übersicht über bereits gekaufte Artikel anzeigen lassen
+\item zu jeder Bestellung wird eine pdf-Rechnung erzeugt und für den Kunden online abrufbar gemacht
+\item Administrator kann Kategorien und Räume anlegen, löschen und bearbeiten
+\item Mitarbeiter kann Artikelbestand sehen und gegebenenfalls nachbestellen
+\item Verfügbarkeit von wöchentlichen Verkaufsbilanzen für Administrator und Chef
+\item extra Kategorien für CD's und DVD's
+\item Existenz eines Kalenders mit wöchentlichen Lesungen
+\item wenn ein Lesungsraum bzw. eine Lesungszeit bereits vergeben ist muss der verwaltende Angestellte eine Meldung erhalten
+\end{itemize}
+\item Kann-Kriterien:
+\begin{itemize}
+\item Meldung, wenn Benutzername bereits vergeben ist
+\item Mldung, wenn E-Mail syntaktisch nicht richtig ist (z.B. fehlendes "@")
+\item pdf-Rechnung per E-Mail an Kunden schicken
+\item Artikel haben verschiedene Kaufs- und Verkaufspreise
+\end{itemize}
+\item Wunsch-Kriterien:
+\begin{itemize}
+\item Möglichkeit Artikel nach Kategorien zu filtern
+\item grafische Visualisierung der Bilanzen
+\end{itemize}
+\end{itemize}
+
+\subsection*{Aufgaben bis zur nächsten Woche}
+(Abgabe kommenden Dienstag, 23:00 Uhr)
+\medskip
+\begin{itemize}
+\item Chris: Fertigstellung Pflichtenheft
+\item Philipp W. und Max: Fertigstellung Analyse-Klassendiagramm; Fertigstellung Storyboard
+\item Philipp J.: Fertigstellung Sequenzdiagramm
+\item Till: Kleinigkeiten am Use-Case-Diagramm und der Anwendungsfallübersicht ausbessern
+\item Alle: selbstständiges Beschäftigen mit dem Guestbook
+\end{itemize}
+
+\end{document}

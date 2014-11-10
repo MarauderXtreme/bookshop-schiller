@@ -1,0 +1,136 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english,german]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\setlength{\parindent}{0pt}
+
+\author{Protokollführer: Christoph Kepler, Überarbeitet von: Till Köhler}
+\title{Sitzungsprotokoll Tutorentreffen 2014-10-22}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\subsection*{Anwesenheit}
+\medskip
+\begin{itemize}
+\item Christoph Biering (Kunde, Tutor)
+\item Philipp Waack (Chefprogrammierer)
+\item Philipp Jäschke (Assistent)
+\item Christoph Kepler (Operator)
+\item Maximilian Dühr (Sekretär) - ca. 5 Minuten später
+\item Till Köhler (Testverantwortlicher)
+\end{itemize}
+
+\subsection*{Dauer des Treffens}
+\medskip
+\begin{itemize}
+\item Beginn: 18:30 Uhr
+\item Ende: 19:30 Uhr
+\end{itemize}
+
+\noindent\rule{\textwidth}{1pt}
+
+\subsection*{Tagespunkte}
+\medskip
+
+\subsubsection*{Klärung der Kommunikation}
+\begin{itemize}
+\item privat über Facebook, Skype, usw. möglich
+\item offizielle Kommunikation über die FusionForge-Mailingliste
+\end{itemize}
+
+\subsubsection*{Änderung des Termins für gemeinsame Tutorentreffen}
+\begin{itemize}
+\item ab nächster Woche: wöchentlich, Mittwoch 11:00 - 12:30 Uhr (Treff: Foyer INF-Bau)
+\end{itemize}
+
+\subsubsection*{Stand der Einrichtung der Software}
+\begin{itemize}
+\item Einrichtung der Software bei jedem abgeschlossen
+\item Verwendung von PHP: Definitiv nicht möglich!
+\end{itemize}
+
+\subsubsection*{Abgabe der Aufgaben}
+\begin{itemize}
+\item soll über das SCM in FusionForge oder GitHub laufen (Abstimmung: siehe unten)
+\item Anlegung einer vernünftigen Ordnerstruktur notwenig
+\end{itemize}
+
+\subsubsection*{Hosting des Programms}
+\begin{itemize}
+\item nur auf dem Localhost möglich
+\item Programm wird zum zeigen nur auf den jeweiligen Rechnern ausgeführt
+\item auf dem Server wird nichts liegen
+\end{itemize}
+
+\subsubsection*{Auswertung des Projektplanes}
+\begin{itemize}
+\item Christoph B. in Absprache mit Philipp W.
+\item erster Eindruck: Projektplan in Ordnung
+\end{itemize}
+
+\subsubsection*{Design des Programmes}
+\begin{itemize}
+\item Design obliegt uns selbst
+\item Keine Vorgaben vom Kunden
+\item  Lizenzrechte beachten (!)
+\item keine anstößigen oder rechtsverletzenden Inhalte (!)
+\end{itemize}
+
+\subsubsection*{Klärung allgemeiner Funktionalitäten des Programmes}
+\begin{itemize}
+\item Warenkorb notwendig (im Salespoint bereits vorhanden)
+\item Kaufen von Artikeln nur als registrierter Nutzer möglich
+\item Benutzerkonten für Kunden und Angestellte
+\item evtl. Bestände bzw. Bilanzen ausgeben lassen
+\item Akteure:
+\begin{itemize}
+\item Gast
+\item Kunde
+\item Angestellter
+\item Administrator
+\item Angestellte, die nur für die Benutzerverwaltung, ... zuständig sind (?)
+\end{itemize}
+\item Sperrung, Entsperrung, ... des Accounts notwendig
+\item Raumverwaltung für den Kalender notwendig
+\end{itemize}
+
+\subsubsection*{Programmierstil}
+\begin{itemize}
+\item möglichst übersichtlich und wiederverwendbar
+\item Ziel: Testen des eigenen Programmierstils
+\item Benutzung von Design-Patterns so oft es geht  
+\end{itemize}
+
+\subsubsection*{Pflichtenheft}
+\begin{itemize}
+\item übernimmt Chris
+\item Christoph B. schickt Chris eine Vorlage für das Pflichtenheft
+\item muss Pflicht-, Kann- und Wunschkriterien enthalten
+\end{itemize}
+
+\subsubsection*{Abstimmung zur Nutzung von GitHub}
+\begin{itemize}
+\item Pro: 3, Kontra: 0, Enthaltung: 2
+\item Antrag wird angenommen
+\item Chris kümmert sich um die Erstellung eins GitHub-Repositories
+\end{itemize}
+
+\subsection*{Aufgaben bis zur nächsten Woche}
+\medskip
+\begin{itemize}
+\item Chris: Erstellung eines GitHub-Repositories; Einrichtung eines MediaWikis im GitHub; Verbesserung der Website und Einfügung von CSS-Code; Anfang des Pflichtenheftes
+\item Till: Fertigstellung der Anwendungsfallübersicht und des Use-Case-Diagrammes
+\item Philipp W. und Max: Fertigstellung des Kontextmodells und der Top-Level-Architektur; Anfang des Analyse-Klassendiagrammes; Vorbereitung CRC-Karten
+\item Philipp J.: Anfang des Sequenzdiagrammes
+\item Alle: Erstellung von GitHub-Accounts; selbstständige Beschäftigung mit den Programmbeispielen Guestbook und Videoshop; Gedanken machen zum Corporate Design unserer Anwendung
+\end{itemize}
+
+\end{document}
