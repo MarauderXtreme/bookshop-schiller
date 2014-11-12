@@ -13,6 +13,7 @@ hs_err_pid*
 
 # for our fellow windows user
 thumbs.db
+*.xml.bak
 
 # TeX files
 
