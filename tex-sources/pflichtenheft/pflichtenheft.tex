@@ -23,7 +23,7 @@
 	\normalsize 
 	\huge{Pflichtenheft Buchhandlung Schiller}
 	\horrule{0.5pt}
-	\paragraph{Version: 0.6}
+	\paragraph{Version: 0.7}
 	\paragraph{Status: in Arbeit}
 	\paragraph{Stand: \today}
 	\horrule{2pt}
@@ -57,6 +57,7 @@
 	0.4	& In Arbeit & 08.11.2014 & Philipp Waack & Beschreibungen der Klassen \\ \hline
 	0.5	& In Arbeit & 09.11.2014 & Christoph Kepler	& \LaTeX			\\ \hline
 	0.6	& In Arbeit & 10.11.2014 & Philipp Waack & GUI Entwurf \\ \hline
+	0.7	& In Arbeit & 16.11.2014 & Till Köhler & Anwendungs-, Akzeptanzfälle \\ \hline
 \end{tabular}
 
 \section*{Reviewnachweis}
@@ -128,80 +129,58 @@ Als zusätzliches Feature wünscht der Buchhandel SCHILLER sich einen Kalender a
 \begin{longtable}{|p{100px}|p{250px}|}
 	\hline
 	\rowcolor[HTML]{C0C0C0}
-	Use Case ID & Beschreibung \\ \hline
-	\multicolumn{2}{|l|}{Usermanagement:}  \\ \hline
-	UC01 & Login/Logout  \\ \hline
-	UC02 & Register as user  \\ \hline
-	\multicolumn{2}{|l|}{Userdata:} \\ \hline
-	UC03 & different role management  \\ \hline
-	UC04 & Manipulate  \\ \hline
-	UC05 & View own  \\ \hline
-	UC06 & View costumer  \\ \hline
-	UC07 & Reset Password  \\ \hline
-	\multicolumn{2}{|l|}{Article Management:}  \\ \hline
-	UC08 & View Articles (Books, CD, DVD)  \\ \hline
-	UC09 & Search articles via different criteria  \\ \hline
-	UC10 & manipulate article inventory  \\ \hline
-	UC11 & manipulate categories  \\ \hline
-	\multicolumn{2}{|l|}{Sales Management:}  \\ \hline
-	\multicolumn{2}{|l|}{Cart Management:}  \\ \hline
-	UC12 & fill/empty cart  \\ \hline
-	UC13 & checkout  \\ \hline
-	\multicolumn{2}{|l|}{Order Management:}  \\ \hline
-	UC14 & view order  \\ \hline
-	UC15 & cancel/ get return  \\ \hline
-	\multicolumn{2}{|l|}{Bill Management:}  \\ \hline
-	UC16 & view \\ \hline
-	UC17 & statistics \\ \hline
-	\multicolumn{2}{|l|}{Reading Management:} \\ \hline
-	UC18 & view/ manipulate calender \\ \hline
-	UC19 & manipulate reading events \\ \hline
-	UC20 & manipulate rooms \\ \hline
+	Use-Case ID & Beschreibung \\ \hline
+	\multicolumn{2}{|l|}{UserManagement:}  \\ \hline
+	UC01 & LogIn/LogOut  \\ \hline
+	UC02 & als Nutzer registrieren  \\ \hline
+	UC03 & Rollen ändern \\ \hline
+	UC04 & Nutzerdaten ändern  \\ \hline
+	UC05 & eigene Nutzerdaten ansehen  \\ \hline
+	UC06 & Nutzerdaten eines Kunden ansehen \\ \hline
+	UC07 & Passwort zurücksetzen  \\ \hline
+	UC08 & Nutzerprofil löschen \\ \hline
+	UC09 & Nutzerprofil sperren \\ \hline
+	\multicolumn{2}{|l|}{ArticleManagement:}  \\ \hline
+	UC10 & Artikel ansehen (Buch, CD, DVD)  \\ \hline
+	UC11 & Artikel hinzufügen  \\ \hline
+	UC12 & Artikel entfernen  \\ \hline
+	UC13 & Artikel nach verschiedenen Kriterien durchsuchen  \\ \hline
+	UC14 & Artikeldaten ändern  \\ \hline
+	UC15 & Kategorie bearbeiten  \\ \hline
+	UC16 & Kategorie hinzufügen  \\ \hline
+	UC17 & Kategorie entfernen  \\ \hline
+	UC18 & Artikel zu Kategorie hinzufügen \\ \hline
+	UC19 & Artikel aus Kategorie entfernen \\ \hline
+	\multicolumn{2}{|l|}{CartManagement (SaleManagement):}  \\ \hline
+	UC20 & Warenkorb ansehen  \\ \hline
+	UC21 & Warenkorb füllen \\ \hline
+	UC22 & Warenkorb leeren \\ \hline
+	UC23 & zur Kasse gehen  \\ \hline
+	\multicolumn{2}{|l|}{OrderManagement (SaleManagement):}  \\ \hline
+	UC24 & Bestellung ansehen  \\ \hline
+	UC25 & Bestellung abbrechen  \\ \hline
+	UC26 & Retourenschein ausgeben  \\ \hline
+	\multicolumn{2}{|l|}{BillManagement (SaleManagement):}  \\ \hline
+	UC27 & Rechnung ansehen \\ \hline
+	UC28 & Statistik ansehen \\ \hline
+	\multicolumn{2}{|l|}{ReadingManagement:} \\ \hline
+	UC29 & Kalender ansehen \\ \hline
+	UC30 & Lesung hinzufügen \\ \hline
+	UC31 & Lesung bearbeiten \\ \hline
+	UC32 & Lesung entfernen \\ \hline
+	UC33 & Raum hinzufügen \\ \hline
+	UC34 & Raum bearbeiten \\ \hline
+	UC35 & Raum entfernen \\ \hline
 \end{longtable}
 
-\begin{comment}
-\begin{itemize}
-	\item[\textbf{Usermanagement:}]
-	\item Login/Logout
-	\item Register as user
-	\item[\textbf{Userdata:}]
-	\item different role management
-	\item Manipulate
-	\item View own
-	\item View costumer
-	\item Reset Password
-	\item[\textbf{Article Management:}]
-	\item View Articles (Books, CD, DVD)
-	\item Search articles via different criteria
-	\item manipulate article inventory
-	\item manipulate categories
-	\item[\textbf{Sales Management:}]
-	\item
-	\begin{itemize}
-		\item[\textbf{Cart Management:}]
-		\item fill/empty cart
-		\item checkout
-		\item[\textbf{Order Management:}]
-		\item view order
-		\item cancel/ get return
-		\item[\textbf{Bill Management:}]
-		\item view
-		\item statistics
-	\end{itemize}
-	\item[\textbf{Reading Management:}]
-	\item view/ manipulate calender
-	\item manipulate reading events
-	\item manipulate rooms
-\end{itemize}
-\end{comment}
 
 \section{Sequenzdiagramme}
 
-\subsection{Article Management}
+\subsection{ArticleManagement}
 
 \includegraphics[width=350px]{sd-articlemanagement.jpg}
 
-\subsection{Profile Management}
+\subsection{ProfileManagement}
 
 \includegraphics[width=350px]{sd-profilemanagement.jpg}
 
@@ -454,28 +433,93 @@ In diesem Beispiel handelt es sich um den Bildschirm eines Artikelverwalters, da
 
 \section{Akzeptanzfälle}
 
-\begin{longtable}{|p{50px}|p{250px}|p{50px}|}
+\begin{longtable}{|p{50px}|p{200px}|p{100px}|}
 	\hline
 	\rowcolor[HTML]{C0C0C0} 
 	Test Case ID & Beschreibung & Ergebnis \\ \hline
-	TC00000 & Try to change anything without proper permissions & Fail \\ \hline
-	TCUC011 & Wrong Username & Login Fail \\ \hline
-	TCUC012 & Wrong Password & Login Fail \\ \hline
-	TCUC021 & E-Mail Adress format wrong & Reenter E-Mail \\ \hline
-	TCUC022 & Username already in use & new username \\ \hline
-	TCUC031 & delete last admin & Fail \\ \hline
-	TCUC061 & user not existing & no result \\ \hline
-	TCUC091 & Category not found & no result \\ \hline
-	TCUC131 & checkout as guest & redirect to login \\ \hline
-	TCUC191 & place reading in same room and time & fail \\ \hline
-	TCUC201 & create similiar rooms & fail \\ \hline
+	TC00000 & Versuche etwas zu tun ohne die notwendigen Nutzerrechte zu besitzen & Fehlermeldung \\ \hline
+	TCUC011 & Eingabe des korrekten Nutzernamens und Passwortes & Login und Startseite \\ \hline
+	TCUC012 & Eingabe des falschen Nutzernamens & Login-Fehler und erneute Eingabe \\ \hline
+	TCUC013 & Eingabe des falschen Passwortes & Login-Fehler und erneute Eingabe \\ \hline
+	TCUC021 & Eingabe von korrekten und nicht vergebenen Registrierungsdaten & Registrierung als Nutzer \\ \hline
+	TCUC022 & Eingabe eines bereits verwendeten Benutzernamens & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC023 & Eingabe eines falschen Adressformates (E-Mail oder Lieferadresse) & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC031 & Änderung der Rolle eines Nutzers & neue Zugriffsrechte des Nutzers \\ \hline
+	TCUC041 & Eingabe von korrekten Nutzerdaten & Nutzerdaten geändert \\ \hline
+	TCUC042 & Eingabe eines falschen Adressformates (E-Mail oder Lieferadresse) & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC051 & Öffnen der Profilansicht & korrekte Nutzerdaten \\ \hline
+	TCUC061 & Öffnen der Profilansicht & korrekte Nutzerdaten \\ \hline
+	TCUC071 & korrektes Zurücksetzen des Passwortes & neues Passwortes versandt \\ \hline
+	TCUC071 & Eingabe eines nichtexistenten Nutzernamens & Fehlermeldung \\ \hline
+	TCUC081 & korrektes Löschen des Nutzerprofils & Profil gelöscht \\ \hline
+	TCUC082 & Löschen des letzten Administrators & Fehlermeldung \\ \hline
+	TCUC083 & Löschen eines nichtexistenten Nutzers & Fehlermeldung \\ \hline
+	TCUC091 & korrektes Sperren des Nutzerprofils & Profil gesperrt \\ \hline
+	TCUC092 & Sperren eines Administrators & Fehlermeldung \\ \hline
+	TCUC093 & Sperren eines nichtexistenten Nutzers & Fehlermeldung \\ \hline
+	TCUC101 & Öffnen der Artikelansicht & korrekte Artikeldaten \\ \hline
+	TCUC111 & Eingabe von korrekten Artikeldaten & Artikel hinzugefügt \\ \hline
+	TCUC112 & Eingabe eines falschen Formates & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC113 & Eingabe von bereits existierenden Artikeldaten & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC121 & korrektes Entfernen des Artikels & Artikel entfernt \\ \hline
+	TCUC122 & Entfernen eines nicht vorhandenen Artikels & Fehlermeldung \\ \hline
+	TCUC131 & korrektes Durchsuchen der Artikel nach Kriterien & Anzeige der Artikelliste \\ \hline
+	TCUC132 & Eingabe von Artikeldaten zu denen kein Artikel existiert & leere Artikelliste \\ \hline
+	TCUC141 & Eingabe von korrekten Artikeldaten & Artikeldaten geändert \\ \hline
+	TCUC142 & Eingabe eines falschen Formates & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC143 & Eingabe von bereits existierenden Artikeldaten & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC151 & Eingabe von korrekten und nicht vergebenen Daten & Kategorie geändert \\ \hline
+	TCUC152 & Eingabe eines falschen Formates & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC161 & Eingabe von korrekten und nicht vergebenen Daten & Kategorie hinzugefügt \\ \hline
+	TCUC162 & Eingabe eines falschen Formates & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC171 & korrektes Entfernen der Kategorie & Kategorie entfernt und Artikel aus ihr entfernt \\ \hline
+	TCUC172 & Entfernen einer nicht vorhandenen Kategorie & Fehlermeldung \\ \hline
+	TCUC181 & korrektes Hinzufügen des Artikel zur Kategorie & Artikel gehört zur Kategorie \\ \hline
+	TCUC182 & Hinzufügen eines nicht vorhandenen Artikels & Fehlermeldung \\ \hline
+	TCUC183 & Hinzufügen zu einer nicht vorhandenen Kategorie & Fehlermeldung \\ \hline
+	TCUC191 & korrektes Entfernen des Artikel von der Kategorie & Artikel aus Kategorie entfernt \\ \hline
+	TCUC192 & Entfernen eines nicht vorhandenen Artikels & Fehlermeldung \\ \hline
+	TCUC193 & Entfernen aus Kategorie, obwohl Artikel nicht zur Kategorie gehört & Fehlermeldung \\ \hline
+	TCUC201 & Öffnen der Warenkorbansicht & korrekter Warenkorbinhalt \\ \hline
+	TCUC211 & korrektes Hinzufügen des Artikels zum Warenkorb & Artikel im Warenkorb \\ \hline
+	TCUC212 & Hinzufügen eines nicht vorhandenen Artikels zum Warenkorb & Fehlermeldung \\ \hline
+	TCUC221 & korrektes Entfernen des Artikels vom Warenkorb & Artikel aus dem Warenkorb entfernt \\ \hline
+	TCUC222 & Entfernen eines nicht nicht im Warenkorb liegenden Artikels vom Warenkorb & Fehlermeldung \\ \hline
+	TCUC223 & Entfernen eines nicht vorhandenen Artikels vom Warenkorb & Fehlermeldung \\ \hline
+	TCUC231 & korrektes Kaufen der Artikel & Bestellung hinzugefügt, Rechnung erstellt und versandt \\ \hline
+	TCUC232 & Kaufen eines nicht vorhandenen Artikels & Fehlermeldung \\ \hline
+	TCUC233 & Kaufen als nicht eingeloggter Gast & Fehlermeldung und LogIn-Seite \\ \hline
+	TCUC241 & Öffnen der Bestellungsansicht & Liste aller Bestellungen \\ \hline
+	TCUC251 & korrektes Abbrechen der Bestellung & Bestellung abgebrochen \\ \hline
+	TCUC252 & Abbrechen einer nicht vorhandenen Bestellung & Fehlermeldung \\ \hline	
+	TCUC253 & Abbrechen einer bereits versandten Bestellung & Fehlermeldung \\ \hline
+	TCUC261 & korrektes Ausgeben des Retourenscheins  & Retourenschein versandt \\ \hline
+	TCUC271 & Öffnen der Rechnungsansicht & Anzeige der Rechnung \\ \hline	
+	TCUC281 & Öffnen der Ansicht der Statistiken mit Admin- oder Chef-Rechten & Anzeige der Statistiken \\ \hline
+	TCUC291 & Öffnen der Kalenderansicht & Anzeige des Kalenders \\ \hline
+	TCUC301 & Eingabe von korrekten und nicht vergebenen Daten & Lesung hinzugefügt \\ \hline
+	TCUC302 & Eingabe eines falschen Formates & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC303 & Eingabe von vergebenem Raum und vergebener Zeit & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC311 & Eingabe von korrekten und nicht vergebenen Daten & Lesung geändert \\ \hline
+	TCUC312 & Eingabe eines falschen Formates & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC313 & Eingabe von vergebenem Raum und vergebener Zeit & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC321 & korrektes Entfernen der Lesung & Lesung entfernt \\ \hline
+	TCUC322 & Entfernen einer nicht vorhandenen Lesung & Fehlermeldung \\ \hline	
+	TCUC331 & Eingabe von korrekten und nicht vergebenen Daten & Raum hinzugefügt \\ \hline
+	TCUC332 & Eingabe eines falschen Formates & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC333 & Eingabe von vergebenem Raumnamen & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC341 & Eingabe von korrekten und nicht vergebenen Daten & Raum geändert \\ \hline
+	TCUC342 & Eingabe eines falschen Formates & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC343 & Eingabe von vergebenem Raumnamen & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC351 & korrektes Entfernen des Raumes & Raum entfernt \\ \hline
+	TCUC352 & Entfernen eines nicht vorhandenen Raumes & Fehlermeldung \\ \hline
+	TCUC353 & Entfernen eines Raumes mit zukünftigen Lesungen & Fehlermeldung \\ \hline
 \end{longtable}
 
 \section{Offene Punkte}
 
 \begin{itemize}
-	\item GUI
-	\item Akzeptanzfälle
+	\item keine
 \end{itemize}
 
 \end{document}
