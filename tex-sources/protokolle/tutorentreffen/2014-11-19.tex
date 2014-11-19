@@ -1,0 +1,95 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english,german]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\setlength{\parindent}{0pt}
+
+\author{Protokollführer: Till Köhler}
+\title{Sitzungsprotokoll Tutorentreffen 2014-11-19}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\subsection*{Anwesenheit}
+\medskip
+\begin{itemize}
+\item Christoph Biering (Kunde, Tutor)
+\item Philipp Waack (Chefprogrammierer)
+\item Philipp Jäschke (Assistent)
+\item Christoph Kepler (Operator)
+\item Maximilian Dühr (Testverantwortlicher)
+\item Till Köhler (Sekretär)
+\end{itemize}
+
+\subsection*{Dauer des Treffens}
+\medskip
+\begin{itemize}
+\item Beginn: 11:10 Uhr
+\item Ende: 12:40 Uhr
+\end{itemize}
+
+\noindent\rule{\textwidth}{1pt}
+
+\subsection*{Tagespunkte}
+\medskip
+
+\subsubsection*{Auswertung des GUI-Prototypen}
+(von Chris erstellt)
+\begin{itemize}
+\item GUI-Prototyp wegen Speicherfehler bisher noch unvollendet (Erklärung des zukünftigen Vorhabens durch Chris)
+\item Feedback: bisher super
+\item Website muss sofort als Website einer Buchhandlung erkennbar sein
+\end{itemize}
+
+\subsubsection*{Auswertung des Entwurfs-Klassendiagramm}
+(von Philipp W. und Max erstellt)
+\begin{itemize}
+\item Feedback: schon gut, aber noch einige Änderungen nötig
+\item Aufsplitten der UML-Diagramme in verschiedene kleinere MagicDraw-Projekte (um Nummerierung der Klassen zu verhindern)
+\item Umbenennung aller Managements in ''...Controller''
+\item Konsistenz aller Klassen, Methoden und Attribute in englischer Sprache
+\item korrekte Umsetzung externer Klassen mit MagigDraw: externe Klassen grün, Interfaces wie normale Klassen  (aber mit ''interface''-Bezeichnung)
+\item sinnvolle Umbenennung der Enumeration ''ArticleID''
+\item Übersichtlichkeit: (erneutes) Auseinanderziehen der Klassen, Pfeile nicht über andere Klassen zeichnen, Controllerschicht auf extra Ebene mit Abgrenzung zur Modellschicht
+\item Rollenklassen entfernen, stattdessen Umbenennung von ''Guest in ''User'' Verwendung der Salespoint-Klasse ''UserAccount'' (evtl. Enumeration für die Rollen?)
+\end{itemize}
+
+\subsubsection*{Auswertung der Akzeptanzfälle im Pflichtenheft}
+(von Till erstellt)
+\begin{itemize}
+\item Feedback: super
+\end{itemize}
+
+\subsubsection*{Neue Aufgabenverteilung zu den Anwendungsprototypen}
+\begin{itemize}
+\item mögliche Module: LogIn/Registrierung, Nutzerverwaltung, Artikelverwaltung, Warenkorbverwaltung, Kalenderverwaltung und (Raumverwaltung)
+\item Chris: LogIn/Registrierung, Einbinden der Module in den GUI-Prototypen
+\item Till: Nutzerverwaltung
+\item Philipp W.: Artikelverwaltung
+\item Philipp J.: Warenkorbverwaltung
+\item Max: Kalenderverwaltung
+\end{itemize}
+
+\subsubsection*{Informationen zur Zwischenpräsentation}
+\begin{itemize}
+\item Termin: 26.11,2014 11:10 Uhr - 12:40 Uhr
+\item Zeitdauer von insgesamt 30 Minuten (15 Minuten Vortrag zu bisherigem Projektverlauf mit Übergang von Analyse zu Entwurf unter Verwendung verschiedener UML-Diagramme, 15 Minuten Vorstellung von GUI und Anwendungsprototypen)
+\item Vortrag mithilfe einer Beamer-Präsentation
+\end{itemize}
+
+\subsection*{Aufgaben bis zur nächsten Woche}
+\medskip
+\begin{itemize}
+\item Philipp W. und Max: Überarbeitung des Entwurfs-Klassendiagrammes (spätestens bis Montag zur nochmaligen Korrektur des Tutors)
+\item Chris: Fertigstellung des GUI-Prototypen (spätestens bis Montag zur nochmaligen Korrektur des Tutors)
+\item Alle: Erstellung der Anwendungsprototypen mit Mindestfunktionalitäten; Ausarbeitung der Zwischenpräsentation
+\end{itemize}
+
+\end{document}
