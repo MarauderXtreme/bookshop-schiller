@@ -1,10 +1,11 @@
 package bookshop;
 
+import org.springframework.boot.SpringApplication;
+
 public class BookShopSchiller {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		SpringApplication.run(BookShopSchiller.class, args);
 	}
 
 }
