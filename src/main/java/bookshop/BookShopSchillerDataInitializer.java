@@ -20,13 +20,6 @@ import org.springframework.util.Assert;
 import bookshop.model.User;
 import bookshop.model.UserRepository;
 
-/**
- * A {@link DataInitializer} implementation that will create dummy data for the application on application startup.
- * 
- * @author Paul Henke
- * @author Oliver Gierke
- * @see DataInitializer
- */
 @Component
 public class BookShopSchillerDataInitializer implements DataInitializer {
 
@@ -47,33 +40,28 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		this.userAccountManager = userAccountManager;
 	}
 
-	/* 
-	 * (non-Javadoc)
-	 * @see org.salespointframework.core.DataInitializer#initialize()
-	 */
 	@Override
 	public void initialize() {
 
 		initializeUsers(userAccountManager, userRepository);
 	}
 
-	private void initializeUsers(UserAccountManager userAccountManager, UserRepository customerRepository) {
+	private void initializeUsers(UserAccountManager userAccountManager, UserRepository userRepository) {
 
-		// (｡◕‿◕｡)
-		// UserAccounts bestehen aus einem Identifier und eine Password, diese werden auch für ein Login gebraucht
-		// Zusätzlich kann ein UserAccount noch Rollen bekommen, diese können in den Controllern und im View dazu genutzt
-		// werden
-		// um bestimmte Bereiche nicht zugänglich zu machen, das "ROLE_"-Prefix ist eine Konvention welche für Spring
-		// Security nötig ist.
-
-		// Skip creation if database was already populated
 		if (userAccountManager.get(new UserAccountIdentifier("boss")).isPresent()) {
 			return;
 		}
 
+		UserAccount adminAccount = userAccountManager.create("admin", "123", new Role("ROLE_ADMIN"));
+		userAccountManager.save(adminAccount);
+		
 		UserAccount bossAccount = userAccountManager.create("boss", "123", new Role("ROLE_BOSS"));
 		userAccountManager.save(bossAccount);
-
+		
+		final Role employeeRole = new Role("ROLE_EMPLOYEE");
+		final Role userManagerRole = new Role("ROLE_USERMANAGER");
+		// to do: add other manager roles
+		
 		final Role customerRole = new Role("ROLE_CUSTOMER");
 
 		UserAccount ua1 = userAccountManager.create("hans", "123", customerRole);
@@ -90,8 +78,6 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		User c3 = new User(ua3, "Camden County - Motel");
 		User c4 = new User(ua4, "Los Angeles");
 
-		// (｡◕‿◕｡)
-		// Zu faul um save 4x am Stück aufzurufen :)
 		userRepository.save(Arrays.asList(c1, c2, c3, c4));
 	}
 }

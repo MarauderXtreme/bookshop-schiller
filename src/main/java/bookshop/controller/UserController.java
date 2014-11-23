@@ -17,10 +17,20 @@ public class UserController {
 		
 	}
 	
+	@RequestMapping("/users")
+	public String users(ModelMap modelMap) {
+
+		modelMap.addAttribute("userList", userRepository.findAll());
+
+		return "users";
+		
+	}
+	
 	@RequestMapping("/customers")
 	public String customers(ModelMap modelMap) {
 
 		modelMap.addAttribute("customerList", userRepository.findAll());
+		// nur Users mit Rolle Customer finden - wie geht das?
 
 		return "customers";
 		
