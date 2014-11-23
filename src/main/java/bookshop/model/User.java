@@ -12,16 +12,13 @@ public class User {
 	@GeneratedValue
 	private long id;
 	
-	private String email;
-	
 	private String address;
 	
 	@OneToOne
 	private UserAccount userAccount;
 	
-	public User(UserAccount userAccount, String email, String address) {
+	public User(UserAccount userAccount, String address) {
 		this.userAccount = userAccount;
-		this.email = email;
 		this.address = address;
 	}
 	
@@ -31,14 +28,6 @@ public class User {
 
 	public void setAddress(String address) {
 		this.address = address;
-	}
-	
-	public String getEMail() {
-		return email;
-	}
-	
-	public void setEMail(String email) {
-		this.email = email;
 	}
 
 	public UserAccount getUserAccount() {
