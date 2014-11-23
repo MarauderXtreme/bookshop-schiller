@@ -4,23 +4,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import bookshop.model.CustomerRepository;
+import bookshop.model.UserRepository;
 
 public class UserController {
 	
-	private final CustomerRepository customerRepository;
+	private final UserRepository userRepository;
 	
 	@Autowired
-	public UserController(CustomerRepository customerRepository) {
+	public UserController(UserRepository userRepository) {
 
-		this.customerRepository = customerRepository;
+		this.userRepository = userRepository;
 		
 	}
 	
 	@RequestMapping("/customers")
 	public String customers(ModelMap modelMap) {
 
-		modelMap.addAttribute("customerList", customerRepository.findAll());
+		modelMap.addAttribute("customerList", userRepository.findAll());
 
 		return "customers";
 		
