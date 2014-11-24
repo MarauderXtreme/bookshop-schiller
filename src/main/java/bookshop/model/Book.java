@@ -2,15 +2,15 @@ package bookshop.model;
 
 public class Book extends Article{
 		
-		private String interpret;
+		private String author;
 
-		public Book(String interpret, String beschreibung, String title, int id, ArticleId type) {
+		public Book(String author, String beschreibung, String title, int id, ArticleId type) {
 			super(beschreibung, title, id, type);
-			this.interpret = interpret;
+			this.author = author;
 		}
 
-		public String getInterpret(){
-			return this.interpret;
+		public String getAuthor(){
+			return this.author;
 		}
 
 	}

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import bookshop.model.Article;
+import bookshop.model.Article.ArticleId;
 import bookshop.model.Book;
 
 
@@ -32,7 +33,7 @@ import bookshop.model.Book;
 public class CartController {
 
 	private final OrderManager<Order> orderManager;
-	private Article article = new Book("test", "test", "test", 1, null);
+	private Article article = new Book("test", "test", "test", 1, ArticleId.BOOK);
 	
 	
 	@Autowired

@@ -7,8 +7,7 @@ package bookshop.model;
 import videoshop.model.Disc;
 import videoshop.model.Disc.DiscType;
 */
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 /*import java.util.Optional;
 import bookshop.model.Article.ArticleId;
 */
@@ -111,6 +110,11 @@ public class ArticleManagement{
 			articles.put(article.getTitle(), article);
 			return true;
 		}
+	}
+	
+	public Collection<Article> getArticleList(){
+		return articles.values();
+		
 	}
 /*
 	@Override
