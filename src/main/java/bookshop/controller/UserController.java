@@ -99,5 +99,10 @@ public class UserController {
 		modelMap.addAttribute("registrationForm", new RegistrationForm());
 		return "register";
 	}
+	
+	@RequestMapping({ "/", "/index" })
+	public String index() {
+		return "index";
+	}
 
 }
