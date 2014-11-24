@@ -150,3 +150,9 @@ sympy-plots-for-*.tex/
 
 *.xdy
 /target/
+
+.settings/*
+.classpath
+.projects
+
+.flitzendefoer
