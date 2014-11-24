@@ -27,33 +27,33 @@ import bookshop.model.UserRepository;
 @Component
 public class BookShopSchillerDataInitializer implements DataInitializer {
 
-	private final ArticleManagement articleCatalog;
+	//private final ArticleManagement articleCatalog;
 	private final Inventory<InventoryItem> inventory;
 	private final UserAccountManager userAccountManager;
 	private final UserRepository userRepository;
 
 	@Autowired
 	public BookShopSchillerDataInitializer(UserRepository userRepository, Inventory<InventoryItem> inventory,
-			UserAccountManager userAccountManager, ArticleManagement articleCatalog) {
+			UserAccountManager userAccountManager) {
 
 		Assert.notNull(userRepository, "UserRepository must not be null!");
 		Assert.notNull(inventory, "Inventory must not be null!");
 		Assert.notNull(userAccountManager, "UserAccountManager must not be null!");
-		Assert.notNull(articleCatalog, "VideoCatalog must not be null!");
+		//Assert.notNull(articleCatalog, "VideoCatalog must not be null!");
 
 		this.userRepository = userRepository;
 		this.inventory = inventory;
 		this.userAccountManager = userAccountManager;
-		this.articleCatalog = articleCatalog;
+		//this.articleCatalog = articleCatalog;
 	}
 
 	@Override
 	public void initialize() {
 
 		initializeUsers(userAccountManager, userRepository);
-		initializeCatalog(articleCatalog, inventory);
+		//initializeCatalog(articleCatalog, inventory);
 	}
-	
+	/*
 	private void initializeCatalog(ArticleManagement articleCatalog, Inventory<InventoryItem> inventory) {
 
 		if (articleCatalog.getArticleList().iterator().hasNext()) {
@@ -72,7 +72,7 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 			inventory.save(inventoryItem);
 		}
 	}
-
+*/
 	private void initializeUsers(UserAccountManager userAccountManager, UserRepository userRepository) {
 
 		if (userAccountManager.get(new UserAccountIdentifier("boss")).isPresent()) {

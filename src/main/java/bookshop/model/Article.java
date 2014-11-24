@@ -18,6 +18,7 @@ import org.salespointframework.catalog.Product;
 		
 		@SuppressWarnings("deprecation")//was ist das?!
 		public Article(String beschreibung, String title, int id, ArticleId type){
+			super();
 			this.beschreibung = beschreibung;
 			this.title = title;
 			this.id = id;
