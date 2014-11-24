@@ -60,7 +60,6 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		
 		final Role customerRole = new Role("ROLE_CUSTOMER");
 		final Role employeeRole = new Role("ROLE_EMPLOYEE");
-		final Role userManagerRole = new Role("ROLE_USERMANAGER");
 		// to do: add other manager roles
 		
 		UserAccount ua1 = userAccountManager.create("hans", "123", customerRole);

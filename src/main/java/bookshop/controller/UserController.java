@@ -21,7 +21,6 @@ public class UserController {
 	public UserController(UserRepository userRepository) {
 
 		this.userRepository = userRepository;
-		
 	}
 	
 	@RequestMapping("/users")
@@ -30,7 +29,6 @@ public class UserController {
 		modelMap.addAttribute("userList", userRepository.findAll());
 
 		return "users";
-		
 	}
 	
 	@RequestMapping("/customers")
@@ -48,8 +46,25 @@ public class UserController {
 		}
 		modelMap.addAttribute("customerList", customers);
 
-		return "customers";
+		return "customers";	
+	}
+	
+	@RequestMapping("/employees")
+	public String employees(ModelMap modelMap) {
 		
+		Iterable<User> users = userRepository.findAll();
+		ArrayList<User> employees = new ArrayList<User>();
+		for(User u : users) {
+			Iterable<Role> roles = u.getUserAccount().getRoles();
+			for(Role r: roles) {
+				if (r.getName().equals("ROLE_EMPLOYEE")) {
+					employees.add(u);
+				}
+			}
+		}
+		modelMap.addAttribute("employeeList", employees);
+
+		return "employees";	
 	}
 
 }

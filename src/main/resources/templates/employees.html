@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<link rel="stylesheet" type="text/css" href="../resources/css/style.css" />
+		<title th:text="#{employees.title}">Kundenliste</title>
+	</head>
+<body>
+	<div class="all">
+		<header>
+			<h1 th:text="#{employees.title}">Kundenliste</h1>
+		</header>
+		<nav th:include="navigation :: navigation" ></nav>
+		
+		<div class="content">
+			<table>
+				<caption th:text="#{employees.title}">Kundenliste</caption>
+				<thead>
+					<tr>
+						<th th:text="#{employees.name}">Name</th>
+						<th th:text="#{employees.address}">Anschrift</th>
+					</tr>
+				</thead>
+				<tbody th:remove="all-but-first">
+						<tr th:each=" employee : ${employeeList}">
+							<td th:text="${employee.userAccount.identifier}">Power Paul</td>
+							<td th:text="${employee.address}">Wasaplatz 10</td>
+						</tr>
+																			
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
