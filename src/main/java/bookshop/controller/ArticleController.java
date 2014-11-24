@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import bookshop.model.ArticleManagement;
+import bookshop.model.Article;
 /*
 import videoshop.model.Comment;
 import videoshop.model.Disc;
@@ -26,16 +27,16 @@ import videoshop.model.Disc.DiscType;
 import videoshop.model.VideoCatalog;
 */
 
-public class ArticleController {/*
+public class ArticleController {
 	private final ArticleManagement articleCatalog;
 	private final Inventory<InventoryItem> inventory;
-	private final BusinessTime businessTime;	//?!
-	private double aveRating;	//?!
+	private final BusinessTime businessTime;	//gibt Systemzeit an, brauch ich denke ich nicht
+	private double aveRating;	//brauch ich nicht, gibt kein rating
 
 	// (｡◕‿◕｡)
 	// Da wir nur ein Catalog.html-Template nutzen, aber dennoch den richtigen Titel auf der Seite haben wollen,
 	// nutzen wir den MessageSourceAccessor um an die messsages.properties Werte zu kommen
-	private final MessageSourceAccessor messageSourceAccessor;
+	private final MessageSourceAccessor messageSourceAccessor; //dürfte wichtig sein
 
 	@Autowired
 	public ArticleController(ArticleManagement articleCatalog, Inventory<InventoryItem> inventory, BusinessTime businessTime,
@@ -47,15 +48,20 @@ public class ArticleController {/*
 		this.messageSourceAccessor = new MessageSourceAccessor(messageSource);
 	}
 
-	@RequestMapping("/BookCatalog")
-	public String dvdCatalog(ModelMap modelMap) {
+	
+	//Habe Parameter name hinzugefügt und bei meinem catalog die methode findType durch searchArticles ersetzt, um mir alle articles mit dem namen auszugeben
+	//message lass ich erstmal so, da thymeleaf über diese adressierung an die richtige stelle mappen müsste, ist eigentlich catalog.book.title
+	@RequestMapping("/dvdCatalog")
+	public String dvdCatalog(ModelMap modelMap, String name) {
 
-		modelMap.addAttribute("catalog", articleCatalog.findByType());
+		modelMap.addAttribute("catalog", articleCatalog.searchArticle(name));
 		modelMap.addAttribute("title", messageSourceAccessor.getMessage("catalog.dvd.title"));
 
 		return "discCatalog";
 	}
 
+	//brauch ich nicht ich hab ja nur ein typ und zwar buch!
+	/*
 	@RequestMapping("/blurayCatalog")
 	public String blurayCatalog(Model model) {
 
@@ -63,18 +69,21 @@ public class ArticleController {/*
 		model.addAttribute("title", messageSourceAccessor.getMessage("catalog.bluray.title"));
 
 		return "discCatalog";
-	}
+	}*/
 
 	// (｡◕‿◕｡)
 	// Befindet sich die angesurfte Url in der Form /foo/5 statt /foo?bar=5 so muss man @PathVariable benutzen
 	// Lektüre: http://spring.io/blog/2009/03/08/rest-in-spring-3-mvc/
+	
+	//Disc durch article ersetzt, ich lasse mal die quantity drin, inventory brauche ich sogar!
+	//Was hat es mit dem Identifier auf sich?!
 	@RequestMapping("/detail/{pid}")
-	public String detail(@PathVariable("pid") Disc disc, Model model) {
-
-		Optional<InventoryItem> item = inventory.findByProductIdentifier(disc.getIdentifier());
+	public String detail(@PathVariable("pid") Article article, Model model) {
+		
+		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
 		Quantity quantity = item.map(InventoryItem::getQuantity).orElse(Units.ZERO);
 
-		model.addAttribute("disc", disc);
+		model.addAttribute("disc", article);
 		model.addAttribute("quantity", quantity);
 		model.addAttribute("orderable", quantity.isGreaterThan(Units.ZERO));
 		//model.addAttribute("averageRating", disc.getAveRating());
@@ -85,7 +94,9 @@ public class ArticleController {/*
 	// (｡◕‿◕｡)
 	// Der Katalog bzw die Datenbank "weiß" nicht, dass die Disc mit einem Kommentar versehen wurde,
 	// deswegen wird die update-Methode aufgerufen
-	@RequestMapping(value = "/comment", method = RequestMethod.POST)
+
+	//COMMENT/RATING brauchen wir nicht!
+	/*@RequestMapping(value = "/comment", method = RequestMethod.POST)
 	public String comment(@RequestParam("pid") Disc disc, @RequestParam("comment") String comment,
 			@RequestParam("rating") int rating) {
 
@@ -98,9 +109,9 @@ public class ArticleController {/*
 		videoCatalog.save(disc);
 		
 		return "redirect:detail/" + disc.getIdentifier();
-	}
+	}*/
 	//@RequestMapping("detail")
 	//public double getAverating(){
 	//	return aveRating;
-	//}*/
+	//}
 }

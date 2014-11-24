@@ -4,8 +4,8 @@ public class Book extends Article{
 		
 		private String interpret;
 
-		public Book(String interpret, String beschreibung, String title, int id) {
-			super(beschreibung, title, id);
+		public Book(String interpret, String beschreibung, String title, int id, ArticleId type) {
+			super(beschreibung, title, id, type);
 			this.interpret = interpret;
 		}
 
