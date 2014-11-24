@@ -3,8 +3,9 @@ package bookshop.model;
 import org.salespointframework.catalog.Product;
 
 
-
 	public abstract class Article extends Product{
+		
+		public static enum ArticleId {ALL, BOOK, DVD, CD};
 		
 		private String beschreibung;
 		private String title;
