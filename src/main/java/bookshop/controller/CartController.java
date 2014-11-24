@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import bookshop.model.Article;
+import bookshop.model.Book;
 
 
 
@@ -31,12 +32,12 @@ import bookshop.model.Article;
 public class CartController {
 
 	private final OrderManager<Order> orderManager;
-	private Article article;
+	private Article article = new Book("test", "test", "test", 1);
 	
 	
 	@Autowired
 	public CartController(OrderManager<Order> orderManager) {
-
+		
 		Assert.notNull(orderManager, "OrderManager must not be null!");
 		this.orderManager = orderManager;
 	}
@@ -61,6 +62,16 @@ public class CartController {
 			}).orElse("redirect:/cart");
 	}
 	*/
+	
+	@RequestMapping(value="/cart")
+	public String neu(){
+		int number = 1;
+		Quantity quantity = Units.of(number);
+		OrderLine orderLine = new OrderLine(article, quantity);
+		Cart cart = new Cart();
+		cart.add(orderLine);
+		return "redirect:cart";
+	}
 	
 	@RequestMapping(value="/cart", method = RequestMethod.POST)
 	public String addArticleIntoCart(int number, Article article, HttpSession session){
