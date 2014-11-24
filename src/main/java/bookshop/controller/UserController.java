@@ -5,12 +5,14 @@ import java.util.ArrayList;
 
 import org.salespointframework.useraccount.Role;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import bookshop.model.User;
 import bookshop.model.UserRepository;
 
+@Controller
 public class UserController {
 	
 	private final UserRepository userRepository;
@@ -45,7 +47,6 @@ public class UserController {
 			}
 		}
 		modelMap.addAttribute("customerList", customers);
-		// nur Users mit Role Customer finden - wie geht das?
 
 		return "customers";
 		

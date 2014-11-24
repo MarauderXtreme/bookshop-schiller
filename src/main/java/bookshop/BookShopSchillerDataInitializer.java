@@ -58,12 +58,11 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		UserAccount bossAccount = userAccountManager.create("boss", "123", new Role("ROLE_BOSS"));
 		userAccountManager.save(bossAccount);
 		
+		final Role customerRole = new Role("ROLE_CUSTOMER");
 		final Role employeeRole = new Role("ROLE_EMPLOYEE");
 		final Role userManagerRole = new Role("ROLE_USERMANAGER");
 		// to do: add other manager roles
 		
-		final Role customerRole = new Role("ROLE_CUSTOMER");
-
 		UserAccount ua1 = userAccountManager.create("hans", "123", customerRole);
 		userAccountManager.save(ua1);
 		UserAccount ua2 = userAccountManager.create("dextermorgan", "123", customerRole);
@@ -72,12 +71,23 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		userAccountManager.save(ua3);
 		UserAccount ua4 = userAccountManager.create("mclovinfogell", "123", customerRole);
 		userAccountManager.save(ua4);
+		
+		UserAccount ua5 = userAccountManager.create("santamaria", "123", employeeRole);
+		userAccountManager.save(ua5);
+		UserAccount ua6 = userAccountManager.create("klaus", "123", employeeRole);
+		userAccountManager.save(ua6);
+		UserAccount ua7 = userAccountManager.create("santa-claus", "123", employeeRole);
+		userAccountManager.save(ua7);
 
 		User c1 = new User(ua1, "wurst");
 		User c2 = new User(ua2, "Miami-Dade County");
 		User c3 = new User(ua3, "Camden County - Motel");
 		User c4 = new User(ua4, "Los Angeles");
+		User e1 = new User(ua5, "Wilder Westen");
+		User e2 = new User(ua6, "Zuhaus");
+		User e3 = new User(ua7, "Nordpol");
 
-		userRepository.save(Arrays.asList(c1, c2, c3, c4));
+		userRepository.save(Arrays.asList(c1, c2, c3, c4, e1, e2, e3));
+		
 	}
 }
