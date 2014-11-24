@@ -3,12 +3,19 @@ package bookshop.controller;
 import java.awt.List;
 import java.util.ArrayList;
 
+import javax.validation.Valid;
+
 import org.salespointframework.useraccount.Role;
+import org.salespointframework.useraccount.UserAccount;
+import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import bookshop.model.validation.RegistrationForm;
 import bookshop.model.User;
 import bookshop.model.UserRepository;
 
@@ -16,11 +23,13 @@ import bookshop.model.UserRepository;
 public class UserController {
 	
 	private final UserRepository userRepository;
+	private final UserAccountManager userAccountManager;
 	
 	@Autowired
-	public UserController(UserRepository userRepository) {
+	public UserController(UserRepository userRepository, UserAccountManager userAccountManager) {
 
 		this.userRepository = userRepository;
+		this.userAccountManager = userAccountManager;
 	}
 	
 	@RequestMapping("/users")
@@ -65,6 +74,30 @@ public class UserController {
 		modelMap.addAttribute("employeeList", employees);
 
 		return "employees";	
+	}
+	
+	@RequestMapping("/registerNew")
+	public String registerNew(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
+			BindingResult result) {
+
+		if (result.hasErrors()) {
+			return "register";
+		}
+
+		UserAccount userAccount = userAccountManager.create(registrationForm.getName(), registrationForm.getPassword(),
+				new Role("ROLE_CUSTOMER"));
+		userAccountManager.save(userAccount);
+
+		User user = new User(userAccount, registrationForm.getAddress());
+		userRepository.save(user);
+
+		return "redirect:/";
+	}
+
+	@RequestMapping("/register")
+	public String register(ModelMap modelMap) {
+		modelMap.addAttribute("registrationForm", new RegistrationForm());
+		return "register";
 	}
 
 }

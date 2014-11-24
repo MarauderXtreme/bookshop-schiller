@@ -25,7 +25,7 @@ public class BookShopSchiller {
 	}
 	
 	@Configuration
-	static class BookShopSchillerConfiguration extends SalespointWebConfiguration {
+	static class BookShopSchillerWebConfiguration extends SalespointWebConfiguration {
 	
 		@Override
 		public void addViewControllers(ViewControllerRegistry registry) {
