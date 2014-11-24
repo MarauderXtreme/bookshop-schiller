@@ -1,6 +1,7 @@
 package bookshop.controller;
 
 import java.awt.List;
+import java.util.ArrayList;
 
 import org.salespointframework.useraccount.Role;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,12 +35,16 @@ public class UserController {
 	public String customers(ModelMap modelMap) {
 		
 		Iterable<User> users = userRepository.findAll();
+		ArrayList<User> customers = new ArrayList<User>();
 		for(User u : users) {
 			Iterable<Role> roles = u.getUserAccount().getRoles();
-			if(roles.iterator(roles.equals(customerRole)))
+			for(Role r: roles) {
+				if (r.getName().equals("ROLE_CUSTOMER")) {
+					customers.add(u);
+				}
+			}
 		}
-		users.iterator(users.getUserAccount().getRole());
-		modelMap.addAttribute("customerList", userRepository.findAll());
+		modelMap.addAttribute("customerList", customers);
 		// nur Users mit Role Customer finden - wie geht das?
 
 		return "customers";
