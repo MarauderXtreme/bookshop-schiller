@@ -32,7 +32,7 @@ import bookshop.model.Book;
 public class CartController {
 
 	private final OrderManager<Order> orderManager;
-	private Article article = new Book("test", "test", "test", 1);
+	private Article article = new Book("test", "test", "test", 1, null);
 	
 	
 	@Autowired
