@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
+import org.salespointframework.catalog.Product;
 import org.salespointframework.order.Cart;
 import org.salespointframework.order.Order;
 import org.salespointframework.order.OrderLine;
@@ -69,7 +70,7 @@ public class CartController {
 		Cart cart = getCart(session);
 		cart.add(orderLine);
 		
-		
+		return "cart";
 	}
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
 	 public String getCart(){
