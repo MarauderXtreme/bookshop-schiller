@@ -1,6 +1,6 @@
 package bookshop.model;
 
-public class CalendarManagement {
+public class CalendarManagement {/*
 	private static CalendarManagement instance ;
 	private Calendar calendar;
 	
@@ -58,6 +58,6 @@ public class CalendarManagement {
 			System.out.println("Raum existiert nicht!");
 			return false;
 		}
-	}	
+	}*/	
 
 }

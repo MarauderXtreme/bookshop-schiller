@@ -26,7 +26,7 @@ import videoshop.model.Disc.DiscType;
 import videoshop.model.VideoCatalog;
 */
 
-public class ArticleController {
+public class ArticleController {/*
 	private final ArticleManagement articleCatalog;
 	private final Inventory<InventoryItem> inventory;
 	private final BusinessTime businessTime;	//?!
@@ -102,5 +102,5 @@ public class ArticleController {
 	//@RequestMapping("detail")
 	//public double getAverating(){
 	//	return aveRating;
-	//}
+	//}*/
 }
