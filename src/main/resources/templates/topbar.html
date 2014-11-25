@@ -41,8 +41,8 @@
     				</li>
     			</ul>
     		</li>
-    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="divider"></li>
-    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')">
+    		<li class="divider"></li>
+    		<li>
     			<a class="small round button" th:href="@{/cart}" href="cart.html">Warenkorb</a>
     		</li>
     		<li sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="divider"></li>
