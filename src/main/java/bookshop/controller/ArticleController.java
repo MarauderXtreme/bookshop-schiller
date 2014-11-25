@@ -2,6 +2,8 @@ package bookshop.controller;
 
 import java.util.Optional;
 
+import static org.joda.money.CurrencyUnit.*;
+import org.joda.money.Money;
 import org.salespointframework.inventory.Inventory;
 import org.salespointframework.inventory.InventoryItem;
 import org.salespointframework.quantity.Quantity;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 import bookshop.model.ArticleManagement;
@@ -51,11 +54,8 @@ class ArticleController {
 		this.messageSourceAccessor = new MessageSourceAccessor(messageSource);
 	}
 	
-	/*
 	 
 	 
-	 
-	 */
 	
 	//Habe Parameter name hinzugefügt und bei meinem catalog die methode findType durch searchArticles ersetzt, um mir alle articles mit dem namen auszugeben
 	//message lass ich erstmal so, da thymeleaf über diese adressierung an die richtige stelle mappen müsste, ist eigentlich catalog.book.title
@@ -86,6 +86,20 @@ class ArticleController {
 	
 	//Disc durch article ersetzt, ich lasse mal die quantity drin, inventory brauche ich sogar!
 	//Was hat es mit dem Identifier auf sich?!
+	
+	@RequestMapping(value="/add", method=RequestMethod.POST)
+
+	public String add(@RequestParam("nameArticle") String name,
+	@RequestParam("beschreibungArticle") String beschreibung,
+	@RequestParam("titleArticle") String title){
+
+	 articleCatalog.save(new Article(name, Money.of(EUR, 9.99), beschreibung,
+	title, 123, ArticleId.BOOK));
+
+	 return "redirect:dvdCatalog";
+
+	}
+	
 	@RequestMapping("/detail/{pid}")
 	public String detail(@PathVariable("pid") Article article, Model model) {
 		
