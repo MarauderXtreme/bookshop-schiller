@@ -1,9 +1,12 @@
 package bookshop.controller;
 
+import static org.joda.money.CurrencyUnit.EUR;
+
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
+import org.joda.money.Money;
 import org.salespointframework.catalog.Product;
 import org.salespointframework.order.Cart;
 import org.salespointframework.order.Order;
@@ -33,7 +36,7 @@ import bookshop.model.Book;
 public class CartController {
 
 	private final OrderManager<Order> orderManager;
-	private Article article = new Book("test", "test", "test", 1, ArticleId.BOOK);
+	private Article article = new Book("test", "test", "test", 1, ArticleId.BOOK, Money.of(EUR, 9.99), "text");
 	
 	
 	@Autowired
