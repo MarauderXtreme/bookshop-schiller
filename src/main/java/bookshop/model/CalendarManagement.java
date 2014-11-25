@@ -40,6 +40,11 @@ public class CalendarManagement {
 		return false;
 	}
 	
+	public Calendar getCalendar()
+	{
+		return calendar;
+	}
+	
 	public boolean addEvent (String name, Date date, Room room)
 	{
 		if(room != null)
