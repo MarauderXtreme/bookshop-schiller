@@ -36,7 +36,6 @@ import bookshop.model.Book;
 public class CartController {
 
 	private final OrderManager<Order> orderManager;
-	private Article article = new Book("test", "test", "test", 1, ArticleId.BOOK, Money.of(EUR, 9.99), "text");
 	
 	
 	@Autowired
@@ -72,7 +71,7 @@ public class CartController {
 		
 		return "redirect:cart";
 	}
-	
+		
 	@RequestMapping(value="/cart", method = RequestMethod.POST)
 	public String addArticleIntoCart(@RequestParam("number") int number, @RequestParam("article") Article article,
 		HttpSession session){
@@ -102,6 +101,12 @@ public class CartController {
 		return "redirect:cart";
 	}
 	
+	@RequestMapping(value = "/price", method = RequestMethod.GET)
+	public String getPrice(HttpSession session){
+		Cart cart = getCart(session);
+		cart.getTotalPrice();
+		return "cart";
+	}
 	
 
 	@ModelAttribute("cart")

@@ -38,6 +38,11 @@
 							<td th:text="${orderline.productName}">Last Action Hero</td>
 							<td th:text="${orderline.quantity}">10</td>
 							<td th:text="${orderline.price}">10 Euro</td>
+							<td> 
+								<form method="POST" action="delete">
+									<input type="submit" value="löschen"/> 
+								</form>
+							</td>
 						</tr>
 						<tr>
 							<td>Last Action Hero</td>
