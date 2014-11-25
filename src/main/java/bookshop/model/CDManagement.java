@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import bookshop.model.Article.ArticleId;
+
 import org.salespointframework.catalog.ProductIdentifier;
 
 

@@ -19,9 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.RequestParam;
 
 
-import bookshop.model.ArticleId;
 import bookshop.model.ArticleManagement;
 import bookshop.model.Article;
+import bookshop.model.Article.ArticleId;
+
 /*
 import videoshop.model.Comment;
 import videoshop.model.Disc;

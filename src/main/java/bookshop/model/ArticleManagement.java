@@ -7,12 +7,12 @@ package bookshop.model;
 import videoshop.model.Disc;
 import videoshop.model.Disc.DiscType;
 */
-import java.util.*;
+import org.salespointframework.catalog.Catalog;
+
+import bookshop.model.Article.ArticleId;
 /*import java.util.Optional;
 import bookshop.model.Article.ArticleId;
 */
-
-import org.salespointframework.catalog.Catalog;
 
 
 

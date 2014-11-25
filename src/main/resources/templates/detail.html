@@ -16,33 +16,33 @@
 		
 		<div class="content">
 			<div class="detailImg">
-				<img th:src="@{'/resources/img/cover/' + ${disc.image} + '.jpg'}" src="../resources/img/cover/lac.jpg" alt="" />
+				<!--<img th:src="@{'/resources/img/cover/' + ${disc.image} + '.jpg'}" src="../resources/img/cover/lac.jpg" alt="" />-->
 			</div>
 		
 			<div class="detailDescription">
 				<h2 th:text="${disc.name}">Last Action Hero</h2>
 				<p>Preis:</p><p th:text="${disc.price}">9.99€</p><br />
-				<p>Genre:</p><p th:text="${disc.genre}">Äktschn</p><br />
+				<!--<p>Genre:</p><p th:text="${disc.genre}">Äktschn</p><br />-->
 				<p>Vorrat:</p><p th:text="${quantity}">10 Stück</p><br />  
-				<p>Rating:</p><p th:text="${disc.gesrating}">5</p><br />
-				<form method="post" action="/cart" th:if="${orderable}">
+				<!--<p>Rating:</p><p th:text="${disc.gesrating}">5</p><br />-->
+				<!--<form method="post" action="/cart" th:if="${orderable}">
 					<input type="hidden" name="pid" value="0" th:value="${disc.identifier}" /> 
 					<label for="number">Anzahl</label>
 					<input id="number" type="number" name="number" min="1" max="5" step="1" value="1" /><br />
 					<input	type="submit" value="Zum Warenkorb hinzufügen" />
-				</form>
+				</form>-->
 			</div>
 
-			<p>Was andere Kunden über diesen Film sagen</p>	<br />
+			<!--<p>Was andere Kunden über diesen Film sagen</p>	<br />
 			
 			<div class="detailComments" th:remove="all-but-first" >
 				<article class="comment" th:each="comment : ${disc.comments}" th:text="${comment}">Erster !!!1111elf</article>
 				<article class="comment">Deine Mutter </article>
-			</div>
+			</div>-->
 					
 			<br />
 			
-			<div class="salespoint">
+			<!--<div class="salespoint">
 				<form method="post" action="/comment">
 					<fieldset>
 						<legend>Kommentar hinzufügen</legend>
@@ -53,7 +53,7 @@
 						<input type="submit" value="Senden" />
 					</fieldset>
 				</form>
-			</div>
+			</div>-->
 		</div>
 	</div>
 </body>

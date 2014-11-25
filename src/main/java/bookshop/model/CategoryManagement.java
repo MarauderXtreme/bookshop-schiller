@@ -2,6 +2,7 @@ package bookshop.model;
 
 import java.util.HashMap;
 import java.util.Map;
+import bookshop.model.Article.ArticleId;
 
 
 public class CategoryManagement {

@@ -6,6 +6,8 @@ import java.util.Optional;
 
 import org.salespointframework.catalog.ProductIdentifier;
 
+import bookshop.model.Article.ArticleId;
+
 public class BookManagement implements ArticleManagement{
 
 	@Override
