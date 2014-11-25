@@ -1,98 +1,119 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	<head>
+		
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
 		<link rel="stylesheet" type="text/css" href="/resources/css/style.css" />
 		<link rel="stylesheet" type="text/css" href="/resources/css/foundation.css" />
-    <link rel="stylesheet" type="text/css" href="/resources/css/normalize.css" />
-    <link rel="stylesheet" type="text/css" href="/resources/css/slick.css" />
-    <!-- <link rel="stylesheet" type="text/css" href="/include/misc/php-calendar/css/style.css" /> -->
-    <link rel="stylesheet" type="text/css" href="/resources/css/style.css" />
+	  <link rel="stylesheet" type="text/css" href="/resources/css/normalize.css" />
+	  <link rel="stylesheet" type="text/css" href="/resources/css/slick.css" />
+	  <!-- <link rel="stylesheet" type="text/css" href="/include/misc/php-calendar/css/style.css" /> -->
+	  <link rel="stylesheet" type="text/css" href="/resources/css/style.css" />
     
-    <script type="text/javascript" src="/ressources/js/vendor/modernizr.js"></script>
-		<title>Katalog</title> <!--  th:text="${title}" -->
+    <script type="text/javascript" src="/resources/js/vendor/modernizr.js"></script>
+		
+		<title th:text="#{home.title}">Bücher | Buchhandlung Schiller</title>
+	
 	</head>
-<body>
-	<div class="all">
-		<header>
-			<h1>Katalog</h1> <!--  th:text="${title}" -->
-		</header>
-		<nav th:include="navigation :: navigation">
-
-		</nav>
-		<!-- 	<div class="salespoint" >
-				<form method="post" action="books">	
-						<input id="suchen" name="suchen" type="text" size="30" maxlength="30" th:value="#{book.search}" value="Suchen"/>
-				</form>
-		</div>  -->	
-		<div class="content">
-			<div class="catalog" th:remove="all-but-first">
-
-				<a th:each="book : ${catalog}" th:href="@{'/detail/' + ${book.identifier}}" href="detail.html">
-					<div class="book">  
-						<h4 th:text="${book.name}">Last Action Hero</h4>
-						<!--<img th:src="@{'/resources/img/cover/' + ${book.image} + '.jpg'}" class="thumbnail" src="../resources/img/cover/lac.jpg" alt="" />-->
-						<p th:text="${book.price}" class="price">9.99 €</p>
-					</div>
-				</a>			
-				<a href="detail.html">
-					<div class="book">  
-						<h4>Last Action Hero</h4>
-						<img class="thumbnail" src="../resources/img/cover/lac.jpg" alt="" />
-						<p class="price">9.99 €</p>
-					</div>
-				</a>
-				<a href="detail.html">
-					<div class="book">  
-						<h4>Last Action Hero</h4>
-						<img class="thumbnail" src="../resources/img/cover/lac.jpg" alt="" />
-						<p class="price">9.99 €</p>
-					</div>
-				</a>
-				<a href="detail.html">
-					<div class="book">  
-						<h4>Last Action Hero</h4>
-						<img class="thumbnail" src="../resources/img/cover/lac.jpg" alt="" />
-						<p class="price">9.99 €</p>
-					</div>
-				</a>
-				<a href="detail.html">
-					<div class="book">  
-						<h4>Last Action Hero</h4>
-						<img class="thumbnail" src="../resources/img/cover/lac.jpg" alt="" />
-						<p class="price">9.99 €</p>
-					</div>
-				</a>
-				<a href="detail.html">
-					<div class="book">  
-						<h4>Last Action Hero</h4>
-						<img class="thumbnail" src="../resources/img/cover/lac.jpg" alt="" />
-						<p class="price">9.99 €</p>
-					</div>
-				</a>
+	<body>
+		<div class="off-canvas-wrap" data-offcanvas="">
+			<div class="fixed" th:include="topbar :: topbar"></div>
+	    <div class="inner-wrap">
+	    	<aside class="left-off-canvas-menu" aria-hidden="true">
+	    		<nav th:include="navigation :: navigation"></nav>
+	    	</aside>
+	    	<div class="main-content">
+		    	<header class="large-12 medium-12 show-for-landscape show-for-medium-up">
+		        <div class="panel">
+		          <div class="header-slider" th:include="slider :: slider"></div>
+		        </div>
+		      </header>
+	        <div class="large-12">&nbsp;</div>
+	        <div class="large-12 medium-12 small-12 columns">
+	          <div class="large-12">
+						  <div class="panel">
+						    <div class="large-2 columns">
+						      Cover
+						    </div>
+						    <div class="large-8 columns">
+						      Buchinfos
+						    </div>
+						    <div class="large-2 columns">
+						      Schnelllinks
+						    </div>
+						  </div>
+						  <div th:each="book : ${catalog}" class="large-12">
+						  	<div class="large-2 columns">
+							    <a class="th" href="http://foundation.zurb.com/docs/assets/img/examples/earth.jpg">
+							      <img src="http://foundation.zurb.com/docs/assets/img/examples/earth-th-sm.jpg" />
+							    </a>
+						    </div>
+						    <div class="large-7 columns">
+							    <a title="BOfH" th:href="@{'/detail/' + ${book.identifier}}" href="detail.html">
+							      <h2>Bastard Operator from Hell</h2>
+							    </a>
+							    <p>Simon Travaglia</p>
+							    <p>666-6666666666</p>
+						    </div>
+						    <div class="large-2 columns">
+							    <a class="button">Buy Now</a>
+							    <a class="button">Add to Wishlist</a>
+						    </div>
+						  </div>
+		        </div>
+		    	</div>
+		    </div>
 			</div>
 		</div>
-		
+
 		<form method="post" action="/add">
 
 		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
-		<form method="post" action="/add">
-			<fieldset>
-				<input type="text" name="nameArticle" value="Name" />
-				<!--<input type="text" name="priceArticle" value="Price" />-->
-				<input type="text" name="beschreibungArticle" value="Beschreibung" />
-				<input type="text" name="titleArticle" value="Title" />
-				<!--<input type="text" name="idArticle" value="Id" /> -->
-				<!--<input type="text" name="typeArticle" value="Type" />-->
-				<input type="submit" value="Add Article" />
-			</fieldset>
-		 </form>
-		 </div>
+			<form method="post" action="/add">
+				<fieldset>
+					<input type="text" name="nameArticle" value="Name" />
+					<!--<input type="text" name="priceArticle" value="Price" />-->
+					<input type="text" name="beschreibungArticle" value="Beschreibung" />
+					<input type="text" name="titleArticle" value="Title" />
+					<!--<input type="text" name="idArticle" value="Id" /> -->
+					<!--<input type="text" name="typeArticle" value="Type" />-->
+					<input type="submit" value="Add Article" />
+				</fieldset>
+			</form>
+		</div>
 
- 		</form>
-		
-	</div>
-</body>
+		</form>
+
+		<script type="text/javascript" src="/resources/js/vendor/jquery.js"></script>
+		<script type="text/javascript" src="/resources/js/vendor/fastclick.js"></script>
+		<script type="text/javascript" src="/resources/js/foundation.min.js"></script>
+		<script type="text/javascript" src="/resources/js/vendor/slick.min.js"></script>
+		<script type="text/javascript">
+			$(document).foundation(
+			{
+			accordion: {
+			content_class: 'content',
+			active_class: 'active',
+			toggleable: true
+			}
+			}
+			);
+		</script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+			$('.header-slider').slick({
+			dots: true,
+			infinite: true,
+			lazyLoad: 'ondemand',
+			slidesToShow: 1,
+			slidesToScroll: 1,
+			autoplay: true,
+			autoplaySpeed: 3000,
+			});
+			});
+		</script>
+	</body>
 </html>
