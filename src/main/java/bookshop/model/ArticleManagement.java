@@ -11,11 +11,21 @@ import java.util.*;
 /*import java.util.Optional;
 import bookshop.model.Article.ArticleId;
 */
-/*
-public interface ArticleManagement extends Catalog<Article>{	
-	Iterable<Article> findByType(ArticleId id);
-*/
 
+import org.salespointframework.catalog.Catalog;
+
+
+
+public interface ArticleManagement extends Catalog<Article> {
+
+	Iterable<Article> findByType(ArticleId type);
+}
+
+
+
+
+
+/*
 public class ArticleManagement{
 
 	
@@ -194,5 +204,5 @@ public class ArticleManagement{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	*/
 }
+*/
