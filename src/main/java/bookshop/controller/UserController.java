@@ -33,7 +33,7 @@ public class UserController {
 		this.userAccountManager = userAccountManager;
 	}
 	
-	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN') || hasRole('ROLE_EMPLOYEE')")
+	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
 	@RequestMapping("/users")
 	public String users(ModelMap modelMap) {
 
@@ -42,7 +42,7 @@ public class UserController {
 		return "users";
 	}
 	
-	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN') || hasRole('ROLE_EMPLOYEE')")
+	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
 	@RequestMapping("/customers")
 	public String customers(ModelMap modelMap) {
 		
@@ -61,7 +61,7 @@ public class UserController {
 		return "customers";	
 	}
 	
-	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN') || hasRole('ROLE_EMPLOYEE')")
+	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
 	@RequestMapping("/employees")
 	public String employees(ModelMap modelMap) {
 		

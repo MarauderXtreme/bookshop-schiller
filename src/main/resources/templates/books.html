@@ -22,53 +22,53 @@
 		<nav th:include="navigation :: navigation">
 
 		</nav>
-		<div class="salespoint" >
-				<form method="post" action="dvdCatalog">	
-						<input id="suchen" name="suchen" type="text" size="30" maxlength="30" th:value="#{disc.search}" value="Suchen"/>
+		<!-- 	<div class="salespoint" >
+				<form method="post" action="books">	
+						<input id="suchen" name="suchen" type="text" size="30" maxlength="30" th:value="#{book.search}" value="Suchen"/>
 				</form>
-		</div>
+		</div>  -->	
 		<div class="content">
 			<div class="catalog" th:remove="all-but-first">
 
-				<a th:each="disc : ${catalog}" th:href="@{'/detail/' + ${disc.identifier}}" href="detail.html">
-					<div class="disc">  
-						<h4 th:text="${disc.name}">Last Action Hero</h4>
-						<!--<img th:src="@{'/resources/img/cover/' + ${disc.image} + '.jpg'}" class="thumbnail" src="../resources/img/cover/lac.jpg" alt="" />-->
-						<p th:text="${disc.price}" class="price">9.99 €</p>
+				<a th:each="book : ${catalog}" th:href="@{'/detail/' + ${book.identifier}}" href="detail.html">
+					<div class="book">  
+						<h4 th:text="${book.name}">Last Action Hero</h4>
+						<!--<img th:src="@{'/resources/img/cover/' + ${book.image} + '.jpg'}" class="thumbnail" src="../resources/img/cover/lac.jpg" alt="" />-->
+						<p th:text="${book.price}" class="price">9.99 €</p>
 					</div>
 				</a>			
 			
 			
 				<a href="detail.html">
-					<div class="disc">  
+					<div class="book">  
 						<h4>Last Action Hero</h4>
 						<img class="thumbnail" src="../resources/img/cover/lac.jpg" alt="" />
 						<p class="price">9.99 €</p>
 					</div>
 				</a>
 				<a href="detail.html">
-					<div class="disc">  
+					<div class="book">  
 						<h4>Last Action Hero</h4>
 						<img class="thumbnail" src="../resources/img/cover/lac.jpg" alt="" />
 						<p class="price">9.99 €</p>
 					</div>
 				</a>
 				<a href="detail.html">
-					<div class="disc">  
+					<div class="book">  
 						<h4>Last Action Hero</h4>
 						<img class="thumbnail" src="../resources/img/cover/lac.jpg" alt="" />
 						<p class="price">9.99 €</p>
 					</div>
 				</a>
 				<a href="detail.html">
-					<div class="disc">  
+					<div class="book">  
 						<h4>Last Action Hero</h4>
 						<img class="thumbnail" src="../resources/img/cover/lac.jpg" alt="" />
 						<p class="price">9.99 €</p>
 					</div>
 				</a>
 				<a href="detail.html">
-					<div class="disc">  
+					<div class="book">  
 						<h4>Last Action Hero</h4>
 						<img class="thumbnail" src="../resources/img/cover/lac.jpg" alt="" />
 						<p class="price">9.99 €</p>
@@ -77,20 +77,20 @@
 			</div>
 		</div>
 		
-		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
 		<form method="post" action="/add">
-			<fieldset>
-				<input type="text" name="nameArticle" value="Name" />
-				<!--<input type="text" name="priceArticle" value="Price" />-->
-				<input type="text" name="beschreibungArticle" value="Beschreibung" />
-				<input type="text" name="titleArticle" value="Title" />
-				<!--<input type="text" name="idArticle" value="Id" /> -->
-				<!--<input type="text" name="typeArticle" value="Type" />-->
-				<input type="submit" value="Add Article" />
-			</fieldset>
-		 </form>
-		 </div>
-		 
+
+	<fieldset>
+		<input type="text" name="nameArticle" value="Name" />
+		<!--<input type="text" name="priceArticle" value="Price" />-->
+		<input type="text" name="beschreibungArticle" value="Beschreibung" />
+		<input type="text" name="titleArticle" value="Title" />
+		<!--<input type="text" name="idArticle" value="Id" /> -->
+		<!--<input type="text" name="typeArticle" value="Type" />-->
+		<input type="submit" value="Add Article" />
+	</fieldset>
+
+ </form>
+		
 	</div>
 </body>
 </html>
