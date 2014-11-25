@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" type="text/css" href="/resources/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="/resources/css/foundation.css" />
+    <link rel="stylesheet" type="text/css" href="/resources/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/resources/css/slick.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="/include/misc/php-calendar/css/style.css" /> -->
+    <link rel="stylesheet" type="text/css" href="/resources/css/style.css" />
+    
+    <script type="text/javascript" src="/ressources/js/vendor/modernizr.js"></script>
+		<title th:text="#{cart.title}">Warenkorb</title>
+	</head>
+<body>
+	<div class="all">
+		<header>
+			<h1 th:text="#{cart.title}">Warenkorb</h1>
+		</header>
+		<nav th:include="navigation :: navigation"></nav>
+
+		<div class="content">
+			<div th:unless="${cart.empty}">
+				<table>
+					<caption th:text="#{cart.title}">Warenkorb</caption>
+					<thead>
+						<tr>
+							<th th:text="#{cart.movieTitle}">Titel</th>
+							<th th:text="#{cart.count}">Anzahl</th>
+							<th th:text="#{cart.price}">Preis</th>
+						</tr>
+					</thead>
+					<tbody th:remove="all-but-first">
+
+						<tr th:each="orderline : ${cart} ">
+							<td th:text="${orderline.productName}">Last Action Hero</td>
+							<td th:text="${orderline.quantity}">10</td>
+							<td th:text="${orderline.price}">10 Euro</td>
+						</tr>
+						<tr>
+							<td>Last Action Hero</td>
+							<td>10</td>
+							<td>10 Euro</td>
+						</tr>
+						<tr>
+							<td>Last Action Hero</td>
+							<td>10</td>
+							<td>10 Euro</td>
+						</tr>
+						<tr>
+							<td>Last Action Hero</td>
+							<td>10</td>
+							<td>10 Euro</td>
+						</tr>
+
+					</tbody>
+				</table>
+				<p th:text="#{cart.aktuell}"></p>
+				<p th:text="#{cart.total} + ': ' + ${cart.totalPrice}">Summe: 100 Euro</p>
+				<div class="salespoint" sec:authorize="hasRole('ROLE_CUSTOMER')">
+					<form method="post" action="checkout">
+						<input type="submit" th:value="#{cart.buy}" value="Kaufen" />
+					</form>
+				</div>
+				<div class="salespoint" >
+				<form method="post" action="clear">
+						<input type="submit" th:value="#{cart.clear}" value="Löschen" />
+					</form>
+				</div>
+			</div>
+
+			<p th:if="${cart.empty}" th:text="#{cart.empty}">Leer</p>
+		</div>
+	</div>
+	<script type="text/javascript" src="/js/vendor/jquery.js"></script>
+    <script type="text/javascript" src="/js/vendor/fastclick.js"></script>
+    <script type="text/javascript" src="/js/foundation.min.js"></script>
+    <script type="text/javascript" src="/js/foundation/foundation.accordion.js"></script>
+    <script type="text/javascript" src="/js/vendor/slick.min.js"></script>
+    <script type="text/javascript">
+      $(document).foundation(
+        {
+          accordion: {
+            content-class: 'content',
+            active-class: 'active',
+            toggleable: true
+          }
+        }
+      );
+    </script>
+    <script type="text/javascript">  
+      $(document).ready(function(){
+        $('.header-slider').slick({
+          dots: true,
+          infinite: true,
+          lazyLoad: 'ondemand',
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          autoplay: true,
+          autoplaySpeed: 3000,
+        });
+      });
+    </script>
+</body>
+</html>

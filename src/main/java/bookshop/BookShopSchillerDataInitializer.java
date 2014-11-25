@@ -17,65 +17,88 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+import bookshop.model.Article;
+import bookshop.model.ArticleManagement;
+import bookshop.model.Article.ArticleId;
+//import bookshop.model.Book;
 import bookshop.model.User;
 import bookshop.model.UserRepository;
 
-/**
- * A {@link DataInitializer} implementation that will create dummy data for the application on application startup.
- * 
- * @author Paul Henke
- * @author Oliver Gierke
- * @see DataInitializer
- */
 @Component
 public class BookShopSchillerDataInitializer implements DataInitializer {
 
+	private final ArticleManagement articleCatalog;
 	private final Inventory<InventoryItem> inventory;
 	private final UserAccountManager userAccountManager;
 	private final UserRepository userRepository;
 
 	@Autowired
 	public BookShopSchillerDataInitializer(UserRepository userRepository, Inventory<InventoryItem> inventory,
-			UserAccountManager userAccountManager) {
+			UserAccountManager userAccountManager, ArticleManagement articleCatalog) {
 
 		Assert.notNull(userRepository, "UserRepository must not be null!");
 		Assert.notNull(inventory, "Inventory must not be null!");
 		Assert.notNull(userAccountManager, "UserAccountManager must not be null!");
+		Assert.notNull(articleCatalog, "VideoCatalog must not be null!");
 
 		this.userRepository = userRepository;
 		this.inventory = inventory;
 		this.userAccountManager = userAccountManager;
+		this.articleCatalog = articleCatalog;
 	}
 
-	/* 
-	 * (non-Javadoc)
-	 * @see org.salespointframework.core.DataInitializer#initialize()
-	 */
 	@Override
 	public void initialize() {
 
 		initializeUsers(userAccountManager, userRepository);
+		initializeCatalog(articleCatalog, inventory);
 	}
+	
+	private void initializeCatalog(ArticleManagement articleCatalog, Inventory<InventoryItem> inventory) {
 
-	private void initializeUsers(UserAccountManager userAccountManager, UserRepository customerRepository) {
+		/*if (articleCatalog.getArticleList().iterator().hasNext()) {
+			return;
+		}*/
+		
+		if(articleCatalog.findAll().iterator().hasNext()){
+			return;
+		}
+
+		//articleCatalog.addArticle("Trost und Rat", new Book("Flann O'Brien","Ein Ratgeber der besonderen Art", "Trost und Rat", 123, ArticleId.BOOK));
+		articleCatalog.save(new Article("Trost und Rat", Money.of(EUR, 9.99), "Ein Ratgeber der besonderen Art", "Flann O'Brien", 123, ArticleId.BOOK));
 
 		// (｡◕‿◕｡)
-		// UserAccounts bestehen aus einem Identifier und eine Password, diese werden auch für ein Login gebraucht
-		// Zusätzlich kann ein UserAccount noch Rollen bekommen, diese können in den Controllern und im View dazu genutzt
-		// werden
-		// um bestimmte Bereiche nicht zugänglich zu machen, das "ROLE_"-Prefix ist eine Konvention welche für Spring
-		// Security nötig ist.
+		// Über alle eben hinzugefügten Discs iterieren und jeweils ein InventoryItem mit der Quantity 10 setzen
+		// Das heißt: Von jeder Disc sind 10 Stück im Inventar.
 
-		// Skip creation if database was already populated
+		/*for (Article article : articleCatalog.getArticleList()) {
+			InventoryItem inventoryItem = new InventoryItem(article, Units.TEN);
+			inventory.save(inventoryItem);
+		}*/
+		
+		for (Article article : articleCatalog.findAll()) {
+			InventoryItem inventoryItem = new InventoryItem(article, Units.TEN);
+			inventory.save(inventoryItem);
+		}
+		
+	}
+
+	private void initializeUsers(UserAccountManager userAccountManager, UserRepository userRepository) {
+
 		if (userAccountManager.get(new UserAccountIdentifier("boss")).isPresent()) {
 			return;
 		}
 
+		UserAccount adminAccount = userAccountManager.create("admin", "123", new Role("ROLE_ADMIN"));
+		userAccountManager.save(adminAccount);
+		
 		UserAccount bossAccount = userAccountManager.create("boss", "123", new Role("ROLE_BOSS"));
 		userAccountManager.save(bossAccount);
-
+		
 		final Role customerRole = new Role("ROLE_CUSTOMER");
-
+		final Role employeeRole = new Role("ROLE_EMPLOYEE");
+		// to do: add other manager roles
+		
 		UserAccount ua1 = userAccountManager.create("hans", "123", customerRole);
 		userAccountManager.save(ua1);
 		UserAccount ua2 = userAccountManager.create("dextermorgan", "123", customerRole);
@@ -84,14 +107,23 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		userAccountManager.save(ua3);
 		UserAccount ua4 = userAccountManager.create("mclovinfogell", "123", customerRole);
 		userAccountManager.save(ua4);
+		
+		UserAccount ua5 = userAccountManager.create("santamaria", "123", employeeRole);
+		userAccountManager.save(ua5);
+		UserAccount ua6 = userAccountManager.create("klaus", "123", employeeRole);
+		userAccountManager.save(ua6);
+		UserAccount ua7 = userAccountManager.create("santa-claus", "123", employeeRole);
+		userAccountManager.save(ua7);
 
 		User c1 = new User(ua1, "wurst");
 		User c2 = new User(ua2, "Miami-Dade County");
 		User c3 = new User(ua3, "Camden County - Motel");
 		User c4 = new User(ua4, "Los Angeles");
+		User e1 = new User(ua5, "Wilder Westen");
+		User e2 = new User(ua6, "Zuhaus");
+		User e3 = new User(ua7, "Nordpol");
 
-		// (｡◕‿◕｡)
-		// Zu faul um save 4x am Stück aufzurufen :)
-		userRepository.save(Arrays.asList(c1, c2, c3, c4));
+		userRepository.save(Arrays.asList(c1, c2, c3, c4, e1, e2, e3));
+		
 	}
 }

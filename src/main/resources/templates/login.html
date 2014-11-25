@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" type="text/css" href="/resources/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="/resources/css/foundation.css" />
+    <link rel="stylesheet" type="text/css" href="/resources/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/resources/css/slick.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="/include/misc/php-calendar/css/style.css" /> -->
+    <link rel="stylesheet" type="text/css" href="/resources/css/style.css" />
+    
+    <script type="text/javascript" src="/ressources/js/vendor/modernizr.js"></script>
+		<title th:text="#{home.title}">Buchhandlung Schiller</title>
+	</head>
+<body>
+	<div class="all">
+		<header>
+			<h1 th:text="#{home.title}">Buchhandlung Schiller</h1>
+		</header>
+		<nav th:include="navigation :: navigation">
+			<ul>
+				<li><a href="register.html">Registrierung</a></li>
+				<li><a href="orders.html">Bestellungen</a></li>
+				<li><a href="stock.html">Lager</a></li>
+				<li><a href="catalog.html">Dvd Katalog</a></li>
+				<li><a href="catalog.html">Blu-ray Katalog</a></li>
+				<li><a href="basket.html">Warenkorb</a></li>
+				<li class="loginlogout"><a href="login">Login</a></li>
+				<li class="loginlogout"><a href="logout">Logout</a></li>
+			</ul>
+		</nav>
+		
+		<div class="content">
+			<h1>Login Seite</h1>
+	        <p th:if="${loginError}">Wrong user or password</p>
+	        <form th:action="@{/login}" method="post">
+	            <label for="username">Nutzername:</label>
+	            <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
+	            <label for="password">Passwort:</label>
+	            <input type="password" id="password" name="password" /> <br />
+	            <input type="submit" value="Log in" />
+	        </form>
+		</div>
+	</div>
+</body>
+</html>

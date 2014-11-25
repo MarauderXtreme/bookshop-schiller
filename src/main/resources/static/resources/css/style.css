@@ -1,0 +1,21 @@
+body {
+	height: 100%;
+}
+
+.off-canvas-wrap,
+.inner-wrap,
+.main-content {
+	height: inherit;
+}
+
+.main-content {
+	overflow: auto;
+}
+
+.panel .top {
+	min-height: 100px;
+}
+
+.cover {
+	height: 300px;
+}

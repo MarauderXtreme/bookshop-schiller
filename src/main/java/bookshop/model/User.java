@@ -1,11 +1,13 @@
 package bookshop.model;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 import org.salespointframework.useraccount.UserAccount;
 
+@Entity
 public class User {
 	
 	@Id
@@ -16,6 +18,10 @@ public class User {
 	
 	@OneToOne
 	private UserAccount userAccount;
+	
+	@Deprecated
+	protected User() {
+	}
 	
 	public User(UserAccount userAccount, String address) {
 		this.userAccount = userAccount;
