@@ -77,17 +77,21 @@
 		
 		<form method="post" action="/add">
 
-	<fieldset>
-		<input type="text" name="nameArticle" value="Name" />
-		<!--<input type="text" name="priceArticle" value="Price" />-->
-		<input type="text" name="beschreibungArticle" value="Beschreibung" />
-		<input type="text" name="titleArticle" value="Title" />
-		<!--<input type="text" name="idArticle" value="Id" /> -->
-		<!--<input type="text" name="typeArticle" value="Type" />-->
-		<input type="submit" value="Add Article" />
-	</fieldset>
+		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
+		<form method="post" action="/add">
+			<fieldset>
+				<input type="text" name="nameArticle" value="Name" />
+				<!--<input type="text" name="priceArticle" value="Price" />-->
+				<input type="text" name="beschreibungArticle" value="Beschreibung" />
+				<input type="text" name="titleArticle" value="Title" />
+				<!--<input type="text" name="idArticle" value="Id" /> -->
+				<!--<input type="text" name="typeArticle" value="Type" />-->
+				<input type="submit" value="Add Article" />
+			</fieldset>
+		 </form>
+		 </div>
 
- </form>
+ 		</form>
 		
 	</div>
 </body>
