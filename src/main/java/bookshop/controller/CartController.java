@@ -67,9 +67,19 @@ public class CartController {
 	}
 	*/
 	
+	@RequestMapping(value="/checkout", method = RequestMethod.POST)
+	public String buy(HttpSession session){
+		
+		return "redirect:cart";
+	}
+	
 	@RequestMapping(value="/cart", method = RequestMethod.POST)
 	public String addArticleIntoCart(@RequestParam("number") int number, @RequestParam("article") Article article,
 		HttpSession session){
+		
+		if(number <= 1 || number > 10){
+			number = 1;
+		}
 		
 		Quantity quantity = Units.of(number);
 		OrderLine orderLine = new OrderLine(article, quantity);

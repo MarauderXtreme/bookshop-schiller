@@ -15,28 +15,43 @@
 		<title th:text="#{home.title}">Buchhandlung Schiller</title>
 	</head>
 <body>
-	<div class="all">
-		<header>
-			<h1 th:text="#{home.title}">Buchhandlung Schiller</h1>
-		</header>
-		<nav th:include="navigation :: navigation">
-			<ul>
-				<li><a href="register.html">Registrierung</a></li>
-				<li><a href="orders.html">Bestellungen</a></li>
-				<li><a href="stock.html">Lager</a></li>
-				<li><a href="catalog.html">Dvd Katalog</a></li>
-				<li><a href="catalog.html">Blu-ray Katalog</a></li>
-				<li><a href="basket.html">Warenkorb</a></li>
-				<li class="loginlogout"><a href="@{/login}">Login</a></li>
-				<li class="loginlogout"><a href="@{/logout}">Logout</a></li>
-			</ul>
-		</nav>
-		
-		<div class="content">
-			<p sec:authorize="isAuthenticated()" th:text="${'Hallo ' + #authentication?.name}">Hallo Nutzer</p>
-
-			<p th:text="#{home.welcome}">Willkommen.</p>
-		</div>
+	<div class="off-canvas-wrap" data-offcanvas="">
+		<div class="fixed">
+      <nav class="top-bar tab-bar" data-topbar="" role="navigation">
+        <section class="left-small">  <!-- show-for-small-only -->
+          <a class="left-off-canvas-toggle menu-icon" aria-expanded="false">
+            <span></span>
+          </a>
+        </section>
+        <section class="right tab-bar-section">
+          <h2 class="title">
+            <span th:text="#{home.title}">Buchhandlung Schiller</span>
+          </h2>
+        </section>
+      </nav>
+    </div>
+    <div class="inner-wrap">
+    	<aside class="left-off-canvas-menu" aria-hidden="true">
+    		<nav th:include="navigation :: navigation"></nav>
+    	</aside>
+    	<div class="main-content">
+	    	<header class="large-12 medium-12 show-for-landscape show-for-medium-up">
+	        <div class="panel">
+	          <div class="header-slider" th:include="slider :: slider"></div>
+	        </div>
+	      </header>
+        <div class="large-12">&nbsp;</div>
+        <div class="large-10 medium-10 small-12 columns">
+          <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+				<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+				<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+				<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+				<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+				<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+				<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+        </div>
+    	</div>
+    </div>
 	</div>
   <script type="text/javascript" src="/resources/js/vendor/jquery.js"></script>
   <script type="text/javascript" src="/resources/js/vendor/fastclick.js"></script>
@@ -46,8 +61,8 @@
     $(document).foundation(
       {
         accordion: {
-          content-class: 'content',
-          active-class: 'active',
+          content_class: 'content',
+          active_class: 'active',
           toggleable: true
         }
       }

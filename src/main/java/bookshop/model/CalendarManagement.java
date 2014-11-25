@@ -1,6 +1,6 @@
 package bookshop.model;
 
-public class CalendarManagement {/*
+public class CalendarManagement {
 	private static CalendarManagement instance ;
 	private Calendar calendar;
 	
@@ -44,7 +44,7 @@ public class CalendarManagement {/*
 	{
 		if(room != null)
 		{
-			if(calendar.getEvent(date) == null)
+			if(calendar.getEvent(new TupelKey<Room,Date>(room, date)) == null)
 			{
 				System.out.println("Event wird hinzugef�gt!");
 				return calendar.addEvent(new Event(name,date, room));
@@ -58,6 +58,6 @@ public class CalendarManagement {/*
 			System.out.println("Raum existiert nicht!");
 			return false;
 		}
-	}*/	
+	}	
 
 }
