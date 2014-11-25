@@ -12,12 +12,12 @@
     <link rel="stylesheet" type="text/css" href="/resources/css/style.css" />
     
     <script type="text/javascript" src="/ressources/js/vendor/modernizr.js"></script>
-		<title th:text="${title}">Katalog</title>
+		<title>Katalog</title> <!--  th:text="${title}" -->
 	</head>
 <body>
 	<div class="all">
 		<header>
-			<h1 th:text="${title}">Katalog</h1>
+			<h1>Katalog</h1> <!--  th:text="${title}" -->
 		</header>
 		<nav th:include="navigation :: navigation">
 
@@ -37,8 +37,6 @@
 						<p th:text="${book.price}" class="price">9.99 €</p>
 					</div>
 				</a>			
-			
-			
 				<a href="detail.html">
 					<div class="book">  
 						<h4>Last Action Hero</h4>

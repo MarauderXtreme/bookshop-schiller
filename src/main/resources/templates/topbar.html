@@ -2,8 +2,6 @@
 
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	<head>
-		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-		<link rel="stylesheet" type="text/css" href="../resources/css/style.css" />
 	</head>
 <body>
 <div th:fragment="topbar" class="fixed">
@@ -15,7 +13,7 @@
     </section>
     <section class="right tab-bar-section">
       <h2 class="title">
-        <span th:text="#{home.title}">Buchhandlung Schiller</span>
+        <a href="/" th:text="#{home.title}">Buchhandlung Schiller</a>
       </h2>
     </section>
     <section class="top-bar-section">
@@ -47,13 +45,17 @@
     		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')">
     			<a class="small round button" th:href="@{/cart}" href="cart.html">Warenkorb</a>
     		</li>
-    		<li class="divider"></li>
+    		<li sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="divider"></li>
     		<li>
-    			<a class="small round button" th:href="@{/user/register}" href="register.html">Registrieren</a>
+    			<a sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="small round button" th:href="@{/user/register}" href="register.html">Registrieren</a>
     		</li>
-    		<li class="divider"></li>
+    		<li sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="divider"></li>
     		<li>
-    			<a class="small round secondary button" th:href="@{/user/login}" href="login.html">Einloggen</a>
+    			<a sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="small round secondary button" th:href="@{/user/login}" href="login.html">Einloggen</a>
+    		</li>
+    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="divider"></li>
+    		<li>
+    			<a sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="small round secondary button" th:href="@{/logout}" href="logout.html">Logout</a>
     		</li>
     	</ul>
     </section>
