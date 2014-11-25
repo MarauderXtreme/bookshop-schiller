@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import bookshop.model.ArticleId;
 import bookshop.model.ArticleManagement;
 import bookshop.model.Article;
 /*
@@ -30,8 +31,8 @@ import videoshop.model.VideoCatalog;
 public class ArticleController {
 	private final ArticleManagement articleCatalog;
 	private final Inventory<InventoryItem> inventory;
-	private final BusinessTime businessTime;	//gibt Systemzeit an, brauch ich denke ich nicht
-	private double aveRating;	//brauch ich nicht, gibt kein rating
+	//private final BusinessTime businessTime;	//gibt Systemzeit an, brauch ich denke ich nicht
+	//private double aveRating;	//brauch ich nicht, gibt kein rating
 
 	// (｡◕‿◕｡)
 	// Da wir nur ein Catalog.html-Template nutzen, aber dennoch den richtigen Titel auf der Seite haben wollen,
@@ -44,7 +45,7 @@ public class ArticleController {
 
 		this.articleCatalog = articleCatalog;
 		this.inventory = inventory;
-		this.businessTime = businessTime;
+		//this.businessTime = businessTime;
 		this.messageSourceAccessor = new MessageSourceAccessor(messageSource);
 	}
 
@@ -54,7 +55,8 @@ public class ArticleController {
 	@RequestMapping("/dvdCatalog")
 	public String dvdCatalog(ModelMap modelMap, String name) {
 
-		modelMap.addAttribute("catalog", articleCatalog.searchArticle(name));
+		//modelMap.addAttribute("catalog", articleCatalog.searchArticle(name));
+		modelMap.addAttribute("catalog", articleCatalog.findByType(ArticleId.BOOK));
 		modelMap.addAttribute("title", messageSourceAccessor.getMessage("catalog.dvd.title"));
 
 		return "discCatalog";

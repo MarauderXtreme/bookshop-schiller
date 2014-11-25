@@ -27,52 +27,62 @@ import bookshop.model.UserRepository;
 @Component
 public class BookShopSchillerDataInitializer implements DataInitializer {
 
-	//private final ArticleManagement articleCatalog;
+	private final ArticleManagement articleCatalog;
 	private final Inventory<InventoryItem> inventory;
 	private final UserAccountManager userAccountManager;
 	private final UserRepository userRepository;
 
 	@Autowired
 	public BookShopSchillerDataInitializer(UserRepository userRepository, Inventory<InventoryItem> inventory,
-			UserAccountManager userAccountManager) {
+			UserAccountManager userAccountManager, ArticleManagement articleCatalog) {
 
 		Assert.notNull(userRepository, "UserRepository must not be null!");
 		Assert.notNull(inventory, "Inventory must not be null!");
 		Assert.notNull(userAccountManager, "UserAccountManager must not be null!");
-		//Assert.notNull(articleCatalog, "VideoCatalog must not be null!");
+		Assert.notNull(articleCatalog, "VideoCatalog must not be null!");
 
 		this.userRepository = userRepository;
 		this.inventory = inventory;
 		this.userAccountManager = userAccountManager;
-		//this.articleCatalog = articleCatalog;
+		this.articleCatalog = articleCatalog;
 	}
 
 	@Override
 	public void initialize() {
 
 		initializeUsers(userAccountManager, userRepository);
-		//initializeCatalog(articleCatalog, inventory);
+		initializeCatalog(articleCatalog, inventory);
 	}
-	/*
+	
 	private void initializeCatalog(ArticleManagement articleCatalog, Inventory<InventoryItem> inventory) {
 
-		if (articleCatalog.getArticleList().iterator().hasNext()) {
+		/*if (articleCatalog.getArticleList().iterator().hasNext()) {
+			return;
+		}*/
+		
+		if(articleCatalog.findAll().iterator().hasNext()){
 			return;
 		}
 
-		articleCatalog.addArticle("Trost und Rat", new Book("Flann O'Brien","Ein Ratgeber der besonderen Art", "Trost und Rat", 123, ArticleId.BOOK));
-		//videoCatalog.save(new Disc("Back to the Future", "bttf", Money.of(EUR, 9.99), "Sci-Fi", DiscType.DVD));
+		//articleCatalog.addArticle("Trost und Rat", new Book("Flann O'Brien","Ein Ratgeber der besonderen Art", "Trost und Rat", 123, ArticleId.BOOK));
+		articleCatalog.save(new Article("Trost und Rat", Money.of(EUR, 9.99), "Ein Ratgeber der besonderen Art", "Flann O'Brien", 123, ArticleId.BOOK));
 
 		// (｡◕‿◕｡)
 		// Über alle eben hinzugefügten Discs iterieren und jeweils ein InventoryItem mit der Quantity 10 setzen
 		// Das heißt: Von jeder Disc sind 10 Stück im Inventar.
 
-		for (Article article : articleCatalog.getArticleList()) {
+		/*for (Article article : articleCatalog.getArticleList()) {
+			InventoryItem inventoryItem = new InventoryItem(article, Units.TEN);
+			inventory.save(inventoryItem);
+		}*/
+		
+		for (Article article : articleCatalog.findAll()) {
 			InventoryItem inventoryItem = new InventoryItem(article, Units.TEN);
 			inventory.save(inventoryItem);
 		}
+		
 	}
-*/
+
 	private void initializeUsers(UserAccountManager userAccountManager, UserRepository userRepository) {
 
 		if (userAccountManager.get(new UserAccountIdentifier("boss")).isPresent()) {
