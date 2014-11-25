@@ -18,7 +18,7 @@ public class Article extends Product{
 		
 		//!!! - Kategorie manuell in der Main neben Artikel definieren 
 		//oder im Artikel direkt hinzufügen im Kostruktor
-		private Category category;
+		//private Category category;
 		
 		@Deprecated
 		protected Article() {}
@@ -39,7 +39,7 @@ public class Article extends Product{
 		public String getBeschreibung(){
 			return beschreibung;
 		}
-		
+		/*
 		public void setCategory(Category category){
 			this.category = category;
 		}
@@ -47,7 +47,7 @@ public class Article extends Product{
 		public Category getCategory(){
 			return this.category;
 		}
-		
+		*/
 		public ArticleId getType(){
 			return type;
 		}

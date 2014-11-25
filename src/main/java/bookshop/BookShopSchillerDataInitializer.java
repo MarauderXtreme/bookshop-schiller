@@ -20,7 +20,7 @@ import org.springframework.util.Assert;
 import bookshop.model.Article;
 import bookshop.model.ArticleManagement;
 import bookshop.model.Article.ArticleId;
-import bookshop.model.Book;
+//import bookshop.model.Book;
 import bookshop.model.User;
 import bookshop.model.UserRepository;
 

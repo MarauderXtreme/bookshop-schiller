@@ -6,7 +6,7 @@ import org.salespointframework.inventory.Inventory;
 import org.salespointframework.inventory.InventoryItem;
 import org.salespointframework.quantity.Quantity;
 import org.salespointframework.quantity.Units;
-import org.salespointframework.time.BusinessTime;
+//import org.salespointframework.time.BusinessTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.MessageSourceAccessor;
@@ -15,8 +15,9 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+//import org.springframework.web.bind.annotation.RequestMethod;
+//import org.springframework.web.bind.annotation.RequestParam;
+
 
 import bookshop.model.ArticleId;
 import bookshop.model.ArticleManagement;
@@ -28,7 +29,8 @@ import videoshop.model.Disc.DiscType;
 import videoshop.model.VideoCatalog;
 */
 
-public class ArticleController {
+@Controller
+class ArticleController {
 	private final ArticleManagement articleCatalog;
 	private final Inventory<InventoryItem> inventory;
 	//private final BusinessTime businessTime;	//gibt Systemzeit an, brauch ich denke ich nicht
@@ -40,8 +42,7 @@ public class ArticleController {
 	private final MessageSourceAccessor messageSourceAccessor; //dürfte wichtig sein
 
 	@Autowired
-	public ArticleController(ArticleManagement articleCatalog, Inventory<InventoryItem> inventory, BusinessTime businessTime,
-			MessageSource messageSource) {
+	public ArticleController(ArticleManagement articleCatalog, Inventory<InventoryItem> inventory, MessageSource messageSource) {
 
 		this.articleCatalog = articleCatalog;
 		this.inventory = inventory;
