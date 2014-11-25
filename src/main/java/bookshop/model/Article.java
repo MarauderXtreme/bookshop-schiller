@@ -48,6 +48,8 @@ public class Article extends Product{
 			return this.category;
 		}
 		*/
+		
+		
 		public ArticleId getType(){
 			return type;
 		}
