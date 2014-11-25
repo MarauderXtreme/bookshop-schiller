@@ -50,7 +50,12 @@ class ArticleController {
 		//this.businessTime = businessTime;
 		this.messageSourceAccessor = new MessageSourceAccessor(messageSource);
 	}
-
+	
+	/*
+	 
+	 
+	 
+	 */
 	
 	//Habe Parameter name hinzugefügt und bei meinem catalog die methode findType durch searchArticles ersetzt, um mir alle articles mit dem namen auszugeben
 	//message lass ich erstmal so, da thymeleaf über diese adressierung an die richtige stelle mappen müsste, ist eigentlich catalog.book.title
