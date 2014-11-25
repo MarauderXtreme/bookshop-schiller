@@ -12,24 +12,24 @@
     <link rel="stylesheet" type="text/css" href="/resources/css/style.css" />
     
     <script type="text/javascript" src="/ressources/js/vendor/modernizr.js"></script>
-		<title th:text="${disc.name}">Last Action Hero</title>
+		<title th:text="${book.name}">Last Action Hero</title>
 	</head>
 <body>
 	<div class="all">
 		<header>
-			<h1 th:text="${disc.name}">Last Action Hero</h1>
+			<h1 th:text="${book.name}">Last Action Hero</h1>
 		</header>
 		<nav th:include="navigation :: navigation" ></nav>
 		<div class="content">
 			<div class="detailImg">
-				<!--<img th:src="@{'/resources/img/cover/' + ${disc.image} + '.jpg'}" src="../resources/img/cover/lac.jpg" alt="" />-->
+				<!--<img th:src="@{'/resources/img/cover/' + ${book.image} + '.jpg'}" src="../resources/img/cover/lac.jpg" alt="" />-->
 			</div>
 			<div class="detailDescription">
-				<h2 th:text="${disc.name}">Last Action Hero</h2>
-				<p>Preis:</p><p th:text="${disc.price}">9.99€</p><br />
+				<h2 th:text="${book.name}">Last Action Hero</h2>
+				<p>Preis:</p><p th:text="${book.price}">9.99€</p><br />
 				<p>Vorrat:</p><p th:text="${quantity}">10 Stück</p><br/>
 				<form action="/cart" method="POST">
-					<input type="hidden" name="article" value="0" th:value="${disc.identifier}"/>
+					<input type="hidden" name="article" value="0" th:value="${book.identifier}"/>
 					<input id="number" type="number" name="number" step="1" value="1"/>
 					<input type="submit" value="Zum Warenkorb hinzufügen"/>
 				</form>
