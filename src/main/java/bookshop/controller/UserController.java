@@ -9,6 +9,7 @@ import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -32,6 +33,7 @@ public class UserController {
 		this.userAccountManager = userAccountManager;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN') || hasRole('ROLE_EMPLOYEE')")
 	@RequestMapping("/users")
 	public String users(ModelMap modelMap) {
 
@@ -40,6 +42,7 @@ public class UserController {
 		return "users";
 	}
 	
+	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN') || hasRole('ROLE_EMPLOYEE')")
 	@RequestMapping("/customers")
 	public String customers(ModelMap modelMap) {
 		
@@ -58,6 +61,7 @@ public class UserController {
 		return "customers";	
 	}
 	
+	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN') || hasRole('ROLE_EMPLOYEE')")
 	@RequestMapping("/employees")
 	public String employees(ModelMap modelMap) {
 		
