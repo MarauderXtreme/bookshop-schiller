@@ -38,7 +38,7 @@ class ArticleController {
 	}
 	 
 	@RequestMapping("/books")
-	public String dvdCatalog(ModelMap modelMap, String name) {
+	public String books(ModelMap modelMap, String name) {
 
 		modelMap.addAttribute("catalog", articleCatalog.findByType(ArticleId.BOOK));
 		modelMap.addAttribute("title", messageSourceAccessor.getMessage("catalog.dvd.title"));

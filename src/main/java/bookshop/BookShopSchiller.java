@@ -29,7 +29,7 @@ public class BookShopSchiller {
 	
 		@Override
 		public void addViewControllers(ViewControllerRegistry registry) {
-			registry.addViewController("/login").setViewName("login");
+			registry.addViewController("/user/login").setViewName("login");
 		}
 	}
 	
@@ -44,7 +44,7 @@ public class BookShopSchiller {
 			http.csrf().disable();
 			
 			http.authorizeRequests().antMatchers("/**").permitAll().and().
-				formLogin().loginPage("/login").loginProcessingUrl("/login").and().
+				formLogin().loginPage("/user/login").loginProcessingUrl("/user/login").and().
 				logout().logoutUrl("/logout").logoutSuccessUrl("/");
 		}
 		
