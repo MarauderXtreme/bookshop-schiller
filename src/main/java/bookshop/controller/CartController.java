@@ -66,16 +66,6 @@ public class CartController {
 			}).orElse("redirect:/cart");
 	}
 	*/
-	/*
-	@RequestMapping(value="/cart")
-	public String neu(){
-		int number = 1;
-		Quantity quantity = Units.of(number);
-		OrderLine orderLine = new OrderLine(article, quantity);
-		Cart cart = new Cart();
-		cart.add(orderLine);
-		return "redirect:cart";
-	}*/
 	
 	@RequestMapping(value="/cart", method = RequestMethod.POST)
 	public String addArticleIntoCart(@RequestParam("number") int number, @RequestParam("article") Article article,
