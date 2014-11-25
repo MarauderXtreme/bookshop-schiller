@@ -4,12 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import bookshop.model.Article.ArticleId;
-
 import org.salespointframework.catalog.ProductIdentifier;
 
+import bookshop.model.Article.ArticleId;
 
-public class CDManagement implements ArticleManagement{
+public class BookManagement implements ArticleManagement{
 
 	@Override
 	public Iterable<Article> findByCategory(String arg0) {
@@ -97,14 +96,13 @@ public class CDManagement implements ArticleManagement{
 	
 }
 
-
 /*
-public class CDManagement extends ArticleManagement{
-	private Map<String, CD> articles;
+public class BookManagement extends ArticleManagement{
+	private Map<String, Book> articles;
 
-	public CDManagement() {
+	public BookManagement() {
 		super();
-		articles = new HashMap<String, CD>();
-		}
+		articles = new HashMap<String, Book>();
+	}
 }
 */

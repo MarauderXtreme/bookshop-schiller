@@ -19,6 +19,10 @@ public class User {
 	@OneToOne
 	private UserAccount userAccount;
 	
+	@Deprecated
+	protected User() {
+	}
+	
 	public User(UserAccount userAccount, String address) {
 		this.userAccount = userAccount;
 		this.address = address;

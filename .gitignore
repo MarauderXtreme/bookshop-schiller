@@ -151,8 +151,8 @@ sympy-plots-for-*.tex/
 *.xdy
 /target/
 
+.settings/
 .settings/*
 .classpath
-.projects
-
-.flitzendefoer
+.project
+/bin/

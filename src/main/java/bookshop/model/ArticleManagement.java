@@ -1,10 +1,33 @@
 package bookshop.model;
 
-import java.util.HashMap;
-import java.util.Map;
+//import org.salespointframework.inventory.*;
+//import org.salespointframework.catalog.Catalog;
+//import org.salespointframework.catalog.ProductIdentifier;
+/*
+import videoshop.model.Disc;
+import videoshop.model.Disc.DiscType;
+*/
+import org.salespointframework.catalog.Catalog;
 
-public class ArticleManagement {
-	
+import bookshop.model.Article.ArticleId;
+/*import java.util.Optional;
+import bookshop.model.Article.ArticleId;
+*/
+
+
+
+public interface ArticleManagement extends Catalog<Article> {
+
+	Iterable<Article> findByType(ArticleId type);
+}
+
+
+
+
+
+/*
+public class ArticleManagement{
+
 	
 	private ArticleManagement Instance;
 	private CategoryManagement categoryManagement = new CategoryManagement();
@@ -99,4 +122,87 @@ public class ArticleManagement {
 		}
 	}
 	
+	public Collection<Article> getArticleList(){
+		return articles.values();
+		
+	}
+/*
+	@Override
+	public long count() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void delete(ProductIdentifier arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(Book arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(Iterable<? extends Book> arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteAll() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean exists(ProductIdentifier arg0) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Iterable<Book> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Iterable<Book> findAll(Iterable<ProductIdentifier> arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Optional<Book> findOne(ProductIdentifier arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <S extends Book> S save(S arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public <S extends Book> Iterable<S> save(Iterable<S> arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Iterable<Book> findByCategory(String arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Iterable<Book> findByName(String arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
+*/

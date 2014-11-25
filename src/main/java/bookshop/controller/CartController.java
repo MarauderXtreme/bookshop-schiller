@@ -1,9 +1,12 @@
 package bookshop.controller;
 
+import static org.joda.money.CurrencyUnit.EUR;
+
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
+import org.joda.money.Money;
 import org.salespointframework.catalog.Product;
 import org.salespointframework.order.Cart;
 import org.salespointframework.order.Order;
@@ -24,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import bookshop.model.Article;
+import bookshop.model.Article.ArticleId;
 import bookshop.model.Book;
 
 
@@ -32,7 +36,7 @@ import bookshop.model.Book;
 public class CartController {
 
 	private final OrderManager<Order> orderManager;
-	private Article article = new Book("test", "test", "test", 1);
+	private Article article = new Book("test", "test", "test", 1, ArticleId.BOOK, Money.of(EUR, 9.99), "text");
 	
 	
 	@Autowired
@@ -62,7 +66,7 @@ public class CartController {
 			}).orElse("redirect:/cart");
 	}
 	*/
-	
+	/*
 	@RequestMapping(value="/cart")
 	public String neu(){
 		int number = 1;
@@ -71,10 +75,11 @@ public class CartController {
 		Cart cart = new Cart();
 		cart.add(orderLine);
 		return "redirect:cart";
-	}
+	}*/
 	
 	@RequestMapping(value="/cart", method = RequestMethod.POST)
-	public String addArticleIntoCart(int number, Article article, HttpSession session){
+	public String addArticleIntoCart(@RequestParam("number") int number, @RequestParam("article") Article article,
+		HttpSession session){
 		
 		Quantity quantity = Units.of(number);
 		OrderLine orderLine = new OrderLine(article, quantity);

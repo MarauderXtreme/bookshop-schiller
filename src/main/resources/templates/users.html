@@ -12,28 +12,28 @@
     <link rel="stylesheet" type="text/css" href="/resources/css/style.css" />
     
     <script type="text/javascript" src="/ressources/js/vendor/modernizr.js"></script>
-		<title th:text="#{customers.title}">Kundenliste</title>
+		<title th:text="#{users.title}">Nutzerliste</title>
 	</head>
 <body>
 	<div class="all">
 		<header>
-			<h1 th:text="#{customers.title}">Kundenliste</h1>
+			<h1 th:text="#{users.title}">Nutzerliste</h1>
 		</header>
 		<nav th:include="navigation :: navigation" ></nav>
 		
 		<div class="content">
 			<table>
-				<caption th:text="#{customers.title}">Kundenliste</caption>
+				<caption th:text="#{users.title}">Nutzerliste</caption>
 				<thead>
 					<tr>
-						<th th:text="#{customers.name}">Name</th>
-						<th th:text="#{customers.address}">Anschrift</th>
+						<th th:text="#{users.name}">Name</th>
+						<th th:text="#{users.address}">Anschrift</th>
 					</tr>
 				</thead>
 				<tbody th:remove="all-but-first">
-						<tr th:each=" customer : ${customerList}">
-							<td th:text="${customer.userAccount.identifier}">Power Paul</td>
-							<td th:text="${customer.address}">Wasaplatz 10</td>
+						<tr th:each=" user : ${userList}">
+							<td th:text="${user.userAccount.identifier}">Power Paul</td>
+							<td th:text="${user.address}">Wasaplatz 10</td>
 						</tr>
 																			
 				</tbody>

@@ -25,11 +25,11 @@ public class BookShopSchiller {
 	}
 	
 	@Configuration
-	static class BookShopSchillerConfiguration extends SalespointWebConfiguration {
+	static class BookShopSchillerWebConfiguration extends SalespointWebConfiguration {
 	
 		@Override
 		public void addViewControllers(ViewControllerRegistry registry) {
-			registry.addViewController("/user/login").setViewName("login");
+			registry.addViewController("/login").setViewName("login");
 		}
 	}
 	
@@ -44,7 +44,7 @@ public class BookShopSchiller {
 			http.csrf().disable();
 			
 			http.authorizeRequests().antMatchers("/**").permitAll().and().
-				formLogin().loginPage("/user/login").loginProcessingUrl("/user/login").and().
+				formLogin().loginPage("/login").loginProcessingUrl("/login").and().
 				logout().logoutUrl("/logout").logoutSuccessUrl("/");
 		}
 		
