@@ -108,6 +108,10 @@ public class CartController {
 		return "cart";
 	}
 	
+	@RequestMapping(value="/delete", method = RequestMethod.POST)
+	public String delete(HttpSession session){
+		return "cart";
+	}
 
 	@ModelAttribute("cart")
 	private Cart getCart(HttpSession session) {
