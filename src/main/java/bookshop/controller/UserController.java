@@ -70,7 +70,7 @@ public class UserController {
 		for(User u : users) {
 			Iterable<Role> roles = u.getUserAccount().getRoles();
 			for(Role r: roles) {
-				if (r.getName().equals("ROLE_EMPLOYEE")) {
+				if (r.getName().equals("ROLE_EMPLOYEE") || r.getName().equals("ROLE_BOSS") || r.getName().equals("ROLE_ADMIN")) {
 					employees.add(u);
 				}
 			}

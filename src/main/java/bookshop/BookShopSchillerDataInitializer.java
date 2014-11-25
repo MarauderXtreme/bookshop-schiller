@@ -94,9 +94,11 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 
 		UserAccount adminAccount = userAccountManager.create("admin", "123", new Role("ROLE_ADMIN"));
 		userAccountManager.save(adminAccount);
+		userRepository.save(new User(adminAccount, "AdminAdresse"));
 		
 		UserAccount bossAccount = userAccountManager.create("boss", "123", new Role("ROLE_BOSS"));
 		userAccountManager.save(bossAccount);
+		userRepository.save(new User(bossAccount, "BossAdresse"));
 		
 		final Role customerRole = new Role("ROLE_CUSTOMER");
 		final Role employeeRole = new Role("ROLE_EMPLOYEE");
