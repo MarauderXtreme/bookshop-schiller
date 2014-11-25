@@ -154,5 +154,5 @@ sympy-plots-for-*.tex/
 .settings/
 .settings/*
 .classpath
-.projects
+.project
 /bin/
