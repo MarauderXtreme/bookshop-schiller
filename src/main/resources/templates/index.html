@@ -16,33 +16,7 @@
 	</head>
 <body>
 	<div class="off-canvas-wrap" data-offcanvas="">
-		<div class="fixed">
-      <nav class="top-bar tab-bar" data-topbar="" role="navigation">
-        <section class="left-small">  <!-- show-for-small-only -->
-          <a class="left-off-canvas-toggle menu-icon" aria-expanded="false">
-            <span></span>
-          </a>
-        </section>
-        <section class="right tab-bar-section">
-          <h2 class="title">
-            <span th:text="#{home.title}">Buchhandlung Schiller</span>
-          </h2>
-        </section>
-        <section class="top-bar-section">
-        	<ul class="right">
-        		<li>
-        			<a class="small round button" th:href="@{/cart}" href="cart.html">Warenkorb</a>
-        		</li>
-        		<li>
-        			<a class="small round button" th:href="@{/user/register}" href="register.html">Registrieren</a>
-        		</li>
-        		<li>
-        			<a class="small round secondary button" th:href="@{/user/login}" href="login.html">Einloggen</a>
-        		</li>
-        	</ul>
-        </section>
-      </nav>
-    </div>
+		<div class="fixed" th:include="topbar :: topbar"></div>
     <div class="inner-wrap">
     	<aside class="left-off-canvas-menu" aria-hidden="true">
     		<nav th:include="navigation :: navigation"></nav>
@@ -54,7 +28,7 @@
 	        </div>
 	      </header>
         <div class="large-12">&nbsp;</div>
-        <div class="large-10 medium-10 small-12 columns">
+        <div class="large-12 medium-12 small-12 columns">
           <h2>Willkommen auf der Website der Buchhandlung Schiller!</h2>
         </div>
     	</div>
