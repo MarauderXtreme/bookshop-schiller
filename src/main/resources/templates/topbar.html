@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head>
+	</head>
+<body>
+<div th:fragment="topbar" class="fixed">
+ <nav class="top-bar tab-bar" data-topbar="" role="navigation">
+   <section class="left-small">  <!-- show-for-small-only -->
+      <a class="left-off-canvas-toggle menu-icon" aria-expanded="false">
+        <span></span>
+      </a>
+    </section>
+    <section class="right tab-bar-section">
+      <h2 class="title">
+        <a href="/" th:text="#{home.title}">Buchhandlung Schiller</a>
+      </h2>
+    </section>
+    <section class="top-bar-section">
+    	<ul class="right">
+    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE')" class="divider"></li>
+    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE')">
+    			<a th:href="@{/admin/statistics}" href="statistics.html">Statistiken</a>
+    		</li>
+    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE')" class="divider"></li>
+    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE')">
+    			<a th:href="@{/admin/orders}" href="orders.html">Bestellungen</a>
+    		</li>
+    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE')" class="divider"></li>
+    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE')" class="has-dropdown not-click">
+    			Nutzerübersicht
+    			<ul class="dropdown">
+    				<li>
+    					<a th:href="@{/admin/users}" href="users.html">Alle</a>
+    				</li>
+    				<li>
+    					<a th:href="@{/admin/customers}" href="customers.html">Kunden</a>
+    				</li>
+    				<li>
+    					<a th:href="@{/admin/employees}" href="employees.html">Angestellte</a>
+    				</li>
+    			</ul>
+    		</li>
+    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="divider"></li>
+    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')">
+    			<a class="small round button" th:href="@{/cart}" href="cart.html">Warenkorb</a>
+    		</li>
+    		<li sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="divider"></li>
+    		<li>
+    			<a sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="small round button" th:href="@{/user/register}" href="register.html">Registrieren</a>
+    		</li>
+    		<li sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="divider"></li>
+    		<li>
+    			<a sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="small round secondary button" th:href="@{/user/login}" href="login.html">Einloggen</a>
+    		</li>
+    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="divider"></li>
+    		<li>
+    			<a sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="small round secondary button" th:href="@{/logout}" href="logout.html">Logout</a>
+    		</li>
+    	</ul>
+    </section>
+  </nav>
+</div>
+</body>
+</html>

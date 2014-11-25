@@ -155,4 +155,5 @@ sympy-plots-for-*.tex/
 .settings/*
 .classpath
 .project
+.DS_Store
 /bin/

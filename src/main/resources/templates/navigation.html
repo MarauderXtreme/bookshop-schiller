@@ -2,8 +2,6 @@
 
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	<head>
-		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
-		<link rel="stylesheet" type="text/css" href="../resources/css/style.css" />
 	</head>
 <body>
 	<nav th:fragment="navigation">
@@ -17,18 +15,8 @@
 		    </a>
 		  </li>
 		  <li>
-		    <a href="history">
-		      Firmengeschichte
-		    </a>
-		  </li>
-		  <li>
-		    <a href="contact">
-		      Kontakt
-		    </a>
-		  </li>
-		  <li>
-		    <a th:href="@{/calendar}" href="calendar.html">
-		      Kalender
+		    <a th:href="@{/articles}" href="articles.html">
+		      Artikel                 
 		    </a>
 		  </li>
 		  <li>
@@ -37,13 +25,28 @@
 		    </a>
 		  </li>
 		  <li>
-		    <a th:href="@{/cd}" href="cd.html">
+		    <a th:href="@{/cds}" href="cds.html">
 		      CD                  
 		    </a>
 		  </li>
 		  <li>
-		    <a th:href="@{/dvd}" href="dvd.html">
+		    <a th:href="@{/dvds}" href="dvds.html">
 		      DVD                  
+		    </a>
+		  </li>
+		  <li>
+		    <a th:href="@{/calendar}" href="calendar.html">
+		      Kalender
+		    </a>
+		  </li>
+		  <li>
+		    <a href="history">
+		      Firmengeschichte
+		    </a>
+		  </li>
+		  <li>
+		    <a href="contact">
+		      Kontakt
 		    </a>
 		  </li>
 		</ul>
