@@ -1,9 +1,9 @@
 package bookshop.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.Map.Entry;
 
 
 public class Calendar {
@@ -23,7 +23,7 @@ public class Calendar {
 	{
 		if (eventMap.containsKey(tk))
 		{
-			
+			System.out.println("ALARM");
 			return eventMap.get(tk);
 		}
 		else {
@@ -31,9 +31,9 @@ public class Calendar {
 		}
 	}	
 	
-	public Set<Entry<TupelKey<Room, Date>, Event>> getEventSet()
+	public List<Event> getEventList()
 	{
-		return eventMap.entrySet();
+		return new ArrayList<Event>(eventMap.values());
 	}
 	
 	public boolean addEvent(Event event)

@@ -16,7 +16,7 @@ public class CalendarManagement {
 			instance = new CalendarManagement();
 			System.out.println("Kalendermanager-Instanz erstellt");
 		}
-		System.out.println("Kalendermanager-Instanz zur�ckgeben");
+		System.out.println("Kalendermanager-Instanz zurückgeben");
 		return CalendarManagement.instance;
 	}
 	
@@ -51,7 +51,7 @@ public class CalendarManagement {
 		{
 			if(calendar.getEvent(new TupelKey<Room,Date>(room, date)) == null)
 			{
-				System.out.println("Event wird hinzugef�gt!");
+				System.out.println("Event wird hinzugefuegt!");
 				return calendar.addEvent(new Event(name,date, room));
 			} else {
 				System.out.println("Termin ist belegt!");

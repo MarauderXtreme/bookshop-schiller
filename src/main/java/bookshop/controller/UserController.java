@@ -34,7 +34,7 @@ public class UserController {
 	}
 	
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
-	@RequestMapping("/admin/users")
+	@RequestMapping("/users")
 	public String users(ModelMap modelMap) {
 
 		modelMap.addAttribute("userList", userRepository.findAll());
@@ -43,7 +43,7 @@ public class UserController {
 	}
 	
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
-	@RequestMapping("/admin/customers")
+	@RequestMapping("/customers")	
 	public String customers(ModelMap modelMap) {
 		
 		Iterable<User> users = userRepository.findAll();
@@ -62,7 +62,7 @@ public class UserController {
 	}
 	
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
-	@RequestMapping("/admin/employees")
+	@RequestMapping("/employees")
 	public String employees(ModelMap modelMap) {
 		
 		Iterable<User> users = userRepository.findAll();
@@ -80,7 +80,7 @@ public class UserController {
 		return "employees";	
 	}
 	
-	@RequestMapping("/user/register/new")
+	@RequestMapping("/registerNew")
 	public String registerNew(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
 			BindingResult result) {
 
@@ -98,7 +98,7 @@ public class UserController {
 		return "redirect:/";
 	}
 
-	@RequestMapping("/user/register")
+	@RequestMapping("/register")
 	public String register(ModelMap modelMap) {
 		modelMap.addAttribute("registrationForm", new RegistrationForm());
 		return "register";

@@ -18,18 +18,18 @@ public class CalendarController {
 	@RequestMapping(value="/addEvent", method = RequestMethod.POST)
 	public String add(@RequestParam("name") String name, @RequestParam("dated") String dated , @RequestParam("datet") String datet)
 	{
-		CalendarManagement.getInstance().addEvent(name, new Date(dated,datet), new Room("Lesesaal","123a"));
+		System.out.println("Drück mich du sau");
+		CalendarManagement.getInstance().addEvent(name, new Date(dated,datet), new Room("Lesesaal","123"));
 		return "redirect:calendar";
 	}
 	
 	
 	@RequestMapping("/calendar")
-	public String detail(Date date, Event event, Model model) {
+	public String calendar(Date date, Event event, Model model) {
 
 		model.addAttribute("event", event);
 		model.addAttribute("date", date);
-		
-		model.addAttribute("eventList" , CalendarManagement.getInstance().getCalendar().getEventSet());
+		model.addAttribute("eventList" , CalendarManagement.getInstance().getCalendar().getEventList());
 
 		return "calendar";
 	}

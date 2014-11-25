@@ -11,7 +11,7 @@ public class TupelKey<X , Y>{
 	public boolean equals(Object tk)
 	{
 		TupelKey<Room, Date> tuke = (TupelKey<Room, Date>)tk;
-		System.out.println("Tupel equals wird gepr�ft");
+		//System.out.println("Tupel equals wird geprueft");
 		Room ro = tuke.x;
 		Date da = tuke.y;
 		

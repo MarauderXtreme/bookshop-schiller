@@ -4,6 +4,11 @@ public class Room {
 	private String name;
 	private String number;
 	
+	@Deprecated
+	protected Room()
+	{	
+	}
+	
 	public Room(String na, String nu)
 	{
 		this.name = na;
@@ -22,10 +27,13 @@ public class Room {
 	
 	public boolean equals(Room r) {
 		
-		System.out.println("Room equals wird gepr�ft");
+		System.out.println("Room equals wird geprueft");
 		if(this.name.equals(r.getName())&& this.number.equals(r.getNumber())) {
+			
+			System.out.println("Raum ist gleich");
 			return true;
 		} else {
+			System.out.println("Raum ist unterschiedlich!");
 			return false;
 		}
 	}
