@@ -34,13 +34,13 @@
 	        <div class="large-12">&nbsp;</div>
 	        <div class="large-12 medium-12 small-12 columns">
 	          <h2>Kalender</h2>
-	          <form method="post" action="/addEvent">
+	          <form sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE')" method="post" action="/addEvent">
 	            <input type="text" name="dated"/>
 	            <input type="text" name="datet"/>
 	            <input type="text" name="name"/>
 	            <input type="submit" name="add" value="Event hinzufuegen"/>
 		        </form>
-		        <table>
+		        <table class="large-12 medium-12 small-12">
 		        	<thead>
 		          	<tr>
 		            	<th>Datum</th>
