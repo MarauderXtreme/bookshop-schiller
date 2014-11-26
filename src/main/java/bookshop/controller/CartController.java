@@ -69,7 +69,7 @@ public class CartController {
 	@RequestMapping(value="/cart/checkout", method = RequestMethod.POST)
 	public String buy(HttpSession session){
 		
-		return "redirect:cart";
+		return "cart";
 	}
 		
 	@RequestMapping(value="/cart", method = RequestMethod.POST)
