@@ -38,7 +38,7 @@
 							<table class="large-12 medium-12 small-12">
 								<thead class="panel">
 									<tr>
-										<th class="large-4 medium-4 small-4" th:text="#{cart.Title}">Titel</th>
+										<th class="large-4 medium-4 small-4" th:text="#{cart.title}">Titel</th>
 										<th class="large-2 medium-2 small-2" th:text="#{cart.count}">Anzahl</th>
 										<th class="large-2 medium-2 small-2" th:text="#{cart.price}">Preis</th>
 										<th class="large-2 medium-2 small-2">Links</th>
@@ -66,7 +66,7 @@
 							</div>
 							
 							<div class="salespoint" >
-							<form method="post" action="clear">
+								<form method="post" action="clear">	
 									<input class="button secondary" type="submit" th:value="#{cart.clear}" value="Löschen" />
 								</form>
 							</div>
