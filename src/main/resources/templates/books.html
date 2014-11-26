@@ -59,8 +59,11 @@
 							    <p>666-6666666666</p>
 						    </div>
 						    <div class="large-2 columns">
-							    <a class="button">Buy Now</a>
-							    <a class="button">Add to Wishlist</a>
+									<form action="/cart" method="POST">
+										<input type="hidden" name="article" value="0" th:value="${book.identifier}"/>
+										<input id="number" type="number" name="number" step="1" value="1"/>
+										<input class="button" type="submit" value="Zum Warenkorb hinzufügen"/>
+									</form>
 						    </div>
 						  </div>
 		        </div>
