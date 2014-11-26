@@ -32,42 +32,38 @@
 		        </div>
 		      </header>
 	        <div class="large-12">&nbsp;</div>
-	        <div class="large-12 medium-12 small-12 columns">
-	          <div class="large-12">
-						  <div class="panel">
-						    <div class="large-2 columns">
-						      Cover
-						    </div>
-						    <div class="large-8 columns">
-						      Buchinfos
-						    </div>
-						    <div class="large-2 columns">
-						      Schnelllinks
-						    </div>
-						  </div>
-						  <div th:each="book : ${catalog}" class="large-12">
-						  	<div class="large-2 columns">
-							    <a class="th" href="http://foundation.zurb.com/docs/assets/img/examples/earth.jpg">
-							      <img src="http://foundation.zurb.com/docs/assets/img/examples/earth-th-sm.jpg" />
-							    </a>
-						    </div>
-						    <div class="large-7 columns">
-							    <a title="BOfH" th:href="@{'/detail/' + ${book.identifier}}" href="detail.html">
-							      <h2>Bastard Operator from Hell</h2>
-							    </a>
-							    <p>Simon Travaglia</p>
-							    <p>666-6666666666</p>
-						    </div>
-						    <div class="large-2 columns">
-									<form action="/cart" method="POST">
-										<input type="hidden" name="article" value="0" th:value="${book.identifier}"/>
-										<input id="number" type="number" name="number" step="1" value="1"/>
-										<input class="button" type="submit" value="Zum Warenkorb hinzufügen"/>
-									</form>
-						    </div>
-						  </div>
-		        </div>
-		    	</div>
+          <div class="panel row full-width">
+				    <div class="large-2 columns">
+				      Cover
+				    </div>
+				    <div class="large-8 columns">
+				      Buchinfos
+				    </div>
+				    <div class="large-2 columns">
+				      Schnelllinks
+				    </div>
+					</div>
+				  <div th:each="book : ${catalog}" class="row full-width">
+				  	<div class="large-2 columns">
+					    <a class="th" href="http://foundation.zurb.com/docs/assets/img/examples/earth.jpg">
+					      <img src="http://foundation.zurb.com/docs/assets/img/examples/earth-th-sm.jpg" />
+					    </a>
+				    </div>
+				    <div class="large-8 columns">
+					    <h2>
+					    	<a th:text="${book.name}" th:href="@{'/detail/' + ${book.identifier}}" href="detail.html">Bastard Operator from Hell</a>
+					    </h2>
+					    <p th:text="${book.title}">Simon Travaglia</p>
+					    <p>666-6666666666</p>
+				    </div>
+				    <div class="large-2 columns">
+							<form action="/cart" method="POST">
+								<input type="hidden" name="article" value="0" th:value="${book.identifier}"/>
+								<input id="number" type="number" name="number" step="1" value="1"/>
+								<input class="button" type="submit" value="Zum Warenkorb hinzufügen"/>
+							</form>
+				    </div>
+				  </div>
 		    </div>
 			</div>
 		</div>
