@@ -66,7 +66,7 @@ public class CartController {
 	}
 	*/
 	
-	@RequestMapping(value="/checkout", method = RequestMethod.POST)
+	@RequestMapping(value="/cart/checkout", method = RequestMethod.POST)
 	public String buy(HttpSession session){
 		
 		return "redirect:cart";
@@ -93,22 +93,22 @@ public class CartController {
 	}
 	
 	
-	@RequestMapping(value = "/clear", method = RequestMethod.POST)
+	@RequestMapping(value = "/cart/clear", method = RequestMethod.POST)
 	public String clear (HttpSession session){
 		
 		Cart cart = getCart(session);
 		cart.clear();	
-		return "redirect:cart";
+		return "cart";
 	}
 	
-	@RequestMapping(value = "/price", method = RequestMethod.GET)
+	@RequestMapping(value = "/cart/price", method = RequestMethod.GET)
 	public String getPrice(HttpSession session){
 		Cart cart = getCart(session);
 		cart.getTotalPrice();
 		return "cart";
 	}
 	
-	@RequestMapping(value="/delete", method = RequestMethod.POST)
+	@RequestMapping(value="/cart/delete", method = RequestMethod.POST)
 	public String delete(HttpSession session){
 		return "cart";
 	}
