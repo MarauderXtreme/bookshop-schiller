@@ -88,8 +88,11 @@ public class UserController {
 			return "register";
 		}
 
-		UserAccount userAccount = userAccountManager.create(registrationForm.getName(), registrationForm.getPassword(),
+		UserAccount userAccount = userAccountManager.create(registrationForm.getUsername(), registrationForm.getPassword(),
 				new Role("ROLE_CUSTOMER"));
+		userAccount.setFirstname(registrationForm.getFirstname());
+		userAccount.setLastname(registrationForm.getLastname());
+		userAccount.setEmail(registrationForm.getEmail());
 		userAccountManager.save(userAccount);
 
 		User user = new User(userAccount, registrationForm.getAddress());
