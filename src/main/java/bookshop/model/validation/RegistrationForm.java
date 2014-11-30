@@ -18,9 +18,18 @@ public class RegistrationForm {
 	
 	@NotEmpty(message = "{RegistrationForm.password.NotEmpty}")
 	private String password;
-
-	@NotEmpty(message = "{RegistrationForm.address.NotEmpty}")
-	private String address;
+	
+	@NotEmpty(message = "{RegistrationForm.street.NotEmpty}")
+	private String street;
+	
+	@NotEmpty(message = "{RegistrationForm.streetnumber.NotEmpty}")
+	private String streetnumber;
+	
+	@NotEmpty(message = "{RegistrationForm.plz.NotEmpty}")
+	private String plz;
+	
+	@NotEmpty(message = "{RegistrationForm.town.NotEmpty}")
+	private String town;
 	
 	public String getUsername() {
 		return username;
@@ -63,11 +72,38 @@ public class RegistrationForm {
 	}
 	
 	public String getAddress() {
-		return address;
+		return street + " " + streetnumber + ", " + plz + " " + town;
 	}
 	
-	public void setAddress(String address) {
-		this.address = address;
+	public String getStreet() {
+		return street;
 	}
 	
+	public void setStreet(String street) {
+		this.street = street;
+	}
+	
+	public String getStreetnumber() {
+		return streetnumber;
+	}
+	
+	public void setStreetnumber(String streetnumber) {
+		this.streetnumber = streetnumber;
+	}
+	
+	public String getPlz() {
+		return plz;
+	}
+	
+	public void setPlz(String plz) {
+		this.plz = plz;
+	}
+	
+	public String getTown() {
+		return town;
+	}
+	
+	public void setTown(String town) {
+		this.town = town;
+	}
 }
