@@ -20,7 +20,7 @@ import org.springframework.util.Assert;
 import bookshop.model.Article;
 import bookshop.model.ArticleManagement;
 import bookshop.model.Article.ArticleId;
-//import bookshop.model.Book;
+import bookshop.model.Book;
 import bookshop.model.User;
 import bookshop.model.UserRepository;
 
@@ -93,42 +93,70 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		}
 
 		UserAccount adminAccount = userAccountManager.create("admin", "123", new Role("ROLE_ADMIN"));
+		adminAccount.setFirstname("Christoph");
+		adminAccount.setLastname("Kepler");
+		adminAccount.setEmail("chris.kepler@schiller.de");
 		userAccountManager.save(adminAccount);
-		userRepository.save(new User(adminAccount, "AdminAdresse"));
+		userRepository.save(new User(adminAccount, "Mommsenstraße 13, 01187 Dresden"));
 		
 		UserAccount bossAccount = userAccountManager.create("boss", "123", new Role("ROLE_BOSS"));
+		bossAccount.setFirstname("Philipp");
+		bossAccount.setLastname("Waack");
+		bossAccount.setEmail("philipp.waack@schiller.de");
 		userAccountManager.save(bossAccount);
-		userRepository.save(new User(bossAccount, "BossAdresse"));
+		userRepository.save(new User(bossAccount, "Bergstraße 64, 01187 Dresden"));
+		
+		final Role employeeRole = new Role("ROLE_EMPLOYEE");
+		
+		UserAccount ua1 = userAccountManager.create("assi", "123", employeeRole);
+		ua1.setFirstname("Philipp");
+		ua1.setLastname("Jäschke");
+		ua1.setEmail("philipp.jaeschke@schiller.de");
+		userAccountManager.save(ua1);
+		User e1 = new User(ua1, "Zellescher Weg 18, 01187 Dresden");
+		
+		UserAccount ua2 = userAccountManager.create("tester", "123", employeeRole);
+		ua2.setFirstname("Maximilian");
+		ua2.setLastname("Dühr");
+		ua2.setEmail("max.duehr@schiller.de");
+		userAccountManager.save(ua2);
+		User e2 = new User(ua2, "Nöthnitzer Straße 46, 01187 Dresden");
+		
+		UserAccount ua3 = userAccountManager.create("sekki", "123", employeeRole);
+		ua3.setFirstname("Till");
+		ua3.setLastname("Koehler");
+		ua3.setEmail("till.koehler@schiller.de");
+		userAccountManager.save(ua3);
+		User e3 = new User(ua3, "Zellescher Weg 12, 01187 Dresden");
+		
+		userRepository.save(Arrays.asList(e1, e2, e3));
 		
 		final Role customerRole = new Role("ROLE_CUSTOMER");
-		final Role employeeRole = new Role("ROLE_EMPLOYEE");
-		// to do: add other manager roles
 		
-		UserAccount ua1 = userAccountManager.create("hans", "123", customerRole);
-		userAccountManager.save(ua1);
-		UserAccount ua2 = userAccountManager.create("dextermorgan", "123", customerRole);
-		userAccountManager.save(ua2);
-		UserAccount ua3 = userAccountManager.create("earlhickey", "123", customerRole);
-		userAccountManager.save(ua3);
-		UserAccount ua4 = userAccountManager.create("mclovinfogell", "123", customerRole);
+		UserAccount ua4 = userAccountManager.create("wurst", "123", customerRole);
+		ua4.setFirstname("Hans");
+		ua4.setLastname("Wurst");
+		ua4.setEmail("hans.wurst@web.de");
 		userAccountManager.save(ua4);
+		User c1 = new User(ua4, "Wurstweg 3b, 10405 Berlin");
 		
-		UserAccount ua5 = userAccountManager.create("santamaria", "123", employeeRole);
+		UserAccount ua5 = userAccountManager.create("dextermorgan", "123", customerRole);
+		ua5.setFirstname("Rainer");
+		ua5.setLastname("Zufall");
+		ua5.setEmail("rainer.zufall@gmail.com");
 		userAccountManager.save(ua5);
-		UserAccount ua6 = userAccountManager.create("klaus", "123", employeeRole);
+		User c2 = new User(ua5, "Würfelallee 6, 80995 München");
+		
+		UserAccount ua6 = userAccountManager.create("earlhickey", "123", customerRole);
+		ua6.setFirstname("Mario");
+		ua6.setLastname("Nette");
+		ua6.setEmail("mario.nette@t-mobile.de");
 		userAccountManager.save(ua6);
-		UserAccount ua7 = userAccountManager.create("santa-claus", "123", employeeRole);
-		userAccountManager.save(ua7);
-
-		User c1 = new User(ua1, "wurst");
-		User c2 = new User(ua2, "Miami-Dade County");
-		User c3 = new User(ua3, "Camden County - Motel");
-		User c4 = new User(ua4, "Los Angeles");
-		User e1 = new User(ua5, "Wilder Westen");
-		User e2 = new User(ua6, "Zuhaus");
-		User e3 = new User(ua7, "Nordpol");
-
-		userRepository.save(Arrays.asList(c1, c2, c3, c4, e1, e2, e3));
+		User c3 = new User(ua6, "Am Theater 92, 50668 Köln");
+		
+		userRepository.save(Arrays.asList(c1, c2, c3));
+		
+		// to do: add other manager roles
 		
 	}
 }
