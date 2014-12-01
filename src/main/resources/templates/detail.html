@@ -27,7 +27,7 @@
 			<div class="detailDescription">
 				<h2 th:text="${book.name}">Last Action Hero</h2>
 				<p>Preis:</p><p th:text="${book.price}">9.99€</p><br />
-				<p>Vorrat:</p><p th:text="${quantity}">10 Stück</p><br/>
+				<!--<p>Vorrat:</p><p th:text="${quantity}">10 Stück</p><br/>-->
 				<form action="/cart" method="POST">
 					<input type="hidden" name="article" value="0" th:value="${book.identifier}"/>
 					<input id="number" type="number" name="number" step="1" value="1"/>
