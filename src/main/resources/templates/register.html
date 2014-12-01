@@ -62,9 +62,9 @@
 										<label th:text="#{register.plz}" for="plz">PLZ</label>
 										<input id="plz" th:field="*{plz}" th:errorclass="fieldError" type="text" name="plz" />
 										<p style="color:#FF0000" th:if="${#fields.hasErrors('plz')}" th:errors="*{plz}">Die PLZ darf nicht leer sein.</p>
-										<label th:text="#{register.town}" for="town">Ort</label>
-										<input id="town" th:field="*{town}" th:errorclass="fieldError" type="text" name="town" />
-										<p style="color:#FF0000" th:if="${#fields.hasErrors('town')}" th:errors="*{town}">Der Ort darf nicht leer sein.</p>
+										<label th:text="#{register.city}" for="city">Ort</label>
+										<input id="town" th:field="*{city}" th:errorclass="fieldError" type="text" name="city" />
+										<p style="color:#FF0000" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">Der Ort darf nicht leer sein.</p>
 										<label th:text="#{register.username}" for="username">Nutzername</label>
 										<input id="username" th:field="*{username}" th:errorclass="fieldError" type="text" name="username" />
 										<p style="color:#FF0000" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Der Nutzername darf nicht leer sein.</p>

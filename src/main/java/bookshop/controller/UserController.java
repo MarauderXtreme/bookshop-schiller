@@ -26,6 +26,11 @@ public class UserController {
 	private final UserRepository userRepository;
 	private final UserAccountManager userAccountManager;
 	
+	/**
+	 * Constructor for the UserController.
+	 * @param userRepository
+	 * @param userAccountManager
+	 */
 	@Autowired
 	public UserController(UserRepository userRepository, UserAccountManager userAccountManager) {
 
@@ -33,15 +38,11 @@ public class UserController {
 		this.userAccountManager = userAccountManager;
 	}
 	
-	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
-	@RequestMapping("/admin/users")
-	public String users(ModelMap modelMap) {
-
-		modelMap.addAttribute("userList", userRepository.findAll());
-
-		return "users";
-	}
-	
+	/**
+	 * Maps a list of all customers to modelMap.
+	 * @param modelMap
+	 * @return
+	 */
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/customers")	
 	public String customers(ModelMap modelMap) {
@@ -61,6 +62,11 @@ public class UserController {
 		return "customers";	
 	}
 	
+	/**
+	 * Maps a list of all employees to modelMap.
+	 * @param modelMap
+	 * @return
+	 */
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/employees")
 	public String employees(ModelMap modelMap) {
@@ -80,6 +86,12 @@ public class UserController {
 		return "employees";	
 	}
 	
+	/**
+	 * Reads data from the registrationForm and registers a new customer.
+	 * @param registrationForm
+	 * @param result
+	 * @return
+	 */
 	@RequestMapping("/user/register/new")
 	public String registerNew(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
 			BindingResult result) {
@@ -101,12 +113,19 @@ public class UserController {
 		return "redirect:/";
 	}
 
+	/**
+	 * Maps the registration form to modelMap.
+	 * @param modelMap
+	 */
 	@RequestMapping("/user/register")
 	public String register(ModelMap modelMap) {
 		modelMap.addAttribute("registrationForm", new RegistrationForm());
 		return "register";
 	}
 	
+	/**
+	 * Maps the index page.
+	 */
 	@RequestMapping({ "/", "/index" })
 	public String index() {
 		return "index";

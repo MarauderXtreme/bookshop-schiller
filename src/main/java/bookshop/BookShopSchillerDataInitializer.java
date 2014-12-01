@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
+import bookshop.model.Address;
 import bookshop.model.Article;
 import bookshop.model.ArticleManagement;
 import bookshop.model.Article.ArticleId;
@@ -26,12 +27,19 @@ import bookshop.model.UserRepository;
 
 @Component
 public class BookShopSchillerDataInitializer implements DataInitializer {
-
+	
 	private final ArticleManagement articleCatalog;
 	private final Inventory<InventoryItem> inventory;
 	private final UserAccountManager userAccountManager;
 	private final UserRepository userRepository;
 
+	/**
+	 * Constructor for BookShopDataInitializer.
+	 * @param userRepository
+	 * @param inventory
+	 * @param userAccountManager
+	 * @param articleCatalog
+	 */
 	@Autowired
 	public BookShopSchillerDataInitializer(UserRepository userRepository, Inventory<InventoryItem> inventory,
 			UserAccountManager userAccountManager, ArticleManagement articleCatalog) {
@@ -47,6 +55,9 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		this.articleCatalog = articleCatalog;
 	}
 
+	/**
+	 * Initialize all users and articles.
+	 */
 	@Override
 	public void initialize() {
 
@@ -86,6 +97,12 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		
 	}
 
+	/**
+	 * Create one administrator, one boss, some customers and some employees with the userAccountAccountManager.
+	 * Add them to the userRepository.
+	 * @param userAccountManager
+	 * @param userRepository
+	 */
 	private void initializeUsers(UserAccountManager userAccountManager, UserRepository userRepository) {
 
 		if (userAccountManager.get(new UserAccountIdentifier("boss")).isPresent()) {
@@ -97,14 +114,14 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		adminAccount.setLastname("Kepler");
 		adminAccount.setEmail("chris.kepler@schiller.de");
 		userAccountManager.save(adminAccount);
-		userRepository.save(new User(adminAccount, "Mommsenstraße 13, 01187 Dresden"));
+		userRepository.save(new User(adminAccount, new Address("Mommsenstraße", "13", "01187", "Dresden")));
 		
 		UserAccount bossAccount = userAccountManager.create("boss", "123", new Role("ROLE_BOSS"));
 		bossAccount.setFirstname("Philipp");
 		bossAccount.setLastname("Waack");
 		bossAccount.setEmail("philipp.waack@schiller.de");
 		userAccountManager.save(bossAccount);
-		userRepository.save(new User(bossAccount, "Bergstraße 64, 01187 Dresden"));
+		userRepository.save(new User(bossAccount, new Address("Bergstraße", "64", "01187", "Dresden")));
 		
 		final Role employeeRole = new Role("ROLE_EMPLOYEE");
 		
@@ -113,21 +130,21 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		ua1.setLastname("Jäschke");
 		ua1.setEmail("philipp.jaeschke@schiller.de");
 		userAccountManager.save(ua1);
-		User e1 = new User(ua1, "Zellescher Weg 18, 01187 Dresden");
+		User e1 = new User(ua1, new Address("Zellescher Weg", "18", "01187", "Dresden"));
 		
 		UserAccount ua2 = userAccountManager.create("tester", "123", employeeRole);
 		ua2.setFirstname("Maximilian");
 		ua2.setLastname("Dühr");
 		ua2.setEmail("max.duehr@schiller.de");
 		userAccountManager.save(ua2);
-		User e2 = new User(ua2, "Nöthnitzer Straße 46, 01187 Dresden");
+		User e2 = new User(ua2, new Address("Nöthnitzer Straße", "46", "01187", "Dresden"));
 		
 		UserAccount ua3 = userAccountManager.create("sekki", "123", employeeRole);
 		ua3.setFirstname("Till");
 		ua3.setLastname("Koehler");
 		ua3.setEmail("till.koehler@schiller.de");
 		userAccountManager.save(ua3);
-		User e3 = new User(ua3, "Zellescher Weg 12, 01187 Dresden");
+		User e3 = new User(ua3, new Address("Zellescher Weg", "12", "01187", "Dresden"));
 		
 		userRepository.save(Arrays.asList(e1, e2, e3));
 		
@@ -138,21 +155,21 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		ua4.setLastname("Wurst");
 		ua4.setEmail("hans.wurst@web.de");
 		userAccountManager.save(ua4);
-		User c1 = new User(ua4, "Wurstweg 3b, 10405 Berlin");
+		User c1 = new User(ua4, new Address("Wurstweg", "3b", "10405", "Berlin"));
 		
 		UserAccount ua5 = userAccountManager.create("dextermorgan", "123", customerRole);
 		ua5.setFirstname("Rainer");
 		ua5.setLastname("Zufall");
 		ua5.setEmail("rainer.zufall@gmail.com");
 		userAccountManager.save(ua5);
-		User c2 = new User(ua5, "Würfelallee 6, 80995 München");
+		User c2 = new User(ua5, new Address("Würfelallee", "6", "80995", "München"));
 		
 		UserAccount ua6 = userAccountManager.create("earlhickey", "123", customerRole);
 		ua6.setFirstname("Mario");
 		ua6.setLastname("Nette");
 		ua6.setEmail("mario.nette@t-mobile.de");
 		userAccountManager.save(ua6);
-		User c3 = new User(ua6, "Am Theater 92, 50668 Köln");
+		User c3 = new User(ua6, new Address("Am Theater", "92", "50668", "Köln"));
 		
 		userRepository.save(Arrays.asList(c1, c2, c3));
 		
