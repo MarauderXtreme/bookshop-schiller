@@ -58,7 +58,7 @@
 									</tr>				
 								</tbody>
 							</table>
-							<p th:text="#{cart.total} + ': ' + ${cart.totalPrice}">Summe: 100 Euro</p>
+							<p th:text="#{cart.total}">Summe: 100 Euro</p>
 							<div class="salespoint" sec:authorize="hasRole('ROLE_CUSTOMER')">
 								<form method="post" action="/cart/checkout">
 									<input type="submit" th:value="#{cart.buy}" value="Kaufen" />
