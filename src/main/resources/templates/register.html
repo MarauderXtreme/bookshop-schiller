@@ -33,15 +33,34 @@
 		      </header>
 	        <div class="large-12">&nbsp;</div>
 	        <div class="large-12 medium-12 small-12 columns">
-	          <h2>Registriere dich:</h2>
+	          <h3>Registrieren Sie sich ...</h3>
+	          <p>... und profitieren Sie von den einzigartigen Angeboten der Buchhandlung Schiller. Sie sind nur noch einen Mausklick entfernt!</p>
 	          <div class="row">
 	          	<div class="large-6 medium-6 small-6 large-offset-3">
 	          		<form method="post" action="/user/register/new" th:object="${registrationForm}">
 									<fieldset>
-										<legend th:text="#{register.title}">Benutzerkonto</legend>
+										<legend th:text="#{register.title1}">Benutzerdaten</legend>
 										
 										<div th:if="${#fields.hasErrors('*')}">
-											<p style="color:#FF0000"><b>Einige Angaben sind nicht korrekt.</b></p>
+											<p style="color:#FF0000"><b>Einige Angaben sind nicht korrekt. Bitte versuchen Sie es erneut!</b></p>
+										</div>
+										
+										<label th:text="#{register.username}" for="username">Nutzername</label>
+										<input id="username" th:field="*{username}" th:errorclass="fieldError" type="text" name="username" />
+										<p style="color:#FF0000" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Der Nutzername darf nicht leer sein.</p>
+										<label th:text="#{register.email}" for="email">E-Mail</label>
+										<input id="email" th:field="*{email}" th:errorclass="fieldError" type="text" name="email" />
+										<p style="color:#FF0000" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Die E-Mail-Adresse darf nicht leer sein.</p>
+										<label th:text="#{register.password}" for="password">Passwort</label>
+										<input id="password" th:field="*{password}" th:errorclass="fieldError" type="text" name="password" />
+										<p style="color:#FF0000" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Das Passwort darf nicht leer sein.</p>
+									</fieldset>
+									<p></p>
+									<fieldset>
+										<legend th:text="#{register.title2}">Persönliche Daten</legend>
+										
+										<div th:if="${#fields.hasErrors('*')}">
+											<p style="color:#FF0000"><b>Einige Angaben sind nicht korrekt. Bitte versuchen Sie es erneut!</b></p>
 										</div>
 										
 										<label th:text="#{register.firstname}" for="firstname">Vorname</label>
@@ -50,9 +69,6 @@
 										<label th:text="#{register.lastname}" for="lastname">Nachname</label>
 										<input id="lastname" th:field="*{lastname}" th:errorclass="fieldError" type="text" name="lastname" />
 										<p style="color:#FF0000" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">Der Nachname darf nicht leer sein.</p>
-										<label th:text="#{register.email}" for="email">E-Mail</label>
-										<input id="email" th:field="*{email}" th:errorclass="fieldError" type="text" name="email" />
-										<p style="color:#FF0000" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Die E-Mail-Adresse darf nicht leer sein.</p>
 										<label th:text="#{register.street}" for="street">Straße</label>
 										<input id="street" th:field="*{street}" th:errorclass="fieldError" type="text" name="street" />
 										<p style="color:#FF0000" th:if="${#fields.hasErrors('street')}" th:errors="*{street}">Die Straße darf nicht leer sein.</p>
@@ -65,14 +81,9 @@
 										<label th:text="#{register.city}" for="city">Ort</label>
 										<input id="town" th:field="*{city}" th:errorclass="fieldError" type="text" name="city" />
 										<p style="color:#FF0000" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">Der Ort darf nicht leer sein.</p>
-										<label th:text="#{register.username}" for="username">Nutzername</label>
-										<input id="username" th:field="*{username}" th:errorclass="fieldError" type="text" name="username" />
-										<p style="color:#FF0000" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Der Nutzername darf nicht leer sein.</p>
-										<label th:text="#{register.password}" for="password">Passwort</label>
-										<input id="password" th:field="*{password}" th:errorclass="fieldError" type="text" name="password" />
-										<p style="color:#FF0000" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Das Passwort darf nicht leer sein.</p>
-										<input class="button round" type="submit" th:value="#{register.submit}" value="Registrieren" />
 									</fieldset>
+									<p></p>
+									<input class="button round" type="submit" th:value="#{register.submit}" value="Registrieren" />
 								</form>
 	          	</div>
 	          </div>
