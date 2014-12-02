@@ -118,6 +118,7 @@ public class UserController {
 	 * Maps the registration form for employees to modelMap.
 	 * @param modelMap
 	 */
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/register")
 	public String registerEmployee(ModelMap modelMap) {
 		modelMap.addAttribute("registrationForm", new RegistrationForm());
