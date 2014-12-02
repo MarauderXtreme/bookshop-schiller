@@ -141,7 +141,7 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		
 		UserAccount ua3 = userAccountManager.create("sekki", "123", employeeRole);
 		ua3.setFirstname("Till");
-		ua3.setLastname("Koehler");
+		ua3.setLastname("Köhler");
 		ua3.setEmail("till.koehler@schiller.de");
 		userAccountManager.save(ua3);
 		User e3 = new User(ua3, new Address("Zellescher Weg", "12", "01187", "Dresden"));

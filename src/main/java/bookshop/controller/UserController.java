@@ -87,13 +87,51 @@ public class UserController {
 	}
 	
 	/**
+	 * Reads data from the registrationForm and registers a new employee.
+	 * @param registrationForm
+	 * @param result
+	 * @return
+	 */
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping("/admin/register/new")
+	public String registerNewEmployee(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
+			BindingResult result) {
+
+		if (result.hasErrors()) {
+			return "register";
+		}
+
+		UserAccount userAccount = userAccountManager.create(registrationForm.getUsername(), registrationForm.getPassword(),
+				new Role("ROLE_EMPLOYEE"));
+		userAccount.setFirstname(registrationForm.getFirstname());
+		userAccount.setLastname(registrationForm.getLastname());
+		userAccount.setEmail(registrationForm.getEmail());
+		userAccountManager.save(userAccount);
+
+		User user = new User(userAccount, registrationForm.getAddress());
+		userRepository.save(user);
+
+		return "redirect:/";
+	}
+	
+	/**
+	 * Maps the registration form for employees to modelMap.
+	 * @param modelMap
+	 */
+	@RequestMapping("/admin/register")
+	public String registerEmployee(ModelMap modelMap) {
+		modelMap.addAttribute("registrationForm", new RegistrationForm());
+		return "registerEmployee";
+	}
+	
+	/**
 	 * Reads data from the registrationForm and registers a new customer.
 	 * @param registrationForm
 	 * @param result
 	 * @return
 	 */
 	@RequestMapping("/user/register/new")
-	public String registerNew(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
+	public String registerNewCustomer(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
 			BindingResult result) {
 
 		if (result.hasErrors()) {
@@ -114,7 +152,7 @@ public class UserController {
 	}
 
 	/**
-	 * Maps the registration form to modelMap.
+	 * Maps the registration form for customers to modelMap.
 	 * @param modelMap
 	 */
 	@RequestMapping("/user/register")
