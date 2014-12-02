@@ -81,10 +81,8 @@ public class CartController {
 		}
 		
 		Quantity quantity = Units.of(number);
-		OrderLine orderLine = new OrderLine(article, quantity);
 		Cart cart = getCart(session);
-		cart.add(orderLine);
-		
+		cart.addOrUpdateItem(article, quantity);	
 		return "cart";
 	}
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
@@ -100,13 +98,13 @@ public class CartController {
 		cart.clear();	
 		return "cart";
 	}
-	
+	/*
 	@RequestMapping(value = "/cart/price", method = RequestMethod.GET)
 	public String getPrice(HttpSession session){
 		Cart cart = getCart(session);
-		cart.getTotalPrice();
+		//cart.getTotalPrice();
 		return "cart";
-	}
+	}*/
 	
 	@RequestMapping(value="/cart/delete", method = RequestMethod.POST)
 	public String delete(HttpSession session){

@@ -33,15 +33,15 @@
 		      </header>
 	        <div class="large-12">&nbsp;</div>
 	        <div class="large-12 medium-12 small-12 columns">
-	          <h2>Login</h2>
+	          <h3>Login</h3>
 	          <div class="row">
 	          	<div class="large-4 medium-4 small-4 large-offset-4">
 		          	<p th:if="${loginError}">Wrong user or password</p>
 		        		<form th:action="@{/user/login}" method="post">
 			            <label for="username">Nutzername:</label>
-			            <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
+			            <input type="text" id="username" name="username" autofocus="autofocus" />
 			            <label for="password">Passwort:</label>
-			            <input type="password" id="password" name="password" /> <br />
+			            <input type="password" id="password" name="password" />
 			            <input class="button round" type="submit" value="Log in" />
 			        	</form>
 			        </div>
