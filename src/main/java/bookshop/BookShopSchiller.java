@@ -20,10 +20,6 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 @ComponentScan
 public class BookShopSchiller {
 
-	/**
-	 * Run the BookShopSchiller.
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		SpringApplication.run(BookShopSchiller.class, args);
 	}

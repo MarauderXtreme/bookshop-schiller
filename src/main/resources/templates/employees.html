@@ -33,30 +33,21 @@
 		      </header>
 	        <div class="large-12">&nbsp;</div>
 	        <div class="large-12 medium-12 small-12 columns">
-	          <h3>Angestelltenübersicht</h3>
+	          <h2>Willkommen auf der Website der Buchhandlung Schiller!</h2>
 	          <table class="large-12 medium-12 small-12">
 							<thead>
 								<tr>
-									<th th:text="#{employees.username}">Nutzername</th>
-									<th th:text="#{employees.firstname}">Vorname</th>
-									<th th:text="#{employees.lastname}">Nachname</th>
+									<th th:text="#{employees.name}">Name</th>
 									<th th:text="#{employees.address}">Anschrift</th>
-									<th th:text="#{employees.role}">Rolle</th>
 								</tr>
 							</thead>
 							<tbody th:remove="all-but-first">
-								<tr th:each=" employees : ${employeeList}">
-									<td th:text="${employees.userAccount.identifier}">PowerPaul</td>
-									<td th:text="${employees.userAccount.firstname}">Power</td>
-									<td th:text="${employees.userAccount.lastname}">Paul</td>
-									<td th:text="${employees.address}">Standardadresse</td>
-									<td th:text="${employees.userAccount.roles}">Standardrolle</td>
-								</tr>										
+									<tr th:each=" employee : ${employeeList}">
+										<td th:text="${employee.userAccount.identifier}">Power Paul</td>
+										<td th:text="${employee.address}">Wasaplatz 10</td>
+									</tr>											
 							</tbody>
 						</table>
-						<form action="/admin/register" method="POST">
-							<input class="button round" type="submit" th:value="#{register.employee}" value="Registrieren" />
-						</form>
 	        </div>
 	    	</div>
 	    </div>

@@ -3,7 +3,6 @@ package bookshop.model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import org.salespointframework.useraccount.UserAccount;
@@ -15,7 +14,7 @@ public class User {
 	@GeneratedValue
 	private long id;
 	
-	private String address; // eigentlich: Address address
+	private String address;
 	
 	@OneToOne
 	private UserAccount userAccount;
@@ -24,41 +23,23 @@ public class User {
 	protected User() {
 	}
 	
-	/**
-	 * Constructor of User.
-	 * @param userAccount
-	 * @param address
-	 */
-	public User(UserAccount userAccount, Address address) {
+	public User(UserAccount userAccount, String address) {
 		this.userAccount = userAccount;
-		this.address = address.toString(); // this.address = address
+		this.address = address;
 	}
 	
-	/**
-	 * @return the address of the user
-	 */
 	public String getAddress() {
-		return address.toString();
+		return address;
 	}
 
-	/**
-	 * Sets the address of the User.
-	 * @param address
-	 */
-	public void setAddress(String address) { // eigentlich: Address address
-		this.address = address.toString(); // this.address = address
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
-	/**
-	 * @return the user account of the user
-	 */
 	public UserAccount getUserAccount() {
 		return userAccount;
 	}
 	
-	/**
-	 * @return the ID of the user
-	 */
 	public long getID() {
 		return id;
 	}
