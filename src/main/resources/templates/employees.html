@@ -54,9 +54,11 @@
 								</tr>										
 							</tbody>
 						</table>
-						<form action="/admin/register" method="POST">
-							<input class="button round" type="submit" th:value="#{register.employee}" value="Registrieren" />
-						</form>
+						<div class="salespoint" sec:authorize="hasRole('ROLE_ADMIN')">
+							<form action="/admin/register" method="POST">
+								<input class="button round" type="submit" th:value="#{register.employee}" value="Registrieren" />
+							</form>
+						</div>
 	        </div>
 	    	</div>
 	    </div>
