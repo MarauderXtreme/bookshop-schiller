@@ -6,7 +6,7 @@ public class DVD extends Article{
 	
 	private String regisseur;
 
-	public DVD(String beschreibung, String title, int id, ArticleId type, Money price, String name) {
+	public DVD(String beschreibung, String title, String id, ArticleId type, Money price, String name) {
 		super(beschreibung, price, title, name, id, type);
 	}
 	

@@ -34,7 +34,7 @@ public class UserController {
 	}
 	
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
-	@RequestMapping("/users")
+	@RequestMapping("/admin/users")
 	public String users(ModelMap modelMap) {
 
 		modelMap.addAttribute("userList", userRepository.findAll());
@@ -43,7 +43,7 @@ public class UserController {
 	}
 	
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
-	@RequestMapping("/customers")	
+	@RequestMapping("/admin/customers")	
 	public String customers(ModelMap modelMap) {
 		
 		Iterable<User> users = userRepository.findAll();
@@ -62,7 +62,7 @@ public class UserController {
 	}
 	
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
-	@RequestMapping("/employees")
+	@RequestMapping("/admin/employees")
 	public String employees(ModelMap modelMap) {
 		
 		Iterable<User> users = userRepository.findAll();
@@ -70,7 +70,7 @@ public class UserController {
 		for(User u : users) {
 			Iterable<Role> roles = u.getUserAccount().getRoles();
 			for(Role r: roles) {
-				if (r.getName().equals("ROLE_EMPLOYEE")) {
+				if (r.getName().equals("ROLE_EMPLOYEE") || r.getName().equals("ROLE_BOSS") || r.getName().equals("ROLE_ADMIN")) {
 					employees.add(u);
 				}
 			}
@@ -80,7 +80,7 @@ public class UserController {
 		return "employees";	
 	}
 	
-	@RequestMapping("/registerNew")
+	@RequestMapping("/user/register/new")
 	public String registerNew(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
 			BindingResult result) {
 
@@ -88,8 +88,11 @@ public class UserController {
 			return "register";
 		}
 
-		UserAccount userAccount = userAccountManager.create(registrationForm.getName(), registrationForm.getPassword(),
+		UserAccount userAccount = userAccountManager.create(registrationForm.getUsername(), registrationForm.getPassword(),
 				new Role("ROLE_CUSTOMER"));
+		userAccount.setFirstname(registrationForm.getFirstname());
+		userAccount.setLastname(registrationForm.getLastname());
+		userAccount.setEmail(registrationForm.getEmail());
 		userAccountManager.save(userAccount);
 
 		User user = new User(userAccount, registrationForm.getAddress());
@@ -98,7 +101,7 @@ public class UserController {
 		return "redirect:/";
 	}
 
-	@RequestMapping("/register")
+	@RequestMapping("/user/register")
 	public String register(ModelMap modelMap) {
 		modelMap.addAttribute("registrationForm", new RegistrationForm());
 		return "register";

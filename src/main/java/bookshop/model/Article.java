@@ -12,8 +12,8 @@ public class Article extends Product{
 		public static enum ArticleId {ALL, BOOK, DVD, CD};
 		
 		private String beschreibung;
-		private String title;
-		private int id;
+		private String publisher;
+		private String id;
 		private ArticleId type;
 		
 		//!!! - Kategorie manuell in der Main neben Artikel definieren 
@@ -24,21 +24,23 @@ public class Article extends Product{
 		protected Article() {}
 		
 		//@SuppressWarnings("deprecation")//was ist das?!
-		public Article(String name, Money price, String beschreibung, String title, int id, ArticleId type){
-			super(name, price, Units.METRIC);
+		public Article(String title, Money price, String beschreibung, String publisher, String id, ArticleId type){
+			super(title, price, Units.METRIC);
 			this.beschreibung = beschreibung;
-			this.title = title;
+			this.publisher = publisher;
 			this.id = id;
 			this.type = type;
 		}
 		
-		public String getTitle(){
-			return title;
-		}
 		
 		public String getBeschreibung(){
 			return beschreibung;
 		}
+		
+		public String getPublisher(){
+			return publisher;
+		}
+		
 		/*
 		public void setCategory(Category category){
 			this.category = category;
@@ -54,7 +56,7 @@ public class Article extends Product{
 			return type;
 		}
 		
-		public int getId(){
+		public String getId(){
 			return id;
 		}
 

@@ -6,7 +6,7 @@ public class Book extends Article{
 		
 		private String author;
 
-		public Book(String author, String beschreibung, String title, int id, ArticleId type, Money price, String name) {
+		public Book(String author, String beschreibung, String title, String id, ArticleId type, Money price, String name) {
 			super(beschreibung, price, title, name, id, type);
 			this.author = author;
 		}

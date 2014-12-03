@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	<head>
+		
 		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
 		<link rel="stylesheet" type="text/css" href="/resources/css/style.css" />
 		<link rel="stylesheet" type="text/css" href="/resources/css/foundation.css" />
-    <link rel="stylesheet" type="text/css" href="/resources/css/normalize.css" />
-    <link rel="stylesheet" type="text/css" href="/resources/css/slick.css" />
-    <!-- <link rel="stylesheet" type="text/css" href="/include/misc/php-calendar/css/style.css" /> -->
-    <link rel="stylesheet" type="text/css" href="/resources/css/style.css" />
+	  <link rel="stylesheet" type="text/css" href="/resources/css/normalize.css" />
+	  <link rel="stylesheet" type="text/css" href="/resources/css/slick.css" />
+	  <!-- <link rel="stylesheet" type="text/css" href="/include/misc/php-calendar/css/style.css" /> -->
+	  <link rel="stylesheet" type="text/css" href="/resources/css/style.css" />
     
-    <script type="text/javascript" src="/ressources/js/vendor/modernizr.js"></script>
-		<title th:text="${book.name}">Last Action Hero</title>
+    <script type="text/javascript" src="/resources/js/vendor/modernizr.js"></script>
+		
+		<title th:text="#{home.title}">Buchhandlung Schiller</title>
+	
 	</head>
+	<!-- head
 <body>
 	<div class="all">
 		<header>
@@ -22,19 +27,113 @@
 		<nav th:include="navigation :: navigation" ></nav>
 		<div class="content">
 			<div class="detailImg">
-				<!--<img th:src="@{'/resources/img/cover/' + ${book.image} + '.jpg'}" src="../resources/img/cover/lac.jpg" alt="" />-->
+				<img th:src="@{'/resources/img/cover/' + ${book.image} + '.jpg'}" src="../resources/img/cover/lac.jpg" alt="" />
 			</div>
 			<div class="detailDescription">
 				<h2 th:text="${book.name}">Last Action Hero</h2>
 				<p>Preis:</p><p th:text="${book.price}">9.99€</p><br />
-				<!--<p>Vorrat:</p><p th:text="${quantity}">10 Stück</p><br/>-->
+				<p>Vorrat:</p><p th:text="${quantity}">10 Stück</p><br/>
 				<form action="/cart" method="POST">
 					<input type="hidden" name="article" value="0" th:value="${book.identifier}"/>
 					<input id="number" type="number" name="number" step="1" value="1"/>
 					<input type="submit" value="Zum Warenkorb hinzufügen"/>
 				</form>
 			</div>
+-->
+	<body>
+		<div class="off-canvas-wrap" data-offcanvas="">
+			<div class="fixed" th:include="topbar :: topbar"></div>
+	    <div class="inner-wrap">
+	    	<aside class="left-off-canvas-menu" aria-hidden="true">
+	    		<nav th:include="navigation :: navigation"></nav>
+	    	</aside>
+	    	<div class="main-content">
+		    	<header class="large-12 medium-12 show-for-landscape show-for-medium-up">
+		        <div class="panel">
+		          <div class="header-slider" th:include="slider :: slider"></div>
+		        </div>
+		      </header>
+	        <div class="large-12">&nbsp;</div>
+	        <div class="large-12 medium-12 small-12 columns">
+	          <div class="large-3 columns">
+  						<img alt="cover" class="cover" /><!-- src="../resources/img/cover/lac.jpg" th:src="@{'/resources/img/cover/' + ${book.image} + '.jpg'}" -->
+						</div>
+						<div class="large-9 medium-9 small-9 columns">
+							<ul class="pricing-table">
+					      <li class="title">
+					        <span th:text="${book.name}">Last Action Hero</span>
+					      </li>
+					      <li class="description"><label>Autor</label><span th:text="${book.name}">Simon Travaglia</span></li>
+					      <li class="bullet-item"><label>Publisher:</label><span th:text="${book.publisher}">Verlag</span></li>
+					      <li class="bullet-item"><label>ISBN-Nr.:</label><span th:text="${book.id}">ISBN</span></li>
+					      <li class="bullet-item"><label>Anzahl:</label><span th:text="${quantity}">Units</span></li>
+					      <li class="price"><label>Preis:</label><span th:text="${book.price}">9.99€</span></li>
+					      <li class="cta-button">
+					      	<form action="/cart" method="POST">
+					      		<div class="row collapse postfix-round">
+											<input type="hidden" name="article" value="0" th:value="${book.identifier}"/>
+											<div class="small-9 columns">
+												<input id="number" type="number" name="number" step="1" value="1" placeholder="Anzahl" />
+											</div>
+											<div class="small-3 columns">
+												<input class="button postfix" type="submit" value="Zum Warenkorb hinzufügen"/>
+											</div>
+										</div>
+									</form>
+					      </li>
+					      <li>
+					      	<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
+									<form method="post" action="/increase">
+										<fieldset>
+											<input type="hidden" name="article" value="0" th:value="${book.identifier}" />
+											<input type="submit" value="Increase Article" />
+										</fieldset>
+									</form>
+									<form method="post" action="/decrease">
+										<fieldset>
+											<input type="hidden" name="article" value="0" th:value="${book.identifier}" />
+											<input type="submit" value="Decrease Article" />
+										</fieldset>
+									</form>
+								</div>
+					      </li>
+					    </ul>
+					  </div>
+						<div class="large-12">
+						  <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+						</div>
+	        </div>
+	    	</div>
+	    </div>
+<!-- branch -->
 		</div>
-	</div>
-</body>
+	  <script type="text/javascript" src="/resources/js/vendor/jquery.js"></script>
+	  <script type="text/javascript" src="/resources/js/vendor/fastclick.js"></script>
+	  <script type="text/javascript" src="/resources/js/foundation.min.js"></script>
+	  <script type="text/javascript" src="/resources/js/vendor/slick.min.js"></script>
+	  <script type="text/javascript">
+	    $(document).foundation(
+	      {
+	        accordion: {
+	          content_class: 'content',
+	          active_class: 'active',
+	          toggleable: true
+	        }
+	      }
+	    );
+	  </script>
+	  <script type="text/javascript">  
+	    $(document).ready(function(){
+	      $('.header-slider').slick({
+	        dots: true,
+	        infinite: true,
+	        lazyLoad: 'ondemand',
+	        slidesToShow: 1,
+	        slidesToScroll: 1,
+	        autoplay: true,
+	        autoplaySpeed: 3000,
+	      });
+	    });
+	  </script>
+	</body>
 </html>
