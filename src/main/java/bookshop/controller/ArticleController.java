@@ -46,6 +46,7 @@ class ArticleController {
 		return "all";
 	}*/
 	
+	//Initilize Catalog
 	@RequestMapping("/books")
 	public String books(ModelMap modelMap, String name) {
 
@@ -55,17 +56,41 @@ class ArticleController {
 		return "books";
 	}
 	
-	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public String add(@RequestParam("titleArticle") String title,
+	@RequestMapping("/cds")
+	public String cds(ModelMap modelMap, String name) {
+
+		modelMap.addAttribute("catalog", articleCatalog.findByType(ArticleId.CD));
+		modelMap.addAttribute("title", messageSourceAccessor.getMessage("catalog.dvd.title"));
+
+		return "cds";
+	}
+	
+	@RequestMapping("/dvds")
+	public String dvds(ModelMap modelMap, String name) {
+
+		modelMap.addAttribute("catalog", articleCatalog.findByType(ArticleId.DVD));
+		modelMap.addAttribute("title", messageSourceAccessor.getMessage("catalog.dvd.title"));
+
+		return "dvds";
+	}
+	
+	//Add Article
+	@RequestMapping(value="/addBook", method=RequestMethod.POST)
+	public String addBook(@RequestParam("titleArticle") String title,
 	@RequestParam("beschreibungArticle") String beschreibung,
 	@RequestParam("priceArticle") double price,
 	@RequestParam("idArticle") String isbn,
-	@RequestParam("publisherArticle") String publisher){
+	@RequestParam("publisherArticle") String publisher,
+	@RequestParam("authorArticle") String author){
 	
 	Article article = new Article(title, Money.of(EUR, price), beschreibung,
 			publisher, isbn, ArticleId.BOOK);
+	
+	article.setAuthor(author);
 		
 	articleCatalog.save(article);
+	
+	System.out.println(article.getAuthor());
 	
 	Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
 	Quantity quantity = item.map(InventoryItem::getQuantity).orElse(Units.TEN);
@@ -73,9 +98,54 @@ class ArticleController {
 	 return "redirect:books";
 
 	}
+
+	@RequestMapping(value="/addCD", method=RequestMethod.POST)
+	public String addCD(@RequestParam("titleArticle") String title,
+	@RequestParam("beschreibungArticle") String beschreibung,
+	@RequestParam("priceArticle") double price,
+	@RequestParam("idArticle") String isbn,
+	@RequestParam("publisherArticle") String publisher,
+	@RequestParam("interpretArticle") String interpret){
 	
-	@RequestMapping(value="/delete", method=RequestMethod.POST)
-	public String delete(@RequestParam("article") Article article){
+	Article article = new Article(title, Money.of(EUR, price), beschreibung,
+			publisher, isbn, ArticleId.CD);
+	
+	article.setInterpret(interpret);
+		
+	articleCatalog.save(article);
+		
+	Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
+	Quantity quantity = item.map(InventoryItem::getQuantity).orElse(Units.TEN);
+
+	 return "redirect:cds";
+
+	}
+	
+	@RequestMapping(value="/addDVD", method=RequestMethod.POST)
+	public String addDVD(@RequestParam("titleArticle") String title,
+	@RequestParam("beschreibungArticle") String beschreibung,
+	@RequestParam("priceArticle") double price,
+	@RequestParam("idArticle") String isbn,
+	@RequestParam("publisherArticle") String publisher,
+	@RequestParam("directorArticle") String director){
+	
+	Article article = new Article(title, Money.of(EUR, price), beschreibung,
+			publisher, isbn, ArticleId.DVD);
+	
+	article.setDirector(director);
+		
+	articleCatalog.save(article);
+		
+	Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
+	Quantity quantity = item.map(InventoryItem::getQuantity).orElse(Units.TEN);
+
+	 return "redirect:dvds";
+
+	}
+	
+	//Delete Article
+	@RequestMapping(value="/deleteBook", method=RequestMethod.POST)
+	public String deleteBook(@RequestParam("article") Article article){
 		//Test: Vor des Entfernens
 		System.out.println(inventory.count());
 
@@ -93,6 +163,45 @@ class ArticleController {
 		return "redirect:books";
 	}
 	
+	@RequestMapping(value="/deleteCD", method=RequestMethod.POST)
+	public String deleteCD(@RequestParam("article") Article article){
+		//Test: Vor des Entfernens
+		System.out.println(inventory.count());
+
+		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
+		inventory.delete(item.get().getIdentifier());
+		
+		//Test: Nach des Entfernens
+		System.out.println(inventory.count());
+		
+		articleCatalog.delete(article.getIdentifier());
+		
+		System.out.println(articleCatalog.count());
+
+		//return "books";
+		return "redirect:cds";
+	}
+	
+	@RequestMapping(value="/deleteDVD", method=RequestMethod.POST)
+	public String deleteDVD(@RequestParam("article") Article article){
+		//Test: Vor des Entfernens
+		System.out.println(inventory.count());
+
+		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
+		inventory.delete(item.get().getIdentifier());
+		
+		//Test: Nach des Entfernens
+		System.out.println(inventory.count());
+		
+		articleCatalog.delete(article.getIdentifier());
+		
+		System.out.println(articleCatalog.count());
+
+		//return "books";
+		return "redirect:dvds";
+	}
+	
+	//Increase the Units of an Article
 	@RequestMapping(value="/increase", method=RequestMethod.POST)
 	public String increaseUnits(@RequestParam("article") Article article, Model model){
 		
@@ -116,6 +225,7 @@ class ArticleController {
 		return "redirect:detail/" + article.getIdentifier();
 	}
 	
+	//Decrease the Units of an Article
 	@RequestMapping(value="/decrease", method=RequestMethod.POST)
 	public String decreaseUnits(@RequestParam("article") Article article, Model model){
 		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
@@ -129,6 +239,7 @@ class ArticleController {
 		return "redirect:detail/" + article.getIdentifier();
 	}
 	
+	//Initilize the Details of an Article
 	@RequestMapping("/detail/{pid}")
 	public String detail(@PathVariable("pid") Article article, Model model) {
 		

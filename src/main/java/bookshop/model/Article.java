@@ -15,6 +15,10 @@ public class Article extends Product{
 		private String publisher;
 		private String id;
 		private ArticleId type;
+		//spezifische Variablen
+		private String author;
+		private String interpret;
+		private String director;
 		
 		//!!! - Kategorie manuell in der Main neben Artikel definieren 
 		//oder im Artikel direkt hinzufügen im Kostruktor
@@ -58,6 +62,32 @@ public class Article extends Product{
 		
 		public String getId(){
 			return id;
+		}
+		
+		//Spezifische Variablen
+		
+		public String getAuthor(){
+			return author;
+		}
+		
+		public void setAuthor(String author){
+			this.author = author;
+		}
+		
+		public String getInterpret(){
+			return interpret;
+		}
+		
+		public void setInterpret(String interpret){
+			this.interpret = interpret;
+		}
+		
+		public String getDirector(){
+			return director;
+		}
+		
+		public void setDirector(String director){
+			this.director = director;
 		}
 
 	}

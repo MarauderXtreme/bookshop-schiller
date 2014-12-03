@@ -61,8 +61,9 @@
 				    </div>
 				    <div class="large-2 columns">
 				    	<p th:text="${book.price}">6.66€</p>
+				    	<p th:text="${book.author}">Autor</p>
 				    </div>
-				    <div class="salespoint" sec:authorize="hasRole('ROLE_COSTUMER')">
+				    <!-- <div class="salespoint" sec:authorize="hasRole('ROLE_COSTUMER')"> -->
 				    <div class="large-2 columns">
 							<form action="/cart" method="POST">
 								<input type="hidden" name="article" value="0" th:value="${book.identifier}"/>
@@ -70,9 +71,9 @@
 								<input class="button" type="submit" value="Zum Warenkorb hinzufügen"/>
 							</form>
 				    		</div>
-				    	</div>
+				    	<!-- </div> -->
 				    			<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
-									<form method="post" action="/delete">
+									<form method="post" action="/deleteBook">
 										<fieldset>
 											<input type="hidden" name="article" value="0" th:value="${book.identifier}" />
 											<input type="submit" value="Delete Article" />
@@ -84,12 +85,12 @@
 			</div>
 		</div>
 
-		<form method="post" action="/add">
 
 		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
-			<form method="post" action="/add">
+			<form method="post" action="/addBook">
 				<fieldset>
 					<input type="text" name="titleArticle" value="Title" />
+					<input type="text" name="authorArticle" value="Author" />
 					<input type="text" name="publisherArticle" value="publisher" />
 					<input type="text" name="priceArticle" value="Price" />
 					<input type="text" name="beschreibungArticle" value="Beschreibung" />
@@ -100,7 +101,6 @@
 			</form>
 		</div>
 
-		</form>
 
 		<script type="text/javascript" src="/resources/js/vendor/jquery.js"></script>
 		<script type="text/javascript" src="/resources/js/vendor/fastclick.js"></script>
