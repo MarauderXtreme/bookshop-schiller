@@ -1,11 +1,24 @@
 package bookshop.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Address {
+	
+	@Id
+	@GeneratedValue
+	private long id;
 	
 	private String street;
 	private String streetnumber;
 	private String plz;
 	private String city;
+	
+	@Deprecated
+	protected Address() {
+	}
 	
 	public Address(String street, String streetnumber, String plz, String city) {
 		this.setStreet(street);

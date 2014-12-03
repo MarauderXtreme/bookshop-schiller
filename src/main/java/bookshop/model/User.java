@@ -1,5 +1,6 @@
 package bookshop.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,7 +16,8 @@ public class User {
 	@GeneratedValue
 	private long id;
 	
-	private String address; // eigentlich: Address address
+	@OneToOne(cascade = CascadeType.ALL)
+	private Address address;
 	
 	@OneToOne
 	private UserAccount userAccount;
@@ -31,7 +33,7 @@ public class User {
 	 */
 	public User(UserAccount userAccount, Address address) {
 		this.userAccount = userAccount;
-		this.address = address.toString(); // this.address = address
+		this.address = address; // this.address = address
 	}
 	
 	/**
@@ -45,8 +47,8 @@ public class User {
 	 * Sets the address of the User.
 	 * @param address
 	 */
-	public void setAddress(String address) { // eigentlich: Address address
-		this.address = address.toString(); // this.address = address
+	public void setAddress(Address address) { // eigentlich: Address address
+		this.address = address; // this.address = address
 	}
 
 	/**
