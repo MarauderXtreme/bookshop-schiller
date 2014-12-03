@@ -47,6 +47,15 @@ class ArticleController {
 	}*/
 	
 	//Initilize Catalog
+	@RequestMapping("/articles")
+	public String articles(ModelMap modelMap, String name) {
+
+		modelMap.addAttribute("catalog", articleCatalog.findAll());
+		modelMap.addAttribute("title", messageSourceAccessor.getMessage("catalog.dvd.title"));
+
+		return "articles";
+	}
+	
 	@RequestMapping("/books")
 	public String books(ModelMap modelMap, String name) {
 
