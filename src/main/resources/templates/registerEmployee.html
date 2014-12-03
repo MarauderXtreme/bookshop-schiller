@@ -51,7 +51,7 @@
 										<input id="email" th:field="*{email}" th:errorclass="fieldError" type="text" name="email" />
 										<p style="color:#FF0000" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Die E-Mail-Adresse darf nicht leer sein.</p>
 										<label th:text="#{register.password}" for="password">Passwort</label>
-										<input id="password" th:field="*{password}" th:errorclass="fieldError" type="password" name="password" />
+										<input id="password" th:field="*{password}" th:errorclass="fieldError" type="text" name="password" />
 										<p style="color:#FF0000" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Das Passwort darf nicht leer sein.</p>
 									</fieldset>
 									<br />

@@ -40,6 +40,7 @@
 									<th th:text="#{customers.username}">Nutzername</th>
 									<th th:text="#{customers.firstname}">Vorname</th>
 									<th th:text="#{customers.lastname}">Nachname</th>
+									<th th:text="#{customers.email}">E-Mail</th>
 									<th th:text="#{customers.address}">Anschrift</th>
 								</tr>
 							</thead>
@@ -48,6 +49,7 @@
 									<td th:text="${customers.userAccount.identifier}">PowerPaul</td>
 									<td th:text="${customers.userAccount.firstname}">Power</td>
 									<td th:text="${customers.userAccount.lastname}">Paul</td>
+									<td th:text="${customers.userAccount.email}">PowerPaul@e-mail.de</td>
 									<td th:text="${customers.address}">Wasaplatz 10</td>
 								</tr>										
 							</tbody>

@@ -54,6 +54,9 @@
 										<label th:text="#{register.password}" for="password">Passwort</label>
 										<input id="password" th:field="*{password}" th:errorclass="fieldError" type="password" name="password" />
 										<p style="color:#FF0000" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Das Passwort darf nicht leer sein.</p>
+										<label th:text="#{register.passwordRepeat}" for="passwordRepeat">Passwort</label>
+										<input id="passwordRepeat" th:field="*{passwordRepeat}" th:errorclass="fieldError" type="password" name="passwordRepeat" />
+										<p style="color:#FF0000" th:if="${#fields.hasErrors('passwordRepeat')}" th:errors="*{passwordRepeat}">Das Passwort darf nicht leer sein.</p>
 									</fieldset>
 									<br />
 									<fieldset>

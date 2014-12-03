@@ -41,6 +41,7 @@
 									<th th:text="#{employees.firstname}">Vorname</th>
 									<th th:text="#{employees.lastname}">Nachname</th>
 									<th th:text="#{employees.address}">Anschrift</th>
+									<th th:text="#{employees.email}">E-Mail</th>
 									<th th:text="#{employees.role}">Rolle</th>
 								</tr>
 							</thead>
@@ -50,6 +51,7 @@
 									<td th:text="${employees.userAccount.firstname}">Power</td>
 									<td th:text="${employees.userAccount.lastname}">Paul</td>
 									<td th:text="${employees.address}">Standardadresse</td>
+									<td th:text="${employees.userAccount.email}">PowerPaul@e-mail.de</td>
 									<td th:text="${employees.userAccount.roles}">Standardrolle</td>
 								</tr>										
 							</tbody>

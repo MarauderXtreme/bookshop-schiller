@@ -98,7 +98,7 @@ public class UserController {
 			BindingResult result) {
 
 		if (result.hasErrors()) {
-			return "register";
+			return "registerEmployee";
 		}
 
 		UserAccount userAccount = userAccountManager.create(registrationForm.getUsername(), registrationForm.getPassword(),
