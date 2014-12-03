@@ -33,7 +33,7 @@
 		      </header>
 	        <div class="large-12">&nbsp;</div>
 	        <div class="large-12 medium-12 small-12 columns">
-	          <h2>Angestelltenübersicht</h2>
+	          <h3>Angestelltenübersicht</h3>
 	          <table class="large-12 medium-12 small-12">
 							<thead>
 								<tr>
@@ -41,6 +41,7 @@
 									<th th:text="#{employees.firstname}">Vorname</th>
 									<th th:text="#{employees.lastname}">Nachname</th>
 									<th th:text="#{employees.address}">Anschrift</th>
+									<th th:text="#{employees.role}">Rolle</th>
 								</tr>
 							</thead>
 							<tbody th:remove="all-but-first">
@@ -48,10 +49,16 @@
 									<td th:text="${employees.userAccount.identifier}">PowerPaul</td>
 									<td th:text="${employees.userAccount.firstname}">Power</td>
 									<td th:text="${employees.userAccount.lastname}">Paul</td>
-									<td th:text="${employees.address}">Wasaplatz 10</td>
+									<td th:text="${employees.address}">Standardadresse</td>
+									<td th:text="${employees.userAccount.roles}">Standardrolle</td>
 								</tr>										
 							</tbody>
 						</table>
+						<div class="salespoint" sec:authorize="hasRole('ROLE_ADMIN')">
+							<form action="/admin/register" method="POST">
+								<input class="button round" type="submit" th:value="#{register.employee}" value="Registrieren" />
+							</form>
+						</div>
 	        </div>
 	    	</div>
 	    </div>

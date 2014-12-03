@@ -33,7 +33,7 @@
 		      </header>
 	        <div class="large-12">&nbsp;</div>
 	        <div class="large-12 medium-12 small-12 columns">
-	          <h2>Warenkorb</h2>
+	          <h3>Warenkorb</h3>
 	          <div th:unless="${cart.empty}">
 							<table class="large-12 medium-12 small-12">
 								<thead class="panel">
@@ -51,14 +51,14 @@
 										<td class="large-2 medium-2 small-2" th:text="${orderline.quantity}">10</td>
 										<td class="large-2 medium-2 small-2" th:text="${orderline.price}">10 Euro</td>
 										<td class="large-2 medium-2 small-2"> 
-											<form class="right" method="POST" action="/cart/delete">
-												<input class="button" type="submit" value="löschen"/> 
+											<form class="salespoint" method="POST" action="/cart/delete">
+												<input class="button" type="submit" value="löschen" th:value="${book.title}"/> 
 											</form>
 										</td>
 									</tr>				
 								</tbody>
 							</table>
-							<p th:text="#{cart.total} + ': ' + ${cart.totalPrice}">Summe: 100 Euro</p>
+							<p th:text="#{cart.total}">Summe: 100 Euro</p>
 							<div class="salespoint" sec:authorize="hasRole('ROLE_CUSTOMER')">
 								<form method="post" action="/cart/checkout">
 									<input type="submit" th:value="#{cart.buy}" value="Kaufen" />
