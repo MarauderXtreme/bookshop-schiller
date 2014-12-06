@@ -15,7 +15,7 @@
     
     <script type="text/javascript" src="/resources/js/vendor/modernizr.js"></script>
 		
-		<title th:text="#{home.title}">Bücher | Buchhandlung Schiller</title>
+		<title th:text="#{home.title}">Alle Artikel | Buchhandlung Schiller</title>
 	
 	</head>
 	<body>
@@ -61,7 +61,7 @@
 				    </div>
 				    <div class="large-2 columns">
 				    	<p th:text="${book.price}">6.66€</p>
-				    	<p th:text="${book.author}">Autor</p>
+				    	<!--<p th:text="${book.author}">Autor</p>-->
 				    </div>
 				    <!-- <div class="salespoint" sec:authorize="hasRole('ROLE_COSTUMER')"> -->
 				    <div class="large-2 columns">
@@ -71,22 +71,22 @@
 								<input class="button" type="submit" value="Zum Warenkorb hinzufügen"/>
 							</form>
 				    		</div>
-				    	<!-- </div> -->
-				    			<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
+				    	</div>
+				    			<!-- <div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
 									<form method="post" action="/deleteBook">
 										<fieldset>
 											<input type="hidden" name="article" value="0" th:value="${book.identifier}" />
 											<input type="submit" value="Delete Article" />
 										</fieldset>
 									</form>
-								</div>
+								</div>-->
 				  </div>
 		    </div>
 			</div>
-		</div>
+		<!--</div>-->
 
 
-		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
+		<!--<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
 			<form method="post" action="/addBook">
 				<fieldset>
 					<input type="text" name="titleArticle" value="Title" />
@@ -95,11 +95,11 @@
 					<input type="text" name="priceArticle" value="Price" />
 					<input type="text" name="beschreibungArticle" value="Beschreibung" />
 					<input type="text" name="idArticle" value="Isbn" />
-					<!--<input type="text" name="typeArticle" value="Type" />-->
+					<input type="text" name="typeArticle" value="Type" />
 					<input type="submit" value="Add Article" />
 				</fieldset>
 			</form>
-		</div>
+		</div>-->
 
 
 		<script type="text/javascript" src="/resources/js/vendor/jquery.js"></script>

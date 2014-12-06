@@ -6,7 +6,7 @@ This is a spring project for university. It is a small sales point application f
 Continous Integration
 ---------------------
 
-[![Build Status](https://magnum.travis-ci.com/MarauderXtreme/bookshop-fischer.svg?token=zfEnTimz1GphjpRCVMQw)](https://magnum.travis-ci.com/MarauderXtreme/bookshop-fischer)
+[![Build Status](https://magnum.travis-ci.com/MarauderXtreme/bookshop-schiller.svg?token=zfEnTimz1GphjpRCVMQw)](https://magnum.travis-ci.com/MarauderXtreme/bookshop-schiller)
 
 Project Description
 -------------------
