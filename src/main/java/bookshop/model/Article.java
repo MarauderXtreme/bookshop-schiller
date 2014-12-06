@@ -34,6 +34,9 @@ public class Article extends Product{
 			this.publisher = publisher;
 			this.id = id;
 			this.type = type;
+			this.author = "Unknown";
+			this.interpret = "Unknown";
+			this.director = "Unknown";
 		}
 		
 		
@@ -41,8 +44,16 @@ public class Article extends Product{
 			return beschreibung;
 		}
 		
+		public void setBeschreibung(String beschreibung){
+			this.beschreibung = beschreibung;
+		}
+		
 		public String getPublisher(){
 			return publisher;
+		}
+		
+		public void setPublisher(String publisher){
+			this.publisher = publisher;
 		}
 		
 		/*
@@ -60,8 +71,16 @@ public class Article extends Product{
 			return type;
 		}
 		
+		public void setType(ArticleId type){
+			this.type = type;
+		}
+		
 		public String getId(){
 			return id;
+		}
+		
+		public void setId(String id){
+			this.id = id;
 		}
 		
 		//Spezifische Variablen

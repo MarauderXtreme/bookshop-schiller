@@ -3,6 +3,7 @@ package bookshop.controller;
 import java.util.Optional;
 
 import static org.joda.money.CurrencyUnit.*;
+
 import org.joda.money.Money;
 import org.salespointframework.inventory.Inventory;
 import org.salespointframework.inventory.InventoryItem;
@@ -210,13 +211,102 @@ class ArticleController {
 		return "redirect:dvds";
 	}
 	
-	//Increase the Units of an Article
+	//Change Informations of an Article
+	@RequestMapping(value="/setNewTitle", method=RequestMethod.POST)
+	public String setNewTitle(@RequestParam("article") Article article, @RequestParam("newname") String name, Model model){
+		
+		
+		System.out.println("Title: " + article.getName());
+		
+		article.setName(name);
+		
+		articleCatalog.save(article);
+		
+		return "redirect:detail/" + article.getIdentifier();
+	}
+		
+		@RequestMapping(value="/setNewPublisher", method=RequestMethod.POST)
+		public String setNewPublisher(@RequestParam("article") Article article, @RequestParam("newpublisher") String publisher, Model model){
+			
+			
+			System.out.println("Title: " + article.getName());
+			
+			article.setPublisher(publisher);
+			
+			articleCatalog.save(article);
+			
+			return "redirect:detail/" + article.getIdentifier();
+		}
+		
+		@RequestMapping(value="/setNewIsbn", method=RequestMethod.POST)
+		public String setNewIsbn(@RequestParam("article") Article article, @RequestParam("newisbn") String isbn, Model model){
+			
+			
+			System.out.println("Title: " + article.getName());
+			
+			article.setId(isbn);
+			
+			articleCatalog.save(article);
+			
+			return "redirect:detail/" + article.getIdentifier();
+		}
+		
+		@RequestMapping(value="/setNewPrice", method=RequestMethod.POST)
+		public String setNewPrice(@RequestParam("article") Article article, @RequestParam("newprice") double price, Model model){
+			
+			System.out.println("Title: " + article.getName());
+			
+			article.setPrice(Money.of(EUR, price));
+			
+			articleCatalog.save(article);
+			
+			return "redirect:detail/" + article.getIdentifier();
+		}
+		
+		//Set Specific Informations
+		@RequestMapping(value="/setNewAuthor", method=RequestMethod.POST)
+		public String setNewAutor(@RequestParam("article") Article article, @RequestParam("newauthor") String author, Model model){
+
+			System.out.println("Autor: " + article.getAuthor());
+						
+			article.setAuthor(author);
+			
+			System.out.println("Autor: " + article.getAuthor());
+			
+			articleCatalog.save(article);
+			
+			return "redirect:detail/" + article.getIdentifier();
+		}
+		
+		@RequestMapping(value="/setNewInterpret", method=RequestMethod.POST)
+		public String setNewInterpret(@RequestParam("article") Article article, @RequestParam("newInterpret") String interpret, Model model){
+						
+			article.setInterpret(interpret);
+			
+			articleCatalog.save(article);
+			
+			return "redirect:detail/" + article.getIdentifier();
+		}
+		
+		@RequestMapping(value="/setNewDirector", method=RequestMethod.POST)
+		public String setNewDirector(@RequestParam("article") Article article, @RequestParam("newdirector") String director, Model model){
+						
+			article.setDirector(director);
+			
+			articleCatalog.save(article);
+			
+			return "redirect:detail/" + article.getIdentifier();
+		}
+		
+		
+	
 	@RequestMapping(value="/increase", method=RequestMethod.POST)
-	public String increaseUnits(@RequestParam("article") Article article, Model model){
+	public String increaseUnits(@RequestParam("article") Article article, @RequestParam("addquan") long amount, Model model){
 		
 		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
 		System.out.println("UNITS: " + item.get().getQuantity());
-		item.get().increaseQuantity(Units.ONE);
+		//item.get().increaseQuantity(Units.ONE);
+		item.get().increaseQuantity(Units.of(amount));
 		
 		//Test: Erhöhung der Units
 		System.out.println("UNITS: " + item.get().getQuantity());
@@ -236,9 +326,9 @@ class ArticleController {
 	
 	//Decrease the Units of an Article
 	@RequestMapping(value="/decrease", method=RequestMethod.POST)
-	public String decreaseUnits(@RequestParam("article") Article article, Model model){
+	public String decreaseUnits(@RequestParam("article") Article article, @RequestParam("removequan") long amount, Model model){
 		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
-		item.get().decreaseQuantity(Units.ONE);
+		item.get().decreaseQuantity(Units.of(amount));
 		
 		//Test: Verringern der Units
 		System.out.println("UNITS: " + item.get().getQuantity());
