@@ -36,7 +36,7 @@
 	          <h3>Registrierung eines neuen Kunden:</h3>
 	          <div class="row">
 	          	<div class="large-6 medium-6 small-6 large-offset-3">
-	          		<form method="post" action="/admin/register/new" th:object="${registrationForm}">
+	          		<form method="post" action="/admin/register/customer/new" th:object="${registrationForm}">
 									<fieldset>
 										<legend th:text="#{register.title1}">Benutzerdaten</legend>
 										
@@ -53,6 +53,9 @@
 										<label th:text="#{register.password}" for="password">Passwort</label>
 										<input id="password" th:field="*{password}" th:errorclass="fieldError" type="text" name="password" />
 										<p style="color:#FF0000" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Das Passwort darf nicht leer sein.</p>
+										<label th:text="#{register.passwordRepeat}" for="passwordRepeat">Passwort</label>
+										<input id="passwordRepeat" th:field="*{passwordRepeat}" th:errorclass="fieldError" type="text" name="passwordRepeat" />
+										<p style="color:#FF0000" th:if="${#fields.hasErrors('passwordRepeat')}" th:errors="*{passwordRepeat}">Das Passwort darf nicht leer sein.</p>
 									</fieldset>
 									<br />
 									<fieldset>
