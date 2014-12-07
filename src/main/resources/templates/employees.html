@@ -48,7 +48,7 @@
 							</thead>
 							<tbody th:remove="all-but-first">
 								<tr th:each=" employees : ${employeeList}">
-									<td th:text="${employees.userAccount.identifier}">PowerPaul</td>
+									<td><a th:text="${employees.userAccount.identifier}" th:href="@{'/user/profile/' + ${employees.userAccount.identifier}}" href="profile.html">PowerPaul</a></td>
 									<td th:text="${employees.userAccount.firstname}">Power</td>
 									<td th:text="${employees.userAccount.lastname}">Paul</td>
 									<td th:text="${employees.address}">Standardadresse</td>

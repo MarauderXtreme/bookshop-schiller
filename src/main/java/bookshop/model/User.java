@@ -1,9 +1,5 @@
 package bookshop.model;
 
-import java.util.List;
-
-import javassist.bytecode.Descriptor.Iterator;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -65,7 +61,7 @@ public class User {
 	/**
 	 * @return the ID of the user
 	 */
-	public long getID() {
+	public long getId() {
 		return id;
 	}
 	
@@ -81,12 +77,15 @@ public class User {
 			if (k == 1) {
 				roles = r.getName().substring(5);
 			} else {
-				roles = roles + ", " + r.getName().substring(6);
+				roles = roles + ", " + r.getName().substring(5);
 			}
 		}
 		return roles;
 	}
 	
+	/**
+	 * @return "ENABLED", if the user is enabled; "DISABLED", if the user is disabled
+	 */
 	public String getState() {
 		if (userAccount.isEnabled()) {
 			return "ENABLED";

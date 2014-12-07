@@ -1,21 +1,28 @@
 package bookshop.controller;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.salespointframework.inventory.InventoryItem;
+import org.salespointframework.quantity.Quantity;
+import org.salespointframework.quantity.Units;
 import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import bookshop.model.validation.RegistrationForm;
+import bookshop.model.Article;
 import bookshop.model.User;
 import bookshop.model.UserRepository;
 
@@ -159,6 +166,20 @@ public class UserController {
 	public String register(ModelMap modelMap) {
 		modelMap.addAttribute("registrationForm", new RegistrationForm());
 		return "register";
+	}
+	
+	 /**
+	  * Maps the given user to modelMap.
+	  * @param user
+	  * @param modelMap
+	  * @return
+	  */
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_BOSS') || hasRole('ROLE_USERMANAGER')")
+	@RequestMapping("/user/profile/{pid}")
+	public String profile(@PathVariable("pid") UserAccount userAccount, Model modelMap) {
+		User user = userRepository.findByUserAccount(userAccount);
+		modelMap.addAttribute("user", user);
+		return "profile";
 	}
 	
 	/**

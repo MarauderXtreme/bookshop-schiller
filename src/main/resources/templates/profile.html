@@ -18,6 +18,7 @@
 		<title th:text="#{home.title}">Buchhandlung Schiller</title>
 	
 	</head>
+
 	<body>
 		<div class="off-canvas-wrap" data-offcanvas="">
 			<div class="fixed" th:include="topbar :: topbar"></div>
@@ -33,32 +34,40 @@
 		      </header>
 	        <div class="large-12">&nbsp;</div>
 	        <div class="large-12 medium-12 small-12 columns">
-	          <h3>Kundenliste</h3>
-	          <table class="large-12 medium-12 small-12">
-							<thead>
-								<tr>
-									<th th:text="#{customers.username}">Nutzername</th>
-									<th th:text="#{customers.firstname}">Vorname</th>
-									<th th:text="#{customers.lastname}">Nachname</th>
-									<th th:text="#{customers.email}">E-Mail</th>
-									<th th:text="#{customers.address}">Anschrift</th>
-									<th th:text="#{customers.state}">Status</th>
-								</tr>
-							</thead>
-							<tbody th:remove="all-but-first">
-								<tr th:each=" customers : ${customerList}">
-									<td><a th:text="${customers.userAccount.identifier}" th:href="@{'/user/profile/' + ${customers.userAccount.identifier}}" href="profile.html">PowerPaul</a></td>
-									<td th:text="${customers.userAccount.firstname}">Power</td>
-									<td th:text="${customers.userAccount.lastname}">Paul</td>
-									<td th:text="${customers.userAccount.email}">PowerPaul@e-mail.de</td>
-									<td th:text="${customers.address}">Wasaplatz 10</td>
-									<td th:text="${customers.state}">UNKNOWN</td>
-								</tr>										
-							</tbody>
-						</table>
+	          <div class="large-3 columns">
+  						<img alt="cover" class="cover" /><!-- src="../resources/img/cover/lac.jpg" th:src="@{'/resources/img/cover/' + ${book.image} + '.jpg'}" -->
+						</div>
+						<div class="large-9 medium-9 small-9 columns">
+							<ul class="pricing-table">
+					      <li class="title">
+					      	<span th:text="${user.userAccount.identifier}">maxmuster</span>
+					      </li>
+					      <li class="bullet-item">
+					      	<label>Vorname:</label><span th:text="${user.userAccount.firstname}">Max</span>
+					      </li>
+					      <li class="bullet-item">
+					      	<label>Nachname:</label><span th:text="${user.userAccount.lastname}">Mustermann</span>
+					      </li>
+					      <li class="bullet-item">
+					      	<label>E-Mail-Adresse:</label><span th:text="${user.userAccount.email}">max.mustermann@e-mail.de</span>
+					      </li>
+					      <li class="bullet-item">
+					      	<label>Adresse:</label><span th:text="${user.address}">Musterstraße 1, 00000 Musterstadt</span>
+					      </li>
+					      <div class="salespoint" sec:authorize="hasRole('ROLE_ADMIN') || hasRole('ROLE_BOSS') || hasRole('ROLE_USERMANAGER')">
+					      <li class="bullet-item">
+					      	<label>Rollen:</label><span th:text="${user.roles}">Musterrolle</span>
+					      </li>
+					      <li class="bullet-item">
+					      	<label>Status:</label><span th:text="${user.state}">Musterstatus</span>
+					      </li>
+					      </div>
+					    </ul>
+					  </div>
 	        </div>
 	    	</div>
 	    </div>
+<!-- branch -->
 		</div>
 	  <script type="text/javascript" src="/resources/js/vendor/jquery.js"></script>
 	  <script type="text/javascript" src="/resources/js/vendor/fastclick.js"></script>

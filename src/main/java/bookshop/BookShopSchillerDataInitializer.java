@@ -111,21 +111,27 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 			return;
 		}
 
-		UserAccount adminAccount = userAccountManager.create("admin", "123", new Role("ROLE_ADMIN"));
+		final Role adminRole = new Role("ROLE_ADMIN");
+		final Role bossRole = new Role("ROLE_BOSS");
+		final Role employeeRole = new Role("ROLE_EMPLOYEE");
+		final Role userManagerRole = new Role("ROLE_USERMANAGER");
+		final Role customerRole = new Role("ROLE_CUSTOMER");
+		
+		UserAccount adminAccount = userAccountManager.create("admin", "123", adminRole);
 		adminAccount.setFirstname("Christoph");
 		adminAccount.setLastname("Kepler");
 		adminAccount.setEmail("chris.kepler@schiller.de");
 		userAccountManager.save(adminAccount);
+		
 		userRepository.save(new User(adminAccount, new Address("Mommsenstraße", "13", "01187", "Dresden")));
 		
-		UserAccount bossAccount = userAccountManager.create("boss", "123", new Role("ROLE_BOSS"));
+		UserAccount bossAccount = userAccountManager.create("boss", "123", bossRole);
 		bossAccount.setFirstname("Philipp");
 		bossAccount.setLastname("Waack");
 		bossAccount.setEmail("philipp.waack@schiller.de");
 		userAccountManager.save(bossAccount);
-		userRepository.save(new User(bossAccount, new Address("Bergstraße", "64", "01187", "Dresden")));
 		
-		final Role employeeRole = new Role("ROLE_EMPLOYEE");
+		userRepository.save(new User(bossAccount, new Address("Bergstraße", "64", "01187", "Dresden")));
 		
 		UserAccount ua1 = userAccountManager.create("assi", "123", employeeRole);
 		ua1.setFirstname("Philipp");
@@ -145,12 +151,11 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		ua3.setFirstname("Till");
 		ua3.setLastname("Köhler");
 		ua3.setEmail("till.koehler@schiller.de");
+		ua3.add(userManagerRole);
 		userAccountManager.save(ua3);
 		User e3 = new User(ua3, new Address("Zellescher Weg", "12", "01187", "Dresden"));
 		
 		userRepository.save(Arrays.asList(e1, e2, e3));
-		
-		final Role customerRole = new Role("ROLE_CUSTOMER");
 		
 		UserAccount ua4 = userAccountManager.create("wurst", "123", customerRole);
 		ua4.setFirstname("Hans");
@@ -174,8 +179,6 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		User c3 = new User(ua6, new Address("Am Theater", "92", "50668", "Köln"));
 		
 		userRepository.save(Arrays.asList(c1, c2, c3));
-		
-		// to do: add other manager roles
 		
 	}
 }
