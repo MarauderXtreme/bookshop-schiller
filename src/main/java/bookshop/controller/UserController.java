@@ -1,6 +1,5 @@
 package bookshop.controller;
 
-import java.awt.List;
 import java.util.ArrayList;
 
 import javax.validation.Valid;

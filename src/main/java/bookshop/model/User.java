@@ -1,11 +1,16 @@
 package bookshop.model;
 
+import java.util.List;
+
+import javassist.bytecode.Descriptor.Iterator;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
 
 @Entity
@@ -32,7 +37,7 @@ public class User {
 	 */
 	public User(UserAccount userAccount, Address address) {
 		this.userAccount = userAccount;
-		this.address = address; // this.address = address
+		this.address = address;
 	}
 	
 	/**
@@ -46,8 +51,8 @@ public class User {
 	 * Sets the address of the User.
 	 * @param address
 	 */
-	public void setAddress(Address address) { // eigentlich: Address address
-		this.address = address; // this.address = address
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
 	/**
@@ -62,6 +67,32 @@ public class User {
 	 */
 	public long getID() {
 		return id;
+	}
+	
+	/**
+	 * @return a String including all roles of the User
+	 */
+	public String getRoles() {
+		String roles = "";
+		int k = 0;
+		for (java.util.Iterator<Role> i = userAccount.getRoles().iterator(); i.hasNext();) {
+			Role r = i.next();
+			k = k + 1;
+			if (k == 1) {
+				roles = r.getName().substring(5);
+			} else {
+				roles = roles + ", " + r.getName().substring(6);
+			}
+		}
+		return roles;
+	}
+	
+	public String getState() {
+		if (userAccount.isEnabled()) {
+			return "ENABLED";
+		} else {
+			return "DISABLED";
+		}
 	}
 
 }

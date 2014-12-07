@@ -43,6 +43,7 @@
 									<th th:text="#{employees.address}">Anschrift</th>
 									<th th:text="#{employees.email}">E-Mail</th>
 									<th th:text="#{employees.role}">Rolle</th>
+									<th th:text="#{employees.state}">Status</th>
 								</tr>
 							</thead>
 							<tbody th:remove="all-but-first">
@@ -52,7 +53,8 @@
 									<td th:text="${employees.userAccount.lastname}">Paul</td>
 									<td th:text="${employees.address}">Standardadresse</td>
 									<td th:text="${employees.userAccount.email}">PowerPaul@e-mail.de</td>
-									<td th:text="${employees.userAccount.roles}">Standardrolle</td>
+									<td th:text="${employees.roles}">Standardrolle</td>
+									<td th:text="${employees.state}">UNKNOWN</td>
 								</tr>										
 							</tbody>
 						</table>
