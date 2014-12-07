@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head>
+		
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+		<link rel="stylesheet" type="text/css" href="/resources/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="/resources/css/foundation.css" />
+	  <link rel="stylesheet" type="text/css" href="/resources/css/normalize.css" />
+	  <link rel="stylesheet" type="text/css" href="/resources/css/slick.css" />
+	  <!-- <link rel="stylesheet" type="text/css" href="/include/misc/php-calendar/css/style.css" /> -->
+	  <link rel="stylesheet" type="text/css" href="/resources/css/style.css" />
+    
+    <script type="text/javascript" src="/resources/js/vendor/modernizr.js"></script>
+		
+		<title th:text="#{home.title}">Buchhandlung Schiller</title>
+	
+	</head>
+	<body>
+		<div class="off-canvas-wrap" data-offcanvas="">
+			<div class="fixed" th:include="topbar :: topbar"></div>
+	    <div class="inner-wrap">
+	    	<aside class="left-off-canvas-menu" aria-hidden="true">
+	    		<nav th:include="navigation :: navigation"></nav>
+	    	</aside>
+	    	<div class="main-content">
+		    	<header class="large-12 medium-12 show-for-landscape show-for-medium-up">
+		        <div class="panel">
+		          <div class="header-slider" th:include="slider :: slider"></div>
+		        </div>
+		      </header>
+	        <div class="large-12">&nbsp;</div>
+	        <div class="large-12 medium-12 small-12 columns">
+	          <h3>Registrierung eines neuen Kunden:</h3>
+	          <div class="row">
+	          	<div class="large-6 medium-6 small-6 large-offset-3">
+	          		<form method="post" action="/admin/register/new" th:object="${registrationForm}">
+									<fieldset>
+										<legend th:text="#{register.title1}">Benutzerdaten</legend>
+										
+										<div th:if="${#fields.hasErrors('*')}">
+											<p style="color:#FF0000"><b>Einige Angaben sind nicht korrekt. Bitte versuchen Sie es erneut!</b></p>
+										</div>
+										
+										<label th:text="#{register.username}" for="username">Nutzername</label>
+										<input id="username" th:field="*{username}" th:errorclass="fieldError" type="text" name="username" />
+										<p style="color:#FF0000" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Der Nutzername darf nicht leer sein.</p>
+										<label th:text="#{register.email}" for="email">E-Mail</label>
+										<input id="email" th:field="*{email}" th:errorclass="fieldError" type="text" name="email" />
+										<p style="color:#FF0000" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Die E-Mail-Adresse darf nicht leer sein.</p>
+										<label th:text="#{register.password}" for="password">Passwort</label>
+										<input id="password" th:field="*{password}" th:errorclass="fieldError" type="text" name="password" />
+										<p style="color:#FF0000" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Das Passwort darf nicht leer sein.</p>
+									</fieldset>
+									<br />
+									<fieldset>
+										<legend th:text="#{register.title2}">Persönliche Daten</legend>
+										
+										<div th:if="${#fields.hasErrors('*')}">
+											<p style="color:#FF0000"><b>Einige Angaben sind nicht korrekt. Bitte versuchen Sie es erneut!</b></p>
+										</div>
+										
+										<label th:text="#{register.firstname}" for="firstname">Vorname</label>
+										<input id="firstname" th:field="*{firstname}" th:errorclass="fieldError" type="text" name="firstname" />
+										<p style="color:#FF0000" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">Der Vorname darf nicht leer sein.</p>
+										<label th:text="#{register.lastname}" for="lastname">Nachname</label>
+										<input id="lastname" th:field="*{lastname}" th:errorclass="fieldError" type="text" name="lastname" />
+										<p style="color:#FF0000" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">Der Nachname darf nicht leer sein.</p>
+										<label th:text="#{register.street}" for="street">Straße</label>
+										<input id="street" th:field="*{street}" th:errorclass="fieldError" type="text" name="street" />
+										<p style="color:#FF0000" th:if="${#fields.hasErrors('street')}" th:errors="*{street}">Die Straße darf nicht leer sein.</p>
+										<label th:text="#{register.streetnumber}" for="streetnumber">Hausnummer</label>
+										<input id="streetnumber" th:field="*{streetnumber}" th:errorclass="fieldError" type="text" name="streetnumber" />
+										<p style="color:#FF0000" th:if="${#fields.hasErrors('streetnumber')}" th:errors="*{streetnumber}">Die Hausnummer darf nicht leer sein.</p>
+										<label th:text="#{register.plz}" for="plz">PLZ</label>
+										<input id="plz" th:field="*{plz}" th:errorclass="fieldError" type="text" name="plz" />
+										<p style="color:#FF0000" th:if="${#fields.hasErrors('plz')}" th:errors="*{plz}">Die PLZ darf nicht leer sein.</p>
+										<label th:text="#{register.city}" for="city">Ort</label>
+										<input id="town" th:field="*{city}" th:errorclass="fieldError" type="text" name="city" />
+										<p style="color:#FF0000" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">Der Ort darf nicht leer sein.</p>
+									</fieldset>
+									<br />
+									<input class="button round" type="submit" th:value="#{register.submit}" value="Registrieren" />
+								</form>
+	          	</div>
+	          </div>
+	        </div>
+	    	</div>
+	    </div>
+		</div>
+	  <script type="text/javascript" src="/resources/js/vendor/jquery.js"></script>
+	  <script type="text/javascript" src="/resources/js/vendor/fastclick.js"></script>
+	  <script type="text/javascript" src="/resources/js/foundation.min.js"></script>
+	  <script type="text/javascript" src="/resources/js/vendor/slick.min.js"></script>
+	  <script type="text/javascript">
+	    $(document).foundation(
+	      {
+	        accordion: {
+	          content_class: 'content',
+	          active_class: 'active',
+	          toggleable: true
+	        }
+	      }
+	    );
+	  </script>
+	  <script type="text/javascript">  
+	    $(document).ready(function(){
+	      $('.header-slider').slick({
+	        dots: true,
+	        infinite: true,
+	        lazyLoad: 'ondemand',
+	        slidesToShow: 1,
+	        slidesToScroll: 1,
+	        autoplay: true,
+	        autoplaySpeed: 3000,
+	      });
+	    });
+	  </script>
+	</body>
+</html>

@@ -99,7 +99,7 @@ public class UserController {
 	 * @return
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping("/admin/register/new")
+	@RequestMapping("/admin/register/employee/new")
 	public String registerNewEmployee(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
 			BindingResult result) {
 
@@ -125,10 +125,49 @@ public class UserController {
 	 * @param modelMap
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping("/admin/register")
+	@RequestMapping("/admin/register/employee")
 	public String registerEmployee(ModelMap modelMap) {
 		modelMap.addAttribute("registrationForm", new RegistrationForm());
 		return "registerEmployee";
+	}
+	
+	/**
+	 * Reads data from the registrationForm and registers a new employee.
+	 * @param registrationForm
+	 * @param result
+	 * @return
+	 */
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping("/admin/register/customer/new")
+	public String registerNewCustomer(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
+			BindingResult result) {
+
+		if (result.hasErrors()) {
+			return "registerCustomer";
+		}
+
+		UserAccount userAccount = userAccountManager.create(registrationForm.getUsername(), registrationForm.getPassword(),
+				new Role("ROLE_CUSTOMER"));
+		userAccount.setFirstname(registrationForm.getFirstname());
+		userAccount.setLastname(registrationForm.getLastname());
+		userAccount.setEmail(registrationForm.getEmail());
+		userAccountManager.save(userAccount);
+
+		User user = new User(userAccount, registrationForm.getAddress());
+		userRepository.save(user);
+
+		return "redirect:/";
+	}
+	
+	/**
+	 * Maps the registration form for employees to modelMap.
+	 * @param modelMap
+	 */
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping("/admin/register/customer")
+	public String registerCustomer(ModelMap modelMap) {
+		modelMap.addAttribute("registrationForm", new RegistrationForm());
+		return "registerCustomer";
 	}
 	
 	/**
@@ -138,7 +177,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping("/user/register/new")
-	public String registerNewCustomer(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
+	public String registerMe(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
 			BindingResult result) {
 
 		if (result.hasErrors()) {
