@@ -2,7 +2,6 @@ package bookshop.model.validation;
 
 import javax.validation.constraints.Pattern;
 
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.ScriptAssert;
@@ -14,24 +13,25 @@ public class RegistrationForm {
 
 	@NotEmpty(message = "{RegistrationForm.username.NotEmpty}")
 	@Length(max = 16, message = "{RegistrationForm.username.Length}")
+	@Pattern(regexp="([A-ZÄÖÜa-zäöüß]{1}[A-ZÄÖÜa-zäöüß0-9]+){0,1}", message = "{RegistrationForm.username.Format}")
 	private String username;
 	
 	@NotEmpty(message = "{RegistrationForm.firstname.NotEmpty}")
 	@Length(max = 32, message = "{RegistrationForm.firstname.Length}")
+	@Pattern(regexp="([A-ZÄÖÜ]{1}[a-zäöüß]+([\\-\\s]{1}[A-ZÄÖÜ]{1}[a-zäöüß]+){0,}){0,1}", message = "{RegistrationForm.firstname.Format}")
 	private String firstname;
 	
 	@NotEmpty(message = "{RegistrationForm.lastname.NotEmpty}")
 	@Length(max = 32, message = "{RegistrationForm.lastname.Length}")
+  	@Pattern(regexp="((([A-ZÄÖÜa-zäöüß]{1}[a-zäöüß]+([\\-\\s]{1}[A-ZÄÖÜa-zäöüß]{1}[a-zäöüß]+){0,}){0,1}[\\-\\s]{0,1}){0,1}([A-ZÄÖÜ]{1}[a-zäöüß]+){1}){0,1}", message = "{RegistrationForm.lastname.Format}")
 	private String lastname;
 	
-	//@Pattern(regexp="[0-9a-zA-Z\.\_\-]+@{1}[0-9a-zA-Z\.\-]+[\.]{1}[a-zA-Z]{2,13}")
 	@NotEmpty(message = "{RegistrationForm.email.NotEmpty}")
 	@Length(max = 64, message = "{RegistrationForm.email.Length}")
-	@Email(message = "{RegistrationForm.email.Email}")
+	@Pattern(regexp="([A-Za-z0-9\\.\\_\\-]+@{1}[A-Za-z0-9\\.\\-]+[\\.]{1}[A-Za-z]{2,12}){0,1}", message = "{RegistrationForm.email.Format}")
 	private String email;
 	
-	@NotEmpty(message = "{RegistrationForm.password.NotEmpty}")
-	@Length(min = 8, max = 16, message = "{RegistrationForm.password.Length}")
+	@Length(min = 8, max = 32, message = "{RegistrationForm.password.Length}")
 	private String password;
 	
 	@NotEmpty(message = "{RegistrationForm.passwordRepeat.NotEmpty}")
@@ -39,18 +39,21 @@ public class RegistrationForm {
 	
 	@NotEmpty(message = "{RegistrationForm.street.NotEmpty}")
 	@Length(max = 32, message = "{RegistrationForm.street.Length}")
+	@Pattern(regexp="((([A-ZÄÖÜ]{1}[a-zäöüß]+([\\-\\s]{1}[A-ZÄÖÜa-zäöüß]{1}[a-zäöüß]+){0,}){0,1}[\\-\\s]{0,1}){0,1}([A-ZÄÖÜ]{1}[a-zäöüß]+){1}){0,1}", message = "{RegistrationForm.street.Format}")
 	private String street;
 	
 	@NotEmpty(message = "{RegistrationForm.streetnumber.NotEmpty}")
-	@Length(max = 4, message = "{RegistrationForm.streetnumber.Length}")
+	@Length(max = 5, message = "{RegistrationForm.streetnumber.Length}")
+	@Pattern(regexp="([0-9]+[A-Za-z]{0,1}){0,1}", message = "{RegistrationForm.streetnumber.Format}")
 	private String streetnumber;
 	
-	@NotEmpty(message = "{RegistrationForm.plz.NotEmpty}")
 	@Length(min = 5, max = 5, message = "{RegistrationForm.plz.Length}")
+	@Pattern(regexp="([0-9]+){0,1}", message = "{RegistrationForm.plz.Format}")
 	private String plz;
 	
 	@NotEmpty(message = "{RegistrationForm.city.NotEmpty}")
 	@Length(max = 32, message = "{RegistrationForm.city.Length}")
+	@Pattern(regexp="((([A-ZÄÖÜ]{1}[a-zäöüß]+([\\-\\s]{1}[A-ZÄÖÜa-zäöüß]{1}[a-zäöüß]+){0,}){0,1}[\\-\\s]{0,1}){0,1}([A-ZÄÖÜ]{1}[a-zäöüß]+){1}){0,1}", message = "{RegistrationForm.city.Format}")
 	private String city;
 	
 	/**
