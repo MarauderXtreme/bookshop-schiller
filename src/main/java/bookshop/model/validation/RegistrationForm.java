@@ -1,5 +1,7 @@
 package bookshop.model.validation;
 
+import javax.validation.constraints.Pattern;
+
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -21,7 +23,8 @@ public class RegistrationForm {
 	@NotEmpty(message = "{RegistrationForm.lastname.NotEmpty}")
 	@Length(max = 32, message = "{RegistrationForm.lastname.Length}")
 	private String lastname;
-
+	
+	//@Pattern(regexp="[0-9a-zA-Z\.\_\-]+@{1}[0-9a-zA-Z\.\-]+[\.]{1}[a-zA-Z]{2,13}")
 	@NotEmpty(message = "{RegistrationForm.email.NotEmpty}")
 	@Length(max = 64, message = "{RegistrationForm.email.Length}")
 	@Email(message = "{RegistrationForm.email.Email}")
