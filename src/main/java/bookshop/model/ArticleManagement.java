@@ -19,6 +19,18 @@ import bookshop.model.Article.ArticleId;
 public interface ArticleManagement extends Catalog<Article> {
 
 	Iterable<Article> findByType(ArticleId type);
+		
+	Iterable<Article> findByPublisher(String publisher);
+	
+	Iterable<Article> findById(String id);
+	
+	Iterable<Article> findByAuthor(String author);
+	
+	Iterable<Article> findByInterpret(String interpret);
+	
+	Iterable<Article> findByDirector(String director);
+	
+	//Iterable<Article> findByCategory(String categories);
 }
 
 

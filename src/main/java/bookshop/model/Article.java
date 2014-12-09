@@ -28,8 +28,9 @@ public class Article extends Product{
 		protected Article() {}
 		
 		//@SuppressWarnings("deprecation")//was ist das?!
-		public Article(String title, Money price, String beschreibung, String publisher, String id, ArticleId type){
+		public Article(String title, Money price, String beschreibung, String publisher, String id, ArticleId type, String category){
 			super(title, price, Units.METRIC);
+			super.addCategory(category);
 			this.beschreibung = beschreibung;
 			this.publisher = publisher;
 			this.id = id;
@@ -107,6 +108,13 @@ public class Article extends Product{
 		
 		public void setDirector(String director){
 			this.director = director;
+		}
+		
+		public String getCategoryList(){
+			
+			Iterable<String> list = super.getCategories();
+			
+			return list.toString();
 		}
 
 	}

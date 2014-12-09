@@ -109,6 +109,18 @@
 								</div>
 					      </li>
 					      <li class="bullet-item">
+					      <label>Kategorie:</label><span th:text="${book.getCategoryList()}">Kategorie</span>
+					      		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
+									<form method="post" action="/setNewCategory">
+										<fieldset>
+											<input type="text" name="newcategory" />
+											<input type="hidden" name="article" th:value="${book.identifier}" />
+											<input type="submit" value="Change Category" />
+										</fieldset>
+									</form>
+								</div>
+					      </li>
+					      <li class="bullet-item">
 					      <label>Anzahl:</label><span th:text="${quantity}">Units</span>
 					      		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
 									<form method="post" action="/increase">

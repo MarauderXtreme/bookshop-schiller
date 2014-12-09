@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import bookshop.model.Article;
 import bookshop.model.Article.ArticleId;
-import bookshop.model.Book;
 
 
 

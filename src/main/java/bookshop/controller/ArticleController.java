@@ -1,6 +1,11 @@
 package bookshop.controller;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.joda.money.CurrencyUnit.*;
 
@@ -37,15 +42,8 @@ class ArticleController {
 		this.inventory = inventory;
 		this.messageSourceAccessor = new MessageSourceAccessor(messageSource);
 	}
+
 	
-	/*@RequestMapping("/all")
-	public String books(ModelMap modelMap, String name) {
-
-		modelMap.addAttribute("catalog", articleCatalog.findAll());
-		modelMap.addAttribute("title", messageSourceAccessor.getMessage("catalog.dvd.title"));
-
-		return "all";
-	}*/
 	
 	//Initilize Catalog
 	@RequestMapping("/articles")
@@ -84,6 +82,59 @@ class ArticleController {
 		return "dvds";
 	}
 	
+	//search Articles
+	@RequestMapping("/searcharticles")
+	public String searchArticles(ModelMap modelMap, @RequestParam("typeInput") int typeInput, @RequestParam("input") String input){
+
+		if(typeInput == 1){
+			modelMap.addAttribute("catalog", articleCatalog.findByName(input));
+		}
+		
+		if(typeInput == 2){
+			modelMap.addAttribute("catalog", articleCatalog.findByPublisher(input));
+		}
+		
+		if(typeInput == 3){
+			modelMap.addAttribute("catalog", articleCatalog.findById(input));
+		}
+		
+		if(typeInput == 4){
+			modelMap.addAttribute("catalog", articleCatalog.findByAuthor(input));
+		}
+		
+		if(typeInput == 5){
+			modelMap.addAttribute("catalog", articleCatalog.findByInterpret(input));
+		}
+			
+		if(typeInput == 6){
+			modelMap.addAttribute("catalog", articleCatalog.findByDirector(input));
+		}
+		
+		/*if(typeInput == 7){
+			
+			Set<String> categoryList = new HashSet<String>();
+			List<String> arr = new ArrayList<String>();
+			while(articleCatalog.findAll().iterator().hasNext()){
+				arr.add(articleCatalog.findAll().iterator().next().getCategoryList());
+			}
+			
+			String[] bla = arr.toString().split(", ");
+			
+			for(int i=0; i<bla.length; i++){
+				categoryList.add(bla[i]);
+			}
+			
+			while(articleCatalog.findAll().iterator().hasNext()){
+				articleCatalog.findAll().iterator().next().getCategoryList();
+			}
+			
+			modelMap.addAllAttribute("catalog", categories);
+		}*/
+			
+		return "result";	//!? Wird nicht als URL angezeigt sondern "searchArticles"
+		
+	}
+	
 	//Add Article
 	@RequestMapping(value="/addBook", method=RequestMethod.POST)
 	public String addBook(@RequestParam("titleArticle") String title,
@@ -91,10 +142,11 @@ class ArticleController {
 	@RequestParam("priceArticle") double price,
 	@RequestParam("idArticle") String isbn,
 	@RequestParam("publisherArticle") String publisher,
-	@RequestParam("authorArticle") String author){
+	@RequestParam("authorArticle") String author,
+	@RequestParam("categoryArticle") String category){
 	
 	Article article = new Article(title, Money.of(EUR, price), beschreibung,
-			publisher, isbn, ArticleId.BOOK);
+			publisher, isbn, ArticleId.BOOK, category);
 	
 	article.setAuthor(author);
 		
@@ -115,10 +167,11 @@ class ArticleController {
 	@RequestParam("priceArticle") double price,
 	@RequestParam("idArticle") String isbn,
 	@RequestParam("publisherArticle") String publisher,
-	@RequestParam("interpretArticle") String interpret){
+	@RequestParam("interpretArticle") String interpret,
+	@RequestParam("categoryArticle") String category){
 	
 	Article article = new Article(title, Money.of(EUR, price), beschreibung,
-			publisher, isbn, ArticleId.CD);
+			publisher, isbn, ArticleId.CD, category);
 	
 	article.setInterpret(interpret);
 		
@@ -137,10 +190,11 @@ class ArticleController {
 	@RequestParam("priceArticle") double price,
 	@RequestParam("idArticle") String isbn,
 	@RequestParam("publisherArticle") String publisher,
-	@RequestParam("directorArticle") String director){
+	@RequestParam("directorArticle") String director,
+	@RequestParam("categoryArticle") String category){
 	
 	Article article = new Article(title, Money.of(EUR, price), beschreibung,
-			publisher, isbn, ArticleId.DVD);
+			publisher, isbn, ArticleId.DVD, category);
 	
 	article.setDirector(director);
 		
@@ -211,132 +265,6 @@ class ArticleController {
 		return "redirect:dvds";
 	}
 	
-	//Change Informations of an Article
-	@RequestMapping(value="/setNewTitle", method=RequestMethod.POST)
-	public String setNewTitle(@RequestParam("article") Article article, @RequestParam("newname") String name, Model model){
-		
-		
-		System.out.println("Title: " + article.getName());
-		
-		article.setName(name);
-		
-		articleCatalog.save(article);
-		
-		return "redirect:detail/" + article.getIdentifier();
-	}
-		
-		@RequestMapping(value="/setNewPublisher", method=RequestMethod.POST)
-		public String setNewPublisher(@RequestParam("article") Article article, @RequestParam("newpublisher") String publisher, Model model){
-			
-			
-			System.out.println("Title: " + article.getName());
-			
-			article.setPublisher(publisher);
-			
-			articleCatalog.save(article);
-			
-			return "redirect:detail/" + article.getIdentifier();
-		}
-		
-		@RequestMapping(value="/setNewIsbn", method=RequestMethod.POST)
-		public String setNewIsbn(@RequestParam("article") Article article, @RequestParam("newisbn") String isbn, Model model){
-			
-			
-			System.out.println("Title: " + article.getName());
-			
-			article.setId(isbn);
-			
-			articleCatalog.save(article);
-			
-			return "redirect:detail/" + article.getIdentifier();
-		}
-		
-		@RequestMapping(value="/setNewPrice", method=RequestMethod.POST)
-		public String setNewPrice(@RequestParam("article") Article article, @RequestParam("newprice") double price, Model model){
-			
-			System.out.println("Title: " + article.getName());
-			
-			article.setPrice(Money.of(EUR, price));
-			
-			articleCatalog.save(article);
-			
-			return "redirect:detail/" + article.getIdentifier();
-		}
-		
-		//Set Specific Informations
-		@RequestMapping(value="/setNewAuthor", method=RequestMethod.POST)
-		public String setNewAutor(@RequestParam("article") Article article, @RequestParam("newauthor") String author, Model model){
-
-			System.out.println("Autor: " + article.getAuthor());
-						
-			article.setAuthor(author);
-			
-			System.out.println("Autor: " + article.getAuthor());
-			
-			articleCatalog.save(article);
-			
-			return "redirect:detail/" + article.getIdentifier();
-		}
-		
-		@RequestMapping(value="/setNewInterpret", method=RequestMethod.POST)
-		public String setNewInterpret(@RequestParam("article") Article article, @RequestParam("newInterpret") String interpret, Model model){
-						
-			article.setInterpret(interpret);
-			
-			articleCatalog.save(article);
-			
-			return "redirect:detail/" + article.getIdentifier();
-		}
-		
-		@RequestMapping(value="/setNewDirector", method=RequestMethod.POST)
-		public String setNewDirector(@RequestParam("article") Article article, @RequestParam("newdirector") String director, Model model){
-						
-			article.setDirector(director);
-			
-			articleCatalog.save(article);
-			
-			return "redirect:detail/" + article.getIdentifier();
-		}
-		
-		
-	
-	@RequestMapping(value="/increase", method=RequestMethod.POST)
-	public String increaseUnits(@RequestParam("article") Article article, @RequestParam("addquan") long amount, Model model){
-		
-		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
-		System.out.println("UNITS: " + item.get().getQuantity());
-		//item.get().increaseQuantity(Units.ONE);
-		item.get().increaseQuantity(Units.of(amount));
-		
-		//Test: Erhöhung der Units
-		System.out.println("UNITS: " + item.get().getQuantity());
-		
-		/*articleCatalog.findByName(article.getName());
-		item.Units.add(Units.of(i));
-		*/
-		
-		/*Quantity quantity = item.get().getQuantity();
-		model.addAttribute("quantity", quantity);
-		*/
-		
-		articleCatalog.save(article);
-		
-		return "redirect:detail/" + article.getIdentifier();
-	}
-	
-	//Decrease the Units of an Article
-	@RequestMapping(value="/decrease", method=RequestMethod.POST)
-	public String decreaseUnits(@RequestParam("article") Article article, @RequestParam("removequan") long amount, Model model){
-		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
-		item.get().decreaseQuantity(Units.of(amount));
-		
-		//Test: Verringern der Units
-		System.out.println("UNITS: " + item.get().getQuantity());
-		
-		articleCatalog.save(article);
-		
-		return "redirect:detail/" + article.getIdentifier();
-	}
 	
 	//Initilize the Details of an Article
 	@RequestMapping("/detail/{pid}")
@@ -351,4 +279,144 @@ class ArticleController {
 
 		return "detail";
 	}
+
+	//Change Informations of an Article
+		@RequestMapping(value="/setNewTitle", method=RequestMethod.POST)
+		public String setNewTitle(@RequestParam("article") Article article, @RequestParam("newname") String name, Model model){
+			
+			
+			System.out.println("Title: " + article.getName());
+			
+			article.setName(name);
+			
+			articleCatalog.save(article);
+			
+			return "redirect:detail/" + article.getIdentifier();
+		}
+			
+			@RequestMapping(value="/setNewPublisher", method=RequestMethod.POST)
+			public String setNewPublisher(@RequestParam("article") Article article, @RequestParam("newpublisher") String publisher, Model model){
+				
+				
+				System.out.println("Title: " + article.getName());
+				
+				article.setPublisher(publisher);
+				
+				articleCatalog.save(article);
+				
+				return "redirect:detail/" + article.getIdentifier();
+			}
+			
+			@RequestMapping(value="/setNewIsbn", method=RequestMethod.POST)
+			public String setNewIsbn(@RequestParam("article") Article article, @RequestParam("newisbn") String isbn, Model model){
+				
+				
+				System.out.println("Title: " + article.getName());
+				
+				article.setId(isbn);
+				
+				articleCatalog.save(article);
+				
+				return "redirect:detail/" + article.getIdentifier();
+			}
+			
+			@RequestMapping(value="/setNewPrice", method=RequestMethod.POST)
+			public String setNewPrice(@RequestParam("article") Article article, @RequestParam("newprice") double price, Model model){
+				
+				System.out.println("Title: " + article.getName());
+				
+				article.setPrice(Money.of(EUR, price));
+				
+				articleCatalog.save(article);
+				
+				return "redirect:detail/" + article.getIdentifier();
+			}
+			
+			@RequestMapping(value="/setNewCategory", method=RequestMethod.POST)
+			public String setNewCatgory(@RequestParam("article") Article article, @RequestParam("newcategory") String category, Model model){
+				
+				System.out.println("Title: " + article.getName());
+				
+				article.addCategory(category);
+								
+				articleCatalog.save(article);
+				
+				return "redirect:detail/" + article.getIdentifier();
+			}
+			
+			//Set Specific Informations
+			@RequestMapping(value="/setNewAuthor", method=RequestMethod.POST)
+			public String setNewAutor(@RequestParam("article") Article article, @RequestParam("newauthor") String author, Model model){
+
+				System.out.println("Autor: " + article.getAuthor());
+							
+				article.setAuthor(author);
+				
+				System.out.println("Autor: " + article.getAuthor());
+				
+				articleCatalog.save(article);
+				
+				return "redirect:detail/" + article.getIdentifier();
+			}
+			
+			@RequestMapping(value="/setNewInterpret", method=RequestMethod.POST)
+			public String setNewInterpret(@RequestParam("article") Article article, @RequestParam("newInterpret") String interpret, Model model){
+							
+				article.setInterpret(interpret);
+				
+				articleCatalog.save(article);
+				
+				return "redirect:detail/" + article.getIdentifier();
+			}
+			
+			@RequestMapping(value="/setNewDirector", method=RequestMethod.POST)
+			public String setNewDirector(@RequestParam("article") Article article, @RequestParam("newdirector") String director, Model model){
+							
+				article.setDirector(director);
+				
+				articleCatalog.save(article);
+				
+				return "redirect:detail/" + article.getIdentifier();
+			}
+			
+			
+		
+		@RequestMapping(value="/increase", method=RequestMethod.POST)
+		public String increaseUnits(@RequestParam("article") Article article, @RequestParam("addquan") long amount, Model model){
+			
+			Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
+			System.out.println("UNITS: " + item.get().getQuantity());
+			//item.get().increaseQuantity(Units.ONE);
+			item.get().increaseQuantity(Units.of(amount));
+			
+			//Test: Erhöhung der Units
+			System.out.println("UNITS: " + item.get().getQuantity());
+			
+			/*articleCatalog.findByName(article.getName());
+			item.Units.add(Units.of(i));
+			*/
+			
+			/*Quantity quantity = item.get().getQuantity();
+			model.addAttribute("quantity", quantity);
+			*/
+			
+			articleCatalog.save(article);
+			
+			return "redirect:detail/" + article.getIdentifier();
+		}
+		
+		//Decrease the Units of an Article
+		@RequestMapping(value="/decrease", method=RequestMethod.POST)
+		public String decreaseUnits(@RequestParam("article") Article article, @RequestParam("removequan") long amount, Model model){
+			Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
+			item.get().decreaseQuantity(Units.of(amount));
+			
+			//Test: Verringern der Units
+			System.out.println("UNITS: " + item.get().getQuantity());
+			
+			articleCatalog.save(article);
+			
+			return "redirect:detail/" + article.getIdentifier();
+		}
+		
 }
