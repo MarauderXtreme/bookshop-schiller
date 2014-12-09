@@ -1,13 +1,9 @@
 package bookshop.controller;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
-import org.salespointframework.inventory.InventoryItem;
-import org.salespointframework.quantity.Quantity;
-import org.salespointframework.quantity.Units;
 import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManager;
@@ -22,7 +18,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import bookshop.model.validation.RegistrationForm;
-import bookshop.model.Article;
 import bookshop.model.User;
 import bookshop.model.UserRepository;
 
@@ -127,7 +122,7 @@ public class UserController {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/register/employee")
 	public String registerEmployee(ModelMap modelMap) {
-		modelMap.addAttribute("registrationForm", new RegistrationForm());
+		modelMap.addAttribute("registrationForm", new RegistrationForm()); //userRepository
 		return "registerEmployee";
 	}
 	
@@ -166,7 +161,7 @@ public class UserController {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/register/customer")
 	public String registerCustomer(ModelMap modelMap) {
-		modelMap.addAttribute("registrationForm", new RegistrationForm());
+		modelMap.addAttribute("registrationForm", new RegistrationForm()); //userRepository
 		return "registerCustomer";
 	}
 	
@@ -203,7 +198,7 @@ public class UserController {
 	 */
 	@RequestMapping("/user/register")
 	public String register(ModelMap modelMap) {
-		modelMap.addAttribute("registrationForm", new RegistrationForm());
+		modelMap.addAttribute("registrationForm", new RegistrationForm()); //userRepository
 		return "register";
 	}
 	
