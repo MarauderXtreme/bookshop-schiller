@@ -1,5 +1,5 @@
 package bookshop.controller;
 
-public class ProfileController {
+public class test {
 
 }

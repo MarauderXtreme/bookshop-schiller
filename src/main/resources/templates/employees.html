@@ -33,21 +33,36 @@
 		      </header>
 	        <div class="large-12">&nbsp;</div>
 	        <div class="large-12 medium-12 small-12 columns">
-	          <h2>Willkommen auf der Website der Buchhandlung Schiller!</h2>
+	          <h3>Angestelltenübersicht</h3>
 	          <table class="large-12 medium-12 small-12">
 							<thead>
 								<tr>
-									<th th:text="#{employees.name}">Name</th>
+									<th th:text="#{employees.username}">Nutzername</th>
+									<th th:text="#{employees.firstname}">Vorname</th>
+									<th th:text="#{employees.lastname}">Nachname</th>
 									<th th:text="#{employees.address}">Anschrift</th>
+									<th th:text="#{employees.email}">E-Mail</th>
+									<th th:text="#{employees.role}">Rolle</th>
+									<th th:text="#{employees.state}">Status</th>
 								</tr>
 							</thead>
 							<tbody th:remove="all-but-first">
-									<tr th:each=" employee : ${employeeList}">
-										<td th:text="${employee.userAccount.identifier}">Power Paul</td>
-										<td th:text="${employee.address}">Wasaplatz 10</td>
-									</tr>											
+								<tr th:each=" employees : ${employeeList}">
+									<td><a th:text="${employees.userAccount.identifier}" th:href="@{'/user/profile/' + ${employees.userAccount.identifier}}" href="profile.html">PowerPaul</a></td>
+									<td th:text="${employees.userAccount.firstname}">Power</td>
+									<td th:text="${employees.userAccount.lastname}">Paul</td>
+									<td th:text="${employees.address}">Standardadresse</td>
+									<td th:text="${employees.userAccount.email}">PowerPaul@e-mail.de</td>
+									<td th:text="${employees.roles}">Standardrolle</td>
+									<td th:text="${employees.state}">UNKNOWN</td>
+								</tr>										
 							</tbody>
 						</table>
+						<div class="salespoint" sec:authorize="hasRole('ROLE_ADMIN')">
+							<form action="/admin/register/employee" method="POST">
+								<input class="button round" type="submit" th:value="#{register.employee}" value="Registrieren" />
+							</form>
+						</div>
 	        </div>
 	    	</div>
 	    </div>

@@ -18,21 +18,18 @@
     </section>
     <section class="top-bar-section">
     	<ul class="right">
-    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE')" class="divider"></li>
-    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE')">
+    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN')" class="divider"></li>
+    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN')">
     			<a th:href="@{/admin/statistics}" href="statistics.html">Statistiken</a>
     		</li>
-    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE')" class="divider"></li>
-    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE')">
+    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN')" class="divider"></li>
+    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN')">
     			<a th:href="@{/admin/orders}" href="orders.html">Bestellungen</a>
     		</li>
-    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE')" class="divider"></li>
-    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE')" class="has-dropdown not-click">
+    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_USERMANAGER')" class="divider"></li>
+    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_USERMANAGER')" class="has-dropdown not-click">
     			Nutzerübersicht
     			<ul class="dropdown">
-    				<li>
-    					<a th:href="@{/admin/users}" href="users.html">Alle</a>
-    				</li>
     				<li>
     					<a th:href="@{/admin/customers}" href="customers.html">Kunden</a>
     				</li>
@@ -51,7 +48,7 @@
     		</li>
     		<li sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="divider"></li>
     		<li>
-    			<a sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="small round secondary button" th:href="@{/user/login}" href="login.html">Einloggen</a>
+    			<a sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="small round secondary button" th:href="@{/user/login}" href="login.html">Login</a>
     		</li>
     		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="divider"></li>
     		<li>

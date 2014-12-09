@@ -1,22 +1,28 @@
 package bookshop.controller;
 
-import java.awt.List;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.salespointframework.inventory.InventoryItem;
+import org.salespointframework.quantity.Quantity;
+import org.salespointframework.quantity.Units;
 import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import bookshop.model.validation.RegistrationForm;
+import bookshop.model.Article;
 import bookshop.model.User;
 import bookshop.model.UserRepository;
 
@@ -26,6 +32,11 @@ public class UserController {
 	private final UserRepository userRepository;
 	private final UserAccountManager userAccountManager;
 	
+	/**
+	 * Constructor for the UserController.
+	 * @param userRepository
+	 * @param userAccountManager
+	 */
 	@Autowired
 	public UserController(UserRepository userRepository, UserAccountManager userAccountManager) {
 
@@ -33,15 +44,11 @@ public class UserController {
 		this.userAccountManager = userAccountManager;
 	}
 	
-	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
-	@RequestMapping("/admin/users")
-	public String users(ModelMap modelMap) {
-
-		modelMap.addAttribute("userList", userRepository.findAll());
-
-		return "users";
-	}
-	
+	/**
+	 * Maps a list of all customers to modelMap.
+	 * @param modelMap
+	 * @return
+	 */
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/customers")	
 	public String customers(ModelMap modelMap) {
@@ -61,6 +68,11 @@ public class UserController {
 		return "customers";	
 	}
 	
+	/**
+	 * Maps a list of all employees to modelMap.
+	 * @param modelMap
+	 * @return
+	 */
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/employees")
 	public String employees(ModelMap modelMap) {
@@ -80,16 +92,103 @@ public class UserController {
 		return "employees";	
 	}
 	
+	/**
+	 * Reads data from the registrationForm and registers a new employee.
+	 * @param registrationForm
+	 * @param result
+	 * @return
+	 */
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping("/admin/register/employee/new")
+	public String registerNewEmployee(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
+			BindingResult result) {
+
+		if (result.hasErrors()) {
+			return "registerEmployee";
+		}
+
+		UserAccount userAccount = userAccountManager.create(registrationForm.getUsername(), registrationForm.getPassword(),
+				new Role("ROLE_EMPLOYEE"));
+		userAccount.setFirstname(registrationForm.getFirstname());
+		userAccount.setLastname(registrationForm.getLastname());
+		userAccount.setEmail(registrationForm.getEmail());
+		userAccountManager.save(userAccount);
+
+		User user = new User(userAccount, registrationForm.getAddress());
+		userRepository.save(user);
+
+		return "redirect:/";
+	}
+	
+	/**
+	 * Maps the registration form for employees to modelMap.
+	 * @param modelMap
+	 */
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping("/admin/register/employee")
+	public String registerEmployee(ModelMap modelMap) {
+		modelMap.addAttribute("registrationForm", new RegistrationForm());
+		return "registerEmployee";
+	}
+	
+	/**
+	 * Reads data from the registrationForm and registers a new employee.
+	 * @param registrationForm
+	 * @param result
+	 * @return
+	 */
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping("/admin/register/customer/new")
+	public String registerNewCustomer(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
+			BindingResult result) {
+
+		if (result.hasErrors()) {
+			return "registerCustomer";
+		}
+
+		UserAccount userAccount = userAccountManager.create(registrationForm.getUsername(), registrationForm.getPassword(),
+				new Role("ROLE_CUSTOMER"));
+		userAccount.setFirstname(registrationForm.getFirstname());
+		userAccount.setLastname(registrationForm.getLastname());
+		userAccount.setEmail(registrationForm.getEmail());
+		userAccountManager.save(userAccount);
+
+		User user = new User(userAccount, registrationForm.getAddress());
+		userRepository.save(user);
+
+		return "redirect:/";
+	}
+	
+	/**
+	 * Maps the registration form for employees to modelMap.
+	 * @param modelMap
+	 */
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping("/admin/register/customer")
+	public String registerCustomer(ModelMap modelMap) {
+		modelMap.addAttribute("registrationForm", new RegistrationForm());
+		return "registerCustomer";
+	}
+	
+	/**
+	 * Reads data from the registrationForm and registers a new customer.
+	 * @param registrationForm
+	 * @param result
+	 * @return
+	 */
 	@RequestMapping("/user/register/new")
-	public String registerNew(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
+	public String registerMe(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
 			BindingResult result) {
 
 		if (result.hasErrors()) {
 			return "register";
 		}
 
-		UserAccount userAccount = userAccountManager.create(registrationForm.getName(), registrationForm.getPassword(),
+		UserAccount userAccount = userAccountManager.create(registrationForm.getUsername(), registrationForm.getPassword(),
 				new Role("ROLE_CUSTOMER"));
+		userAccount.setFirstname(registrationForm.getFirstname());
+		userAccount.setLastname(registrationForm.getLastname());
+		userAccount.setEmail(registrationForm.getEmail());
 		userAccountManager.save(userAccount);
 
 		User user = new User(userAccount, registrationForm.getAddress());
@@ -98,12 +197,33 @@ public class UserController {
 		return "redirect:/";
 	}
 
+	/**
+	 * Maps the registration form for customers to modelMap.
+	 * @param modelMap
+	 */
 	@RequestMapping("/user/register")
 	public String register(ModelMap modelMap) {
 		modelMap.addAttribute("registrationForm", new RegistrationForm());
 		return "register";
 	}
 	
+	 /**
+	  * Maps the given user to modelMap.
+	  * @param user
+	  * @param modelMap
+	  * @return
+	  */
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_BOSS') || hasRole('ROLE_USERMANAGER')")
+	@RequestMapping("/user/profile/{pid}")
+	public String profile(@PathVariable("pid") UserAccount userAccount, Model modelMap) {
+		User user = userRepository.findByUserAccount(userAccount);
+		modelMap.addAttribute("user", user);
+		return "profile";
+	}
+	
+	/**
+	 * Maps the index page.
+	 */
 	@RequestMapping({ "/", "/index" })
 	public String index() {
 		return "index";

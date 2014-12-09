@@ -33,11 +33,10 @@
 		      </header>
 	        <div class="large-12">&nbsp;</div>
 	        <div class="large-12 medium-12 small-12 columns">
-	          <h3>Registrieren Sie sich ...</h3>
-	          <p>... und profitieren auch Sie von den einzigartigen Angeboten der Buchhandlung Schiller. Sie sind nur noch einen Mausklick entfernt!</p>
+	          <h3>Registrierung eines neuen Kunden:</h3>
 	          <div class="row">
 	          	<div class="large-6 medium-6 small-6 large-offset-3">
-	          		<form method="post" action="/user/register/new" th:object="${registrationForm}">
+	          		<form method="post" action="/admin/register/customer/new" th:object="${registrationForm}">
 									<fieldset>
 										<legend th:text="#{register.title1}">Benutzerdaten</legend>
 										
@@ -52,10 +51,10 @@
 										<input id="email" th:field="*{email}" th:errorclass="fieldError" type="text" name="email" />
 										<p style="color:#FF0000" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Die E-Mail-Adresse darf nicht leer sein.</p>
 										<label th:text="#{register.password}" for="password">Passwort</label>
-										<input id="password" th:field="*{password}" th:errorclass="fieldError" type="password" name="password" />
+										<input id="password" th:field="*{password}" th:errorclass="fieldError" type="text" name="password" />
 										<p style="color:#FF0000" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Das Passwort darf nicht leer sein.</p>
 										<label th:text="#{register.passwordRepeat}" for="passwordRepeat">Passwort</label>
-										<input id="passwordRepeat" th:field="*{passwordRepeat}" th:errorclass="fieldError" type="password" name="passwordRepeat" />
+										<input id="passwordRepeat" th:field="*{passwordRepeat}" th:errorclass="fieldError" type="text" name="passwordRepeat" />
 										<p style="color:#FF0000" th:if="${#fields.hasErrors('passwordRepeat')}" th:errors="*{passwordRepeat}">Das Passwort darf nicht leer sein.</p>
 									</fieldset>
 									<br />

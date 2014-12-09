@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
+//import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,7 +29,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import bookshop.model.Article;
 import bookshop.model.Article.ArticleId;
-import bookshop.model.Book;
 
 
 
@@ -36,7 +36,6 @@ import bookshop.model.Book;
 public class CartController {
 
 	private final OrderManager<Order> orderManager;
-	
 	
 	@Autowired
 	public CartController(OrderManager<Order> orderManager) {
@@ -66,14 +65,29 @@ public class CartController {
 	}
 	*/
 	
+	@RequestMapping(value="/cart")
+	public String cart(ModelMap modelMap, String name, HttpSession session){
+		Cart cart = getCart(session);
+		modelMap.addAttribute("price", cart.getPrice());
+		return "cart";
+	}
+	
 	@RequestMapping(value="/cart/checkout", method = RequestMethod.POST)
 	public String buy(HttpSession session){
 		
 		return "cart";
 	}
-		
+	
+	
+	/**
+	 * Add an article to your cart
+	 * @param modelMap
+	 * @param number
+	 * @param article
+	 * @param session
+	 */
 	@RequestMapping(value="/cart", method = RequestMethod.POST)
-	public String addArticleIntoCart(@RequestParam("number") int number, @RequestParam("article") Article article,
+	public String addArticleIntoCart(ModelMap modelMap, @RequestParam("number") int number, @RequestParam("article") Article article,
 		HttpSession session){
 		
 		if(number <= 1 || number > 10){
@@ -81,38 +95,48 @@ public class CartController {
 		}
 		
 		Quantity quantity = Units.of(number);
-		OrderLine orderLine = new OrderLine(article, quantity);
 		Cart cart = getCart(session);
-		cart.add(orderLine);
-		
+		cart.addOrUpdateItem(article, quantity);	
 		return "cart";
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
 	@RequestMapping(value = "/cart", method = RequestMethod.GET)
 	 public String getCart(){
 		return "cart";
 	}
 	
-	
+	/**
+	 * Clears your entire card
+	 * @param session
+	 */
 	@RequestMapping(value = "/cart/clear", method = RequestMethod.POST)
 	public String clear (HttpSession session){
 		
 		Cart cart = getCart(session);
-		cart.clear();	
+		cart.clear();
 		return "cart";
 	}
 	
-	@RequestMapping(value = "/cart/price", method = RequestMethod.GET)
-	public String getPrice(HttpSession session){
-		Cart cart = getCart(session);
-		cart.getTotalPrice();
-		return "cart";
-	}
-	
+	/**
+	 * Delete a specific item from your card
+	 * @param session
+	 * @param id
+	 */
 	@RequestMapping(value="/cart/delete", method = RequestMethod.POST)
-	public String delete(HttpSession session){
+	public String delete(HttpSession session, @RequestParam("test") String id){
+		Cart cart = getCart(session);
+		cart.removeItem(id);
 		return "cart";
 	}
-
+	
+	/**
+	 * get the current state of your card
+	 * @param session
+	 */
 	@ModelAttribute("cart")
 	private Cart getCart(HttpSession session) {
 
