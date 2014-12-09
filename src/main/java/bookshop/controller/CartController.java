@@ -73,9 +73,16 @@ public class CartController {
 	}
 	
 	@RequestMapping(value="/cart/checkout", method = RequestMethod.POST)
-	public String buy(HttpSession session){
+	public String buy(HttpSession session, @LoggedIn UserAccount userAccount){
 		
-		return "cart";
+		Cart cart = getCart(session);
+		Order order = new Order(userAccount);
+		cart.addItemsTo(order);
+		order.isPaid();
+		order.isCompleted();
+		cart.clear();
+		
+		return "redirect:/";
 	}
 	
 	
@@ -89,22 +96,17 @@ public class CartController {
 	@RequestMapping(value="/cart", method = RequestMethod.POST)
 	public String addArticleIntoCart(ModelMap modelMap, @RequestParam("number") int number, @RequestParam("article") Article article,
 		HttpSession session){
-		
 		if(number <= 1 || number > 10){
 			number = 1;
 		}
 		Quantity quantity = Units.of(number);
 		Cart cart = getCart(session);
+		OrderLine orderline = new OrderLine(article,quantity);
+		/*if(quantity > article.){
+			return "redirect:/cart";
+		}*/
+		
 		cart.addOrUpdateItem(article, quantity);	
-		return "cart";
-	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/cart", method = RequestMethod.GET)
-	 public String getCart(){
 		return "cart";
 	}
 	
