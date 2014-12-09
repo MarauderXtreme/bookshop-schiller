@@ -96,6 +96,18 @@
 									</form>
 								</div>
 					      </li>
+					      <li class="description">
+					      <label>Beschreibung:</label><span th:text="${book.beschreibung}">Simon Travaglia</span>
+					      		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
+									<form method="post" action="/setNewDescription">
+										<fieldset>
+											<textarea name="descriptiontext" cols="40" rows="5"></textarea>
+											<input type="hidden" name="article" th:value="${book.identifier}" />
+											<input type="submit" value="Change Description" />
+										</fieldset>
+									</form>
+								</div>
+					      </li>
 					      <li class="bullet-item">
 					      <label>ISBN-Nr.:</label><span th:text="${book.id}">ISBN</span>
 					      		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
@@ -116,6 +128,13 @@
 											<input type="text" name="newcategory" />
 											<input type="hidden" name="article" th:value="${book.identifier}" />
 											<input type="submit" value="Change Category" />
+										</fieldset>
+									</form>
+									<form method="post" action="/deletecategory">
+										<fieldset>
+											<input type="text" name="categorytodelete" />
+											<input type="hidden" name="article" th:value="${book.identifier}" />
+											<input type="submit" value="Delete Category" />
 										</fieldset>
 									</form>
 								</div>

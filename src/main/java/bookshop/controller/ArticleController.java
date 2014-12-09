@@ -110,12 +110,17 @@ class ArticleController {
 			modelMap.addAttribute("catalog", articleCatalog.findByDirector(input));
 		}
 		
-		/*if(typeInput == 7){
+		if(typeInput == 7){
 			
-			Set<String> categoryList = new HashSet<String>();
+			/*Set<String> categoryList = new HashSet<String>();
 			List<String> arr = new ArrayList<String>();
+						
 			while(articleCatalog.findAll().iterator().hasNext()){
-				arr.add(articleCatalog.findAll().iterator().next().getCategoryList());
+				String[] bla = articleCatalog.findAll().iterator().next().getCategoryList().toString().split(", ");
+				if(bla.equals(input)){
+					
+				}
+					
 			}
 			
 			String[] bla = arr.toString().split(", ");
@@ -128,8 +133,10 @@ class ArticleController {
 				articleCatalog.findAll().iterator().next().getCategoryList();
 			}
 			
-			modelMap.addAllAttribute("catalog", categories);
-		}*/
+			modelMap.addAllAttribute("catalog", categories);*/
+			
+			modelMap.addAttribute("catalog", articleCatalog.findByCategory(input));
+		}
 			
 		return "result";	//!? Wird nicht als URL angezeigt sondern "searchArticles"
 		
@@ -146,9 +153,9 @@ class ArticleController {
 	@RequestParam("categoryArticle") String category){
 	
 	Article article = new Article(title, Money.of(EUR, price), beschreibung,
-			publisher, isbn, ArticleId.BOOK, category);
+			publisher, isbn, ArticleId.BOOK, category, author);
 	
-	article.setAuthor(author);
+	//article.setAuthor(author);
 		
 	articleCatalog.save(article);
 	
@@ -171,9 +178,9 @@ class ArticleController {
 	@RequestParam("categoryArticle") String category){
 	
 	Article article = new Article(title, Money.of(EUR, price), beschreibung,
-			publisher, isbn, ArticleId.CD, category);
+			publisher, isbn, ArticleId.CD, category, interpret);
 	
-	article.setInterpret(interpret);
+	//article.setInterpret(interpret);
 		
 	articleCatalog.save(article);
 		
@@ -194,9 +201,9 @@ class ArticleController {
 	@RequestParam("categoryArticle") String category){
 	
 	Article article = new Article(title, Money.of(EUR, price), beschreibung,
-			publisher, isbn, ArticleId.DVD, category);
+			publisher, isbn, ArticleId.DVD, category, director);
 	
-	article.setDirector(director);
+	//article.setDirector(director);
 		
 	articleCatalog.save(article);
 		
@@ -307,6 +314,16 @@ class ArticleController {
 				return "redirect:detail/" + article.getIdentifier();
 			}
 			
+			@RequestMapping(value="/setNewDescription", method=RequestMethod.POST)
+			public String setNewDescription(@RequestParam("article") Article article, @RequestParam("descriptiontext") String beschreibung){
+				
+				article.setBeschreibung(beschreibung);
+				
+				articleCatalog.save(article);
+				
+				return "redirect:detail/" + article.getIdentifier();
+			}
+			
 			@RequestMapping(value="/setNewIsbn", method=RequestMethod.POST)
 			public String setNewIsbn(@RequestParam("article") Article article, @RequestParam("newisbn") String isbn, Model model){
 				
@@ -408,11 +425,23 @@ class ArticleController {
 		//Decrease the Units of an Article
 		@RequestMapping(value="/decrease", method=RequestMethod.POST)
 		public String decreaseUnits(@RequestParam("article") Article article, @RequestParam("removequan") long amount, Model model){
+			
 			Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
 			item.get().decreaseQuantity(Units.of(amount));
 			
 			//Test: Verringern der Units
 			System.out.println("UNITS: " + item.get().getQuantity());
+			
+			articleCatalog.save(article);
+			
+			return "redirect:detail/" + article.getIdentifier();
+		}
+		
+		//Delete Information(Categories) of an Article
+		@RequestMapping(value="/deletecategory", method=RequestMethod.POST)
+		public String deleteCategory(@RequestParam("article") Article article, @RequestParam("categorytodelete") String category){
+			
+			article.removeCategory(category);
 			
 			articleCatalog.save(article);
 			

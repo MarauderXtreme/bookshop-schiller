@@ -8,6 +8,7 @@ import videoshop.model.Disc;
 import videoshop.model.Disc.DiscType;
 */
 import org.salespointframework.catalog.Catalog;
+import org.springframework.data.jpa.repository.Query;
 
 import bookshop.model.Article.ArticleId;
 /*import java.util.Optional;
@@ -30,7 +31,8 @@ public interface ArticleManagement extends Catalog<Article> {
 	
 	Iterable<Article> findByDirector(String director);
 	
-	//Iterable<Article> findByCategory(String categories);
+	@Query(value="select p from #{#entityName} p where ?1 member of p.categories")
+	Iterable<Article> findByCategory(String category);
 }
 
 

@@ -28,16 +28,23 @@ public class Article extends Product{
 		protected Article() {}
 		
 		//@SuppressWarnings("deprecation")//was ist das?!
-		public Article(String title, Money price, String beschreibung, String publisher, String id, ArticleId type, String category){
+		public Article(String title, Money price, String beschreibung, String publisher, String id, ArticleId type, String category, String artist){
 			super(title, price, Units.METRIC);
 			super.addCategory(category);
 			this.beschreibung = beschreibung;
 			this.publisher = publisher;
 			this.id = id;
 			this.type = type;
-			this.author = "Unknown";
-			this.interpret = "Unknown";
-			this.director = "Unknown";
+			
+			if(type==ArticleId.BOOK){
+				this.author = artist;
+			}
+			if(type==ArticleId.CD){
+				this.interpret = artist;
+			}
+			if(type==ArticleId.DVD){
+				this.director = artist;
+			}
 		}
 		
 		
