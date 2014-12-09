@@ -93,7 +93,6 @@ public class CartController {
 		if(number <= 1 || number > 10){
 			number = 1;
 		}
-		
 		Quantity quantity = Units.of(number);
 		Cart cart = getCart(session);
 		cart.addOrUpdateItem(article, quantity);	
@@ -130,7 +129,7 @@ public class CartController {
 	public String delete(HttpSession session, @RequestParam("test") String id){
 		Cart cart = getCart(session);
 		cart.removeItem(id);
-		return "cart";
+		return "redirect:/cart";
 	}
 	
 	/**

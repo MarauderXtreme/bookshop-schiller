@@ -52,6 +52,7 @@
 										<td class="large-2 medium-2 small-2" th:text="${orderline.price}">10 Euro</td>
 										<td class="large-2 medium-2 small-2"> 
 											<form class="salespoint" method="POST" action="/cart/delete">
+											  <input type="hidden" name="test" value="0" th:value="${orderline.identifier}"/>
 												<input class="button" type="submit" value="löschen"/> 
 											</form>
 										</td>

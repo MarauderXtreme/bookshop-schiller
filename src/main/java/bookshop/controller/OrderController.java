@@ -1,5 +1,8 @@
 package bookshop.controller;
 
-public class OrderController {
+import org.springframework.stereotype.Controller;
 
+@Controller
+public class OrderController {
+	
 }
