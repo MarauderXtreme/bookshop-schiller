@@ -49,7 +49,7 @@
 				  <div th:each="book : ${catalog}" class="row full-width">
 				  	<div class="large-2 columns">
 					    <a class="th" href="http://foundation.zurb.com/docs/assets/img/examples/earth.jpg">
-					      <img src="http://foundation.zurb.com/docs/assets/img/examples/earth-th-sm.jpg" />
+					      <img alt="cover" class="cover" th:src="@{'/resources/img/' + ${book.image}}" />
 					    </a>
 				    </div>
 				    <div class="large-6 columns">

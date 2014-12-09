@@ -64,7 +64,6 @@
 							<ul class="pricing-table">
 					      <li class="title">
 					      <span th:text="${book.name}">Last Action Hero</span>
-					      		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
 									<form method="post" action="/setNewTitle">
 										<fieldset>
 											<input type="text" name="newname" />
@@ -72,11 +71,9 @@
 											<input type="submit" value="Change Title" />
 										</fieldset>
 									</form>
-								</div>
 					      </li>
 					      <li class="description">
 					      <label>Autor</label><span th:text="${book.author}">Simon Travaglia</span>
-					      		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
 									<form method="post" action="/setNewAuthor">
 										<fieldset>
 											<input type="text" name="newauthor" />
@@ -84,11 +81,9 @@
 											<input type="submit" value="Change Author" />
 										</fieldset>
 									</form>
-								</div>
 					      </li>
 					      <li class="bullet-item">
 					      <label>Publisher:</label><span th:text="${book.publisher}">Verlag</span>
-					      		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
 									<form method="post" action="/setNewPublisher">
 										<fieldset>
 											<input type="text" name="newpublisher" />
@@ -96,11 +91,9 @@
 											<input type="submit" value="Change Publisher" />
 										</fieldset>
 									</form>
-								</div>
 					      </li>
 					      <li class="description">
 					      <label>Beschreibung:</label><span th:text="${book.beschreibung}">Simon Travaglia</span>
-					      		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
 									<form method="post" action="/setNewDescription">
 										<fieldset>
 											<textarea name="descriptiontext" cols="40" rows="5"></textarea>
@@ -108,11 +101,9 @@
 											<input type="submit" value="Change Description" />
 										</fieldset>
 									</form>
-								</div>
 					      </li>
 					      <li class="bullet-item">
 					      <label>ISBN-Nr.:</label><span th:text="${book.id}">ISBN</span>
-					      		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
 									<form method="post" action="/setNewIsbn">
 										<fieldset>
 											<input type="text" name="newisbn" />
@@ -120,11 +111,9 @@
 											<input type="submit" value="Change ISBN" />
 										</fieldset>
 									</form>
-								</div>
 					      </li>
 					      <li class="bullet-item">
 					      <label>Kategorie:</label><span th:text="${book.getCategoryList()}">Kategorie</span>
-					      		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
 									<form method="post" action="/setNewCategory">
 										<fieldset>
 											<input type="text" name="newcategory" />
@@ -139,9 +128,7 @@
 											<input type="submit" value="Delete Category" />
 										</fieldset>
 									</form>
-								</div>
 					      </li>
-					      <div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
 					      <li class="bullet-item">
 					      <label>Bild:</label><span th:text="${book.image}">Bild-Pfad</span>
 									<form method="post" action="/setNewImage">
@@ -152,10 +139,8 @@
 										</fieldset>
 									</form>
 					      </li>
-					      </div>
 					      <li class="bullet-item">
 					      <label>Anzahl:</label><span th:text="${quantity.amount}">Units</span>
-					      		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
 									<form method="post" action="/increase">
 										<fieldset>
 											<input type="text" name="addquan" />
@@ -170,36 +155,15 @@
 											<input type="submit" value="Decrease Article" />
 										</fieldset>
 									</form>
-								</div>
 					      </li>
 					      <li class="price">
 					      <label>Preis:</label><span th:text="${book.price}">9.99€</span>
-					      		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
 									<form method="post" action="/setNewPrice">
 										<fieldset>
 											<input type="text" name="newprice" />
 											<input type="hidden" name="article" th:value="${book.identifier}" />
 											<input type="submit" value="Change Price" />
 										</fieldset>
-									</form>
-								</div>
-					      </li>
-					      <div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
-					      <li>
-								<a href="editarticle.html"><input class="button postfix" type="button" value="Edit Article" /></a>
-					      </li>
-					      </div>
-					      <li class="cta-button">
-					      	<form action="/cart" method="POST">
-					      		<div class="row collapse postfix-round">
-											<input type="hidden" name="article" value="0" th:value="${book.identifier}"/>
-											<div class="small-9 columns">
-												<input id="number" type="number" name="number" step="1" value="1" placeholder="Anzahl" />
-											</div>
-											<div class="small-3 columns">
-												<input class="button postfix" type="submit" value="Zum Warenkorb hinzufügen"/>
-											</div>
-										</div>
 									</form>
 					      </li>
 					    </ul>

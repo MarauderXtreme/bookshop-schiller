@@ -159,10 +159,17 @@ class ArticleController {
 		
 	articleCatalog.save(article);
 	
-	System.out.println(article.getAuthor());
+	//System.out.println(article.getAuthor());
 	
-	Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
-	Quantity quantity = item.map(InventoryItem::getQuantity).orElse(Units.TEN);
+	
+	InventoryItem item = new InventoryItem(article, Units.TEN);
+	inventory.save(item);
+	
+	//System.out.println("ITEM: " + item);
+	
+	//Quantity quantity = item.map(InventoryItem::getQuantity).orElse(Units.TEN);
+	
+	
 
 	 return "redirect:books";
 
@@ -184,9 +191,12 @@ class ArticleController {
 		
 	articleCatalog.save(article);
 		
-	Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
-	Quantity quantity = item.map(InventoryItem::getQuantity).orElse(Units.TEN);
+	//Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
+	//Quantity quantity = item.map(InventoryItem::getQuantity).orElse(Units.TEN);
 
+	InventoryItem item = new InventoryItem(article, Units.TEN);
+	inventory.save(item);
+	
 	 return "redirect:cds";
 
 	}
@@ -207,9 +217,12 @@ class ArticleController {
 		
 	articleCatalog.save(article);
 		
-	Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
-	Quantity quantity = item.map(InventoryItem::getQuantity).orElse(Units.TEN);
+	//Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
+	//Quantity quantity = item.map(InventoryItem::getQuantity).orElse(Units.TEN);
 
+	InventoryItem item = new InventoryItem(article, Units.TEN);
+	inventory.save(item);
+	
 	 return "redirect:dvds";
 
 	}
@@ -412,6 +425,8 @@ class ArticleController {
 		public String increaseUnits(@RequestParam("article") Article article, @RequestParam("addquan") long amount, Model model){
 			
 			Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
+			System.out.println("ITEM: "+ item);
+			
 			System.out.println("UNITS: " + item.get().getQuantity());
 			//item.get().increaseQuantity(Units.ONE);
 			item.get().increaseQuantity(Units.of(amount));
