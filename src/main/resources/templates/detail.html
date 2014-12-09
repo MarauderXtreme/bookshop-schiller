@@ -56,7 +56,9 @@
 	        <div class="large-12">&nbsp;</div>
 	        <div class="large-12 medium-12 small-12 columns">
 	          <div class="large-3 columns">
-  						<img alt="cover" class="cover" /><!-- src="../resources/img/cover/lac.jpg" th:src="@{'/resources/img/cover/' + ${book.image} + '.jpg'}" -->
+  						<img alt="cover" class="cover" th:src="@{'/resources/img/' + ${book.image}}" />
+  						<!-- th:src="@{'/resources/img/cover/' + ${book.image} + '.jpg'}" -->
+  						<!-- <src="../resources/img/cover/lac.jpg"  th:src="@{'/resources/img/cover/' + ${book.image} + '.jpg'}" />-->
 						</div>
 						<div class="large-9 medium-9 small-9 columns">
 							<ul class="pricing-table">
@@ -139,6 +141,18 @@
 									</form>
 								</div>
 					      </li>
+					      <div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
+					      <li class="bullet-item">
+					      <label>Bild:</label><span th:text="${book.image}">Bild-Pfad</span>
+									<form method="post" action="/setNewImage">
+										<fieldset>
+											<input type="text" name="newimage" />
+											<input type="hidden" name="article" th:value="${book.identifier}" />
+											<input type="submit" value="Change Image" />
+										</fieldset>
+									</form>
+					      </li>
+					      </div>
 					      <li class="bullet-item">
 					      <label>Anzahl:</label><span th:text="${quantity}">Units</span>
 					      		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">

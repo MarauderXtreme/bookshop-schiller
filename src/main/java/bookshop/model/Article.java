@@ -15,10 +15,12 @@ public class Article extends Product{
 		private String publisher;
 		private String id;
 		private ArticleId type;
+		private String image;
 		//spezifische Variablen
 		private String author;
 		private String interpret;
 		private String director;
+		
 		
 		//!!! - Kategorie manuell in der Main neben Artikel definieren 
 		//oder im Artikel direkt hinzufügen im Kostruktor
@@ -36,14 +38,20 @@ public class Article extends Product{
 			this.id = id;
 			this.type = type;
 			
+			this.image = "notAvaliableBook";
+			
+			
 			if(type==ArticleId.BOOK){
 				this.author = artist;
+				this.image = "notAvaliableBook.jpg";
 			}
 			if(type==ArticleId.CD){
 				this.interpret = artist;
+				this.image = "notAvaliableCd.jpg";
 			}
 			if(type==ArticleId.DVD){
 				this.director = artist;
+				this.image = "notAvaliableDvd.png";
 			}
 		}
 		
@@ -122,6 +130,14 @@ public class Article extends Product{
 			Iterable<String> list = super.getCategories();
 			
 			return list.toString();
+		}
+		
+		public String getImage(){
+			return image;
+		}
+		
+		public void setImage(String image){
+			this.image = image;
 		}
 
 	}

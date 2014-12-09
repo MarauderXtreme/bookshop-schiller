@@ -361,6 +361,16 @@ class ArticleController {
 				return "redirect:detail/" + article.getIdentifier();
 			}
 			
+			@RequestMapping(value="/setNewImage", method=RequestMethod.POST)
+			public String setNewImage(@RequestParam("article") Article article, @RequestParam("newimage") String image, Model model){
+								
+				article.setImage(image);
+				
+				articleCatalog.save(article);
+				
+				return "redirect:detail/" + article.getIdentifier();
+			}
+			
 			//Set Specific Informations
 			@RequestMapping(value="/setNewAuthor", method=RequestMethod.POST)
 			public String setNewAutor(@RequestParam("article") Article article, @RequestParam("newauthor") String author, Model model){
