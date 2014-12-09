@@ -9,7 +9,7 @@ import org.salespointframework.quantity.Units;
 @Entity
 public class Article extends Product{
 		
-		public static enum ArticleId {ALL, BOOK, DVD, CD};
+		public static enum ArticleId {BOOK, DVD, CD};
 		
 		private String beschreibung;
 		private String publisher;
@@ -37,9 +37,7 @@ public class Article extends Product{
 			this.publisher = publisher;
 			this.id = id;
 			this.type = type;
-			
-			this.image = "notAvaliableBook";
-			
+						
 			
 			if(type==ArticleId.BOOK){
 				this.author = artist;
@@ -55,6 +53,19 @@ public class Article extends Product{
 			}
 		}
 		
+		//@SuppressWarnings("deprecation")//was ist das?!
+		public Article(String title, Money price, String beschreibung, String publisher, String id, ArticleId type, String category, String artist, String image){
+			super(title, price, Units.METRIC);
+			super.addCategory(category);
+			this.beschreibung = beschreibung;
+			this.publisher = publisher;
+			this.id = id;
+			this.type = type;
+			
+			this.image = image;
+			
+			
+		}
 		
 		public String getBeschreibung(){
 			return beschreibung;
