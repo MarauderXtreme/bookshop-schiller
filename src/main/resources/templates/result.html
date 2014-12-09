@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head>
+		
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		
+		<link rel="stylesheet" type="text/css" href="/resources/css/style.css" />
+		<link rel="stylesheet" type="text/css" href="/resources/css/foundation.css" />
+	  <link rel="stylesheet" type="text/css" href="/resources/css/normalize.css" />
+	  <link rel="stylesheet" type="text/css" href="/resources/css/slick.css" />
+	  <!-- <link rel="stylesheet" type="text/css" href="/include/misc/php-calendar/css/style.css" /> -->
+	  <link rel="stylesheet" type="text/css" href="/resources/css/style.css" />
+    
+    <script type="text/javascript" src="/resources/js/vendor/modernizr.js"></script>
+		
+		<title th:text="#{home.title}">Alle Artikel | Buchhandlung Schiller</title>
+	
+	</head>
+	<body>
+		<div class="off-canvas-wrap" data-offcanvas="">
+			<div class="fixed" th:include="topbar :: topbar"></div>
+	    <div class="inner-wrap">
+	    	<aside class="left-off-canvas-menu" aria-hidden="true">
+	    		<nav th:include="navigation :: navigation"></nav>
+	    	</aside>
+	    	<div class="main-content">
+		    	<header class="large-12 medium-12 show-for-landscape show-for-medium-up">
+		        <div class="panel">
+		          <div class="header-slider" th:include="slider :: slider"></div>
+		        </div>
+		      </header>
+	        <div class="large-12">&nbsp;</div>
+          <div class="panel row full-width">
+				    <div class="large-2 columns">
+				      Cover
+				    </div>
+				    <div class="large-6 columns">
+				      Buchinfos
+				    </div>
+				    <div class="large-2 columns">
+				      Preis
+				    </div>
+				    <div class="large-2 columns">
+				      Schnelllinks
+				    </div>
+					</div>
+				  <div th:each="book : ${catalog}" class="row full-width">
+				  	<div class="large-2 columns">
+					    <a class="th" href="http://foundation.zurb.com/docs/assets/img/examples/earth.jpg">
+					      <img src="http://foundation.zurb.com/docs/assets/img/examples/earth-th-sm.jpg" />
+					    </a>
+				    </div>
+				    <div class="large-6 columns">
+					    <h3>
+					    	<a th:text="${book.name}" th:href="@{'/detail/' + ${book.identifier}}" href="detail.html">Bastard Operator from Hell</a>
+					    </h3>
+					    <p th:text="${book.publisher}">Simon Travaglia</p>
+					    <p th:text="${book.id}">666-6666666666</p>
+				    </div>
+				    <div class="large-2 columns">
+				    	<p th:text="${book.price}">6.66€</p>
+				    	<!--<p th:text="${book.author}">Autor</p>-->
+				    </div>
+				    <!-- <div class="salespoint" sec:authorize="hasRole('ROLE_COSTUMER')"> -->
+				    <div class="large-2 columns">
+							<form action="/cart" method="POST">
+								<input type="hidden" name="article" value="0" th:value="${book.identifier}"/>
+								<input id="number" type="number" name="number" step="1" value="1"/>
+								<input class="button" type="submit" value="Zum Warenkorb hinzufügen"/>
+							</form>
+				    		</div>
+				    	</div>
+				    			<!-- <div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
+									<form method="post" action="/deleteBook">
+										<fieldset>
+											<input type="hidden" name="article" value="0" th:value="${book.identifier}" />
+											<input type="submit" value="Delete Article" />
+										</fieldset>
+									</form>
+								</div>-->
+				  </div>
+		    </div>
+			</div>
+		<!--</div>-->
+
+
+		<!--<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
+			<form method="post" action="/addBook">
+				<fieldset>
+					<input type="text" name="titleArticle" value="Title" />
+					<input type="text" name="authorArticle" value="Author" />
+					<input type="text" name="publisherArticle" value="publisher" />
+					<input type="text" name="priceArticle" value="Price" />
+					<input type="text" name="beschreibungArticle" value="Beschreibung" />
+					<input type="text" name="idArticle" value="Isbn" />
+					<input type="text" name="typeArticle" value="Type" />
+					<input type="submit" value="Add Article" />
+				</fieldset>
+			</form>
+		</div>-->
+
+
+		<script type="text/javascript" src="/resources/js/vendor/jquery.js"></script>
+		<script type="text/javascript" src="/resources/js/vendor/fastclick.js"></script>
+		<script type="text/javascript" src="/resources/js/foundation.min.js"></script>
+		<script type="text/javascript" src="/resources/js/vendor/slick.min.js"></script>
+		<script type="text/javascript">
+			$(document).foundation(
+			{
+			accordion: {
+			content_class: 'content',
+			active_class: 'active',
+			toggleable: true
+			}
+			}
+			);
+		</script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+			$('.header-slider').slick({
+			dots: true,
+			infinite: true,
+			lazyLoad: 'ondemand',
+			slidesToShow: 1,
+			slidesToScroll: 1,
+			autoplay: true,
+			autoplaySpeed: 3000,
+			});
+			});
+		</script>
+	</body>
+</html>
