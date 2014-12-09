@@ -20,6 +20,9 @@ import org.springframework.util.Assert;
 import bookshop.model.Article;
 import bookshop.model.ArticleManagement;
 import bookshop.model.Article.ArticleId;
+import bookshop.model.CalendarManagement;
+import bookshop.model.Date;
+import bookshop.model.RoomManagement;
 //import bookshop.model.Book;
 import bookshop.model.User;
 import bookshop.model.UserRepository;
@@ -45,6 +48,9 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		this.inventory = inventory;
 		this.userAccountManager = userAccountManager;
 		this.articleCatalog = articleCatalog;
+		
+		//RoomManagement.getInstance().addRoom("Computerraum","067");
+		//CalendarManagement.getInstance().addEvent("Praesentation", new Date("26112014","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
 	}
 
 	@Override
@@ -63,13 +69,17 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		if(articleCatalog.findAll().iterator().hasNext()){
 			return;
 		}
-
+			
+		
 		articleCatalog.save(new Article("Bastard Operator from Hell", Money.of(EUR, 19.99), "Ultimativer Leitfaden für den Job an einem Helpdesk", "Simon Travaglia", 42, ArticleId.BOOK));
 		articleCatalog.save(new Article("Trost und Rat", Money.of(EUR, 9.99), "Ein Ratgeber der besonderen Art", "Flann O'Brien", 123, ArticleId.BOOK));
 		articleCatalog.save(new Article("50 Schatten des Grauens", Money.of(EUR, 7.98), "Horrorpersiflage des BEstsellers", "Chris Ragman", 124, ArticleId.BOOK));
 		articleCatalog.save(new Article("Der Doktor und seine Gefährten", Money.of(EUR, 14.99), "Das Begleitbuch zur Serie", "Sir Doctor from Tardis", 125, ArticleId.BOOK));
 		articleCatalog.save(new Article("Stargate - Kommando SG-1", Money.of(EUR, 17.95), "Kurzbeschreibungen der Episoden der ersten Staffel", "Wolfgang Hohlbein", 126, ArticleId.BOOK));
 
+		RoomManagement.getInstance().addRoom("Computerraum","067");
+		CalendarManagement.getInstance().addEvent("Praesentation", new Date("26112014","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
+		
 		// (｡◕‿◕｡)
 		// Über alle eben hinzugefügten Discs iterieren und jeweils ein InventoryItem mit der Quantity 10 setzen
 		// Das heißt: Von jeder Disc sind 10 Stück im Inventar.
