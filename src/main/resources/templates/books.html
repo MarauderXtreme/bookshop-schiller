@@ -65,7 +65,7 @@
 					      <img alt="cover" class="cover" th:src="@{'/resources/img/' + ${book.image}}" />
 					    </a>
 				    </div>
-				    <div class="large-6 columns">
+				    <div class="large-5 columns">
 					    <h3>
 					    	<a th:text="${book.name}" th:href="@{'/detail/' + ${book.identifier}}" href="detail.html">Bastard Operator from Hell</a>
 					    </h3>
@@ -76,11 +76,11 @@
 				    	<p th:text="${book.price}">6.66€</p>
 				    	<p th:text="${book.author}">Autor</p>
 				    </div>
-				    <div class="large-2 columns">
+				    <div class="large-3 columns">
 							<form action="/cart" method="POST">
 								<input type="hidden" name="article" value="0" th:value="${book.identifier}"/>
 								<input id="number" type="number" name="number" step="1" value="1"/>
-								<input class="button" type="submit" value="Zum Warenkorb hinzufügen"/>
+								<input class="button small" type="submit" value="In den Warenkorb"/>
 							</form>
 				    </div>
 		    		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">

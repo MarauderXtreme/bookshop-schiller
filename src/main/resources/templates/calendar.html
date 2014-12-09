@@ -50,7 +50,10 @@
 		          </thead>
 		          <tbody th:remove="all-but-first">
 		          	<tr th:each="event : ${eventList}">
-		            	<td th:text="${event.getDate().getEventDate()}">10112014</td>
+		          		
+		            	<td>
+		            		<span th:text="${event.getDate()}">13</span>
+		            	</td>
 		              <td th:text="${event.getDate().getEventTime()}">0000</td>
 		              <td th:text="${event.getName()}">Testtext</td>
 		            </tr>

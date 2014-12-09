@@ -82,7 +82,22 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		}
 
 		RoomManagement.getInstance().addRoom("Computerraum","067");
+		RoomManagement.getInstance().addRoom("Ratssaal","1335");
+		RoomManagement.getInstance().addRoom("ASCII","0123");
+		RoomManagement.getInstance().addRoom("FSR-Buero","042");
+		
+		
 		CalendarManagement.getInstance().addEvent("Praesentation", new Date("26112014","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
+		CalendarManagement.getInstance().addEvent("FSR-Filmabend", new Date("27112014","1915"), RoomManagement.getInstance().getRoom("Ratssaal"));
+		CalendarManagement.getInstance().addEvent("Tutorenbesprechung", new Date("03122014","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
+		CalendarManagement.getInstance().addEvent("Tutorenbesprechung", new Date("10122014","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
+		CalendarManagement.getInstance().addEvent("Gluehweinverkoestigung", new Date("18122014","0905"), RoomManagement.getInstance().getRoom("ASCII"));
+		CalendarManagement.getInstance().addEvent("Weihnachtsfeier", new Date("22122014","1800"), RoomManagement.getInstance().getRoom("Ratssaal"));
+		CalendarManagement.getInstance().addEvent("Weihnachtsfeier", new Date("22122014","1830"), RoomManagement.getInstance().getRoom("ASCII"));
+		CalendarManagement.getInstance().addEvent("Praesentation", new Date("19012015","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
+		CalendarManagement.getInstance().addEvent("Lernen", new Date("23012015","1640"), RoomManagement.getInstance().getRoom("Computerraum"));
+		CalendarManagement.getInstance().addEvent("Fasching", new Date("10102015","0920"), RoomManagement.getInstance().getRoom("Computerraum"));
+		CalendarManagement.getInstance().addEvent("1. April", new Date("01042015","1111"), RoomManagement.getInstance().getRoom("FSR-Büro"));
 
 		articleCatalog.save(new Article("Bastard Operator from Hell", Money.of(EUR, 19.99), "Ultimativer Leitfaden für den Job an einem Helpdesk", "Simon Travaglia", "42", ArticleId.BOOK, "Action", "Flann O'Brien"));
 		articleCatalog.save(new Article("Trost und Rat", Money.of(EUR, 9.99), "Ein Ratgeber der besonderen Art", "Flann O'Brien", "123", ArticleId.BOOK, "Action", "Flann O'Brien", "trostundrat.jpg"));

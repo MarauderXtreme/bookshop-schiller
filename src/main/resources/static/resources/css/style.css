@@ -26,3 +26,7 @@ body {
    margin-right: auto;
    max-width: initial;
 }
+
+.no-wrap {
+	white-space: nowrap;
+}

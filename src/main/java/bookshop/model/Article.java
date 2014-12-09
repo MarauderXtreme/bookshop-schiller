@@ -29,7 +29,7 @@ public class Article extends Product{
 		@Deprecated
 		protected Article() {}
 		
-		//@SuppressWarnings("deprecation")//was ist das?!
+		//@SuppressWarnings("deprecation")
 		public Article(String title, Money price, String beschreibung, String publisher, String id, ArticleId type, String category, String artist){
 			super(title, price, Units.METRIC);
 			super.addCategory(category);
