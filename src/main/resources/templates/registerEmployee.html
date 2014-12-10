@@ -41,7 +41,7 @@
 										<legend th:text="#{register.title1}">Benutzerdaten</legend>
 										
 										<div th:if="${#fields.hasErrors('*')}">
-											<p style="color:#FF0000"><b>Einige Angaben sind nicht korrekt. Bitte versuchen Sie es erneut!</b></p>
+											<p style="color:#FF0000"><b>Einige Angaben in den Nutzerdaten oder Personenbezogenen Daten sind nicht korrekt. Bitte versuchen Sie es erneut!</b></p>
 										</div>
 										<p style="color:#FF0000" th:if="${#fields.hasErrors('global')}" th:errors="*{global}"></p>
 										
