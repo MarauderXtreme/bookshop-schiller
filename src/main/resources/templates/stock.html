@@ -38,7 +38,7 @@
 							<caption th:text="#{stock.title}">Bestand</caption>
 							<thead>
 								<tr>
-									<th th:text="#{shoppingBasket.movieTitle}">Titel</th>
+									<th th:text="#{shoppingBasket.articleTitle}">Titel</th>
 									<th th:text="#{shoppingBasket.count}">Anzahl</th>
 								</tr>
 							</thead>
@@ -47,9 +47,11 @@
 										<td th:text="${item.product.name}">Last Action Hero</td>
 										<td th:text="${item.quantity}">9000</td>
 										<td>
-											<form method="post" action="clearout">
-												<input type="submit" th:value="#{stock.reorder}" value="Nachbestellen" />
-										  </form>
+										  <div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE')">
+												<form method="post" action="clearout">
+													<input class="button secondary" type="submit" th:value="#{stock.reorder}" value="Nachbestellen" />
+												</form>
+											</div>
 							 	    </td>
 									</tr>																	
 							</tbody>

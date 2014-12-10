@@ -62,7 +62,7 @@
 							<p th:text="#{cart.total} + ': ' + ${cart.price}">Summe: 100 Euro</p>
 							<div class="salespoint" sec:authorize="hasRole('ROLE_CUSTOMER')">
 								<form method="post" action="/cart/checkout">
-									<input type="submit" th:value="#{cart.buy}" value="Kaufen" />
+									<input class="button secondary" type="submit" th:value="#{cart.buy}" value="Kaufen" />
 								</form>
 							</div>
 							

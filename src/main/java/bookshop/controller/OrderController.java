@@ -2,6 +2,8 @@ package bookshop.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.salespointframework.inventory.Inventory;
+import org.salespointframework.inventory.InventoryItem;
 import org.salespointframework.order.Order;
 import org.salespointframework.order.OrderManager;
 import org.salespointframework.order.OrderStatus;
@@ -12,17 +14,16 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import bookshop.model.UserRepository;
 
 @Controller
 public class OrderController {
 	private final OrderManager<Order> orderManager;
-	private final UserRepository userRepository;
+	private final Inventory<InventoryItem> inventory;
 	
 	@Autowired
-	public OrderController(OrderManager<Order> orderManager, UserRepository userRepository){
+	public OrderController(OrderManager<Order> orderManager, Inventory<InventoryItem> inventory){
 		this.orderManager = orderManager;
-		this.userRepository = userRepository;
+		this.inventory = inventory;
 	}
 	
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
@@ -37,5 +38,11 @@ public class OrderController {
 		
 		return "redirect:/orders";
 	}*/
-
+	
+	@RequestMapping("/admin/statistics")
+	public String statistics(HttpSession session, ModelMap modelMap){
+		modelMap.addAttribute("stock", inventory.findAll());
+		return "/stock";
+	}
+	
 }
