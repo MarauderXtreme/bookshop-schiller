@@ -51,6 +51,7 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		Assert.notNull(inventory, "Inventory must not be null!");
 		Assert.notNull(userAccountManager, "UserAccountManager must not be null!");
 		Assert.notNull(articleCatalog, "VideoCatalog must not be null!");
+		
 
 		this.userRepository = userRepository;
 		this.inventory = inventory;
@@ -85,6 +86,13 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		RoomManagement.getInstance().addRoom("Ratssaal","1335");
 		RoomManagement.getInstance().addRoom("ASCII","0123");
 		RoomManagement.getInstance().addRoom("FSR-Buero","042");
+		
+		Date testdate = new Date("17122014","1910");
+		testdate.getDay();
+		testdate.getMonth();
+		testdate.getYear();
+		testdate.getHours();
+		testdate.getMinutes();
 		
 		
 		CalendarManagement.getInstance().addEvent("Praesentation", new Date("26112014","1110"), RoomManagement.getInstance().getRoom("Computerraum"));

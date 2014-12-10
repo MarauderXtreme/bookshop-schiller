@@ -26,6 +26,36 @@ public class Date extends Object{
 		return time;
 	}
 	
+	public String getDay()
+	{
+		System.out.println(date.substring(0, 2));
+		return date.substring(0, 2);
+	}
+	
+	public String getMonth()
+	{
+		System.out.println(date.substring(2, 4));
+		return date.substring(3, 5);
+	}
+	
+	public String getYear()
+	{
+		System.out.println(date.substring(4, 8));
+		return date.substring(4, 8);
+	}
+	
+	public String getHours()
+	{
+		System.out.println(time.substring(0, 2));
+		return time.substring(0, 2);
+	}
+	
+	public String getMinutes()
+	{
+		System.out.println(time.substring(2	, 4));
+		return time.substring(2	, 4);
+	}
+	
 	public String getEventTime() {
 		return (getWholeDate().split(" ")[1]);
 	}
