@@ -4,25 +4,10 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.ScriptAssert;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import bookshop.model.Address;
-import bookshop.model.UserRepository;
 
-@ScriptAssert.List({
-	@ScriptAssert(lang = "javascript", script = "_this.passwordRepeat.equals(_this.password)", message = "{RegistrationForm.password.Match}"),
-	//@ScriptAssert(lang = "javascript", script = "_this.userRepository.findByUsername(_this.username).isEmpty()", message = "{RegistrationForm.username.isUsed}")
-	//...
-})
 public class RegistrationForm {
-
-	//private final UserRepository userRepository;
-	
-	//@Autowired(required = true)
-	//public RegistrationForm(UserRepository userRepository) {
-	//	this.userRepository = userRepository;
-	//}
 	
 	@NotEmpty(message = "{RegistrationForm.username.NotEmpty}")
 	@Length(max = 16, message = "{RegistrationForm.username.Length}")

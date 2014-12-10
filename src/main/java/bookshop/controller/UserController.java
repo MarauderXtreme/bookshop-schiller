@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -88,7 +89,7 @@ public class UserController {
 	}
 	
 	/**
-	 * Reads data from the registrationForm and registers a new employee.
+	 * Reads data from the registrationForm for administrators and registers a new employee.
 	 * @param registrationForm
 	 * @param result
 	 * @return
@@ -98,6 +99,23 @@ public class UserController {
 	public String registerNewEmployee(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
 			BindingResult result) {
 
+		if (!registrationForm.getPasswordRepeat().equals(registrationForm.getPassword())) {
+			result.addError(new ObjectError("password.noMatch", "Ihre eingegebenen Passwörter stimmen nicht überein!"));
+		}
+		
+		Iterable<User> users = userRepository.findAll();
+		
+		for (User u : users) {
+			if (u.getUserAccount().getIdentifier().getIdentifier().equals(registrationForm.getUsername())) {
+				result.addError(new ObjectError("username.isUsed", "Ihre eingegebener Nutzername ist bereits vergeben!"));
+			}
+		}
+		for (User u : users) {
+			if (u.getUserAccount().getEmail().equals(registrationForm.getEmail())) {
+				result.addError(new ObjectError("email.isUsed", "Ihre eingegebene E-Mail-Adresse ist bereits vergeben!"));
+			}
+		}
+		
 		if (result.hasErrors()) {
 			return "registerEmployee";
 		}
@@ -116,18 +134,18 @@ public class UserController {
 	}
 	
 	/**
-	 * Maps the registration form for employees to modelMap.
+	 * Maps the admin registration form for employees to modelMap.
 	 * @param modelMap
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/register/employee")
 	public String registerEmployee(ModelMap modelMap) {
-		modelMap.addAttribute("registrationForm", new RegistrationForm()); //userRepository
+		modelMap.addAttribute("registrationForm", new RegistrationForm());
 		return "registerEmployee";
 	}
 	
 	/**
-	 * Reads data from the registrationForm and registers a new employee.
+	 * Reads data from the registrationForm for administrators and registers a new employee.
 	 * @param registrationForm
 	 * @param result
 	 * @return
@@ -137,10 +155,27 @@ public class UserController {
 	public String registerNewCustomer(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
 			BindingResult result) {
 
+		if (!registrationForm.getPasswordRepeat().equals(registrationForm.getPassword())) {
+			result.addError(new ObjectError("password.noMatch", "Ihre eingegebenen Passwörter stimmen nicht überein!"));
+		}
+		
+		Iterable<User> users = userRepository.findAll();
+		
+		for (User u : users) {
+			if (u.getUserAccount().getIdentifier().getIdentifier().equals(registrationForm.getUsername())) {
+				result.addError(new ObjectError("username.isUsed", "Ihre eingegebener Nutzername ist bereits vergeben!"));
+			}
+		}
+		for (User u : users) {
+			if (u.getUserAccount().getEmail().equals(registrationForm.getEmail())) {
+				result.addError(new ObjectError("email.isUsed", "Ihre eingegebene E-Mail-Adresse ist bereits vergeben!"));
+			}
+		}
+		
 		if (result.hasErrors()) {
 			return "registerCustomer";
 		}
-
+		
 		UserAccount userAccount = userAccountManager.create(registrationForm.getUsername(), registrationForm.getPassword(),
 				new Role("ROLE_CUSTOMER"));
 		userAccount.setFirstname(registrationForm.getFirstname());
@@ -155,18 +190,18 @@ public class UserController {
 	}
 	
 	/**
-	 * Maps the registration form for employees to modelMap.
+	 * Maps the administrator registration form for customers to modelMap.
 	 * @param modelMap
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/register/customer")
 	public String registerCustomer(ModelMap modelMap) {
-		modelMap.addAttribute("registrationForm", new RegistrationForm()); //userRepository
+		modelMap.addAttribute("registrationForm", new RegistrationForm());
 		return "registerCustomer";
 	}
 	
 	/**
-	 * Reads data from the registrationForm and registers a new customer.
+	 * Reads data from the registrationForm for an unregistered user and registers a new customer.
 	 * @param registrationForm
 	 * @param result
 	 * @return
@@ -175,6 +210,23 @@ public class UserController {
 	public String registerMe(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
 			BindingResult result) {
 
+		if (!registrationForm.getPasswordRepeat().equals(registrationForm.getPassword())) {
+			result.addError(new ObjectError("password.noMatch", "Ihre eingegebenen Passwörter stimmen nicht überein!"));
+		}
+		
+		Iterable<User> users = userRepository.findAll();
+		
+		for (User u : users) {
+			if (u.getUserAccount().getIdentifier().getIdentifier().equals(registrationForm.getUsername())) {
+				result.addError(new ObjectError("username.isUsed", "Ihre eingegebener Nutzername ist bereits vergeben!"));
+			}
+		}
+		for (User u : users) {
+			if (u.getUserAccount().getEmail().equals(registrationForm.getEmail())) {
+				result.addError(new ObjectError("email.isUsed", "Ihre eingegebene E-Mail-Adresse ist bereits vergeben!"));
+			}
+		}
+		
 		if (result.hasErrors()) {
 			return "register";
 		}
@@ -193,12 +245,12 @@ public class UserController {
 	}
 
 	/**
-	 * Maps the registration form for customers to modelMap.
+	 * Maps the registration form for an unregistered to modelMap.
 	 * @param modelMap
 	 */
 	@RequestMapping("/user/register")
 	public String register(ModelMap modelMap) {
-		modelMap.addAttribute("registrationForm", new RegistrationForm()); //userRepository
+		modelMap.addAttribute("registrationForm", new RegistrationForm());
 		return "register";
 	}
 	

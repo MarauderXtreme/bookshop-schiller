@@ -43,6 +43,7 @@
 										<div th:if="${#fields.hasErrors('*')}">
 											<p style="color:#FF0000"><b>Einige Angaben sind nicht korrekt. Bitte versuchen Sie es erneut!</b></p>
 										</div>
+										<p style="color:#FF0000" th:if="${#fields.hasErrors('global')}" th:errors="*{global}"></p>
 										
 										<label th:text="#{register.username}" for="username">Nutzername</label>
 										<input id="username" th:field="*{username}" th:errorclass="fieldError" type="text" name="username" />
