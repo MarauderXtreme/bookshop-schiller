@@ -149,18 +149,20 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		final Role userManagerRole = new Role("ROLE_USERMANAGER");
 		final Role customerRole = new Role("ROLE_CUSTOMER");
 		
-		UserAccount adminAccount = userAccountManager.create("admin", "123", adminRole);
+		UserAccount adminAccount = userAccountManager.create("admin", "123", employeeRole);
 		adminAccount.setFirstname("Christoph");
 		adminAccount.setLastname("Kepler");
 		adminAccount.setEmail("chris.kepler@schiller.de");
+		adminAccount.add(adminRole);
 		userAccountManager.save(adminAccount);
 		
 		userRepository.save(new User(adminAccount, new Address("Mommsenstraße", "13", "01187", "Dresden")));
 		
-		UserAccount bossAccount = userAccountManager.create("boss", "123", bossRole);
+		UserAccount bossAccount = userAccountManager.create("boss", "123", employeeRole);
 		bossAccount.setFirstname("Philipp");
 		bossAccount.setLastname("Waack");
 		bossAccount.setEmail("philipp.waack@schiller.de");
+		bossAccount.add(bossRole);
 		userAccountManager.save(bossAccount);
 		
 		userRepository.save(new User(bossAccount, new Address("Bergstraße", "64", "01187", "Dresden")));

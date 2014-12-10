@@ -55,14 +55,31 @@
 					      	<label>Adresse:</label><span th:text="${user.address}">Musterstraße 1, 00000 Musterstadt</span>
 					      </li>
 					      <div class="salespoint" sec:authorize="hasRole('ROLE_ADMIN') || hasRole('ROLE_BOSS') || hasRole('ROLE_USERMANAGER')">
-					      <li class="bullet-item">
-					      	<label>Rollen:</label><span th:text="${user.roles}">Musterrolle</span>
-					      </li>
-					      <li class="bullet-item">
-					      	<label>Status:</label><span th:text="${user.state}">Musterstatus</span>
-					      </li>
+					      	<li class="bullet-item">
+					      		<label>Rollen:</label><span th:text="${user.roles}">Musterrolle</span>
+					      		<form action="/user/profile/roles/add" method="POST">
+											<input class="button round" type="submit" value="Rolle hinzufügen" />
+										</form>
+										<form action="/user/profile/roles/remove" method="POST">
+											<input class="button round" type="submit" value="Rolle entfernen" />
+										</form>
+					      	</li>
+					      	<li class="bullet-item">
+					      		<label>Status:</label><span th:text="${user.state}">Musterstatus</span>
+					      		<form action="/user/profile/state/disable" method="POST">
+											<input class="button round" type="submit" value="Profil deaktivieren" />
+										</form>
+										<form action="/user/profile/state/enable" method="POST">
+											<input class="button round" type="submit" value="Profil aktivieren" />
+										</form>
+					      	</li>
 					      </div>
 					    </ul>
+					    <div class="salespoint" sec:authorize="hasRole('ROLE_ADMIN')">
+								<form action="/user/profile/change" method="POST">
+									<input class="button round" type="submit" value="Änderung persönlicher Daten" />
+								</form>
+							</div>
 					  </div>
 	        </div>
 	    	</div>

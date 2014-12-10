@@ -4,8 +4,10 @@ import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.salespointframework.useraccount.UserAccountIdentifier;
 
+@Component
 public class UserManagement {
 	
 	private final UserRepository userRepository;
@@ -75,7 +77,7 @@ public class UserManagement {
 	}
 	
 	/**
-	 * Changes the firstname of the given user account to the given firstname value.
+	 * Changes the first name of the given user account to the given first name value.
 	 * @param userAccount
 	 * @param firstname
 	 */
@@ -84,7 +86,7 @@ public class UserManagement {
 	}
 	
 	/**
-	 * Changes the lastname of the given user account to the given lastname value.
+	 * Changes the last name of the given user account to the given last name value.
 	 * @param userAccount
 	 * @param lastname
 	 */
