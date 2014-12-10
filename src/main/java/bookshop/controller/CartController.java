@@ -85,10 +85,7 @@ public class CartController {
 		return "redirect:/";
 		*/
 		return userAccount.map(account -> {
-
-			// (｡◕‿◕｡)
-			// Mit commit wird der Warenkorb in die Order überführt, diese wird dann bezahlt und abgeschlossen.
-			// Orders können nur abgeschlossen werden, wenn diese vorher bezahlt wurden.
+			
 				Order order = new Order(account, Cash.CASH);
 				Cart cart = getCart(session);
 				cart.addItemsTo(order);
