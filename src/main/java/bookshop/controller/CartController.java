@@ -73,16 +73,34 @@ public class CartController {
 	}
 	
 	@RequestMapping(value="/cart/checkout", method = RequestMethod.POST)
-	public String buy(HttpSession session, @LoggedIn UserAccount userAccount){
-		
+	public String buy(HttpSession session, @LoggedIn Optional<UserAccount> userAccount){
+		/*
 		Cart cart = getCart(session);
 		Order order = new Order(userAccount);
 		cart.addItemsTo(order);
-		order.isPaid();
-		order.isCompleted();
+		order.isOpen();
+		orderManager.add(order);
 		cart.clear();
 		
 		return "redirect:/";
+		*/
+		return userAccount.map(account -> {
+
+			// (｡◕‿◕｡)
+			// Mit commit wird der Warenkorb in die Order überführt, diese wird dann bezahlt und abgeschlossen.
+			// Orders können nur abgeschlossen werden, wenn diese vorher bezahlt wurden.
+				Order order = new Order(account, Cash.CASH);
+				Cart cart = getCart(session);
+				cart.addItemsTo(order);
+
+				orderManager.payOrder(order);
+				//order.isOpen();
+				orderManager.completeOrder(order);
+				orderManager.add(order);
+				cart.clear();
+
+				return "redirect:/";
+			}).orElse("redirect:/cart");
 	}
 	
 	
