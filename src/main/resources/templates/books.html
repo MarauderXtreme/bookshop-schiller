@@ -85,28 +85,19 @@
 				    </div>
 		    		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
 							<form method="post" action="/deleteBook">
-								<fieldset>
 									<input type="hidden" name="article" value="0" th:value="${book.identifier}" />
-									<input type="submit" value="Delete Article" />
-								</fieldset>
-							</form>
-						</div>
-						<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
-							<form method="post" action="/add">
-								<fieldset>
-									<input type="text" name="titleArticle" value="Title" />
-									<input type="text" name="authorArticle" value="Author" />
-									<input type="text" name="publisherArticle" value="publisher" />
-									<input type="text" name="priceArticle" value="Price" />
-									<input type="text" name="beschreibungArticle" value="Beschreibung" />
-									<input type="text" name="idArticle" value="Isbn" />
-									<input type="text" name="categoryArticle" value="Category" />
-									<!--<input type="text" name="typeArticle" value="Type" />-->
-									<input type="submit" value="Add Article" />
-								</fieldset>
+									<input class="button small" type="submit" value="Delete Article"/>
 							</form>
 						</div>
 				  </div>
+				  	        <div class="large-12">&nbsp;</div>
+				  
+				  		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
+				  	<div class="large-3 columns">
+								<a href="addbook.html"><input class="button small" type="submit" value="Add Article"/></a>
+				    </div>
+
+						</div>
 		    </div>
 			</div>
 		</div>

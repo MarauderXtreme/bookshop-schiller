@@ -82,6 +82,33 @@ class ArticleController {
 		return "dvds";
 	}
 	
+	@RequestMapping("/addbook")
+	public String addBook(ModelMap modelMap, String name) {
+
+		modelMap.addAttribute("catalog", articleCatalog.findByType(ArticleId.DVD));
+		modelMap.addAttribute("title", messageSourceAccessor.getMessage("catalog.dvd.title"));
+
+		return "addbook";
+	}
+
+	@RequestMapping("/addcd")
+	public String addCd(ModelMap modelMap, String name) {
+
+		modelMap.addAttribute("catalog", articleCatalog.findByType(ArticleId.DVD));
+		modelMap.addAttribute("title", messageSourceAccessor.getMessage("catalog.dvd.title"));
+
+		return "addcd";
+	}
+	
+	@RequestMapping("/adddvd")
+	public String addDvd(ModelMap modelMap, String name) {
+
+		modelMap.addAttribute("catalog", articleCatalog.findByType(ArticleId.DVD));
+		modelMap.addAttribute("title", messageSourceAccessor.getMessage("catalog.dvd.title"));
+
+		return "adddvd";
+	}
+	
 	//search Articles
 	@RequestMapping("/searcharticles")
 	public String searchArticles(ModelMap modelMap, @RequestParam("typeInput") int typeInput, @RequestParam("input") String input){
@@ -324,7 +351,7 @@ class ArticleController {
 			
 			articleCatalog.save(article);
 			
-			return "redirect:detail/" + article.getIdentifier();
+			return "redirect:editarticle/" + article.getIdentifier();
 		}
 			
 			@RequestMapping(value="/setNewPublisher", method=RequestMethod.POST)
@@ -337,7 +364,7 @@ class ArticleController {
 				
 				articleCatalog.save(article);
 				
-				return "redirect:detail/" + article.getIdentifier();
+				return "redirect:editarticle/" + article.getIdentifier();
 			}
 			
 			@RequestMapping(value="/setNewDescription", method=RequestMethod.POST)
@@ -347,7 +374,7 @@ class ArticleController {
 				
 				articleCatalog.save(article);
 				
-				return "redirect:detail/" + article.getIdentifier();
+				return "redirect:editarticle/" + article.getIdentifier();
 			}
 			
 			@RequestMapping(value="/setNewIsbn", method=RequestMethod.POST)
@@ -360,7 +387,7 @@ class ArticleController {
 				
 				articleCatalog.save(article);
 				
-				return "redirect:detail/" + article.getIdentifier();
+				return "redirect:editarticle/" + article.getIdentifier();
 			}
 			
 			@RequestMapping(value="/setNewPrice", method=RequestMethod.POST)
@@ -372,7 +399,7 @@ class ArticleController {
 				
 				articleCatalog.save(article);
 				
-				return "redirect:detail/" + article.getIdentifier();
+				return "redirect:editarticle/" + article.getIdentifier();
 			}
 			
 			@RequestMapping(value="/setNewCategory", method=RequestMethod.POST)
@@ -384,7 +411,7 @@ class ArticleController {
 								
 				articleCatalog.save(article);
 				
-				return "redirect:detail/" + article.getIdentifier();
+				return "redirect:editarticle/" + article.getIdentifier();
 			}
 			
 			@RequestMapping(value="/setNewImage", method=RequestMethod.POST)
@@ -394,7 +421,7 @@ class ArticleController {
 				
 				articleCatalog.save(article);
 				
-				return "redirect:detail/" + article.getIdentifier();
+				return "redirect:editarticle/" + article.getIdentifier();
 			}
 			
 			//Set Specific Informations
@@ -409,7 +436,7 @@ class ArticleController {
 				
 				articleCatalog.save(article);
 				
-				return "redirect:detail/" + article.getIdentifier();
+				return "redirect:editarticle/" + article.getIdentifier();
 			}
 			
 			@RequestMapping(value="/setNewInterpret", method=RequestMethod.POST)
@@ -419,7 +446,7 @@ class ArticleController {
 				
 				articleCatalog.save(article);
 				
-				return "redirect:detail/" + article.getIdentifier();
+				return "redirect:editarticle/" + article.getIdentifier();
 			}
 			
 			@RequestMapping(value="/setNewDirector", method=RequestMethod.POST)
@@ -429,7 +456,7 @@ class ArticleController {
 				
 				articleCatalog.save(article);
 				
-				return "redirect:detail/" + article.getIdentifier();
+				return "redirect:editarticle/" + article.getIdentifier();
 			}
 			
 			
@@ -457,7 +484,7 @@ class ArticleController {
 			
 			articleCatalog.save(article);
 			
-			return "redirect:detail/" + article.getIdentifier();
+			return "redirect:editarticle/" + article.getIdentifier();
 		}
 		
 		//Decrease the Units of an Article
@@ -472,7 +499,7 @@ class ArticleController {
 			
 			articleCatalog.save(article);
 			
-			return "redirect:detail/" + article.getIdentifier();
+			return "redirect:editarticle/" + article.getIdentifier();
 		}
 		
 		//Delete Information(Categories) of an Article
@@ -483,7 +510,7 @@ class ArticleController {
 			
 			articleCatalog.save(article);
 			
-			return "redirect:detail/" + article.getIdentifier();
+			return "redirect:editarticle/" + article.getIdentifier();
 		}
 		
 }

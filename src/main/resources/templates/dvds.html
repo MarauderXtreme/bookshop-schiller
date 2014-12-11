@@ -15,7 +15,7 @@
     
     <script type="text/javascript" src="/resources/js/vendor/modernizr.js"></script>
 		
-		<title th:text="#{home.title}">DVD's | Buchhandlung Schiller</title>
+		<title th:text="#{home.title}">Bücher | Buchhandlung Schiller</title>
 	
 	</head>
 	<body>
@@ -32,15 +32,15 @@
 		        </div>
 		      </header>
 	        <div class="large-12">&nbsp;</div>
-	        	        	 <form method="post" action="/searcharticles">
+	        	        		<form method="post" action="/searcharticles">
 								<fieldset>
 									<input type="text" name="input" />
 									<select name="typeInput">
 									<option value="1">Titel</option>
 									<option value="2">Verlag</option>
 									<option value="3">ISBN</option>
-									<option value="6">Regisseur</option>
-									<option value="7">category</option>
+									<option value="4">Autor</option>
+									<option value="7">Kategorie</option>
 									</select>
 									<input type="submit" value="Search!" />
 								</fieldset>
@@ -65,7 +65,7 @@
 					      <img alt="cover" class="cover" th:src="@{'/resources/img/' + ${book.image}}" />
 					    </a>
 				    </div>
-				    <div class="large-6 columns">
+				    <div class="large-5 columns">
 					    <h3>
 					    	<a th:text="${book.name}" th:href="@{'/detail/' + ${book.identifier}}" href="detail.html">Bastard Operator from Hell</a>
 					    </h3>
@@ -74,47 +74,33 @@
 				    </div>
 				    <div class="large-2 columns">
 				    	<p th:text="${book.price}">6.66€</p>
-				    	<p th:text="${book.director}">Director</p>
+				    	<p th:text="${book.author}">Autor</p>
 				    </div>
-				    <!-- <div class="salespoint" sec:authorize="hasRole('ROLE_COSTUMER')"> -->
-				    <div class="large-2 columns">
+				    <div class="large-3 columns">
 							<form action="/cart" method="POST">
 								<input type="hidden" name="article" value="0" th:value="${book.identifier}"/>
 								<input id="number" type="number" name="number" step="1" value="1"/>
-								<input class="button" type="submit" value="Zum Warenkorb hinzufügen"/>
+								<input class="button small" type="submit" value="In den Warenkorb"/>
 							</form>
-				    		</div>
-				    	<!-- </div> -->
-				    			<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
-									<form method="post" action="/deleteDVD">
-										<fieldset>
-											<input type="hidden" name="article" value="0" th:value="${book.identifier}" />
-											<input type="submit" value="Delete Article" />
-										</fieldset>
-									</form>
-								</div>
+				    </div>
+		    		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
+							<form method="post" action="/deleteBook">
+									<input type="hidden" name="article" value="0" th:value="${book.identifier}" />
+									<input class="button small" type="submit" value="Delete Article"/>
+							</form>
+						</div>
 				  </div>
+				  	        <div class="large-12">&nbsp;</div>
+				  
+				  		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
+				  	<div class="large-3 columns">
+								<a href="adddvd.html"><input class="button small" type="submit" value="Add Article"/></a>
+				    </div>
+
+						</div>
 		    </div>
 			</div>
 		</div>
-
-
-		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
-			<form method="post" action="/addDVD">
-				<fieldset>
-					<input type="text" name="titleArticle" value="Title" />
-					<input type="text" name="directorArticle" value="Director" />
-					<input type="text" name="publisherArticle" value="Publisher" />
-					<input type="text" name="priceArticle" value="Price" />
-					<input type="text" name="beschreibungArticle" value="Beschreibung" />
-					<input type="text" name="idArticle" value="Isbn" />
-					<input type="text" name="categoryArticle" value="Category" />
-					<!--<input type="text" name="typeArticle" value="Type" />-->
-					<input type="submit" value="Add Article" />
-				</fieldset>
-			</form>
-		</div>
-
 
 		<script type="text/javascript" src="/resources/js/vendor/jquery.js"></script>
 		<script type="text/javascript" src="/resources/js/vendor/fastclick.js"></script>

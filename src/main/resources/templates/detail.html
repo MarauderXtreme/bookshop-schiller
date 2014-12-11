@@ -64,125 +64,32 @@
 							<ul class="pricing-table">
 					      <li class="title">
 					      <span th:text="${book.name}">Last Action Hero</span>
-					      		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
-									<form method="post" action="/setNewTitle">
-										<fieldset>
-											<input type="text" name="newname" />
-											<input type="hidden" name="article" th:value="${book.identifier}" />
-											<input type="submit" value="Change Title" />
-										</fieldset>
-									</form>
-								</div>
 					      </li>
 					      <li class="description">
 					      <label>Autor</label><span th:text="${book.author}">Simon Travaglia</span>
-					      		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
-									<form method="post" action="/setNewAuthor">
-										<fieldset>
-											<input type="text" name="newauthor" />
-											<input type="hidden" name="article" th:value="${book.identifier}" />
-											<input type="submit" value="Change Author" />
-										</fieldset>
-									</form>
-								</div>
+
 					      </li>
 					      <li class="bullet-item">
 					      <label>Publisher:</label><span th:text="${book.publisher}">Verlag</span>
-					      		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
-									<form method="post" action="/setNewPublisher">
-										<fieldset>
-											<input type="text" name="newpublisher" />
-											<input type="hidden" name="article" th:value="${book.identifier}" />
-											<input type="submit" value="Change Publisher" />
-										</fieldset>
-									</form>
-								</div>
+
 					      </li>
-					      <li class="description">
-					      <label>Beschreibung:</label><span th:text="${book.beschreibung}">Simon Travaglia</span>
-					      		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
-									<form method="post" action="/setNewDescription">
-										<fieldset>
-											<textarea name="descriptiontext" cols="40" rows="5"></textarea>
-											<input type="hidden" name="article" th:value="${book.identifier}" />
-											<input type="submit" value="Change Description" />
-										</fieldset>
-									</form>
-								</div>
-					      </li>
+
 					      <li class="bullet-item">
 					      <label>ISBN-Nr.:</label><span th:text="${book.id}">ISBN</span>
-					      		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
-									<form method="post" action="/setNewIsbn">
-										<fieldset>
-											<input type="text" name="newisbn" />
-											<input type="hidden" name="article" th:value="${book.identifier}" />
-											<input type="submit" value="Change ISBN" />
-										</fieldset>
-									</form>
-								</div>
+
 					      </li>
 					      <li class="bullet-item">
 					      <label>Kategorie:</label><span th:text="${book.getCategoryList()}">Kategorie</span>
-					      		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
-									<form method="post" action="/setNewCategory">
-										<fieldset>
-											<input type="text" name="newcategory" />
-											<input type="hidden" name="article" th:value="${book.identifier}" />
-											<input type="submit" value="Change Category" />
-										</fieldset>
-									</form>
-									<form method="post" action="/deletecategory">
-										<fieldset>
-											<input type="text" name="categorytodelete" />
-											<input type="hidden" name="article" th:value="${book.identifier}" />
-											<input type="submit" value="Delete Category" />
-										</fieldset>
-									</form>
-								</div>
+
 					      </li>
-					      <div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
-					      <li class="bullet-item">
-					      <label>Bild:</label><span th:text="${book.image}">Bild-Pfad</span>
-									<form method="post" action="/setNewImage">
-										<fieldset>
-											<input type="text" name="newimage" />
-											<input type="hidden" name="article" th:value="${book.identifier}" />
-											<input type="submit" value="Change Image" />
-										</fieldset>
-									</form>
-					      </li>
-					      </div>
+
 					      <li class="bullet-item">
 					      <label>Anzahl:</label><span th:text="${quantity.amount}">Units</span>
-					      		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
-									<form method="post" action="/increase">
-										<fieldset>
-											<input type="text" name="addquan" />
-											<input type="hidden" name="article" value="0"  th:value="${book.identifier}" />
-											<input type="submit" value="Increase Article" />
-										</fieldset>
-									</form>
-									<form method="post" action="/decrease">
-										<fieldset>
-											<input type="text" name="removequan" />
-											<input type="hidden" name="article" value="0" th:value="${book.identifier}" />
-											<input type="submit" value="Decrease Article" />
-										</fieldset>
-									</form>
-								</div>
+
 					      </li>
 					      <li class="price">
 					      <label>Preis:</label><span th:text="${book.price}">9.99€</span>
-					      		<div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
-									<form method="post" action="/setNewPrice">
-										<fieldset>
-											<input type="text" name="newprice" />
-											<input type="hidden" name="article" th:value="${book.identifier}" />
-											<input type="submit" value="Change Price" />
-										</fieldset>
-									</form>
-								</div>
+
 					      </li>
 					      <div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
 					      <li>
@@ -205,7 +112,9 @@
 					    </ul>
 					  </div>
 						<div class="large-12">
-						  <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+						  	<p>
+					      <label>Beschreibung:</label><span th:text="${book.beschreibung}">Simon Travaglia</span>
+							</p>
 						</div>
 	        </div>
 	    	</div>
