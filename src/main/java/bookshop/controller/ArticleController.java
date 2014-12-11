@@ -299,6 +299,19 @@ class ArticleController {
 
 		return "detail";
 	}
+	
+	@RequestMapping("/editarticle/{pid}")
+	public String editarticle(@PathVariable("pid") Article article, Model model) {
+		
+		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
+		Quantity quantity = item.map(InventoryItem::getQuantity).orElse(Units.TEN);
+
+		model.addAttribute("book", article);
+		model.addAttribute("quantity", quantity);
+		model.addAttribute("orderable", quantity.isGreaterThan(Units.ZERO));
+
+		return "editarticle";
+	}
 
 	//Change Informations of an Article
 		@RequestMapping(value="/setNewTitle", method=RequestMethod.POST)

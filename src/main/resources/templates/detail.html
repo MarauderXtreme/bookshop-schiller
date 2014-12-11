@@ -186,7 +186,7 @@
 					      </li>
 					      <div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
 					      <li>
-								<a href="editarticle.html"><input class="button postfix" type="button" value="Edit Article" /></a>
+								<a th:href="@{'/editarticle/' + ${book.identifier}}" href="editarticle.html"><input class="button postfix" type="button" value="Edit Article" /></a>
 					      </li>
 					      </div>
 					      <li class="cta-button">
