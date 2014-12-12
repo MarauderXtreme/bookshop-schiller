@@ -18,7 +18,6 @@ public class CalendarController {
 	@RequestMapping(value="/addEvent", method = RequestMethod.POST)
 	public String add(@RequestParam("name") String name, @RequestParam("dated") String dated , @RequestParam("datet") String datet)
 	{
-		System.out.println("Drück mich du sau");
 		CalendarManagement.getInstance().addEvent(name, new Date(dated,datet), new Room("Lesesaal","123"));
 		return "redirect:calendar";
 	}

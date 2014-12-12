@@ -14,9 +14,7 @@ public class CalendarManagement {
 		if(instance == null)
 		{
 			instance = new CalendarManagement();
-			System.out.println("Kalendermanager-Instanz erstellt");
 		}
-		System.out.println("Kalendermanager-Instanz zurückgeben");
 		return CalendarManagement.instance;
 	}
 	
@@ -51,16 +49,13 @@ public class CalendarManagement {
 		{
 			if(calendar.getEvent(new TupelKey<Room,Date>(room, date)) == null)
 			{
-				System.out.println("Event wird hinzugefuegt!");
 				return calendar.addEvent(new Event(name,date, room));
 			} else {
-				System.out.println("Termin ist belegt!");
 				return false;
 			}
 		}
 		else
 		{
-			System.out.println("Raum existiert nicht!");
 			return false;
 		}
 	}	

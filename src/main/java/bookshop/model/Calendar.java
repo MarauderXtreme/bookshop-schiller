@@ -40,11 +40,10 @@ public class Calendar {
 	{
 		if (!eventMap.containsKey(new TupelKey<Room,Date>(event.getRoom(), event.getDate())))
 		{
-			System.out.println("Termin ist Frei!");
 			eventMap.put(new TupelKey<Room,Date>(event.getRoom(), event.getDate()), event);
 			return true;
 		} else {
-			System.out.println("Termin ist bereits belegt: " + event.getDate().getDate()+" " + event.getDate().getTime());
+			//System.out.println("Termin ist bereits belegt: " + event.getDate().getDate()+" " + event.getDate().getTime());
 			return false;
 		}
 	}

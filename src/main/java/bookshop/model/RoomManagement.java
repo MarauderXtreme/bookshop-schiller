@@ -26,10 +26,8 @@ public class RoomManagement {
 		if(!rooms.containsKey(name))
 		{
 			rooms.put(name, new Room(name, number));
-			System.out.println("Raum wurde erfolgreich hinzugef�gt: " + name);
 			return true;
 		}
-		System.out.println("Raum existiert bereits: " + name);
 		return false;
 	}
 	
