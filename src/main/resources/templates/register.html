@@ -26,6 +26,9 @@
 										Einige Angaben in den Nutzerdaten oder Personenbezogenen Daten sind nicht korrekt. Bitte versuchen Sie es erneut!
 									</p>
 								</div>
+								<div th:if="${#fields.hasErrors('global')}">
+									<p class="alert-box alert" th:errors="*{global}"></p>
+								</div>
 								<fieldset class="large-4 medium-4 large-offset-1 medium-offset-1 small-12 columns">
 									<legend th:text="#{register.title2}">Persönliche Daten</legend>
 									
