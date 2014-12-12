@@ -6,21 +6,37 @@
 <body>
 <div th:fragment="topbar" class="fixed">
  <nav class="top-bar tab-bar" data-topbar="" role="navigation">
-   <section class="left-small">  <!-- show-for-small-only -->
-      <a class="left-off-canvas-toggle menu-icon" aria-expanded="false">
-        <span></span>
-      </a>
-    </section>
-    <section class="right tab-bar-section">
-      <h2 class="title">
-        <a href="/" th:text="#{home.title}">Buchhandlung Schiller</a>
-      </h2>
-    </section>
     <section class="top-bar-section">
     	<ul class="left">
+    		<li>
+		      <a class="left-off-canvas-toggle menu-icon" aria-expanded="false">
+		        <span></span>
+		      </a>
+    		</li>
     		<li class="has-form">
+		      <h2 class="title">
+		        <a href="/" th:text="#{home.title}">Buchhandlung Schiller</a>
+		      </h2>
+	      </li>
+    		<li class="has-form show-for-medium-up">
     			<div class="row collapse">
-    				
+    				<form method="post" action="/searcharticles">
+    					<div class="large-4 medium-3 columns">
+								<select name="typeInput">
+									<option value="title">Titel</option>
+									<option value="publisher">Verlag</option>
+									<option value="isbn">ISBN</option>
+									<option value="Author">Autor</option>
+									<option value="category">Kategory</option>
+								</select>
+    					</div>
+    					<div class="large-4 medium-3 columns">
+								<input type="text" name="input" placeholder="Suchwort" />
+    					</div>
+    					<div class="large-2 medium-1 columns">
+    						<input class="tiny alert button expand" type="submit" value="Los geht's!" />
+    					</div>
+						</form>
     			</div>
     		</li>
     	</ul>
@@ -35,7 +51,7 @@
     		</li>
     		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_USERMANAGER')" class="divider"></li>
     		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_USERMANAGER')" class="has-dropdown not-click">
-    			Nutzerübersicht
+    			<a>Nutzerübersicht</a>
     			<ul class="dropdown">
     				<li>
     					<a th:href="@{/admin/customers}" href="customers.html">Kunden</a>
@@ -47,19 +63,19 @@
     		</li>
     		<li sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE')" class="divider"></li>
     		<li sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE')">
-    			<a class="small round button" th:href="@{/cart}" href="cart.html">Warenkorb</a>
+    			<a class="round button" th:href="@{/cart}" href="cart.html">Warenkorb</a>
     		</li>
     		<li sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="divider"></li>
     		<li>
-    			<a sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="small round button" th:href="@{/user/register}" href="register.html">Registrieren</a>
+    			<a sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="round button" th:href="@{/user/register}" href="register.html">Registrieren</a>
     		</li>
     		<li sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="divider"></li>
     		<li>
-    			<a sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="small round secondary button" th:href="@{/user/login}" href="login.html">Login</a>
+    			<a sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="round secondary button" th:href="@{/user/login}" href="login.html">Login</a>
     		</li>
     		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="divider"></li>
     		<li>
-    			<a sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="small round secondary button" th:href="@{/logout}" href="logout.html">Logout</a>
+    			<a sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="round secondary button" th:href="@{/logout}" href="logout.html">Logout</a>
     		</li>
     	</ul>
     </section>
