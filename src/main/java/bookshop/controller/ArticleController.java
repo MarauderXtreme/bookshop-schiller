@@ -28,12 +28,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import bookshop.model.ArticleManagement;
 import bookshop.model.Article;
 import bookshop.model.Article.ArticleId;
+import bookshop.model.CategoryManagement;
 
 @Controller
 class ArticleController {
 	private final ArticleManagement articleCatalog;
 	private final Inventory<InventoryItem> inventory;
 	private final MessageSourceAccessor messageSourceAccessor; 
+	private CategoryManagement categories;
 
 	@Autowired
 	public ArticleController(ArticleManagement articleCatalog, Inventory<InventoryItem> inventory, MessageSource messageSource) {
@@ -255,6 +257,36 @@ class ArticleController {
 	}
 	
 	//Delete Article
+	@RequestMapping(value="/deleteArticle", method=RequestMethod.POST)
+	public String deleteArticle(@RequestParam("article") Article article){
+
+		if(article.getType()==ArticleId.BOOK){
+		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
+		inventory.delete(item.get().getIdentifier());
+		
+		articleCatalog.delete(article.getIdentifier());
+		
+		return "redirect:books";
+		}
+		else if(article.getType()==ArticleId.CD){
+			Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
+			inventory.delete(item.get().getIdentifier());
+			
+			articleCatalog.delete(article.getIdentifier());
+			
+			return "redirect:cds";
+		}
+		
+		else {
+		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
+		inventory.delete(item.get().getIdentifier());
+		
+		articleCatalog.delete(article.getIdentifier());
+		
+		return "redirect:dvds";
+		}
+	}
+	/*
 	@RequestMapping(value="/deleteBook", method=RequestMethod.POST)
 	public String deleteBook(@RequestParam("article") Article article){
 		//Test: Vor des Entfernens
@@ -310,7 +342,7 @@ class ArticleController {
 
 		//return "books";
 		return "redirect:dvds";
-	}
+	}*/
 	
 	
 	//Initilize the Details of an Article

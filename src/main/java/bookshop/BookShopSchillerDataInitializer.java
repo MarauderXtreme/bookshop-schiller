@@ -22,6 +22,7 @@ import bookshop.model.Article;
 import bookshop.model.ArticleManagement;
 import bookshop.model.Article.ArticleId;
 import bookshop.model.CalendarManagement;
+import bookshop.model.CategoryManagement;
 import bookshop.model.Date;
 import bookshop.model.RoomManagement;
 //import bookshop.model.Book;
@@ -35,6 +36,7 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 	private final Inventory<InventoryItem> inventory;
 	private final UserAccountManager userAccountManager;
 	private final UserRepository userRepository;
+	//private CategoryManagement categories;
 
 	/**
 	 * Constructor for BookShopDataInitializer.
@@ -106,14 +108,38 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		CalendarManagement.getInstance().addEvent("Lernen", new Date("23012015","1640"), RoomManagement.getInstance().getRoom("Computerraum"));
 		CalendarManagement.getInstance().addEvent("Fasching", new Date("10102015","0920"), RoomManagement.getInstance().getRoom("Computerraum"));
 		CalendarManagement.getInstance().addEvent("1. April", new Date("01042015","1111"), RoomManagement.getInstance().getRoom("FSR-Büro"));
-
-		articleCatalog.save(new Article("Bastard Operator from Hell", Money.of(EUR, 19.99), "Ultimativer Leitfaden für den Job an einem Helpdesk", "Simon Travaglia", "42", ArticleId.BOOK, "Action", "Flann O'Brien"));
-		articleCatalog.save(new Article("Trost und Rat", Money.of(EUR, 9.99), "Ein Ratgeber der besonderen Art", "Flann O'Brien", "123", ArticleId.BOOK, "Action", "Flann O'Brien", "trostundrat.jpg"));
-		articleCatalog.save(new Article("50 Schatten des Grauens", Money.of(EUR, 7.98), "Horrorpersiflage des BEstsellers", "Chris Ragman", "124", ArticleId.BOOK, "Action", "Flann O'Brien"));
-		articleCatalog.save(new Article("Der Doktor und seine Gefährten", Money.of(EUR, 14.99), "Das Begleitbuch zur Serie", "Sir Doctor from Tardis", "125", ArticleId.BOOK, "Action", "Flann O'Brien"));
-		articleCatalog.save(new Article("Stargate - Kommando SG-1", Money.of(EUR, 17.95), "Kurzbeschreibungen der Episoden der ersten Staffel", "Wolfgang Hohlbein", "126", ArticleId.BOOK, "Action", "Flann O'Brien"));
-		articleCatalog.save(new Article("Depedro", Money.of(EUR, 17.95), "Spanische Musik", "Spanish Records", "1263453rr", ArticleId.CD, "Ballade", "Flann O'Brien"));
-		articleCatalog.save(new Article("Begotten", Money.of(EUR, 17.95), "Strange...", "Indie Records", "1263453rr", ArticleId.DVD, "Horror", "Flann O'Brien"));
+		
+		/*
+		CategoryManagement.getInstance().addCategory(ArticleId.BOOK, "Ratgeber");
+		CategoryManagement.getInstance().addCategory(ArticleId.BOOK, "Komödie");
+		CategoryManagement.getInstance().addCategory(ArticleId.DVD, "Action");
+		CategoryManagement.getInstance().addCategory(ArticleId.CD, "Ballade");
+		*/
+		/*categories.addCategory(ArticleId.BOOK, "Ratgeber");
+		categories.addCategory(ArticleId.BOOK, "Komödie");
+		categories.addCategory(ArticleId.DVD, "Action");
+		categories.addCategory(ArticleId.CD, "Ballade");*/
+		/*
+		articleCatalog.save(new Article("Bastard Operator from Hell", Money.of(EUR, 19.99), "Ultimativer Leitfaden für den Job an einem Helpdesk", "Simon Travaglia", "42", ArticleId.BOOK, CategoryManagement.getInstance().getCategory(ArticleId.BOOK, "Komödie"), "Flann O'Brien"));
+		articleCatalog.save(new Article("Trost und Rat", Money.of(EUR, 9.99), "Ein Ratgeber der besonderen Art", "Flann O'Brien", "123", ArticleId.BOOK, CategoryManagement.getInstance().getCategory(ArticleId.BOOK, "Ratgeber"), "Flann O'Brien", "trostundrat.jpg"));
+		articleCatalog.save(new Article("50 Schatten des Grauens", Money.of(EUR, 7.98), "Horrorpersiflage des BEstsellers", "Chris Ragman", "124", ArticleId.BOOK, CategoryManagement.getInstance().getCategory(ArticleId.BOOK, "Komödie"), "Flann O'Brien"));
+		articleCatalog.save(new Article("Der Doktor und seine Gefährten", Money.of(EUR, 14.99), "Das Begleitbuch zur Serie", "Sir Doctor from Tardis", "125", ArticleId.BOOK, CategoryManagement.getInstance().getCategory(ArticleId.BOOK, "Ratgeber"), "Flann O'Brien"));
+		articleCatalog.save(new Article("Stargate - Kommando SG-1", Money.of(EUR, 17.95), "Kurzbeschreibungen der Episoden der ersten Staffel", "Wolfgang Hohlbein", "126", ArticleId.BOOK, CategoryManagement.getInstance().getCategory(ArticleId.BOOK, "Ratgeber"), "Flann O'Brien"));
+		articleCatalog.save(new Article("Depedro", Money.of(EUR, 17.95), "Spanische Musik", "Spanish Records", "1263453rr", ArticleId.CD, CategoryManagement.getInstance().getCategory(ArticleId.CD, "Ballade"), "Flann O'Brien"));
+		articleCatalog.save(new Article("Begotten", Money.of(EUR, 17.95), "Strange...", "Indie Records", "1263453rr", ArticleId.DVD, CategoryManagement.getInstance().getCategory(ArticleId.BOOK, "Action"), "Flann O'Brien"));
+		*/
+		
+		
+		
+		articleCatalog.save(new Article("Bastard Operator from Hell", Money.of(EUR, 19.99), "Ultimativer Leitfaden für den Job an einem Helpdesk", "Simon Travaglia", "42", ArticleId.BOOK, "Fiktion", "Flann O'Brien"));
+		articleCatalog.save(new Article("Trost und Rat", Money.of(EUR, 9.99), "Ein Ratgeber der besonderen Art", "Flann O'Brien", "123", ArticleId.BOOK, "Ratgeber", "Flann O'Brien", "trostundrat.jpg"));
+		articleCatalog.save(new Article("50 Schatten des Grauens", Money.of(EUR, 7.98), "Horrorpersiflage des BEstsellers", "Chris Ragman", "124", ArticleId.BOOK, "Fiktion", "Flann O'Brien"));
+		articleCatalog.save(new Article("Der Doktor und seine Gefährten", Money.of(EUR, 14.99), "Das Begleitbuch zur Serie", "Sir Doctor from Tardis", "125", ArticleId.BOOK, "Fiktion", "Flann O'Brien"));
+		articleCatalog.save(new Article("Stargate - Kommando SG-1", Money.of(EUR, 17.95), "Kurzbeschreibungen der Episoden der ersten Staffel", "Wolfgang Hohlbein", "126", ArticleId.BOOK, "Unterhaltung", "Flann O'Brien"));
+		articleCatalog.save(new Article("Depedro", Money.of(EUR, 17.95), "Spanische Musik", "Spanish Records", "1263453rr", ArticleId.CD, "Pop", "Pedro"));
+		articleCatalog.save(new Article("Begotten", Money.of(EUR, 17.95), "Strange...", "Indie Records", "1263453rr", ArticleId.DVD, "Horror", "God"));
+		 
+		
 		
 		// (｡◕‿◕｡)
 		// Über alle eben hinzugefügten Discs iterieren und jeweils ein InventoryItem mit der Quantity 10 setzen

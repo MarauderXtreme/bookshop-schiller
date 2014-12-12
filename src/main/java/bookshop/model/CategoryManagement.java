@@ -1,43 +1,69 @@
 package bookshop.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
-import bookshop.model.Article.ArticleId;
 
+import bookshop.model.Article.ArticleId;
 
 public class CategoryManagement {
 	
-	private Map<ArticleId, Category> categories;
+	private Map<ArticleId, ArrayList<String>> categories;
 	
-	public CategoryManagement(){
-		categories = new HashMap<ArticleId, Category>();
+	private static CategoryManagement instance ;
+	
+	//@Deprecated
+	//protected CategoryManagement() {}
+	
+	private CategoryManagement()
+	{
+		this.categories = new HashMap<ArticleId, ArrayList<String>>();
 	}
 	
-	public boolean addCategory(ArticleId articleId, Category category){
-		if(categories.containsKey(articleId)){
+	public static synchronized CategoryManagement getInstance()
+	{
+		if(instance == null)
+		{
+			instance = new CategoryManagement();
+			System.out.println("Kalendermanager-Instanz erstellt");
+		}
+		System.out.println("Kalendermanager-Instanz zurückgeben");
+		return CategoryManagement.instance;
+	}
+	
+	/*public CategoryManagement(){
+		categories = new HashMap<ArticleId, ArrayList<String>>();
+	}*/
+	
+	public void addCategory(ArticleId articleType, String category){
+		/*if(categories.){
 			return false;
+		}*/
+		if(!(categories.containsKey(articleType))){
+			ArrayList<String> li = new ArrayList<String>();
+			li.add(category);
+			categories.put(articleType, li);
 		}
 		else{
-			categories.put(articleId, category);
-			return true;
+			categories.get(articleType).add(category);
 		}
+		
 	}
 	
-	public boolean removeCategory(Category category){
-		if(!(categories.containsValue(category))){
+	public boolean removeCategory(ArticleId articleType, String category){
+		if(!(categories.containsKey(articleType))){
 		return false;
 		}
 		else{
-			categories.remove(category.getArticleId(), category);
+			categories.remove(articleType, categories.get(articleType).remove(category));
 			return true;
 		}
 	}
 	
-	public boolean changeCategory(String name){
-		return true;
-	}
 	
-	public Category getCategory(ArticleId id){
-		return categories.get(id);
+	public String getCategory(ArticleId id, String category){
+		return categories.get(id).get(categories.get(id).indexOf(category));
 	}
 }
