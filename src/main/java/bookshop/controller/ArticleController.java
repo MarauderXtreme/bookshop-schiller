@@ -38,11 +38,11 @@ class ArticleController {
 	private CategoryManagement categories;
 
 	@Autowired
-	public ArticleController(ArticleManagement articleCatalog, Inventory<InventoryItem> inventory, CategoryManagement categories, MessageSource messageSource) {
+	public ArticleController(ArticleManagement articleCatalog, Inventory<InventoryItem> inventory, MessageSource messageSource) {
 
 		this.articleCatalog = articleCatalog;
 		this.inventory = inventory;
-		this.categories = categories;
+		//this.categories = categories;
 		this.messageSourceAccessor = new MessageSourceAccessor(messageSource);
 	}
 
@@ -168,7 +168,7 @@ class ArticleController {
 			modelMap.addAttribute("catalog", articleCatalog.findByCategory(input));
 		}
 			
-		return "result";	//!? Wird nicht als URL angezeigt sondern "searchArticles"
+		return "search";	//!? Wird nicht als URL angezeigt sondern "searchArticles"
 		
 	}
 	
