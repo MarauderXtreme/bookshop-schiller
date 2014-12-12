@@ -30,3 +30,10 @@ body {
 .no-wrap {
 	white-space: nowrap;
 }
+
+.top-bar select  {
+	font-size: 0.875rem;
+  position: relative;
+  top: 7px;
+  color: rgba(0, 0, 0, 0.75);
+}
