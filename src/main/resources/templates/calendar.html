@@ -35,7 +35,7 @@
 		            	</td>
 		              <td th:text="${event.getDate().getEventTime()}">0000</td>
 		              <td th:text="${event.getName()}">Testtext</td>
-		              <td th:text="${event.getName()}">Testtext</td>
+		              <td th:text="${event.getRoom().getNumber() + ': ' + event.getRoom().getName()}">Testtext</td>
 		            </tr>
 		          </tbody>
 		        </table>
