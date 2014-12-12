@@ -37,7 +37,7 @@
 					      </li>
 
 					      <li class="bullet-item">
-					      <label>ISBN-Nr.:</label><span th:text="${book.id}">ISBN</span>
+					      <label>Artikel-Nr.:</label><span th:text="${book.id}">ISBN</span>
 
 					      </li>
 					      <li class="bullet-item">
@@ -57,6 +57,12 @@
 					      <li>
 								<a th:href="@{'/editarticle/' + ${book.identifier}}" href="editarticle.html"><input class="button postfix" type="button" value="Edit Article" /></a>
 					      </li>
+					      <li>
+					      	<form method="post" action="/deleteArticle">
+									<input type="hidden" name="article" value="0" th:value="${book.identifier}" />
+									<input class="button postfix" type="submit" value="Delete Article"/>
+							</form>
+					      </li>
 					      </div>
 					      <li class="cta-button">
 					      	<form action="/cart" method="POST">
@@ -72,6 +78,7 @@
 									</form>
 					      </li>
 					    </ul>
+					  </div>
 					  </div>
 						<div class="large-12">
 						  	<p>
