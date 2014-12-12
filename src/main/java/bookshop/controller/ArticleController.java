@@ -49,7 +49,7 @@ class ArticleController {
 	
 	
 	//Initilize Catalog
-	@RequestMapping("/articles")
+	@RequestMapping("/article")
 	public String articles(ModelMap modelMap, String name) {
 
 		modelMap.addAttribute("catalog", articleCatalog.findAll());
@@ -58,7 +58,7 @@ class ArticleController {
 		return "articles";
 	}
 	
-	@RequestMapping("/books")
+	@RequestMapping("/article/book")
 	public String books(ModelMap modelMap, String name) {
 
 		modelMap.addAttribute("catalog", articleCatalog.findByType(ArticleId.BOOK));
@@ -67,7 +67,7 @@ class ArticleController {
 		return "books";
 	}
 	
-	@RequestMapping("/cds")
+	@RequestMapping("/article/cd")
 	public String cds(ModelMap modelMap, String name) {
 
 		modelMap.addAttribute("catalog", articleCatalog.findByType(ArticleId.CD));
@@ -76,7 +76,7 @@ class ArticleController {
 		return "cds";
 	}
 	
-	@RequestMapping("/dvds")
+	@RequestMapping("/article/dvd")
 	public String dvds(ModelMap modelMap, String name) {
 
 		modelMap.addAttribute("catalog", articleCatalog.findByType(ArticleId.DVD));
@@ -85,7 +85,7 @@ class ArticleController {
 		return "dvds";
 	}
 	
-	@RequestMapping("/addbook")
+	@RequestMapping("/article/book/add")
 	public String addBook(ModelMap modelMap, String name) {
 
 		modelMap.addAttribute("catalog", articleCatalog.findByType(ArticleId.DVD));
@@ -94,7 +94,7 @@ class ArticleController {
 		return "addbook";
 	}
 
-	@RequestMapping("/addcd")
+	@RequestMapping("/article/cd/add")
 	public String addCd(ModelMap modelMap, String name) {
 
 		modelMap.addAttribute("catalog", articleCatalog.findByType(ArticleId.DVD));
@@ -103,7 +103,7 @@ class ArticleController {
 		return "addcd";
 	}
 	
-	@RequestMapping("/adddvd")
+	@RequestMapping("/article/dvd/add")
 	public String addDvd(ModelMap modelMap, String name) {
 
 		modelMap.addAttribute("catalog", articleCatalog.findByType(ArticleId.DVD));
@@ -113,34 +113,34 @@ class ArticleController {
 	}
 	
 	//search Articles
-	@RequestMapping("/searcharticles")
-	public String searchArticles(ModelMap modelMap, @RequestParam("typeInput") int typeInput, @RequestParam("input") String input){
+	@RequestMapping(value="/article/search", method=RequestMethod.POST)
+	public String searchArticles(ModelMap modelMap, @RequestParam("typeInput") String typeInput, @RequestParam("input") String input){
 
-		if(typeInput == 1){
+		if(typeInput == "title"){
 			modelMap.addAttribute("catalog", articleCatalog.findByName(input));
 		}
 		
-		if(typeInput == 2){
+		if(typeInput == "publisher"){
 			modelMap.addAttribute("catalog", articleCatalog.findByPublisher(input));
 		}
 		
-		if(typeInput == 3){
+		if(typeInput == "id"){
 			modelMap.addAttribute("catalog", articleCatalog.findById(input));
 		}
 		
-		if(typeInput == 4){
+		if(typeInput == "author"){
 			modelMap.addAttribute("catalog", articleCatalog.findByAuthor(input));
 		}
 		
-		if(typeInput == 5){
+		if(typeInput == "interpret"){
 			modelMap.addAttribute("catalog", articleCatalog.findByInterpret(input));
 		}
 			
-		if(typeInput == 6){
+		if(typeInput == "director"){
 			modelMap.addAttribute("catalog", articleCatalog.findByDirector(input));
 		}
 		
-		if(typeInput == 7){
+		if(typeInput == "category"){
 			
 			/*Set<String> categoryList = new HashSet<String>();
 			List<String> arr = new ArrayList<String>();
@@ -168,51 +168,57 @@ class ArticleController {
 			modelMap.addAttribute("catalog", articleCatalog.findByCategory(input));
 		}
 			
-		return "search";	//!? Wird nicht als URL angezeigt sondern "searchArticles"
+		return "search";	//!? Wird nicht als URL angezeigt sondern "article/search"
 		
 	}
 	
 	//Add Article
-	@RequestMapping(value="/addBook", method=RequestMethod.POST)
-	public String addBook(@RequestParam("titleArticle") String title,
-	@RequestParam("beschreibungArticle") String beschreibung,
-	@RequestParam("priceArticle") double price,
-	@RequestParam("idArticle") String isbn,
-	@RequestParam("publisherArticle") String publisher,
-	@RequestParam("authorArticle") String author,
-	@RequestParam("categoryArticle") String category){
+	@RequestMapping(value="/article/book/new", method=RequestMethod.POST)
+	public String addBook(	@RequestParam("titleArticle") String title,
+							@RequestParam("beschreibungArticle") String beschreibung,
+							@RequestParam("priceArticle") double price,
+							@RequestParam("idArticle") String isbn,
+							@RequestParam("publisherArticle") String publisher,
+							@RequestParam("authorArticle") String author,
+							@RequestParam("categoryArticle") String category){
 	
-	Article article = new Article(title, Money.of(EUR, price), beschreibung,
-			publisher, isbn, ArticleId.BOOK, category, author);
+		Article article = new Article(	title,
+										Money.of(EUR, price),
+										beschreibung,
+										publisher,
+										isbn,
+										ArticleId.BOOK,
+										category,
+										author);
 	
-	//article.setAuthor(author);
+		//article.setAuthor(author);
+			
+		articleCatalog.save(article);
 		
-	articleCatalog.save(article);
-	
-	//System.out.println(article.getAuthor());
-	
-	
-	InventoryItem item = new InventoryItem(article, Units.TEN);
-	inventory.save(item);
-	
-	//System.out.println("ITEM: " + item);
-	
-	//Quantity quantity = item.map(InventoryItem::getQuantity).orElse(Units.TEN);
-	
+		//System.out.println(article.getAuthor());
+		
+		
+		InventoryItem item = new InventoryItem(article, Units.TEN);
+		inventory.save(item);
+		
+		//System.out.println("ITEM: " + item);
+		
+		//Quantity quantity = item.map(InventoryItem::getQuantity).orElse(Units.TEN);
+		
 	
 
-	 return "redirect:books";
+		return "redirect:article/book";
 
 	}
 
-	@RequestMapping(value="/addCD", method=RequestMethod.POST)
+	@RequestMapping(value="/article/cd/new", method=RequestMethod.POST)
 	public String addCD(@RequestParam("titleArticle") String title,
-	@RequestParam("beschreibungArticle") String beschreibung,
-	@RequestParam("priceArticle") double price,
-	@RequestParam("idArticle") String isbn,
-	@RequestParam("publisherArticle") String publisher,
-	@RequestParam("interpretArticle") String interpret,
-	@RequestParam("categoryArticle") String category){
+						@RequestParam("beschreibungArticle") String beschreibung,
+						@RequestParam("priceArticle") double price,
+						@RequestParam("idArticle") String isbn,
+						@RequestParam("publisherArticle") String publisher,
+						@RequestParam("interpretArticle") String interpret,
+						@RequestParam("categoryArticle") String category){
 	
 	Article article = new Article(title, Money.of(EUR, price), beschreibung,
 			publisher, isbn, ArticleId.CD, category, interpret);
@@ -227,11 +233,11 @@ class ArticleController {
 	InventoryItem item = new InventoryItem(article, Units.TEN);
 	inventory.save(item);
 	
-	 return "redirect:cds";
+	 return "redirect:article/cd";
 
 	}
 	
-	@RequestMapping(value="/addDVD", method=RequestMethod.POST)
+	@RequestMapping(value="/article/dvd/new", method=RequestMethod.POST)
 	public String addDVD(@RequestParam("titleArticle") String title,
 	@RequestParam("beschreibungArticle") String beschreibung,
 	@RequestParam("priceArticle") double price,
@@ -253,12 +259,12 @@ class ArticleController {
 	InventoryItem item = new InventoryItem(article, Units.TEN);
 	inventory.save(item);
 	
-	 return "redirect:dvds";
+	 return "redirect:/article/dvd";
 
 	}
 	
 	//Delete Article
-	@RequestMapping(value="/deleteArticle", method=RequestMethod.POST)
+	@RequestMapping(value="/article/delete", method=RequestMethod.POST)
 	public String deleteArticle(@RequestParam("article") Article article){
 
 		if(article.getType()==ArticleId.BOOK){
@@ -360,7 +366,7 @@ class ArticleController {
 		return "detail";
 	}
 	
-	@RequestMapping("/editarticle/{pid}")
+	@RequestMapping("/article/{pid}/edit")
 	public String editarticle(@PathVariable("pid") Article article, Model model) {
 		
 		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
@@ -374,7 +380,7 @@ class ArticleController {
 	}
 
 	//Change Informations of an Article
-		@RequestMapping(value="/setNewTitle", method=RequestMethod.POST)
+		@RequestMapping(value="/article/set/title", method=RequestMethod.POST)
 		public String setNewTitle(@RequestParam("article") Article article, @RequestParam("newname") String name, Model model){
 			
 			
@@ -384,10 +390,10 @@ class ArticleController {
 			
 			articleCatalog.save(article);
 			
-			return "redirect:editarticle/" + article.getIdentifier();
+			return "redirect:article/" + article.getIdentifier() + "edit";
 		}
 			
-			@RequestMapping(value="/setNewPublisher", method=RequestMethod.POST)
+			@RequestMapping(value="/article/set/publisher", method=RequestMethod.POST)
 			public String setNewPublisher(@RequestParam("article") Article article, @RequestParam("newpublisher") String publisher, Model model){
 				
 				
@@ -397,20 +403,20 @@ class ArticleController {
 				
 				articleCatalog.save(article);
 				
-				return "redirect:editarticle/" + article.getIdentifier();
+				return "redirect:article/" + article.getIdentifier() + "edit";
 			}
 			
-			@RequestMapping(value="/setNewDescription", method=RequestMethod.POST)
+			@RequestMapping(value="/article/set/description", method=RequestMethod.POST)
 			public String setNewDescription(@RequestParam("article") Article article, @RequestParam("descriptiontext") String beschreibung){
 				
 				article.setBeschreibung(beschreibung);
 				
 				articleCatalog.save(article);
 				
-				return "redirect:editarticle/" + article.getIdentifier();
+				return "redirect:article/" + article.getIdentifier() + "edit";
 			}
 			
-			@RequestMapping(value="/setNewIsbn", method=RequestMethod.POST)
+			@RequestMapping(value="/article/set/isbn", method=RequestMethod.POST)
 			public String setNewIsbn(@RequestParam("article") Article article, @RequestParam("newisbn") String isbn, Model model){
 				
 				
@@ -420,10 +426,10 @@ class ArticleController {
 				
 				articleCatalog.save(article);
 				
-				return "redirect:editarticle/" + article.getIdentifier();
+				return "redirect:article/" + article.getIdentifier() + "edit";
 			}
 			
-			@RequestMapping(value="/setNewPrice", method=RequestMethod.POST)
+			@RequestMapping(value="/article/set/price", method=RequestMethod.POST)
 			public String setNewPrice(@RequestParam("article") Article article, @RequestParam("newprice") double price, Model model){
 				
 				System.out.println("Title: " + article.getName());
@@ -432,10 +438,10 @@ class ArticleController {
 				
 				articleCatalog.save(article);
 				
-				return "redirect:editarticle/" + article.getIdentifier();
+				return "redirect:article/" + article.getIdentifier() + "edit";
 			}
 			
-			@RequestMapping(value="/setNewCategory", method=RequestMethod.POST)
+			@RequestMapping(value="/article/set/category", method=RequestMethod.POST)
 			public String setNewCatgory(@RequestParam("article") Article article, @RequestParam("newcategory") String category, Model model){
 				
 				System.out.println("Title: " + article.getName());
@@ -444,21 +450,21 @@ class ArticleController {
 								
 				articleCatalog.save(article);
 				
-				return "redirect:editarticle/" + article.getIdentifier();
+				return "redirect:article/" + article.getIdentifier() + "edit";
 			}
 			
-			@RequestMapping(value="/setNewImage", method=RequestMethod.POST)
+			@RequestMapping(value="/article/set/image", method=RequestMethod.POST)
 			public String setNewImage(@RequestParam("article") Article article, @RequestParam("newimage") String image, Model model){
 								
 				article.setImage(image);
 				
 				articleCatalog.save(article);
 				
-				return "redirect:editarticle/" + article.getIdentifier();
+				return "redirect:article/" + article.getIdentifier() + "edit";
 			}
 			
 			//Set Specific Informations
-			@RequestMapping(value="/setNewAuthor", method=RequestMethod.POST)
+			@RequestMapping(value="/article/set/author", method=RequestMethod.POST)
 			public String setNewAutor(@RequestParam("article") Article article, @RequestParam("newauthor") String author, Model model){
 
 				System.out.println("Autor: " + article.getAuthor());
@@ -469,32 +475,32 @@ class ArticleController {
 				
 				articleCatalog.save(article);
 				
-				return "redirect:editarticle/" + article.getIdentifier();
+				return "redirect:article/" + article.getIdentifier() + "edit";
 			}
 			
-			@RequestMapping(value="/setNewInterpret", method=RequestMethod.POST)
+			@RequestMapping(value="/article/set/interpret", method=RequestMethod.POST)
 			public String setNewInterpret(@RequestParam("article") Article article, @RequestParam("newInterpret") String interpret, Model model){
 							
 				article.setInterpret(interpret);
 				
 				articleCatalog.save(article);
 				
-				return "redirect:editarticle/" + article.getIdentifier();
+				return "redirect:article/" + article.getIdentifier() + "edit";
 			}
 			
-			@RequestMapping(value="/setNewDirector", method=RequestMethod.POST)
+			@RequestMapping(value="/article/set/director", method=RequestMethod.POST)
 			public String setNewDirector(@RequestParam("article") Article article, @RequestParam("newdirector") String director, Model model){
 							
 				article.setDirector(director);
 				
 				articleCatalog.save(article);
 				
-				return "redirect:editarticle/" + article.getIdentifier();
+				return "redirect:article/" + article.getIdentifier() + "edit";
 			}
 			
 			
 		
-		@RequestMapping(value="/increase", method=RequestMethod.POST)
+		@RequestMapping(value="/article/amount/increase", method=RequestMethod.POST)
 		public String increaseUnits(@RequestParam("article") Article article, @RequestParam("addquan") long amount, Model model){
 			
 			Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
@@ -517,11 +523,11 @@ class ArticleController {
 			
 			articleCatalog.save(article);
 			
-			return "redirect:editarticle/" + article.getIdentifier();
+			return "redirect:article/" + article.getIdentifier() + "edit";
 		}
 		
 		//Decrease the Units of an Article
-		@RequestMapping(value="/decrease", method=RequestMethod.POST)
+		@RequestMapping(value="/article/amount/decrease", method=RequestMethod.POST)
 		public String decreaseUnits(@RequestParam("article") Article article, @RequestParam("removequan") long amount, Model model){
 			
 			Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
@@ -532,18 +538,18 @@ class ArticleController {
 			
 			articleCatalog.save(article);
 			
-			return "redirect:editarticle/" + article.getIdentifier();
+			return "redirect:article/" + article.getIdentifier() + "edit";
 		}
 		
 		//Delete Information(Categories) of an Article
-		@RequestMapping(value="/deletecategory", method=RequestMethod.POST)
+		@RequestMapping(value="/article/category/delete", method=RequestMethod.POST)
 		public String deleteCategory(@RequestParam("article") Article article, @RequestParam("categorytodelete") String category){
 			
 			article.removeCategory(category);
 			
 			articleCatalog.save(article);
 			
-			return "redirect:editarticle/" + article.getIdentifier();
+			return "redirect:article/" + article.getIdentifier() + "edit";
 		}
 		
 }
