@@ -29,11 +29,8 @@ public class Room {
 		
 		System.out.println("Room equals wird geprueft");
 		if(this.name.equals(r.getName())&& this.number.equals(r.getNumber())) {
-			
-			System.out.println("Raum ist gleich");
 			return true;
 		} else {
-			System.out.println("Raum ist unterschiedlich!");
 			return false;
 		}
 	}
