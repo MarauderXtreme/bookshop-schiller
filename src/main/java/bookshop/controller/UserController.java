@@ -95,7 +95,7 @@ public class UserController {
 	 * @return
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping("/admin/register/employee/new")
+	@RequestMapping("/admin/user/add/new")
 	public String registerNewEmployee(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
 			BindingResult result) {
 
@@ -138,7 +138,7 @@ public class UserController {
 	 * @param modelMap
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping("/admin/register/employee")
+	@RequestMapping("/admin/user/add")
 	public String registerEmployee(ModelMap modelMap) {
 		modelMap.addAttribute("registrationForm", new RegistrationForm());
 		return "registerEmployee";
@@ -151,7 +151,7 @@ public class UserController {
 	 * @return
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping("/admin/register/customer/new")
+	@RequestMapping("/admin/user/add/new")
 	public String registerNewCustomer(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
 			BindingResult result) {
 
@@ -194,7 +194,7 @@ public class UserController {
 	 * @param modelMap
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping("/admin/register/customer")
+	@RequestMapping("/admin/user/add")
 	public String registerCustomer(ModelMap modelMap) {
 		modelMap.addAttribute("registrationForm", new RegistrationForm());
 		return "registerCustomer";
