@@ -17,6 +17,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import bookshop.model.validation.RegistrationForm;
 import bookshop.model.User;
@@ -89,15 +90,15 @@ public class UserController {
 	}
 	
 	/**
-	 * Reads data from the registrationForm for administrators and registers a new employee.
+	 * Reads data from the registrationForm for administrators and registers a new user.
 	 * @param registrationForm
 	 * @param result
 	 * @return
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/user/add/new")
-	public String registerNewEmployee(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
-			BindingResult result) {
+	public String registerNewUser(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
+			BindingResult result, @RequestParam("roleInput") String roleInput) {
 
 		if (!registrationForm.getPasswordRepeat().equals(registrationForm.getPassword())) {
 			result.addError(new ObjectError("password.noMatch", "Ihre eingegebenen Passwörter stimmen nicht überein!"));
@@ -117,11 +118,11 @@ public class UserController {
 		}
 		
 		if (result.hasErrors()) {
-			return "registerEmployee";
+			return "registerUser";
 		}
-
+		
 		UserAccount userAccount = userAccountManager.create(registrationForm.getUsername(), registrationForm.getPassword(),
-				new Role("ROLE_EMPLOYEE"));
+				new Role(roleInput));
 		userAccount.setFirstname(registrationForm.getFirstname());
 		userAccount.setLastname(registrationForm.getLastname());
 		userAccount.setEmail(registrationForm.getEmail());
@@ -134,70 +135,14 @@ public class UserController {
 	}
 	
 	/**
-	 * Maps the admin registration form for employees to modelMap.
+	 * Maps the administrator registration form for users to modelMap.
 	 * @param modelMap
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/user/add")
-	public String registerEmployee(ModelMap modelMap) {
+	public String registerUser(ModelMap modelMap) {
 		modelMap.addAttribute("registrationForm", new RegistrationForm());
-		return "registerEmployee";
-	}
-	
-	/**
-	 * Reads data from the registrationForm for administrators and registers a new employee.
-	 * @param registrationForm
-	 * @param result
-	 * @return
-	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping("/admin/user/add/new")
-	public String registerNewCustomer(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
-			BindingResult result) {
-
-		if (!registrationForm.getPasswordRepeat().equals(registrationForm.getPassword())) {
-			result.addError(new ObjectError("password.noMatch", "Ihre eingegebenen Passwörter stimmen nicht überein!"));
-		}
-		
-		Iterable<User> users = userRepository.findAll();
-		
-		for (User u : users) {
-			if (u.getUserAccount().getIdentifier().getIdentifier().equals(registrationForm.getUsername())) {
-				result.addError(new ObjectError("username.isUsed", "Ihre eingegebener Nutzername ist bereits vergeben!"));
-			}
-		}
-		for (User u : users) {
-			if (u.getUserAccount().getEmail().equals(registrationForm.getEmail())) {
-				result.addError(new ObjectError("email.isUsed", "Ihre eingegebene E-Mail-Adresse ist bereits vergeben!"));
-			}
-		}
-		
-		if (result.hasErrors()) {
-			return "registerCustomer";
-		}
-		
-		UserAccount userAccount = userAccountManager.create(registrationForm.getUsername(), registrationForm.getPassword(),
-				new Role("ROLE_CUSTOMER"));
-		userAccount.setFirstname(registrationForm.getFirstname());
-		userAccount.setLastname(registrationForm.getLastname());
-		userAccount.setEmail(registrationForm.getEmail());
-		userAccountManager.save(userAccount);
-
-		User user = new User(userAccount, registrationForm.getAddress());
-		userRepository.save(user);
-
-		return "redirect:/";
-	}
-	
-	/**
-	 * Maps the administrator registration form for customers to modelMap.
-	 * @param modelMap
-	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping("/admin/user/add")
-	public String registerCustomer(ModelMap modelMap) {
-		modelMap.addAttribute("registrationForm", new RegistrationForm());
-		return "registerCustomer";
+		return "registerUser";
 	}
 	
 	/**
