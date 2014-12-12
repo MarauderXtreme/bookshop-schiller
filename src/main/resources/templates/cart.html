@@ -12,7 +12,7 @@
 	    	<div class="main-content">
 		    	<header class="large-12 medium-12 show-for-landscape show-for-medium-up">
 		        <div class="panel">
-		          <div class="header-slider" th:include="slider :: slider"></div>
+		          <div class="header-slider row" th:include="slider :: slider"></div>
 		        </div>
 		      </header>
 	        <div class="large-12">&nbsp;</div>
@@ -61,33 +61,5 @@
 	    	</div>
 	    </div>
 		</div>
-	  <script type="text/javascript" src="/resources/js/vendor/jquery.js"></script>
-	  <script type="text/javascript" src="/resources/js/vendor/fastclick.js"></script>
-	  <script type="text/javascript" src="/resources/js/foundation.min.js"></script>
-	  <script type="text/javascript" src="/resources/js/vendor/slick.min.js"></script>
-	  <script type="text/javascript">
-	    $(document).foundation(
-	      {
-	        accordion: {
-	          content_class: 'content',
-	          active_class: 'active',
-	          toggleable: true
-	        }
-	      }
-	    );
-	  </script>
-	  <script type="text/javascript">  
-	    $(document).ready(function(){
-	      $('.header-slider').slick({
-	        dots: true,
-	        infinite: true,
-	        lazyLoad: 'ondemand',
-	        slidesToShow: 1,
-	        slidesToScroll: 1,
-	        autoplay: true,
-	        autoplaySpeed: 3000,
-	      });
-	    });
-	  </script>
 	</body>
 </html>
