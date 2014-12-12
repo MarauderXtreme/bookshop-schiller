@@ -36,7 +36,6 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 	private final Inventory<InventoryItem> inventory;
 	private final UserAccountManager userAccountManager;
 	private final UserRepository userRepository;
-	//private CategoryManagement categories;
 
 	/**
 	 * Constructor for BookShopDataInitializer.
@@ -52,7 +51,7 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		Assert.notNull(userRepository, "UserRepository must not be null!");
 		Assert.notNull(inventory, "Inventory must not be null!");
 		Assert.notNull(userAccountManager, "UserAccountManager must not be null!");
-		Assert.notNull(articleCatalog, "VideoCatalog must not be null!");
+		Assert.notNull(articleCatalog, "ArticleCatalog must not be null!");
 		
 
 		this.userRepository = userRepository;
@@ -109,16 +108,13 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		CalendarManagement.getInstance().addEvent("Fasching", new Date("10102015","0920"), RoomManagement.getInstance().getRoom("Computerraum"));
 		CalendarManagement.getInstance().addEvent("1. April", new Date("01042015","1111"), RoomManagement.getInstance().getRoom("FSR-Büro"));
 		
-		/*
+		
 		CategoryManagement.getInstance().addCategory(ArticleId.BOOK, "Ratgeber");
 		CategoryManagement.getInstance().addCategory(ArticleId.BOOK, "Komödie");
 		CategoryManagement.getInstance().addCategory(ArticleId.DVD, "Action");
 		CategoryManagement.getInstance().addCategory(ArticleId.CD, "Ballade");
-		*/
-		/*categories.addCategory(ArticleId.BOOK, "Ratgeber");
-		categories.addCategory(ArticleId.BOOK, "Komödie");
-		categories.addCategory(ArticleId.DVD, "Action");
-		categories.addCategory(ArticleId.CD, "Ballade");*/
+		
+
 		/*
 		articleCatalog.save(new Article("Bastard Operator from Hell", Money.of(EUR, 19.99), "Ultimativer Leitfaden für den Job an einem Helpdesk", "Simon Travaglia", "42", ArticleId.BOOK, CategoryManagement.getInstance().getCategory(ArticleId.BOOK, "Komödie"), "Flann O'Brien"));
 		articleCatalog.save(new Article("Trost und Rat", Money.of(EUR, 9.99), "Ein Ratgeber der besonderen Art", "Flann O'Brien", "123", ArticleId.BOOK, CategoryManagement.getInstance().getCategory(ArticleId.BOOK, "Ratgeber"), "Flann O'Brien", "trostundrat.jpg"));
@@ -141,9 +137,7 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		 
 		
 		
-		// (｡◕‿◕｡)
-		// Über alle eben hinzugefügten Discs iterieren und jeweils ein InventoryItem mit der Quantity 10 setzen
-		// Das heißt: Von jeder Disc sind 10 Stück im Inventar.
+
 
 		/*for (Article article : articleCatalog.getArticleList()) {
 			InventoryItem inventoryItem = new InventoryItem(article, Units.TEN);

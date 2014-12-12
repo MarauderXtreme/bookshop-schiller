@@ -14,9 +14,6 @@ public class CategoryManagement {
 	
 	private static CategoryManagement instance ;
 	
-	//@Deprecated
-	//protected CategoryManagement() {}
-	
 	private CategoryManagement()
 	{
 		this.categories = new HashMap<ArticleId, ArrayList<String>>();
@@ -33,9 +30,12 @@ public class CategoryManagement {
 		return CategoryManagement.instance;
 	}
 	
-	/*public CategoryManagement(){
-		categories = new HashMap<ArticleId, ArrayList<String>>();
-	}*/
+	//@Deprecated
+	//protected CategoryManagement() {}
+	
+	//public CategoryManagement(){
+	//	categories = new HashMap<ArticleId, ArrayList<String>>();
+	//}
 	
 	public void addCategory(ArticleId articleType, String category){
 		/*if(categories.){
@@ -65,5 +65,9 @@ public class CategoryManagement {
 	
 	public String getCategory(ArticleId id, String category){
 		return categories.get(id).get(categories.get(id).indexOf(category));
+	}
+	
+	public String getCategoryList(){
+		return categories.get(ArticleId.BOOK).toString();
 	}
 }

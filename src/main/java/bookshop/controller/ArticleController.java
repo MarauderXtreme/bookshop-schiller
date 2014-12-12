@@ -35,14 +35,11 @@ class ArticleController {
 	private final ArticleManagement articleCatalog;
 	private final Inventory<InventoryItem> inventory;
 	private final MessageSourceAccessor messageSourceAccessor; 
-	private CategoryManagement categories;
 
 	@Autowired
 	public ArticleController(ArticleManagement articleCatalog, Inventory<InventoryItem> inventory, MessageSource messageSource) {
-
 		this.articleCatalog = articleCatalog;
 		this.inventory = inventory;
-		//this.categories = categories;
 		this.messageSourceAccessor = new MessageSourceAccessor(messageSource);
 	}
 
