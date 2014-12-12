@@ -38,10 +38,11 @@ class ArticleController {
 	private CategoryManagement categories;
 
 	@Autowired
-	public ArticleController(ArticleManagement articleCatalog, Inventory<InventoryItem> inventory, MessageSource messageSource) {
+	public ArticleController(ArticleManagement articleCatalog, Inventory<InventoryItem> inventory, CategoryManagement categories, MessageSource messageSource) {
 
 		this.articleCatalog = articleCatalog;
 		this.inventory = inventory;
+		this.categories = categories;
 		this.messageSourceAccessor = new MessageSourceAccessor(messageSource);
 	}
 
