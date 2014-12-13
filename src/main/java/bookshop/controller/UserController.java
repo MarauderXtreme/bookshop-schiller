@@ -200,6 +200,22 @@ public class UserController {
 		return "profile";
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
+	@RequestMapping("/user/profile/{pid}/disable")
+	public String disable(@PathVariable("pid") UserAccount userAccount) {
+		
+		userManagement.disable(userAccount);
+		return "profile";
+	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
+	@RequestMapping("/user/profile/{pid}/enable")
+	public String enable(@PathVariable("pid") UserAccount userAccount) {
+		
+		userManagement.enable(userAccount);
+		return "profile";
+	}
+	
 	/**
 	 * Maps the index page.
 	 */
