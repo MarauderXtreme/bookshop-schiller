@@ -42,7 +42,6 @@ class ArticleController {
 		this.inventory = inventory;
 		this.messageSourceAccessor = new MessageSourceAccessor(messageSource);
 	}
-
 	
 	
 	//Initilize Catalog
@@ -82,7 +81,7 @@ class ArticleController {
 		return "dvds";
 	}
 	
-	@RequestMapping("/article/book/add")
+	@RequestMapping("/article/addbook")
 	public String addBook(ModelMap modelMap, String name) {
 
 		modelMap.addAttribute("catalog", articleCatalog.findByType(ArticleId.DVD));
@@ -204,7 +203,7 @@ class ArticleController {
 		
 	
 
-		return "redirect:article/book";
+		return "redirect:/article/book";
 
 	}
 
