@@ -81,6 +81,7 @@ class ArticleController {
 		return "dvds";
 	}
 	
+	//@RequestMapping("/article/book/add")
 	@RequestMapping("/article/addbook")
 	public String addBook(ModelMap modelMap, String name) {
 
@@ -90,7 +91,8 @@ class ArticleController {
 		return "addbook";
 	}
 
-	@RequestMapping("/article/cd/add")
+	//@RequestMapping("/article/cd/add")
+	@RequestMapping("/article/addcd")
 	public String addCd(ModelMap modelMap, String name) {
 
 		modelMap.addAttribute("catalog", articleCatalog.findByType(ArticleId.DVD));
@@ -99,7 +101,8 @@ class ArticleController {
 		return "addcd";
 	}
 	
-	@RequestMapping("/article/dvd/add")
+	//@RequestMapping("/article/dvd/add")
+	@RequestMapping("/article/adddvd")
 	public String addDvd(ModelMap modelMap, String name) {
 
 		modelMap.addAttribute("catalog", articleCatalog.findByType(ArticleId.DVD));
@@ -109,34 +112,40 @@ class ArticleController {
 	}
 	
 	//search Articles
+	//@RequestMapping(value="/article/search", method=RequestMethod.POST)
 	@RequestMapping(value="/article/search", method=RequestMethod.POST)
-	public String searchArticles(ModelMap modelMap, @RequestParam("typeInput") String typeInput, @RequestParam("input") String input){
+	public String searchArticles(ModelMap modelMap, @RequestParam("typeInput") int typeInput, @RequestParam("input") String input){
 
-		if(typeInput == "title"){
+		if(typeInput == 1){
 			modelMap.addAttribute("catalog", articleCatalog.findByName(input));
 		}
 		
-		if(typeInput == "publisher"){
+		if(typeInput == 2){
 			modelMap.addAttribute("catalog", articleCatalog.findByPublisher(input));
 		}
 		
-		if(typeInput == "id"){
+		if(typeInput == 3){
 			modelMap.addAttribute("catalog", articleCatalog.findById(input));
 		}
 		
-		if(typeInput == "author"){
-			modelMap.addAttribute("catalog", articleCatalog.findByAuthor(input));
+		if(typeInput == 4){
+			if(!(articleCatalog.findByAuthor(input)==null))
+				modelMap.addAttribute("catalog", articleCatalog.findByAuthor(input));
+			if(!(articleCatalog.findByInterpret(input)==null))
+				modelMap.addAttribute("catalog", articleCatalog.findByInterpret(input));
+			if(!(articleCatalog.findByDirector(input)==null))
+				modelMap.addAttribute("catalog", articleCatalog.findByDirector(input));
 		}
-		
-		if(typeInput == "interpret"){
+		/*
+		if(typeInput == 5){
 			modelMap.addAttribute("catalog", articleCatalog.findByInterpret(input));
 		}
 			
-		if(typeInput == "director"){
+		if(typeInput == 6){
 			modelMap.addAttribute("catalog", articleCatalog.findByDirector(input));
 		}
-		
-		if(typeInput == "category"){
+		*/
+		if(typeInput == 5){
 			
 			/*Set<String> categoryList = new HashSet<String>();
 			List<String> arr = new ArrayList<String>();
@@ -229,7 +238,7 @@ class ArticleController {
 	InventoryItem item = new InventoryItem(article, Units.TEN);
 	inventory.save(item);
 	
-	 return "redirect:article/cd";
+	 return "redirect:/article/cd";
 
 	}
 	
@@ -269,7 +278,7 @@ class ArticleController {
 		
 		articleCatalog.delete(article.getIdentifier());
 		
-		return "redirect:books";
+		return "redirect:/article/book";
 		}
 		else if(article.getType()==ArticleId.CD){
 			Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
@@ -277,7 +286,7 @@ class ArticleController {
 			
 			articleCatalog.delete(article.getIdentifier());
 			
-			return "redirect:cds";
+			return "redirect:/article/cd";
 		}
 		
 		else {
@@ -286,7 +295,7 @@ class ArticleController {
 		
 		articleCatalog.delete(article.getIdentifier());
 		
-		return "redirect:dvds";
+		return "redirect:/article/dvd";
 		}
 	}
 	/*
@@ -362,7 +371,8 @@ class ArticleController {
 		return "detail";
 	}
 	
-	@RequestMapping("/article/{pid}/edit")
+	//@RequestMapping("/article/{pid}/edit")
+	@RequestMapping("/editarticle/{pid}")
 	public String editarticle(@PathVariable("pid") Article article, Model model) {
 		
 		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
@@ -386,7 +396,8 @@ class ArticleController {
 			
 			articleCatalog.save(article);
 			
-			return "redirect:article/" + article.getIdentifier() + "edit";
+			//return "redirect:article/" + article.getIdentifier() + "edit";
+			return "redirect:/editarticle/" + article.getIdentifier();
 		}
 			
 			@RequestMapping(value="/article/set/publisher", method=RequestMethod.POST)
@@ -399,7 +410,8 @@ class ArticleController {
 				
 				articleCatalog.save(article);
 				
-				return "redirect:article/" + article.getIdentifier() + "edit";
+				//return "redirect:article/" + article.getIdentifier() + "edit";
+				return "redirect:/editarticle/" + article.getIdentifier();
 			}
 			
 			@RequestMapping(value="/article/set/description", method=RequestMethod.POST)
@@ -409,7 +421,8 @@ class ArticleController {
 				
 				articleCatalog.save(article);
 				
-				return "redirect:article/" + article.getIdentifier() + "edit";
+				//return "redirect:article/" + article.getIdentifier() + "edit";
+				return "redirect:/editarticle/" + article.getIdentifier();
 			}
 			
 			@RequestMapping(value="/article/set/isbn", method=RequestMethod.POST)
@@ -422,7 +435,8 @@ class ArticleController {
 				
 				articleCatalog.save(article);
 				
-				return "redirect:article/" + article.getIdentifier() + "edit";
+				//return "redirect:article/" + article.getIdentifier() + "edit";
+				return "redirect:/editarticle/" + article.getIdentifier();
 			}
 			
 			@RequestMapping(value="/article/set/price", method=RequestMethod.POST)
@@ -434,7 +448,8 @@ class ArticleController {
 				
 				articleCatalog.save(article);
 				
-				return "redirect:article/" + article.getIdentifier() + "edit";
+				//return "redirect:article/" + article.getIdentifier() + "edit";
+				return "redirect:/editarticle/" + article.getIdentifier();
 			}
 			
 			@RequestMapping(value="/article/set/category", method=RequestMethod.POST)
@@ -446,7 +461,8 @@ class ArticleController {
 								
 				articleCatalog.save(article);
 				
-				return "redirect:article/" + article.getIdentifier() + "edit";
+				//return "redirect:article/" + article.getIdentifier() + "edit";
+				return "redirect:/editarticle/" + article.getIdentifier();
 			}
 			
 			@RequestMapping(value="/article/set/image", method=RequestMethod.POST)
@@ -456,7 +472,8 @@ class ArticleController {
 				
 				articleCatalog.save(article);
 				
-				return "redirect:article/" + article.getIdentifier() + "edit";
+				//return "redirect:article/" + article.getIdentifier() + "edit";
+				return "redirect:/editarticle/" + article.getIdentifier();
 			}
 			
 			//Set Specific Informations
@@ -471,7 +488,8 @@ class ArticleController {
 				
 				articleCatalog.save(article);
 				
-				return "redirect:article/" + article.getIdentifier() + "edit";
+				//return "redirect:article/" + article.getIdentifier() + "edit";
+				return "redirect:/editarticle/" + article.getIdentifier();
 			}
 			
 			@RequestMapping(value="/article/set/interpret", method=RequestMethod.POST)
@@ -481,7 +499,8 @@ class ArticleController {
 				
 				articleCatalog.save(article);
 				
-				return "redirect:article/" + article.getIdentifier() + "edit";
+				//return "redirect:article/" + article.getIdentifier() + "edit";
+				return "redirect:/editarticle/" + article.getIdentifier();
 			}
 			
 			@RequestMapping(value="/article/set/director", method=RequestMethod.POST)
@@ -491,7 +510,8 @@ class ArticleController {
 				
 				articleCatalog.save(article);
 				
-				return "redirect:article/" + article.getIdentifier() + "edit";
+				//return "redirect:article/" + article.getIdentifier() + "edit";
+				return "redirect:/editarticle/" + article.getIdentifier();
 			}
 			
 			
@@ -519,7 +539,8 @@ class ArticleController {
 			
 			articleCatalog.save(article);
 			
-			return "redirect:article/" + article.getIdentifier() + "edit";
+			//return "redirect:article/" + article.getIdentifier() + "edit";
+			return "redirect:/editarticle/" + article.getIdentifier();
 		}
 		
 		//Decrease the Units of an Article
@@ -534,18 +555,20 @@ class ArticleController {
 			
 			articleCatalog.save(article);
 			
-			return "redirect:article/" + article.getIdentifier() + "edit";
+			//return "redirect:article/" + article.getIdentifier() + "edit";
+			return "redirect:/editarticle/" + article.getIdentifier();
 		}
 		
 		//Delete Information(Categories) of an Article
-		@RequestMapping(value="/article/category/delete", method=RequestMethod.POST)
+		@RequestMapping(value="/article/delete/category", method=RequestMethod.POST)
 		public String deleteCategory(@RequestParam("article") Article article, @RequestParam("categorytodelete") String category){
 			
 			article.removeCategory(category);
 			
 			articleCatalog.save(article);
 			
-			return "redirect:article/" + article.getIdentifier() + "edit";
+			//return "redirect:article/" + article.getIdentifier() + "edit";
+			return "redirect:/editarticle/" + article.getIdentifier();
 		}
 		
 }

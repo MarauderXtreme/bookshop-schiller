@@ -24,7 +24,7 @@
 							<ul class="pricing-table">
 					      <li class="title">
 					      <span th:text="${book.name}">Last Action Hero</span>
-									<form method="post" action="/setNewTitle">
+									<form method="post" action="/article/set/title">
 										<fieldset>
 											<input type="text" name="newname" />
 											<input type="hidden" name="article" th:value="${book.identifier}" />
@@ -33,8 +33,8 @@
 									</form>
 					      </li>
 					      <li class="description">
-					      <label>Autor</label><span th:text="${book.author}">Simon Travaglia</span>
-									<form method="post" action="/setNewAuthor">
+					      <label>Artist:</label><span th:text="${book.author}">Simon Travaglia</span>
+									<form method="post" action="/article/set/author">
 										<fieldset>
 											<input type="text" name="newauthor" />
 											<input type="hidden" name="article" th:value="${book.identifier}" />
@@ -44,7 +44,7 @@
 					      </li>
 					      <li class="bullet-item">
 					      <label>Publisher:</label><span th:text="${book.publisher}">Verlag</span>
-									<form method="post" action="/setNewPublisher">
+									<form method="post" action="/article/set/publisher">
 										<fieldset>
 											<input type="text" name="newpublisher" />
 											<input type="hidden" name="article" th:value="${book.identifier}" />
@@ -54,7 +54,7 @@
 					      </li>
 					      <li class="description">
 					      <label>Beschreibung:</label><span th:text="${book.beschreibung}">Simon Travaglia</span>
-									<form method="post" action="/setNewDescription">
+									<form method="post" action="/article/set/description">
 										<fieldset>
 											<textarea name="descriptiontext" cols="40" rows="5"></textarea>
 											<input type="hidden" name="article" th:value="${book.identifier}" />
@@ -64,7 +64,7 @@
 					      </li>
 					      <li class="bullet-item">
 					      <label>ISBN-Nr.:</label><span th:text="${book.id}">ISBN</span>
-									<form method="post" action="/setNewIsbn">
+									<form method="post" action="/article/set/isbn">
 										<fieldset>
 											<input type="text" name="newisbn" />
 											<input type="hidden" name="article" th:value="${book.identifier}" />
@@ -74,14 +74,14 @@
 					      </li>
 					      <li class="bullet-item">
 					      <label>Kategorie:</label><span th:text="${book.getCategoryList()}">Kategorie</span>
-									<form method="post" action="/setNewCategory">
+									<form method="post" action="/article/set/category">
 										<fieldset>
 											<input type="text" name="newcategory" />
 											<input type="hidden" name="article" th:value="${book.identifier}" />
 											<input type="submit" value="Change Category" />
 										</fieldset>
 									</form>
-									<form method="post" action="/deletecategory">
+									<form method="post" action="/article/delete/category">
 										<fieldset>
 											<input type="text" name="categorytodelete" />
 											<input type="hidden" name="article" th:value="${book.identifier}" />
@@ -91,7 +91,7 @@
 					      </li>
 					      <li class="bullet-item">
 					      <label>Bild:</label><span th:text="${book.image}">Bild-Pfad</span>
-									<form method="post" action="/setNewImage">
+									<form method="post" action="/article/set/image">
 										<fieldset>
 											<input type="text" name="newimage" />
 											<input type="hidden" name="article" th:value="${book.identifier}" />
@@ -101,14 +101,14 @@
 					      </li>
 					      <li class="bullet-item">
 					      <label>Anzahl:</label><span th:text="${quantity.amount}">Units</span>
-									<form method="post" action="/increase">
+									<form method="post" action="/article/amount/increase">
 										<fieldset>
 											<input type="text" name="addquan" />
 											<input type="hidden" name="article" value="0"  th:value="${book.identifier}" />
 											<input type="submit" value="Increase Article" />
 										</fieldset>
 									</form>
-									<form method="post" action="/decrease">
+									<form method="post" action="/article/amount/decrease">
 										<fieldset>
 											<input type="text" name="removequan" />
 											<input type="hidden" name="article" value="0" th:value="${book.identifier}" />
@@ -118,7 +118,7 @@
 					      </li>
 					      <li class="price">
 					      <label>Preis:</label><span th:text="${book.price}">9.99€</span>
-									<form method="post" action="/setNewPrice">
+									<form method="post" action="/article/set/price">
 										<fieldset>
 											<input type="text" name="newprice" />
 											<input type="hidden" name="article" th:value="${book.identifier}" />
