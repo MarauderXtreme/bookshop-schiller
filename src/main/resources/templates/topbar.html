@@ -18,46 +18,81 @@
 		        <a href="/" th:text="#{home.title}">Buchhandlung Schiller</a>
 		      </h2>
 	      </li>
-    		<li class="has-form show-for-medium-up">
-    			<div class="row collapse">
-    				<form method="get" action="/article/search">
-    					<div class="large-4 medium-3 columns">
-								<select name="typeInput">
-									<option value="title">Titel</option>
-									<option value="publisher">Verlag</option>
-									<option value="isbn">ISBN</option>
-									<option value="Author">Autor</option>
-									<option value="category">Kategory</option>
-								</select>
-    					</div>
-    					<div class="large-4 medium-3 columns">
-								<input type="text" name="input" placeholder="Suchwort" />
-    					</div>
-    					<div class="large-2 medium-1 columns">
-    						<input class="tiny alert button expand" type="submit" value="Los geht's!" />
-    					</div>
-						</form>
-    			</div>
+    		<li class="has-form show-for-large-up">
+   				<form class="row collapse" method="get" action="/article/search">
+   					<div class="large-3 medium-3 columns">
+							<select name="typeInput">
+								<option value="title">Titel</option>
+								<option value="publisher">Verlag</option>
+								<option value="id">ISBN</option>
+								<option value="Author">Autor</option>
+								<option value="category">Kategory</option>
+							</select>
+						</div>
+   					<div class="large-5 medium-5 large-offset-1 medium-offset-1 columns">
+							<input type="text" name="input" placeholder="Suche" />
+   					</div>
+   					<div class="large-3 medium-3 columns">
+   						<input class="tiny alert button expand" type="submit" value="Los geht's!" />
+   					</div>
+					</form>
     		</li>
     	</ul>
-    	<ul class="right">
-    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN')" class="divider"></li>
-    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN')">
-    			<a th:href="@{/admin/statistics}" href="statistics.html">Statistiken</a>
-    		</li>
-    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN')" class="divider"></li>
-    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN')">
-    			<a th:href="@{/admin/orders}" href="orders.html">Bestellungen</a>
+    	<ul class="right show-for-large-up">
+    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_USERMANAGER')" class="divider"></li>
+    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_USERMANAGER')" class="has-dropdown not-click">
+    			<a>Nützliche Links</a>
+    			<ul class="dropdown">
+    				<li>
+    					<a th:href="@{/admin/statictics}" href="statistics.html">Not Implemented</a>
+    				</li>
+    				<li>
+    					<a th:href="@{/admin/orders}" href="order.html">Not Implemented</a>
+    				</li>
+    				<li>
+    					<a th:href="@{/admin/stock}" href="stock.html">Not Implemented</a>
+    				</li>
+    			</ul>
     		</li>
     		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_USERMANAGER')" class="divider"></li>
     		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_USERMANAGER')" class="has-dropdown not-click">
-    			<a>Nutzerübersicht</a>
+    			<a>Artikel Management</a>
+    			<ul class="dropdown">
+    				<li>
+    					<a th:href="@{/article/book/add}" href="addbook.html">Neues Buch</a>
+    				</li>
+    				<li>
+    					<a th:href="@{/article/cd/add}" href="addcd.html">Neue CD</a>
+    				</li>
+    				<li>
+    					<a th:href="@{/article/dvd/add}" href="adddvd.html">Neue DVD</a>
+    				</li>
+    			</ul>
+    		</li>
+    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_USERMANAGER')" class="divider"></li>
+    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_USERMANAGER')" class="has-dropdown not-click">
+    			<a>Nutzer Management</a>
     			<ul class="dropdown">
     				<li>
     					<a th:href="@{/admin/customers}" href="customers.html">Kunden</a>
     				</li>
     				<li>
     					<a th:href="@{/admin/employees}" href="employees.html">Angestellte</a>
+    				</li>
+    				<li>
+    					<a th:href="@{/admin/user/add}" href="registeruser.html">Neuer Nutzer</a>
+    				</li>
+    			</ul>
+    		</li>
+    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_USERMANAGER')" class="divider"></li>
+    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_USERMANAGER')" class="has-dropdown not-click">
+    			<a>Event Management</a>
+    			<ul class="dropdown">
+    				<li>
+    					<a th:href="@{/admin/event/add}" href="addEvent.html">Neues Event</a>
+    				</li>
+    				<li>
+    					<a th:href="@{/admin/room/add}" href="addRoom.html">Neuer Raum</a>
     				</li>
     			</ul>
     		</li>

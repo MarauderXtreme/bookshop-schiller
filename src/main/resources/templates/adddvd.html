@@ -16,19 +16,18 @@
 		        </div>
 		      </header>
 	        <div class="large-12">&nbsp;</div>
-			<form method="post" action="/addDVD">
-				<fieldset>
-					<input type="text" name="titleArticle" value="Title" />
-					<input type="text" name="directorArticle" value="Director" />
-					<input type="text" name="publisherArticle" value="Publisher" />
-					<input type="text" name="priceArticle" value="Price" />
-					<input type="text" name="beschreibungArticle" value="Beschreibung" />
-					<input type="text" name="idArticle" value="Isbn" />
-					<input type="text" name="categoryArticle" value="Category" />
-					<!--<input type="text" name="typeArticle" value="Type" />-->
-					<input type="submit" value="Add Article" />
-				</fieldset>
-			</form>
+        		<form method="post" action="/article/dvd/new">
+							<fieldset>
+								<input type="text" name="titleArticle" placeholder="Titel" />
+								<input type="text" name="authorArticle" placeholder="Autor" />
+								<input type="text" name="publisherArticle" placeholder="Verlag" />
+								<input type="text" name="priceArticle" placeholder="Preis" />
+								<input type="text" name="beschreibungArticle" placeholder="Beschreibung" />
+								<input type="text" name="idArticle" placeholder="ISBN" />
+								<input type="text" name="categoryArticle" placeholder="Kategorie" />
+								<input type="submit" value="Artikel hinzufügen" />
+							</fieldset>
+						</form>
 	    	</div>
 	    </div>
 		</div>

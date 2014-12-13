@@ -39,16 +39,92 @@
 		      Kalender
 		    </a>
 		  </li>
-		  <li>
-		    <a href="history">
-		      Firmengeschichte
-		    </a>
+		  <li class="hide-for-large-up" sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_USERMANAGER')" >
+		  	<label>Administration</label>
 		  </li>
-		  <li>
-		    <a href="contact">
-		      Kontakt
-		    </a>
-		  </li>
+   		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_USERMANAGER')" class="has-submenu hide-for-large-up">
+   			<a href="#">Nützliche Links</a>
+   			<ul class="left-submenu">
+   				<li class="back">
+   					<a href="#">Zurück</a>
+   				</li>
+   				<li>
+   					<a th:href="@{/admin/statictics}" href="statistics.html">Not Implemented</a>
+   				</li>
+   				<li>
+   					<a th:href="@{/admin/orders}" href="order.html">Not Implemented</a>
+   				</li>
+   				<li>
+   					<a th:href="@{/admin/stock}" href="stock.html">Not Implemented</a>
+   				</li>
+   			</ul>
+   		</li>
+   		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_USERMANAGER')" class="has-submenu hide-for-large-up">
+   			<a href="#">Artikel Management</a>
+   			<ul class="left-submenu">
+   				<li class="back">
+   					<a href="#">Zurück</a>
+   				</li>
+   				<li>
+   					<a th:href="@{/article/book/add}" href="addbook.html">Neues Buch</a>
+   				</li>
+   				<li>
+   					<a th:href="@{/article/cd/add}" href="addcd.html">Neue CD</a>
+   				</li>
+   				<li>
+   					<a th:href="@{/article/dvd/add}" href="adddvd.html">Neue DVD</a>
+   				</li>
+   			</ul>
+   		</li>
+   		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_USERMANAGER')" class="has-submenu hide-for-large-up">
+   			<a href="#">Nutzer Management</a>
+   			<ul class="left-submenu">
+   				<li class="back">
+   					<a href="#">Zurück</a>
+   				</li>
+   				<li>
+   					<a th:href="@{/admin/customers}" href="customers.html">Kunden</a>
+   				</li>
+   				<li>
+   					<a th:href="@{/admin/employees}" href="employees.html">Angestellte</a>
+   				</li>
+   				<li>
+   					<a th:href="@{/admin/register/customer}" href="registercustomer.html">Neuer Kunde</a>
+   				</li>
+   				<li>
+   					<a th:href="@{/admin/register/employee}" href="registeremployee.html">Neuer Mitarbeiter</a>
+   				</li>
+   			</ul>
+   		</li>
+   		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_USERMANAGER')" class="has-submenu hide-for-large-up">
+   			<a href="#">Event Management</a>
+   			<ul class="left-submenu">
+   				<li class="back">
+   					<a href="#">Zurück</a>
+   				</li>
+   				<li>
+   					<a th:href="@{/admin/event/add}" href="addEvent.html">Neues Event</a>
+   				</li>
+   				<li>
+   					<a th:href="@{/admin/room/add}" href="addRoom.html">Neuer Raum</a>
+   				</li>
+   			</ul>
+   		</li>
+   		<li class="hide-for-large-up">
+   			<label>Buttons</label>
+   		</li>
+   		<li class="hide-for-large-up" sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE')">
+   			<a class="round button" th:href="@{/cart}" href="cart.html">Warenkorb</a>
+   		</li>
+   		<li class="hide-for-large-up">
+   			<a sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="round button" th:href="@{/user/register}" href="register.html">Registrieren</a>
+   		</li>
+   		<li class="hide-for-large-up">
+   			<a sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="round secondary button" th:href="@{/user/login}" href="login.html">Login</a>
+   		</li>
+   		<li class="hide-for-large-up">
+   			<a sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="round secondary button" th:href="@{/logout}" href="logout.html">Logout</a>
+   		</li>
 		</ul>
 	</nav>
 </body>

@@ -17,9 +17,11 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import bookshop.model.validation.RegistrationForm;
 import bookshop.model.User;
+import bookshop.model.UserManagement;
 import bookshop.model.UserRepository;
 
 @Controller
@@ -27,6 +29,7 @@ public class UserController {
 	
 	private final UserRepository userRepository;
 	private final UserAccountManager userAccountManager;
+	private final UserManagement userManagement;
 	
 	/**
 	 * Constructor for the UserController.
@@ -34,10 +37,11 @@ public class UserController {
 	 * @param userAccountManager
 	 */
 	@Autowired
-	public UserController(UserRepository userRepository, UserAccountManager userAccountManager) {
+	public UserController(UserRepository userRepository, UserAccountManager userAccountManager, UserManagement userManagement) {
 
 		this.userRepository = userRepository;
 		this.userAccountManager = userAccountManager;
+		this.userManagement = userManagement;
 	}
 	
 	/**
@@ -45,20 +49,11 @@ public class UserController {
 	 * @param modelMap
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
 	@RequestMapping("/admin/customers")	
 	public String customers(ModelMap modelMap) {
 		
-		Iterable<User> users = userRepository.findAll();
-		ArrayList<User> customers = new ArrayList<User>();
-		for(User u : users) {
-			Iterable<Role> roles = u.getUserAccount().getRoles();
-			for(Role r: roles) {
-				if (r.getName().equals("ROLE_CUSTOMER")) {
-					customers.add(u);
-				}
-			}
-		}
+		ArrayList<User> customers = userManagement.getCustomers();
 		modelMap.addAttribute("customerList", customers);
 
 		return "customers";	
@@ -69,35 +64,25 @@ public class UserController {
 	 * @param modelMap
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
 	@RequestMapping("/admin/employees")
 	public String employees(ModelMap modelMap) {
 		
-		Iterable<User> users = userRepository.findAll();
-		ArrayList<User> employees = new ArrayList<User>();
-		for(User u : users) {
-			Iterable<Role> roles = u.getUserAccount().getRoles();
-			for(Role r: roles) {
-				if (r.getName().equals("ROLE_EMPLOYEE")) {
-					employees.add(u);
-				}
-			}
-		}
+		ArrayList<User> employees = userManagement.getEmployees();
 		modelMap.addAttribute("employeeList", employees);
-
 		return "employees";	
 	}
 	
 	/**
-	 * Reads data from the registrationForm for administrators and registers a new employee.
+	 * Reads data from the registrationForm for administrators and registers a new user.
 	 * @param registrationForm
 	 * @param result
 	 * @return
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping("/admin/register/employee/new")
-	public String registerNewEmployee(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
-			BindingResult result) {
+	@RequestMapping("/admin/user/add/new")
+	public String registerNewUser(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
+			BindingResult result, @RequestParam("roleInput") String roleInput) {
 
 		if (!registrationForm.getPasswordRepeat().equals(registrationForm.getPassword())) {
 			result.addError(new ObjectError("password.noMatch", "Ihre eingegebenen Passwörter stimmen nicht überein!"));
@@ -117,11 +102,11 @@ public class UserController {
 		}
 		
 		if (result.hasErrors()) {
-			return "registerEmployee";
+			return "registerUser";
 		}
-
+		
 		UserAccount userAccount = userAccountManager.create(registrationForm.getUsername(), registrationForm.getPassword(),
-				new Role("ROLE_EMPLOYEE"));
+				new Role(roleInput));
 		userAccount.setFirstname(registrationForm.getFirstname());
 		userAccount.setLastname(registrationForm.getLastname());
 		userAccount.setEmail(registrationForm.getEmail());
@@ -134,70 +119,15 @@ public class UserController {
 	}
 	
 	/**
-	 * Maps the admin registration form for employees to modelMap.
+	 * Maps the administrator registration form for users to modelMap.
 	 * @param modelMap
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping("/admin/register/employee")
-	public String registerEmployee(ModelMap modelMap) {
+	@RequestMapping("/admin/user/add")
+	public String registerUser(ModelMap modelMap) {
+		
 		modelMap.addAttribute("registrationForm", new RegistrationForm());
-		return "registerEmployee";
-	}
-	
-	/**
-	 * Reads data from the registrationForm for administrators and registers a new employee.
-	 * @param registrationForm
-	 * @param result
-	 * @return
-	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping("/admin/register/customer/new")
-	public String registerNewCustomer(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
-			BindingResult result) {
-
-		if (!registrationForm.getPasswordRepeat().equals(registrationForm.getPassword())) {
-			result.addError(new ObjectError("password.noMatch", "Ihre eingegebenen Passwörter stimmen nicht überein!"));
-		}
-		
-		Iterable<User> users = userRepository.findAll();
-		
-		for (User u : users) {
-			if (u.getUserAccount().getIdentifier().getIdentifier().equals(registrationForm.getUsername())) {
-				result.addError(new ObjectError("username.isUsed", "Ihre eingegebener Nutzername ist bereits vergeben!"));
-			}
-		}
-		for (User u : users) {
-			if (u.getUserAccount().getEmail().equals(registrationForm.getEmail())) {
-				result.addError(new ObjectError("email.isUsed", "Ihre eingegebene E-Mail-Adresse ist bereits vergeben!"));
-			}
-		}
-		
-		if (result.hasErrors()) {
-			return "registerCustomer";
-		}
-		
-		UserAccount userAccount = userAccountManager.create(registrationForm.getUsername(), registrationForm.getPassword(),
-				new Role("ROLE_CUSTOMER"));
-		userAccount.setFirstname(registrationForm.getFirstname());
-		userAccount.setLastname(registrationForm.getLastname());
-		userAccount.setEmail(registrationForm.getEmail());
-		userAccountManager.save(userAccount);
-
-		User user = new User(userAccount, registrationForm.getAddress());
-		userRepository.save(user);
-
-		return "redirect:/";
-	}
-	
-	/**
-	 * Maps the administrator registration form for customers to modelMap.
-	 * @param modelMap
-	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping("/admin/register/customer")
-	public String registerCustomer(ModelMap modelMap) {
-		modelMap.addAttribute("registrationForm", new RegistrationForm());
-		return "registerCustomer";
+		return "registerUser";
 	}
 	
 	/**
@@ -250,6 +180,7 @@ public class UserController {
 	 */
 	@RequestMapping("/user/register")
 	public String register(ModelMap modelMap) {
+		
 		modelMap.addAttribute("registrationForm", new RegistrationForm());
 		return "register";
 	}
@@ -263,6 +194,7 @@ public class UserController {
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_BOSS') || hasRole('ROLE_USERMANAGER')")
 	@RequestMapping("/user/profile/{pid}")
 	public String profile(@PathVariable("pid") UserAccount userAccount, Model modelMap) {
+		
 		User user = userRepository.findByUserAccount(userAccount);
 		modelMap.addAttribute("user", user);
 		return "profile";
@@ -273,6 +205,7 @@ public class UserController {
 	 */
 	@RequestMapping({ "/", "/index" })
 	public String index() {
+		
 		return "index";
 	}
 

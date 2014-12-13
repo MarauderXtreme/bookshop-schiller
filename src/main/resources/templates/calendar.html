@@ -18,18 +18,13 @@
 	        <div class="large-12">&nbsp;</div>
 	        <div class="large-12 medium-12 small-12 columns">
 	          <h2>Kalender</h2>
-	          <form method="post" action="/addEvent">
-	            <input type="text" name="dated"/>
-	            <input type="text" name="datet"/>
-	            <input type="text" name="name"/>
-	            <input type="submit" name="add" value="Event hinzufuegen"/>
-		        </form>
 		        <table class="large-12 medium-12 small-12">
 		        	<thead>
 		          	<tr>
-		            	<th>Datum</th>
-		              <th>Zeit</th>
-		              <th>Event</th>
+		            	<th class="large-3">Datum</th>
+		              <th class="large-3">Zeit</th>
+		              <th class="large-3">Event</th>
+		              <th class="large-3">Raum</th>
 		            </tr>
 		          </thead>
 		          <tbody th:remove="all-but-first">
@@ -40,6 +35,7 @@
 		            	</td>
 		              <td th:text="${event.getDate().getEventTime()}">0000</td>
 		              <td th:text="${event.getName()}">Testtext</td>
+		              <td th:text="${event.getRoom().getNumber() + ': ' + event.getRoom().getName()}">Testtext</td>
 		            </tr>
 		          </tbody>
 		        </table>
