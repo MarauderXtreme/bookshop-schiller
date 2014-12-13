@@ -1,5 +1,7 @@
 package bookshop.model;
 
+import java.util.ArrayList;
+
 import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManager;
@@ -23,6 +25,40 @@ public class UserManagement {
 
 		this.userRepository = userRepository;
 		this.userAccountManager = userAccountManager;
+	}
+	
+	/**
+	 * @return a List of all existing employees
+	 */
+	public ArrayList<User> getEmployees() {
+		Iterable<User> users = userRepository.findAll();
+		ArrayList<User> employees = new ArrayList<User>();
+		for(User u : users) {
+			Iterable<Role> roles = u.getUserAccount().getRoles();
+			for(Role r: roles) {
+				if (r.getName().equals("ROLE_EMPLOYEE")) {
+					employees.add(u);
+				}
+			}
+		}
+		return employees;
+	}
+	
+	/**
+	 * @return a List of all existing customers
+	 */
+	public ArrayList<User> getCustomers() {
+		Iterable<User> users = userRepository.findAll();
+		ArrayList<User> customers = new ArrayList<User>();
+		for(User u : users) {
+			Iterable<Role> roles = u.getUserAccount().getRoles();
+			for(Role r: roles) {
+				if (r.getName().equals("ROLE_CUSTOMER")) {
+					customers.add(u);
+				}
+			}
+		}
+		return customers;
 	}
 	
 	/**

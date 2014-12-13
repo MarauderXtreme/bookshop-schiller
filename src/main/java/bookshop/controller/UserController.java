@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import bookshop.model.validation.RegistrationForm;
 import bookshop.model.User;
+import bookshop.model.UserManagement;
 import bookshop.model.UserRepository;
 
 @Controller
@@ -28,6 +29,7 @@ public class UserController {
 	
 	private final UserRepository userRepository;
 	private final UserAccountManager userAccountManager;
+	private final UserManagement userManagement;
 	
 	/**
 	 * Constructor for the UserController.
@@ -35,10 +37,11 @@ public class UserController {
 	 * @param userAccountManager
 	 */
 	@Autowired
-	public UserController(UserRepository userRepository, UserAccountManager userAccountManager) {
+	public UserController(UserRepository userRepository, UserAccountManager userAccountManager, UserManagement userManagement) {
 
 		this.userRepository = userRepository;
 		this.userAccountManager = userAccountManager;
+		this.userManagement = userManagement;
 	}
 	
 	/**
@@ -46,20 +49,11 @@ public class UserController {
 	 * @param modelMap
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
 	@RequestMapping("/admin/customers")	
 	public String customers(ModelMap modelMap) {
 		
-		Iterable<User> users = userRepository.findAll();
-		ArrayList<User> customers = new ArrayList<User>();
-		for(User u : users) {
-			Iterable<Role> roles = u.getUserAccount().getRoles();
-			for(Role r: roles) {
-				if (r.getName().equals("ROLE_CUSTOMER")) {
-					customers.add(u);
-				}
-			}
-		}
+		ArrayList<User> customers = userManagement.getCustomers();
 		modelMap.addAttribute("customerList", customers);
 
 		return "customers";	
@@ -70,22 +64,12 @@ public class UserController {
 	 * @param modelMap
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
 	@RequestMapping("/admin/employees")
 	public String employees(ModelMap modelMap) {
 		
-		Iterable<User> users = userRepository.findAll();
-		ArrayList<User> employees = new ArrayList<User>();
-		for(User u : users) {
-			Iterable<Role> roles = u.getUserAccount().getRoles();
-			for(Role r: roles) {
-				if (r.getName().equals("ROLE_EMPLOYEE")) {
-					employees.add(u);
-				}
-			}
-		}
+		ArrayList<User> employees = userManagement.getEmployees();
 		modelMap.addAttribute("employeeList", employees);
-
 		return "employees";	
 	}
 	
@@ -141,6 +125,7 @@ public class UserController {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/user/add")
 	public String registerUser(ModelMap modelMap) {
+		
 		modelMap.addAttribute("registrationForm", new RegistrationForm());
 		return "registerUser";
 	}
@@ -195,6 +180,7 @@ public class UserController {
 	 */
 	@RequestMapping("/user/register")
 	public String register(ModelMap modelMap) {
+		
 		modelMap.addAttribute("registrationForm", new RegistrationForm());
 		return "register";
 	}
@@ -208,6 +194,7 @@ public class UserController {
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_BOSS') || hasRole('ROLE_USERMANAGER')")
 	@RequestMapping("/user/profile/{pid}")
 	public String profile(@PathVariable("pid") UserAccount userAccount, Model modelMap) {
+		
 		User user = userRepository.findByUserAccount(userAccount);
 		modelMap.addAttribute("user", user);
 		return "profile";
@@ -218,6 +205,7 @@ public class UserController {
 	 */
 	@RequestMapping({ "/", "/index" })
 	public String index() {
+		
 		return "index";
 	}
 
