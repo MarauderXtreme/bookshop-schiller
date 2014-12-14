@@ -38,7 +38,7 @@ public class OrderController {
 		
 		return "redirect:/orders";
 	}*/
-	
+	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/statistics")
 	public String statistics(HttpSession session, ModelMap modelMap){
 		modelMap.addAttribute("stock", inventory.findAll());
