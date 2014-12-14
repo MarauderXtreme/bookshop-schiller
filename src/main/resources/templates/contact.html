@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head th:include="head :: head"></head>
+	<body>
+		<div class="off-canvas-wrap" data-offcanvas="">
+			<div class="fixed" th:include="topbar :: topbar"></div>
+	    <div class="inner-wrap">
+	    	<aside class="left-off-canvas-menu" aria-hidden="true">
+	    		<nav th:include="navigation :: navigation"></nav>
+	    	</aside>
+	    	<div class="main-content">
+		    	<header class="large-12 medium-12 show-for-landscape show-for-medium-up">
+		        <div class="panel">
+		          <div class="header-slider row" th:include="slider :: slider"></div>
+		        </div>
+		      </header>
+	        <div class="large-12">&nbsp;</div>
+	        <div class="large-12 medium-12 small-12 columns">
+	          <h2>Kontakt</h2>
+	          Gott sprach es werde
+	          <pre>
+&lt;form id="contact" method="post" action="contact"&gt;
+	&lt;input type="email" required="" /&gt;
+	&lt;input type="text" required="" /&gt;
+	&lt;textarea rows="6" cols="40"&gt;&lt;/textarea&gt;
+&lt;/form&gt;
+	          </pre>
+	          aber da war eine Vorformatierung.
+	        </div>
+	    	</div>
+	    </div>
+		</div>
+	</body>
+</html>

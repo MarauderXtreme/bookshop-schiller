@@ -39,6 +39,16 @@
 		      Kalender
 		    </a>
 		  </li>
+		  <li>
+		    <a th:href="@{/history}" href="history.html">
+		      Geschichte
+		    </a>
+		  </li>
+		  <li>
+		    <a th:href="@{/contact}" href="contact.html">
+		      Kontakt
+		    </a>
+		  </li>
 		  <li class="hide-for-large-up" sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_USERMANAGER')" >
 		  	<label>Administration</label>
 		  </li>
