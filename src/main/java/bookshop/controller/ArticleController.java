@@ -17,6 +17,7 @@ import org.salespointframework.quantity.Units;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.MessageSourceAccessor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -132,8 +133,8 @@ public class ArticleController {
 	 * @param modelMap
 	 * @return
 	 */
-	//@RequestMapping("/article/book/add")
-	@RequestMapping("/article/addbook")
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ARTICLE_USERMANAGER')")
+	@RequestMapping("/article/book/add")
 	public String addBook(ModelMap modelMap) {
 
 		modelMap.addAttribute("catalog", articleCatalog.findByType(ArticleId.BOOK));
@@ -147,8 +148,8 @@ public class ArticleController {
 	 * @param modelMap
 	 * @return
 	 */
-	//@RequestMapping("/article/cd/add")
-	@RequestMapping("/article/addcd")
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ARTICLE_USERMANAGER')")
+	@RequestMapping("/article/cd/add")
 	public String addCd(ModelMap modelMap) {
 
 		modelMap.addAttribute("catalog", articleCatalog.findByType(ArticleId.CD));
@@ -162,8 +163,8 @@ public class ArticleController {
 	 * @param modelMap
 	 * @return
 	 */
-	//@RequestMapping("/article/dvd/add")
-	@RequestMapping("/article/adddvd")
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ARTICLE_USERMANAGER')")
+	@RequestMapping("/article/dvd/add")
 	public String addDvd(ModelMap modelMap) {
 
 		modelMap.addAttribute("catalog", articleCatalog.findByType(ArticleId.DVD));
@@ -182,7 +183,7 @@ public class ArticleController {
 	 * @param input
 	 * @return
 	 */
-	//@RequestMapping(value="/article/search", method=RequestMethod.POST)
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ARTICLE_USERMANAGER')")
 	@RequestMapping(value="/article/search", method=RequestMethod.POST)
 	public String searchArticles(ModelMap modelMap, @RequestParam("typeInput") int typeInput, @RequestParam("input") String input){
 
@@ -261,6 +262,7 @@ public class ArticleController {
 	 * @param category
 	 * @return
 	 */
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ARTICLE_USERMANAGER')")
 	@RequestMapping(value="/article/book/new", method=RequestMethod.POST)
 	public String addBook(	@RequestParam("titleArticle") String title,
 							@RequestParam("beschreibungArticle") String beschreibung,
@@ -310,6 +312,7 @@ public class ArticleController {
 	 * @param category
 	 * @return
 	 */
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ARTICLE_USERMANAGER')")
 	@RequestMapping(value="/article/cd/new", method=RequestMethod.POST)
 	public String addCD(@RequestParam("titleArticle") String title,
 						@RequestParam("beschreibungArticle") String beschreibung,
@@ -347,6 +350,7 @@ public class ArticleController {
 	 * @param category
 	 * @return
 	 */
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ARTICLE_USERMANAGER')")
 	@RequestMapping(value="/article/dvd/new", method=RequestMethod.POST)
 	public String addDVD(	@RequestParam("titleArticle") String title,
 							@RequestParam("beschreibungArticle") String beschreibung,
@@ -387,6 +391,7 @@ public class ArticleController {
 	 * @param article
 	 * @return
 	 */
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ARTICLE_USERMANAGER')")
 	@RequestMapping(value="/article/delete", method=RequestMethod.POST)
 	public String deleteArticle(@RequestParam("article") Article article){
 
@@ -504,7 +509,7 @@ public class ArticleController {
 	 * @param model
 	 * @return
 	 */
-	//@RequestMapping("/article/{pid}/edit")
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ARTICLE_USERMANAGER')")
 	@RequestMapping("/article/{pid}/edit")
 	public String editarticle(@PathVariable("pid") Article article, Model model) {
 		
@@ -518,6 +523,28 @@ public class ArticleController {
 		return "editarticle";
 	}
 	
+	
+	/**
+	 * 
+	 * Highly complex Article Edit Function
+	 * 
+	 * @param article
+	 * @param name takes the new Name
+	 * @param publisher takes the new publisher
+	 * @param beschreibung takes the new description
+	 * @param isbn takes the new isbn
+	 * @param price takes the new price
+	 * @param addcategory takes the category that should be added
+	 * @param image takes at this stage the name of the image
+	 * @param author takes the new author
+	 * @param interpret takes the new interpret
+	 * @param director takes the new director
+	 * @param increase takes the value of unit increase
+	 * @param decrease takes the value of decrease
+	 * @param delcategory takes the category that sould be delted
+	 * @return
+	 */
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ARTICLE_USERMANAGER')")
 	@RequestMapping(value="/article/editinformation", method=RequestMethod.POST)
 	public String editArticle(	@RequestParam("article") Article article,
 			 					@RequestParam("newname") String name,
