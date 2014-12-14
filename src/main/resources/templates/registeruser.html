@@ -26,9 +26,6 @@
 									<div th:if="${#fields.hasErrors('*')}">
 										<p class="alert-box warning"><b>Einige Angaben sind nicht korrekt. Bitte versuchen Sie es erneut!</b></p>
 									</div>
-									<div th:if="${#fields.hasErrors('global')}">
-										<p class="alert-box alert" th:errors="*{global}"></p>
-									</div>
 									
 									<div>
 										<label th:text="#{register.firstname}" for="firstname">Vorname</label>
@@ -77,9 +74,11 @@
 									<legend th:text="#{register.title1}">Benutzerdaten</legend>
 									
 									<div th:if="${#fields.hasErrors('*')}">
-										<p class="alert-box alert"><b>Einige Angaben in den Nutzerdaten oder Personenbezogenen Daten sind nicht korrekt. Bitte versuchen Sie es erneut!</b></p>
+										<p class="alert-box warning"><b>Einige Angaben sind nicht korrekt. Bitte versuchen Sie es erneut!</b></p>
 									</div>
-									<p class="alert-box alert" th:if="${#fields.hasErrors('global')}" th:errors="*{global}"></p>
+									<div th:if="${#fields.hasErrors('global')}">
+										<p class="alert-box alert" th:errors="*{global}"></p>
+									</div>
 									
 									<label>Rolle</label>
    								<input id="customer" type="radio" name="roleInput" value="ROLE_CUSTOMER" checked="" required="" />
