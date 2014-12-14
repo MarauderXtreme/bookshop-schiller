@@ -55,7 +55,7 @@
 					      </li>
 					      <div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
 					      <li>
-								<a th:href="@{'/editarticle/' + ${book.identifier}}" href="editarticle.html"><input class="button postfix" type="button" value="Edit Article" /></a>
+								<a th:href="@{'/article/' + ${book.identifier} + '/edit'}" href="editarticle.html"><input class="button postfix" type="button" value="Edit Article" /></a>
 					      </li>
 					      <li>
 					      	<form method="post" action="/article/delete">
