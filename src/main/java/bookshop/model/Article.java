@@ -29,6 +29,17 @@ public class Article extends Product{
 		@Deprecated
 		protected Article() {}
 		
+		/**
+		 * Overloaded Constructor of Article.
+		 * @param title
+		 * @param price
+		 * @param description
+		 * @param publisher
+		 * @param id
+		 * @param type
+		 * @param category
+		 * @param artist
+		 */
 		//@SuppressWarnings("deprecation")
 		public Article(String title, Money price, String beschreibung, String publisher, String id, ArticleId type, String category, String artist){
 			super(title, price, Units.METRIC);
@@ -52,7 +63,19 @@ public class Article extends Product{
 				this.image = "notAvaliableDvd.png";
 			}
 		}
-		
+
+		/**
+		 * Overloaded Constructor of Article.
+		 * @param title
+		 * @param price
+		 * @param description
+		 * @param publisher
+		 * @param id
+		 * @param type
+		 * @param category
+		 * @param artist
+		 * @param image
+		 */
 		//@SuppressWarnings("deprecation")//was ist das?!
 		public Article(String title, Money price, String beschreibung, String publisher, String id, ArticleId type, String category, String artist, String image){
 			super(title, price, Units.METRIC);
@@ -63,25 +86,39 @@ public class Article extends Product{
 			this.type = type;
 			
 			this.image = image;
-			
-			
 		}
 		
+		
+		/**
+		 * @return the description of the article
+		 */
 		public String getBeschreibung(){
 			return beschreibung;
 		}
 		
+		/**
+		 * Sets the description of the article.
+		 * @param description
+		 */
 		public void setBeschreibung(String beschreibung){
 			this.beschreibung = beschreibung;
 		}
 		
+		/**
+		 * @return the name of the publisher of the article
+		 */
 		public String getPublisher(){
 			return publisher;
 		}
 		
+		/**
+		 * Sets the name of the publisher of the article.
+		 * @param publisher
+		 */
 		public void setPublisher(String publisher){
 			this.publisher = publisher;
 		}
+		
 		
 		/*
 		public void setCategory(Category category){
@@ -93,49 +130,86 @@ public class Article extends Product{
 		}
 		*/
 		
-		
+		/**
+		 * @return the type of the article
+		 */
 		public ArticleId getType(){
 			return type;
 		}
 		
+		/**
+		 * Sets the type of the article.
+		 * @param type
+		 */
 		public void setType(ArticleId type){
 			this.type = type;
 		}
 		
+		/**
+		 * @return the productnumber of the article
+		 */
 		public String getId(){
 			return id;
 		}
 		
+		/**
+		 * Sets the productnumber of the article.
+		 * @param id
+		 */
 		public void setId(String id){
 			this.id = id;
 		}
 		
 		//Spezifische Variablen
 		
+		/**
+		 * @return the name of the author of the article
+		 */
 		public String getAuthor(){
 			return author;
 		}
 		
+		/**
+		 * Sets the name of the author of the article.
+		 * @param author
+		 */
 		public void setAuthor(String author){
 			this.author = author;
 		}
 		
+		/**
+		 * @return the name of the interpret of the article
+		 */
 		public String getInterpret(){
 			return interpret;
 		}
 		
+		/**
+		 * Sets the name of the interpret of the article.
+		 * @param interpret
+		 */
 		public void setInterpret(String interpret){
 			this.interpret = interpret;
 		}
 		
+		/**
+		 * @return the name of the director of the article
+		 */
 		public String getDirector(){
 			return director;
 		}
 		
+		/**
+		 * Sets the name of the director of the article.
+		 * @param director
+		 */
 		public void setDirector(String director){
 			this.director = director;
 		}
 		
+		/**
+		 * @return a list of all categories of the article
+		 */
 		public String getCategoryList(){
 			
 			Iterable<String> list = super.getCategories();
@@ -143,13 +217,19 @@ public class Article extends Product{
 			return list.toString();
 		}
 		
+		/**
+		 * @return the image of the article
+		 */
 		public String getImage(){
 			return image;
 		}
 		
+		/**
+		 * Sets the filename of the image of the article.
+		 * @param image
+		 */
 		public void setImage(String image){
 			this.image = image;
 		}
 
 	}
-
