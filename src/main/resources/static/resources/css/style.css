@@ -37,3 +37,15 @@ body {
   top: 7px;
   color: rgba(0, 0, 0, 0.75);
 }
+
+.article-box {
+	height: 500px;
+}
+
+.article-head {
+	height: 70px;
+}
+
+.article-box + [class*="column"] + [class*="column"]:last-child {
+	float: left;
+}
