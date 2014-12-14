@@ -43,8 +43,23 @@ class ArticleController {
 		this.messageSourceAccessor = new MessageSourceAccessor(messageSource);
 	}
 	
-	
+	/*
 	//Initilize Catalog
+	@RequestMapping("/")
+	public String news(ModelMap modelMap, String name) {
+		
+		Iterable<Article> b = articleCatalog.findAll();
+		
+		for(int i=0; i<=4; i++){
+			b
+		}
+
+		modelMap.addAttribute("catalog", articleCatalog.findAll());
+		modelMap.addAttribute("title", messageSourceAccessor.getMessage("catalog.dvd.title"));
+
+		return "articles";
+	}*/
+	
 	@RequestMapping("/article")
 	public String articles(ModelMap modelMap, String name) {
 
@@ -564,6 +579,8 @@ class ArticleController {
 		public String deleteCategory(@RequestParam("article") Article article, @RequestParam("categorytodelete") String category){
 			
 			article.removeCategory(category);
+			
+			//article.removeCategory(CategoryManagement.getInstance().getCategory(article.getType(), category));
 			
 			articleCatalog.save(article);
 			

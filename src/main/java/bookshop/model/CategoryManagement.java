@@ -17,6 +17,21 @@ public class CategoryManagement {
 	private CategoryManagement()
 	{
 		this.categories = new HashMap<ArticleId, ArrayList<String>>();
+		
+		//initialize CategoryLists
+		ArrayList<String> libook = new ArrayList<String>();
+		ArrayList<String> licd = new ArrayList<String>();
+		ArrayList<String> lidvd = new ArrayList<String>();
+		this.categories.put(ArticleId.BOOK, libook);
+		this.categories.put(ArticleId.CD, licd);
+		this.categories.put(ArticleId.DVD, lidvd);
+		//initilize Categories
+		categories.get(ArticleId.BOOK).add("Ratgeber");
+		categories.get(ArticleId.BOOK).add("Fiktion");
+		categories.get(ArticleId.BOOK).add("Unterhaltung");
+		categories.get(ArticleId.CD).add("Pop");
+		categories.get(ArticleId.DVD).add("Horror");
+		
 	}
 	
 	public static synchronized CategoryManagement getInstance()
