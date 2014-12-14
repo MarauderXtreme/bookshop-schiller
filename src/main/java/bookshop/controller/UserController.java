@@ -102,7 +102,7 @@ public class UserController {
 		}
 		
 		if (result.hasErrors()) {
-			return "registerUser";
+			return "registeruser";
 		}
 		
 		UserAccount userAccount = userAccountManager.create(registrationForm.getUsername(), registrationForm.getPassword(),
@@ -127,7 +127,7 @@ public class UserController {
 	public String registerUser(ModelMap modelMap) {
 		
 		modelMap.addAttribute("registrationForm", new RegistrationForm());
-		return "registerUser";
+		return "registeruser";
 	}
 	
 	/**

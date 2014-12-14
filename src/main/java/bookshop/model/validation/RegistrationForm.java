@@ -26,7 +26,7 @@ public class RegistrationForm {
 	
 	@NotEmpty(message = "{RegistrationForm.email.NotEmpty}")
 	@Length(max = 64, message = "{RegistrationForm.email.Length}")
-	@Pattern(regexp="([A-Za-z0-9\\.\\_\\-]+@{1}[A-Za-z0-9\\.\\-]+[\\.]{1}[A-Za-z]{2,12}){0,1}", message = "{RegistrationForm.email.Format}")
+	@Pattern(regexp="([A-Za-z0-9\\.\\_\\-]+@{1}[A-Za-z0-9\\.\\-]+[\\.]{1}[A-Za-z]{2,24}){0,1}", message = "{RegistrationForm.email.Format}")
 	private String email;
 	
 	@Length(min = 8, max = 32, message = "{RegistrationForm.password.Length}")
