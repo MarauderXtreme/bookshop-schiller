@@ -29,7 +29,7 @@ public class ArticleForm {
 	
 	@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
 	@Pattern(regexp="([0-9]+\\.{0,1}[0-9]*)", message = "{ArticleForm.Price.Format}")
-	private String price;
+	private double price;
 	
 	@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
 	private String beschreibung;
@@ -49,10 +49,10 @@ public class ArticleForm {
 	@Pattern(regexp="([A-Za-z0-9]+\\.(jpg|png|gif))", message = "{ArticleForm.Image.Format}")
 	private String image;
 	
-	@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
+	/*@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
 	@Pattern(regexp="([0-9]+)", message = "{ArticleForm.Amount.Format}")
 	private int amount;
-	
+	*/
 	
 	//spezifische Variablen
 	@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
@@ -79,6 +79,14 @@ public class ArticleForm {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public double getPrice(){
+		return price;
+	}
+	
+	public void setPrice(double price){
+		this.price = price;
 	}
 	
 	/**
@@ -201,16 +209,16 @@ public class ArticleForm {
 	/**
 	 * @return the given amount of article units from the article form
 	 */
-	public int getAmount(){
+	/*public int getAmount(){
 		return amount;
-	}
+	}*/
 	
 	/**
 	 * Sets the amount of the article form to the given value.
 	 * @param amount
 	 */
-	public void setAmount(int amount){
+	/*public void setAmount(int amount){
 		this.amount = amount;
-	}
+	}*/
 	
 }

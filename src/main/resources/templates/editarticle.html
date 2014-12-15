@@ -49,7 +49,7 @@
 							</div>
 							<div class="large-6 medium-6 small-12 columns">
 								<label for="newprice">Preis</label>
-								<input type="text" id="newprice" name="newprice" th:value="${book.price}" required="" pattern="custom_price" />
+								<input type="text" id="newprice" name="newprice" th:value="${book.price.amount}" required="" pattern="custom_price" />
 								<small class="alert-box alert error">Bitte neuen Preis im Format "EUR xx.xx" eingeben.</small>
 							</div>
 							<div class="large-3 medium-3 small-6 columns">

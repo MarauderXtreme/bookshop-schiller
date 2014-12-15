@@ -9,36 +9,36 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import bookshop.model.Article.ArticleId;
 import bookshop.model.CalendarManagement;
-import bookshop.model.CategoryManagement;
+//import bookshop.model.CategoryManagement;
 import bookshop.model.Date;
 import bookshop.model.Event;
 
-@Controller
+//@Controller
 public class CategoryController {
 	
-	private CategoryManagement categories;
+	//private CategoryManagement categories;
 
 	/**
 	 * Constructor for the CategoryController.
 	 * @param categories
 	 */
-	@Autowired
+	/*@Autowired
 	public CategoryController(CategoryManagement categories){
 		this.categories = categories;
 	}
-	
+	*/
 	/**
 	 * Maps a list of all customers to modelMap.
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/categories")
+	/*@RequestMapping("/categories")
 	public String category(Model model) {
 
-		model.addAttribute("categorylist" , CategoryManagement.getInstance().getCategoryList());
+		//model.addAttribute("categorylist" , CategoryManagement.getInstance().getCategoryList());
 
 		return "categories";
-	}
+	}*/
 	
 	
 
