@@ -14,25 +14,33 @@
 		      </label>
 		    </a>
 		  </li>
-		  <li>
-		    <a th:href="@{/article}" href="articles.html">
-		      Alle Artikel                 
-		    </a>
-		  </li>
-		  <li>
-		    <a th:href="@{/article/book}" href="books.html">
-		      Bücher                  
-		    </a>
-		  </li>
-		  <li>
-		    <a th:href="@{/article/cd}" href="cds.html">
-		      CD's                  
-		    </a>
-		  </li>
-		  <li>
-		    <a th:href="@{/article/dvd}" href="dvds.html">
-		      DVD's                  
-		    </a>
+		  <li class="has-submenu">
+		    <a href="#">Artikel</a>
+		    <ul class="left-submenu">
+   				<li class="back">
+   					<a href="#">Zurück</a>
+   				</li>
+   				<li>
+				    <a th:href="@{/article}" href="articles.html">
+				      Alle                  
+				    </a>
+				  </li>
+   				<li>
+				    <a th:href="@{/article/book}" href="books.html">
+				      Bücher                  
+				    </a>
+				  </li>
+				  <li>
+				    <a th:href="@{/article/cd}" href="cds.html">
+				      CD's                  
+				    </a>
+				  </li>
+				  <li>
+				    <a th:href="@{/article/dvd}" href="dvds.html">
+				      DVD's                  
+				    </a>
+				  </li>
+		    </ul>
 		  </li>
 		  <li>
 		    <a th:href="@{/calendar}" href="calendar.html">
