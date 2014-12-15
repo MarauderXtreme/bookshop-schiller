@@ -39,8 +39,8 @@ public class User {
 	/**
 	 * @return the address of the user
 	 */
-	public String getAddress() {
-		return address.toString();
+	public Address getAddress() {
+		return address;
 	}
 
 	/**
