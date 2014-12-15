@@ -16,6 +16,9 @@ public class Article extends Product{
 		private String id;
 		private ArticleId type;
 		private String image;
+		private String releaseDate;
+		private Money stockPrice; 
+		
 		//spezifische Variablen
 		private String author;
 		private String interpret;
@@ -41,13 +44,15 @@ public class Article extends Product{
 		 * @param artist
 		 */
 		//@SuppressWarnings("deprecation")
-		public Article(String title, Money price, String beschreibung, String publisher, String id, ArticleId type, String category, String artist){
+		public Article(String title, Money price, String beschreibung, String publisher, String id, ArticleId type, String category, String artist, String releaseDate, Money stockPrice){
 			super(title, price, Units.METRIC);
 			super.addCategory(category);
 			this.beschreibung = beschreibung;
 			this.publisher = publisher;
 			this.id = id;
 			this.type = type;
+			this.stockPrice = stockPrice;
+			this.releaseDate = releaseDate;
 						
 			
 			if(type==ArticleId.BOOK){

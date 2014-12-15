@@ -274,7 +274,10 @@ public class ArticleController {
 										isbn,
 										ArticleId.BOOK,
 										category,
-										author);
+										author,
+										"01.01.2015",
+										Money.of(EUR, 0.99)
+										);
 	
 		//article.setAuthor(author);
 			
@@ -318,7 +321,7 @@ public class ArticleController {
 						@RequestParam("categoryArticle") String category){
 	
 	Article article = new Article(title, Money.of(EUR, price), beschreibung,
-			publisher, isbn, ArticleId.CD, category, interpret);
+			publisher, isbn, ArticleId.CD, category, interpret, "01.01.2015", Money.of(EUR, 0.99));
 	
 	//article.setInterpret(interpret);
 		
@@ -362,8 +365,10 @@ public class ArticleController {
 										isbn,
 										ArticleId.DVD,
 										category,
-										director);
-	
+										director,
+										"01.01.2015", 
+										Money.of(EUR, 0.99));
+
 		//article.setDirector(director);
 			
 		articleCatalog.save(article);
