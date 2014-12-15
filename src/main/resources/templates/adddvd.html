@@ -16,18 +16,52 @@
 		        </div>
 		      </header>
 	        <div class="large-12">&nbsp;</div>
-        		<form method="post" action="/article/dvd/new">
+	        <div class="large-12 medium-12 small-12 row">
+	        	<h3>Neue DVD anlegen</h3>
+        		<form method="post" action="/article/dvd/new" data-abide="">
 							<fieldset>
-								<input type="text" name="titleArticle" placeholder="Titel" />
-								<input type="text" name="directorArticle" placeholder="Regisseur" />
-								<input type="text" name="publisherArticle" placeholder="Verlag" />
-								<input type="text" name="priceArticle" placeholder="Preis" />
-								<input type="text" name="beschreibungArticle" placeholder="Beschreibung" />
-								<input type="text" name="idArticle" placeholder="ISBN" />
-								<input type="text" name="categoryArticle" placeholder="Kategorie" />
-								<input type="submit" value="Artikel hinzufügen" />
+								<div class="large-6 medium-6 small-12 columns">
+									<label>Titel</label>
+									<input type="text" name="titleArticle" placeholder="Titel" required="" />
+									<small class="alert-box alert error">Bitte Titel eingeben.</small>
+								</div>
+								<div class="large-6 medium-6 small-12 columns">
+									<label>Autor</label>
+									<input type="text" name="directorArticle" placeholder="Regisseur" />
+									<small class="alert-box alert error">Bitte Regisseur eingeben.</small>
+								</div>
+								<div class="large-6 medium-6 small-12 columns">
+									<label>Verlag</label>
+									<input type="text" name="publisherArticle" placeholder="Verlag" required="" />
+									<small class="alert-box alert error">Bitte Verlag eingeben.</small>
+								</div>
+								<div class="large-6 medium-6 small-12 columns">
+									<label>ISBN</label>
+									<input type="text" name="idArticle" placeholder="ISBN" required="" pattern="isbn13" />
+									<small class="alert-box alert error">Bitte ISBN 13 ohne Trennstriche eingeben.</small>
+								</div>
+								<div class="large-6 medium-6 small-12 columns">
+									<label>Preis</label>
+									<input type="text" name="priceArticle" placeholder="Preis" required="" patter="custom_price" />
+									<small class="alert-box alert error">Bitte neuen Preis im Format "EUR xx.xx" eingeben.</small>
+								</div>
+								<div class="large-6 medium-6 small-12 columns">
+									<label>Kategorie</label>
+									<input type="text" name="categoryArticle" placeholder="Kategorie" required="" />
+									<small class="alert-box alert error">Bitte Kategorie eingeben.</small>
+								</div>
+								<div>
+									<label>Beschreibung</label>
+									<textarea id="descriptiontext" cols="40" rows="5"  name="beschreibungArticle" placeholder="Beschreibung" required=""></textarea>
+									<small class="alert-box alert error">Bitte Beschreibung eingeben.</small>
+								</div>
+								<p></p>
+								<div>
+									<input class="small button" type="submit" value="Artikel hinzufügen" />
+								</div>
 							</fieldset>
 						</form>
+					</div>
 	    	</div>
 	    </div>
 		</div>
