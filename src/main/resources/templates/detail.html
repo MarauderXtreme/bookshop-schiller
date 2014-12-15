@@ -17,10 +17,9 @@
 		      </header>
 	        <div class="large-12">&nbsp;</div>
 	        <div class="large-12 medium-12 small-12 columns">
+	        	<div sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')" th:include="articletabs :: articletabs"></div>
 	          <div class="large-3 columns">
   						<img alt="cover" class="cover" th:src="@{'/resources/img/' + ${book.image}}" />
-  						<!-- th:src="@{'/resources/img/cover/' + ${book.image} + '.jpg'}" -->
-  						<!-- <src="../resources/img/cover/lac.jpg"  th:src="@{'/resources/img/cover/' + ${book.image} + '.jpg'}" />-->
 						</div>
 						<div class="large-9 medium-9 small-9 columns">
 							<ul class="pricing-table">
@@ -31,21 +30,21 @@
 					      <label>Artist:</label><span th:text="${book.author}">Simon Travaglia</span>
 
 					      </li>
-					      <li class="bullet-item">
+					      <li class="description">
 					      <label>Publisher:</label><span th:text="${book.publisher}">Verlag</span>
 
 					      </li>
 
-					      <li class="bullet-item">
+					      <li class="description">
 					      <label>Artikel-Nr.:</label><span th:text="${book.id}">ISBN</span>
 
 					      </li>
-					      <li class="bullet-item">
+					      <li class="description">
 					      <label>Kategorie:</label><span th:text="${book.getCategoryList()}">Kategorie</span>
 
 					      </li>
 
-					      <li class="bullet-item">
+					      <li class="description">
 					      <label>Anzahl:</label><span th:text="${quantity.amount}">Units</span>
 
 					      </li>
@@ -53,23 +52,12 @@
 					      <label>Preis:</label><span th:text="${book.price}">9.99€</span>
 
 					      </li>
-					      <div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
-					      <li>
-								<a th:href="@{'/article/' + ${book.identifier} + '/edit'}" href="editarticle.html"><input class="button postfix" type="button" value="Edit Article" /></a>
-					      </li>
-					      <li>
-					      	<form method="post" action="/article/delete">
-									<input type="hidden" name="article" value="0" th:value="${book.identifier}" />
-									<input class="button postfix" type="submit" value="Delete Article"/>
-							</form>
-					      </li>
-					      </div>
 					      <li class="cta-button">
 					      	<form action="/cart" method="POST">
 					      		<div class="row collapse postfix-round">
 											<input type="hidden" name="article" value="0" th:value="${book.identifier}"/>
 											<div class="small-9 columns">
-												<input id="number" type="number" name="number" step="1" value="1" placeholder="Anzahl" />
+												<input id="number" type="number" name="number" min="0" placeholder="Anzahl" />
 											</div>
 											<div class="small-3 columns">
 												<input class="button postfix" type="submit" value="Zum Warenkorb hinzufügen"/>

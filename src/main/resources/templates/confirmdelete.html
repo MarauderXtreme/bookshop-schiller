@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head th:include="head :: head"></head>
+	<body>
+		<div class="off-canvas-wrap" data-offcanvas="">
+			<div class="fixed" th:include="topbar :: topbar"></div>
+	    <div class="inner-wrap">
+	    	<aside class="left-off-canvas-menu" aria-hidden="true">
+	    		<nav th:include="navigation :: navigation"></nav>
+	    	</aside>
+	    	<div class="main-content">
+		    	<header class="large-12 medium-12 show-for-landscape show-for-medium-up">
+		        <div class="panel">
+		          <div class="header-slider row" th:include="slider :: slider"></div>
+		        </div>
+		      </header>
+	        <div class="large-12">&nbsp;</div>
+	        <div class="large-12 medium-12 small-12 columns">
+	          <h2><span th:text="${book.name}"></span> löschen</h2>
+	        	<div sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')" th:include="articletabs :: articletabs"></div>
+	          <form method="post" action="/article/delete">
+							<input type="hidden" name="article" value="0" th:value="${book.identifier}" />
+							<label for="delete">Sind Sie sich sicher. Diese Aktion kann nicht rückgängig gemacht werden.</label>
+							<input id="delete" class="button" type="submit" value="Delete Article"/>
+						</form>
+	        </div>
+	    	</div>
+	    </div>
+		</div>
+	</body>
+</html>

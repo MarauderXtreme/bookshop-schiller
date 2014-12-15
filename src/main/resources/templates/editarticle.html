@@ -18,6 +18,7 @@
 	        <div class="large-12">&nbsp;</div>
 	        <div class="large-12 medium-12 small-12 row">
 	        	<h3>Edit <span th:text="${book.name}"></span></h3>
+	        	<div sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')" th:include="articletabs :: articletabs"></div>
 	        	<form method="POST" action="/article/editinformation" data-abide="">
 							<input type="hidden" name="article" th:value="${book.identifier}" />
 							

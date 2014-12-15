@@ -1,11 +1,6 @@
 package bookshop.controller;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import static org.joda.money.CurrencyUnit.*;
 
@@ -385,6 +380,14 @@ public class ArticleController {
 	
 
 	//Delete Article
+	
+	@RequestMapping("/article/{pid}/delete/confirm")
+	public String confirmDelete(@PathVariable("pid") Article article, Model model) {
+		
+		model.addAttribute("book", article);
+		
+		return "confirmdelete";
+	}
 	
 	/**
 	 * Deletes a given article from the inventory and catalog.
