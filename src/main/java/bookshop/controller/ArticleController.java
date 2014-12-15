@@ -277,7 +277,10 @@ public class ArticleController {
 										isbn,
 										ArticleId.BOOK,
 										category,
-										author);
+										author,
+										"01.01.2015",
+										Money.of(EUR, 0.99)
+										);
 	
 		//article.setAuthor(author);
 			
@@ -320,7 +323,7 @@ public class ArticleController {
 						@RequestParam("categoryArticle") String category){
 	
 	Article article = new Article(title, Money.of(EUR, price), beschreibung,
-			publisher, isbn, ArticleId.CD, category, interpret);
+			publisher, isbn, ArticleId.CD, category, interpret, "01.01.2015", Money.of(EUR, 0.99));
 	
 	//article.setInterpret(interpret);
 		
@@ -357,7 +360,7 @@ public class ArticleController {
 	@RequestParam("categoryArticle") String category){
 	
 	Article article = new Article(title, Money.of(EUR, price), beschreibung,
-			publisher, isbn, ArticleId.DVD, category, director);
+			publisher, isbn, ArticleId.DVD, category, director, "01.01.2015", Money.of(EUR, 0.99));
 	
 	//article.setDirector(director);
 		
@@ -579,7 +582,7 @@ public class ArticleController {
 	 * @return
 	 */
 	@RequestMapping(value="/article/set/isbn", method=RequestMethod.POST)
-	public String setNewIsbn(@RequestParam("article") Article article, @RequestParam("newisbn") String isbn, Model model){
+	public String setNewIsbn(@RequestParam("article") Article article, @RequestParam("newisbn") String isbn){
 				
 				
 				System.out.println("Title: " + article.getName());
