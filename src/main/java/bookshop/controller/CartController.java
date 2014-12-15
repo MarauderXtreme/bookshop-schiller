@@ -73,9 +73,11 @@ public class CartController {
 				Order order = new Order(account, Cash.CASH);
 				Cart cart = getCart(session);
 				cart.addItemsTo(order);
-
+				
+				
 				orderManager.payOrder(order);
-				//order.isOpen();
+				order.isOpen();
+				
 				orderManager.completeOrder(order);
 				orderManager.add(order);
 				cart.clear();

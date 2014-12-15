@@ -34,14 +34,12 @@ public class OrderController {
 	private final OrderManager<Order> orderManager;
 	private final Inventory<InventoryItem> inventory;
 	private final BusinessTime date;
-	private final Inventory<InventoryItem> statistic;
 	
 	@Autowired
 	public OrderController(OrderManager<Order> orderManager, Inventory<InventoryItem> inventory, BusinessTime date){
 		this.orderManager = orderManager;
 		this.inventory = inventory;
 		this.date = date;
-		this.statistic = inventory;
 	}
 	
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
@@ -63,7 +61,7 @@ public class OrderController {
 	@RequestMapping("/admin/stock")
 	public String stock(HttpSession session, ModelMap modelMap){
 
-		for(InventoryItem item : statistic.findAll()){
+		for(InventoryItem item : inventory.findAll()){
 			
 		}
 		
