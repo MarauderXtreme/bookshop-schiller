@@ -53,13 +53,9 @@ public class StatisticController {
 
 			Quantity quantity = item.getQuantity();
 			quantity = quantity.subtract(item.getQuantity());
-			//date.getTime(), time
 			
 			for(Order order : orderManager.find(time, date.getTime())){
-				System.out.println();
-				System.out.println(order.getDateCreated());
-				System.out.println(date.getTime());
-				System.out.println(time);
+
 				for(OrderLine orderLine : order.getOrderLines()){
 					
 					ProductIdentifier name1 = item.getProduct().getIdentifier();
