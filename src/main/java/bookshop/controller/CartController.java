@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import bookshop.model.Article;
 import bookshop.model.Article.ArticleId;
+import bookshop.model.OrderManagement;
 
 
 
@@ -36,6 +37,7 @@ import bookshop.model.Article.ArticleId;
 public class CartController {
 
 	private final OrderManager<Order> orderManager;
+
 	
 	@Autowired
 	public CartController(OrderManager<Order> orderManager) {
@@ -44,26 +46,6 @@ public class CartController {
 		this.orderManager = orderManager;
 	}
 	
-	/*
-	@RequestMapping(value = "/checkout")
-	public String buy(HttpSession session, @LoggedIn Optional<UserAccount> userAccount) {
-
-		return userAccount.map(account -> {
-
-				Order order = new Order(account, Cash.CASH);
-				Cart cart = getCart(session);
-				cart.toOrder(order);
-
-				orderManager.payOrder(order);
-				orderManager.completeOrder(order);
-				orderManager.add(order);
-				
-				cart.clear();
-
-				return "redirect:/";
-			}).orElse("redirect:/cart");
-	}
-	*/
 	
 	@RequestMapping(value="/cart")
 	public String cart(ModelMap modelMap, String name, HttpSession session){
