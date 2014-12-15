@@ -2,6 +2,8 @@ package bookshop.controller;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import static org.joda.money.CurrencyUnit.*;
 
 import org.joda.money.Money;
@@ -16,6 +18,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,7 +28,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import bookshop.model.ArticleManagement;
 import bookshop.model.Article;
 import bookshop.model.Article.ArticleId;
-import bookshop.model.CategoryManagement;
+import bookshop.model.validation.ArticleForm;
+//import bookshop.model.CategoryManagement;
+import bookshop.model.validation.RegistrationForm;
 
 @Controller
 public class ArticleController {
@@ -134,7 +140,8 @@ public class ArticleController {
 
 		modelMap.addAttribute("catalog", articleCatalog.findByType(ArticleId.BOOK));
 		modelMap.addAttribute("title", messageSourceAccessor.getMessage("catalog.dvd.title"));
-
+		modelMap.addAttribute("articleForm", new ArticleForm());
+		
 		return "addbook";
 	}
 
@@ -259,6 +266,43 @@ public class ArticleController {
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
 	@RequestMapping(value="/article/book/new", method=RequestMethod.POST)
+	public String addBook(	@ModelAttribute("articleForm") @Valid ArticleForm articleForm, BindingResult result, 
+							@RequestParam("categoryArticle") String category){
+		Article article = new Article(	articleForm.getName(),
+										Money.of(EUR, articleForm.getPrice()),
+										articleForm.getBeschreibung(),
+										articleForm.getPublisher(),
+										articleForm.getId(),
+										ArticleId.BOOK,
+										category,
+										articleForm.getAuthor(),
+										"01.01.2015",
+										Money.of(EUR, 0.99)
+										);
+	
+		//article.setAuthor(author);
+			
+		articleCatalog.save(article);
+		
+		//System.out.println(article.getAuthor());
+		
+		
+		InventoryItem item = new InventoryItem(article, Units.TEN);
+		inventory.save(item);
+		
+		//System.out.println("ITEM: " + item);
+		
+		//Quantity quantity = item.map(InventoryItem::getQuantity).orElse(Units.TEN);
+		
+	
+
+		return "redirect:/article/book";
+
+	}
+	
+	/*
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
+	@RequestMapping(value="/article/book/new", method=RequestMethod.POST)
 	public String addBook(	@RequestParam("titleArticle") String title,
 							@RequestParam("beschreibungArticle") String beschreibung,
 							@RequestParam("priceArticle") double price,
@@ -297,7 +341,7 @@ public class ArticleController {
 
 		return "redirect:/article/book";
 
-	}
+	}*/
 
 	/**
 	 * Adds a new article of type cd with the given attributes to the catalog and the inventory.

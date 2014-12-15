@@ -7,22 +7,30 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
 
 import bookshop.model.Article.ArticleId;
 
-@Component
-public class CategoryManagement {
+//@Component
+//public interface CategoryManagement extends CrudRepository<Category, Long>{
 	
-	private final Map<ArticleId, ArrayList<String>> categories;
+	//Iterable<Category> findById(String id);
 	
-	private static CategoryManagement instance ;
+	
+	
+	
+	
+
+	//private final Map<ArticleId, ArrayList<String>> categories;
+	
+	//private static CategoryManagement instance ;
 	
 	/**
 	 * Constructor of CategoryManagement.
 	 */
 	//@Autowired
-	private CategoryManagement()
+	/*private CategoryManagement()
 	{
 		this.categories = new HashMap<ArticleId, ArrayList<String>>();
 		
@@ -40,12 +48,12 @@ public class CategoryManagement {
 		categories.get(ArticleId.CD).add("Pop");
 		categories.get(ArticleId.DVD).add("Horror");
 		
-	}
+	}*/
 	
 	/**
 	 * @return static instance of the CategoryManagement
 	 */
-	public static synchronized CategoryManagement getInstance()
+	/*public static synchronized CategoryManagement getInstance()
 	{
 		if(instance == null)
 		{
@@ -61,17 +69,17 @@ public class CategoryManagement {
 	
 	//public CategoryManagement(){
 	//	categories = new HashMap<ArticleId, ArrayList<String>>();
-	//}
+	//}*/
 	
 	/**
 	 * Adds the given category to the List of categories to the given Type of Article.
 	 * @param articleType
 	 * @param category
 	 */
-	public void addCategory(ArticleId articleType, String category){
-		/*if(categories.){
+	/*public void addCategory(ArticleId articleType, String category){
+		if(categories.){
 			return false;
-		}*/
+		}
 		if(!(categories.containsKey(articleType))){
 			ArrayList<String> li = new ArrayList<String>();
 			li.add(category);
@@ -81,14 +89,14 @@ public class CategoryManagement {
 			categories.get(articleType).add(category);
 		}
 		
-	}
+	}*/
 	
 	/**
 	 * Removes the given category of the given type of article.
 	 * @param articleType
 	 * @param category
 	 */
-	public boolean removeCategory(ArticleId articleType, String category){
+	/*public boolean removeCategory(ArticleId articleType, String category){
 		if(!(categories.containsKey(articleType))){
 		return false;
 		}
@@ -97,18 +105,18 @@ public class CategoryManagement {
 			return true;
 		}
 	}
-	
+	*/
 	/**
 	 * @return a List of all existing employees
 	 */
-	public String getCategory(ArticleId id, String category){
+	/*public String getCategory(ArticleId id, String category){
 		return categories.get(id).get(categories.get(id).indexOf(category));
-	}
+	}*/
 	
 	/**
 	 * @return a List of all existing categories of the type book
 	 */
-	public String getCategoryList(){
+	/*public String getCategoryList(){
 		return categories.get(ArticleId.BOOK).toString();
-	}
-}
+	}*/
+//}

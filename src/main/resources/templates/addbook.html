@@ -16,14 +16,14 @@
 		        </div>
 		      </header>
 	        <div class="large-12">&nbsp;</div>
-        		<form method="post" action="/article/book/new">
+        		<form method="post" action="/article/book/new" th:object="${articleForm}" data-abide="">
 							<fieldset>
-								<input type="text" name="titleArticle" placeholder="Titel" />
-								<input type="text" name="authorArticle" placeholder="Autor" />
-								<input type="text" name="publisherArticle" placeholder="Verlag" />
-								<input type="text" name="priceArticle" placeholder="Preis" />
-								<input type="text" name="beschreibungArticle" placeholder="Beschreibung" />
-								<input type="text" name="idArticle" placeholder="ISBN" />
+								<input th:field="*{name}" type="text" name="titleArticle" placeholder="Titel" />
+								<input th:field="*{author}" type="text" name="authorArticle" placeholder="Autor" />
+								<input th:field="*{publisher}" type="text" name="publisherArticle" placeholder="Verlag" />
+								<input th:field="*{price}" type="text" name="priceArticle" placeholder="Preis" />
+								<input th:field="*{beschreibung}" type="text" name="beschreibungArticle" placeholder="Beschreibung" />
+								<input th:field="*{id}" type="text" name="idArticle" placeholder="ISBN" />
 								<input type="text" name="categoryArticle" placeholder="Kategorie" />
 								<input type="submit" value="Artikel hinzufügen" />
 							</fieldset>
