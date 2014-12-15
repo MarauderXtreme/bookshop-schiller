@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import bookshop.model.validation.ProfileForm;
 import bookshop.model.validation.RegistrationForm;
 import bookshop.model.User;
 import bookshop.model.UserManagement;
@@ -245,28 +246,28 @@ public class UserController {
 	}
 	
 	/**
-	 * Reads data from the registrationForm for an unregistered user and registers a new customer.
+	 * Reads data from the profileForm and changes profile data.
 	 * @param registrationForm
 	 * @param result
 	 * @return
 	 */
-	@RequestMapping("/user/register/new")
-	public String changeProfileOf(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
+	@RequestMapping("/test")
+	public String changeProfile(@ModelAttribute("profileForm") @Valid ProfileForm profileForm,
 			BindingResult result) {
 
-		if (!registrationForm.getPasswordRepeat().equals(registrationForm.getPassword())) {
+		if (!profileForm.getPasswordRepeat().equals(profileForm.getPassword())) {
 			result.addError(new ObjectError("password.noMatch", "Ihre eingegebenen Passwörter stimmen nicht überein!"));
 		}
 		
 		Iterable<User> users = userRepository.findAll();
 		
 		for (User u : users) {
-			if (u.getUserAccount().getIdentifier().getIdentifier().equals(registrationForm.getUsername())) {
+			if (u.getUserAccount().getIdentifier().getIdentifier().equals(profileForm.getUsername())) {
 				result.addError(new ObjectError("username.isUsed", "Ihre eingegebener Nutzername ist bereits vergeben!"));
 			}
 		}
 		for (User u : users) {
-			if (u.getUserAccount().getEmail().equals(registrationForm.getEmail())) {
+			if (u.getUserAccount().getEmail().equals(profileForm.getEmail())) {
 				result.addError(new ObjectError("email.isUsed", "Ihre eingegebene E-Mail-Adresse ist bereits vergeben!"));
 			}
 		}
@@ -275,14 +276,14 @@ public class UserController {
 			return "register";
 		}
 
-		UserAccount userAccount = userAccountManager.create(registrationForm.getUsername(), registrationForm.getPassword(),
+		UserAccount userAccount = userAccountManager.create(profileForm.getUsername(), profileForm.getPassword(),
 				new Role("ROLE_CUSTOMER"));
-		userAccount.setFirstname(registrationForm.getFirstname());
-		userAccount.setLastname(registrationForm.getLastname());
-		userAccount.setEmail(registrationForm.getEmail());
+		userAccount.setFirstname(profileForm.getFirstname());
+		userAccount.setLastname(profileForm.getLastname());
+		userAccount.setEmail(profileForm.getEmail());
 		userAccountManager.save(userAccount);
 
-		User user = new User(userAccount, registrationForm.getAddress());
+		User user = new User(userAccount, profileForm.getAddress());
 		userRepository.save(user);
 
 		return "redirect:/";
@@ -292,7 +293,7 @@ public class UserController {
 	 * Maps the registration form for an unregistered to modelMap.
 	 * @param modelMap
 	 */
-	@RequestMapping("/user/register")
+	@RequestMapping("/test2")
 	public String changeProfile(ModelMap modelMap) {
 		
 		modelMap.addAttribute("registrationForm", new RegistrationForm());
