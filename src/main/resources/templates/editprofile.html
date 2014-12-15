@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head th:include="head :: head"></head>
+	<body>
+		<div class="off-canvas-wrap" data-offcanvas="">
+			<div class="fixed" th:include="topbar :: topbar"></div>
+	    <div class="inner-wrap">
+	    	<aside class="left-off-canvas-menu" aria-hidden="true">
+	    		<nav th:include="navigation :: navigation"></nav>
+	    	</aside>
+	    	<div class="main-content">
+		    	<header class="large-12 medium-12 show-for-landscape show-for-medium-up">
+		        <div class="panel">
+		          <div class="header-slider row" th:include="slider :: slider"></div>
+		        </div>
+		      </header>
+	        <div class="large-12">&nbsp;</div>
+	        <div class="large-12 medium-12 small-12 row">
+	        	<h3>Edit <span th:text="${book.name}"></span></h3>
+	        	<div sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')" th:include="articletabs :: articletabs"></div>
+	        	<form method="POST" action="/article/editinformation" data-abide="">
+							<input type="hidden" name="article" th:value="${book.identifier}" />
+							
+							<div class="large-6 medium-6 small-12 columns">
+								<label for="newname">Titel</label>
+								<input type="text" id="newname" name="newname" th:value="${book.name}" required="" />
+								<small class="alert-box alert error">Bitte Titel eingeben.</small>
+							</div>
+							<div class="large-6 medium-6 small-12 columns">
+								<label for="newauthor">Autor</label>
+								<input type="text" id="newauthor" name="newauthor" th:value="${book.author}" required="" />
+								<small class="alert-box alert error">Bitte Autor eingeben.</small>
+							</div>
+							<div class="large-6 medium-6 small-12 columns">
+								<label for="newpublisher">Verlag</label>
+								<input type="text" id="newpublisher" name="newpublisher" th:value="${book.publisher}" required="" />
+								<small class="alert-box alert error">Bitte Verlag eingeben.</small>
+							</div>
+							<div class="large-6 medium-6 small-12 columns">
+								<label for="newisbn">ISBN</label>
+								<input type="text" id="newisbn" name="newisbn" th:value="${book.id}" required="" pattern="isbn13" />
+								<small class="alert-box alert error">Bitte ISBN 13 ohne Trennstriche eingeben.</small>
+							</div>
+							<div class="large-6 medium-6 small-12 columns">
+								<label for="newimage">Bild</label>
+								<input type="text" id="newimage" name="newimage" th:value="${book.image}" required="" />
+								<small class="alert-box alert error">Bitte Dateinamen eingeben.</small>
+							</div>
+							<div class="large-6 medium-6 small-12 columns">
+								<label for="newprice">Preis</label>
+								<input type="text" id="newprice" name="newprice" th:value="${book.price}" required="" pattern="custom_price" />
+								<small class="alert-box alert error">Bitte neuen Preis im Format "EUR xx.xx" eingeben.</small>
+							</div>
+							<div class="large-3 medium-3 small-6 columns">
+								<label for="newcategory">Neue Kategorie</label>
+								<input type="text" id="newcategory" name="newcategory" placeholder="Category to add" />
+								<small class="alert-box alert error">Bitte neue Kategorie eingeben.</small>
+							</div>
+							<div class="large-3 medium-3 small-6 columns">
+								<label for="categorytodelete">Zu löschende Kategorie</label>
+								<input type="text" id="categorytodelete" name="categorytodelete" placeholder="Category to delete" />
+								<small class="alert-box alert error">Bitte zu löschende Kategorie eingeben.</small>
+							</div>
+							<div class="large-3 medium-3 small-6 columns">
+								<label for="addquan">Hinzu zu fügende Menge</label>
+								<input type="number" id="addquan" name="addquan" placeholder="Quantity to add" min="0" />
+								<small class="alert-box alert error">Bitte hinzu zu fügende Menge eingeben.</small>
+							</div>
+							<div class="large-3 medium-3 small-6 columns">
+								<label for="removequan">Hinzu zu löschende Menge</label>
+								<input type="number" id="removequan" name="removequan" placeholder="Quantity to remove" min="0" />
+								<small class="alert-box alert error">Bitte hinzu zu löschende Menge eingeben.</small>
+							</div>
+							<div>
+								<label for="descriptiontext">Beschreibung</label>
+								<textarea id="descriptiontext" name="descriptiontext" cols="40" rows="5" th:text="${book.beschreibung}" required=""></textarea>
+								<small class="alert-box alert error">Bitte Beschreibung eingeben.</small>
+							</div>
+							<p></p>
+							<div>
+	        			<input class="small button" type="submit" value="Speichern" />
+	        		</div>
+	        	</form>
+	        </div>
+	    	</div>
+	    </div>
+		</div>
+	</body>
+</html>

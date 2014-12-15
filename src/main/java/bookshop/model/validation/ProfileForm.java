@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import bookshop.model.Address;
 
-public class RegistrationForm {
+public class ProfileForm {
 	
 	@NotEmpty(message = "{RegistrationForm.username.NotEmpty}")
 	@Length(max = 16, message = "{RegistrationForm.username.Length}")

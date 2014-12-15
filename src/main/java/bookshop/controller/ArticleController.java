@@ -178,8 +178,7 @@ public class ArticleController {
 	 * @param input
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
-	@RequestMapping(value="/article/search", method=RequestMethod.POST)
+	@RequestMapping(value="/article/search", method=RequestMethod.GET)
 	public String searchArticles(ModelMap modelMap, @RequestParam("typeInput") int typeInput, @RequestParam("input") String input){
 
 		if(typeInput == 1){
@@ -274,7 +273,10 @@ public class ArticleController {
 										isbn,
 										ArticleId.BOOK,
 										category,
-										author);
+										author,
+										"01.01.2015",
+										Money.of(EUR, 0.99)
+										);
 	
 		//article.setAuthor(author);
 			
@@ -318,7 +320,7 @@ public class ArticleController {
 						@RequestParam("categoryArticle") String category){
 	
 	Article article = new Article(title, Money.of(EUR, price), beschreibung,
-			publisher, isbn, ArticleId.CD, category, interpret);
+			publisher, isbn, ArticleId.CD, category, interpret, "01.01.2015", Money.of(EUR, 0.99));
 	
 	//article.setInterpret(interpret);
 		
@@ -362,8 +364,10 @@ public class ArticleController {
 										isbn,
 										ArticleId.DVD,
 										category,
-										director);
-	
+										director,
+										"01.01.2015", 
+										Money.of(EUR, 0.99));
+
 		//article.setDirector(director);
 			
 		articleCatalog.save(article);
