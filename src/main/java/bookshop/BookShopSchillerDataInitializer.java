@@ -93,21 +93,29 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		testdate.getMonth();
 		testdate.getYear();
 		testdate.getHours();
-		testdate.getMinutes();
-		
+		testdate.getMinutes();	
 		
 		CalendarManagement.getInstance().addEvent("Praesentation", new Date("26112014","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
 		CalendarManagement.getInstance().addEvent("FSR-Filmabend", new Date("27112014","1915"), RoomManagement.getInstance().getRoom("Ratssaal"));
-		CalendarManagement.getInstance().addEvent("Tutorenbesprechung", new Date("03122014","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
+		CalendarManagement.getInstance().addEvent("Tutorenbesprechung", new Date("03122011","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
 		CalendarManagement.getInstance().addEvent("Tutorenbesprechung", new Date("10122014","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
 		CalendarManagement.getInstance().addEvent("Gluehweinverkoestigung", new Date("18122014","0905"), RoomManagement.getInstance().getRoom("ASCII"));
 		CalendarManagement.getInstance().addEvent("Weihnachtsfeier", new Date("22122014","1800"), RoomManagement.getInstance().getRoom("Ratssaal"));
 		CalendarManagement.getInstance().addEvent("Weihnachtsfeier", new Date("22122014","1830"), RoomManagement.getInstance().getRoom("ASCII"));
-		CalendarManagement.getInstance().addEvent("Praesentation", new Date("19012015","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
+		CalendarManagement.getInstance().addEvent("Praesentation", new Date("19011824","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
 		CalendarManagement.getInstance().addEvent("Lernen", new Date("23012015","1640"), RoomManagement.getInstance().getRoom("Computerraum"));
 		CalendarManagement.getInstance().addEvent("Fasching", new Date("10102015","0920"), RoomManagement.getInstance().getRoom("Computerraum"));
-		CalendarManagement.getInstance().addEvent("1. April", new Date("01042015","1111"), RoomManagement.getInstance().getRoom("FSR-Büro"));
+		CalendarManagement.getInstance().addEvent("1. April", new Date("01042015","1111"), RoomManagement.getInstance().getRoom("FSR-Buero"));
+		CalendarManagement.getInstance().addEvent("TestVorAllenBitches", new Date("01042011","1111"), RoomManagement.getInstance().getRoom("FSR-Buero"));
 		
+		System.out.println("\n\n");
+
+		CalendarManagement.getInstance().getCalendar().sortEvents();
+		System.out.println("\n\n");
+		CalendarManagement.getInstance().getCalendar().showList();
+		System.out.println("\n\n");
+		
+		System.out.println(CalendarManagement.getInstance().getCalendar().getEventsByMonth(CalendarManagement.getInstance().getCalendar().getEventsByYear(2014),12).get(2).getName());
 		
 		CategoryManagement.getInstance().addCategory(ArticleId.BOOK, "Ratgeber");
 		CategoryManagement.getInstance().addCategory(ArticleId.BOOK, "Komödie");

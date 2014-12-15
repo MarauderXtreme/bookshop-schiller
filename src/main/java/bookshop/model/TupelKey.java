@@ -34,4 +34,14 @@ public class TupelKey<X , Y>{
 	{		
 		return (Integer.parseInt(y.getDate())+Integer.parseInt(y.getTime()) + (Integer.parseInt(x.getNumber()))+(x.getNumber().length()+3));
 	}
+	
+	public Room getRoom()
+	{
+		return x;
+	}
+	
+	public Date getDate()
+	{
+		return y;
+	}
 }
