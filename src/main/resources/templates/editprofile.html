@@ -16,72 +16,94 @@
 		        </div>
 		      </header>
 	        <div class="large-12">&nbsp;</div>
-	        <div class="large-12 medium-12 small-12 row">
-	        	<h3>Edit <span th:text="${book.name}"></span></h3>
-	        	<div sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')" th:include="articletabs :: articletabs"></div>
-	        	<form method="POST" action="/article/editinformation" data-abide="">
-							<input type="hidden" name="article" th:value="${book.identifier}" />
-							
-							<div class="large-6 medium-6 small-12 columns">
-								<label for="newname">Titel</label>
-								<input type="text" id="newname" name="newname" th:value="${book.name}" required="" />
-								<small class="alert-box alert error">Bitte Titel eingeben.</small>
-							</div>
-							<div class="large-6 medium-6 small-12 columns">
-								<label for="newauthor">Autor</label>
-								<input type="text" id="newauthor" name="newauthor" th:value="${book.author}" required="" />
-								<small class="alert-box alert error">Bitte Autor eingeben.</small>
-							</div>
-							<div class="large-6 medium-6 small-12 columns">
-								<label for="newpublisher">Verlag</label>
-								<input type="text" id="newpublisher" name="newpublisher" th:value="${book.publisher}" required="" />
-								<small class="alert-box alert error">Bitte Verlag eingeben.</small>
-							</div>
-							<div class="large-6 medium-6 small-12 columns">
-								<label for="newisbn">ISBN</label>
-								<input type="text" id="newisbn" name="newisbn" th:value="${book.id}" required="" pattern="isbn13" />
-								<small class="alert-box alert error">Bitte ISBN 13 ohne Trennstriche eingeben.</small>
-							</div>
-							<div class="large-6 medium-6 small-12 columns">
-								<label for="newimage">Bild</label>
-								<input type="text" id="newimage" name="newimage" th:value="${book.image}" required="" />
-								<small class="alert-box alert error">Bitte Dateinamen eingeben.</small>
-							</div>
-							<div class="large-6 medium-6 small-12 columns">
-								<label for="newprice">Preis</label>
-								<input type="text" id="newprice" name="newprice" th:value="${book.price}" required="" pattern="custom_price" />
-								<small class="alert-box alert error">Bitte neuen Preis im Format "EUR xx.xx" eingeben.</small>
-							</div>
-							<div class="large-3 medium-3 small-6 columns">
-								<label for="newcategory">Neue Kategorie</label>
-								<input type="text" id="newcategory" name="newcategory" placeholder="Category to add" />
-								<small class="alert-box alert error">Bitte neue Kategorie eingeben.</small>
-							</div>
-							<div class="large-3 medium-3 small-6 columns">
-								<label for="categorytodelete">Zu löschende Kategorie</label>
-								<input type="text" id="categorytodelete" name="categorytodelete" placeholder="Category to delete" />
-								<small class="alert-box alert error">Bitte zu löschende Kategorie eingeben.</small>
-							</div>
-							<div class="large-3 medium-3 small-6 columns">
-								<label for="addquan">Hinzu zu fügende Menge</label>
-								<input type="number" id="addquan" name="addquan" placeholder="Quantity to add" min="0" />
-								<small class="alert-box alert error">Bitte hinzu zu fügende Menge eingeben.</small>
-							</div>
-							<div class="large-3 medium-3 small-6 columns">
-								<label for="removequan">Hinzu zu löschende Menge</label>
-								<input type="number" id="removequan" name="removequan" placeholder="Quantity to remove" min="0" />
-								<small class="alert-box alert error">Bitte hinzu zu löschende Menge eingeben.</small>
-							</div>
-							<div>
-								<label for="descriptiontext">Beschreibung</label>
-								<textarea id="descriptiontext" name="descriptiontext" cols="40" rows="5" th:text="${book.beschreibung}" required=""></textarea>
-								<small class="alert-box alert error">Bitte Beschreibung eingeben.</small>
-							</div>
-							<p></p>
-							<div>
-	        			<input class="small button" type="submit" value="Speichern" />
-	        		</div>
-	        	</form>
+	        <div class="large-12 medium-12 small-12 columns">
+	          <div class="row">
+	          	<form method="post" th:action="@{'/change/edit'}" th:object="${profileForm}" data-abide="">
+								<fieldset class="large-4 medium-4 large-offset-1 medium-offset-1 small-12 columns">
+									<legend th:text="#{register.title2}">Pers�nliche Daten</legend>
+									
+									<div th:if="${#fields.hasErrors('*')}">
+										<p class="alert-box alert"><b>Einige Angaben sind nicht korrekt. Bitte versuchen Sie es erneut!</b></p>
+									</div>
+									
+									<div>
+										<label th:text="#{register.firstname}" for="firstname">Vorname</label>
+										<input id="firstname" th:field="*{firstname}" th:errorclass="fieldError" type="text" name="firstname" required="" />
+										<small class="alert-box alert error">Der Vorname darf nicht leer sein.</small>
+										<small class="alert-box alert" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">Der Vorname darf nicht leer sein.</small>
+									</div>
+									
+									<div>
+										<label th:text="#{register.lastname}" for="lastname">Nachname</label>
+										<input id="lastname" th:field="*{lastname}" th:errorclass="fieldError" type="text" name="lastname" required="" />
+										<small class="alert-box alert error">Der Nachname darf nicht leer sein.</small>
+										<small class="alert-box alert" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">Der Nachname darf nicht leer sein.</small>
+									</div>
+									
+									<div>
+										<label th:text="#{register.street}" for="street">Straße</label>
+										<input id="street" th:field="*{street}" th:errorclass="fieldError" type="text" name="street" required="" />
+										<small class="alert-box alert error">Die Straße darf nicht leer sein.</small>
+										<small class="alert-box alert" th:if="${#fields.hasErrors('street')}" th:errors="*{street}">Die Straße darf nicht leer sein.</small>
+									</div>
+									
+									<div>
+										<label th:text="#{register.streetnumber}" for="streetnumber">Hausnummer</label>
+										<input id="streetnumber" th:field="*{streetnumber}" th:errorclass="fieldError" type="text" name="streetnumber" required="" />
+										<small class="alert-box alert error">Die Hausnummer darf nicht leer sein.</small>
+										<small class="alert-box alert" th:if="${#fields.hasErrors('streetnumber')}" th:errors="*{streetnumber}">Die Hausnummer darf nicht leer sein.</small>
+									</div>
+									
+									<div>
+										<label th:text="#{register.plz}" for="plz">PLZ</label>
+										<input id="plz" th:field="*{plz}" th:errorclass="fieldError" type="text" name="plz" required="" pattern="plz" />
+										<small class="alert-box alert error">Bitte geben sie eine valide Postleitzahl ein.</small>
+										<small class="alert-box alert" th:if="${#fields.hasErrors('plz')}" th:errors="*{plz}">Die PLZ darf nicht leer sein.</small>
+									</div>
+									
+									<div>
+										<label th:text="#{register.city}" for="city">Ort</label>
+										<input id="town" th:field="*{city}" th:errorclass="fieldError" type="text" name="city" required="" />
+										<small class="alert-box alert error">Der Ort darf nicht leer sein.</small>
+										<small class="alert-box alert" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">Der Ort darf nicht leer sein.</small>
+									</div>
+								
+								</fieldset>
+								<fieldset class="large-4 medium-4 large-offset-1 medium-offset-1 small-12 columns">
+									<legend th:text="#{register.title1}">Benutzerdaten</legend>
+									
+									<div th:if="${#fields.hasErrors('*')}">
+										<p class="alert-box warning"><b>Einige Angaben sind nicht korrekt. Bitte versuchen Sie es erneut!</b></p>
+									</div>
+									<div th:if="${#fields.hasErrors('global')}">
+										<p class="alert-box alert" th:errors="*{global}"></p>
+									</div>
+									
+									<div>
+										<label th:text="#{register.email}" for="email">E-Mail</label>
+										<input id="email" th:field="*{email}" th:errorclass="fieldError" type="email" name="email" required="" placeholder="max@mustermann.de" />
+										<small class="alert-box alert error">Bitte geben sie eine valide Email ein.</small>
+										<small class="alert-box alert" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Die E-Mail-Adresse darf nicht leer sein.</small>
+									</div>
+									
+									<div>
+										<label th:text="#{register.password}" for="password">Passwort</label>
+										<input id="password" th:field="*{password}" th:errorclass="fieldError" type="password" name="password" required="" pattern="custom_password" />
+										<small class="alert-box alert error">Das Passwort muss zwischen 8 und 32 Zeichen lang sein und mindestens einen Großbuchstaben, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen enthalten.</small>
+										<small class="alert-box alert" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Das Passwort darf nicht leer sein.</small>
+									</div>
+									
+									<div>
+										<label th:text="#{register.passwordRepeat}" for="passwordRepeat">Passwort</label>
+										<input id="passwordRepeat" th:field="*{passwordRepeat}" th:errorclass="fieldError" type="password" name="passwordRepeat" required="" data-equalto="password" />
+										<small class="alert-box alert error">Passwörter nicht identisch.</small>
+										<small class="alert-box alert" th:if="${#fields.hasErrors('passwordRepeat')}" th:errors="*{passwordRepeat}">Passwörter nicht identlisch.</small>
+									</div>
+								
+								</fieldset>
+								<input class="button round large-offset-1 medium-offset-1" type="submit" th:value="#{editprofile.submit}" value="Nutzer anlegen" />
+							</form>
+	          </div>
 	        </div>
 	    	</div>
 	    </div>

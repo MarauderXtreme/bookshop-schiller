@@ -25,7 +25,7 @@ import bookshop.model.ArticleManagement;
 import bookshop.model.Article.ArticleId;
 import bookshop.model.CalendarManagement;
 import bookshop.model.Category;
-import bookshop.model.CategoryManagement;
+//import bookshop.model.CategoryManagement;
 import bookshop.model.Date;
 import bookshop.model.RoomManagement;
 //import bookshop.model.Book;
@@ -39,8 +39,6 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 	private final Inventory<InventoryItem> inventory;
 	private final UserAccountManager userAccountManager;
 	private final UserRepository userRepository;
-	private List<Category> categories;
-
 
 	/**
 	 * Constructor for BookShopDataInitializer.
@@ -57,13 +55,13 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		Assert.notNull(inventory, "Inventory must not be null!");
 		Assert.notNull(userAccountManager, "UserAccountManager must not be null!");
 		Assert.notNull(articleCatalog, "ArticleCatalog must not be null!");
-		
+
 
 		this.userRepository = userRepository;
 		this.inventory = inventory;
 		this.userAccountManager = userAccountManager;
 		this.articleCatalog = articleCatalog;
-		
+
 		//RoomManagement.getInstance().addRoom("Computerraum","067");
 		//CalendarManagement.getInstance().addEvent("Praesentation", new Date("26112014","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
 	}
@@ -88,6 +86,8 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		if(articleCatalog.findAll().iterator().hasNext()){
 			return;
 		}
+		
+		
 
 		RoomManagement.getInstance().addRoom("Computerraum","067");
 		RoomManagement.getInstance().addRoom("Ratssaal","1335");
@@ -133,7 +133,6 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		categories.add(new Category("Ratgeber", ArticleId.BOOK));
 		
 		
-		articleCatalog.save(new Article("Bastard Operator from Hell", Money.of(EUR, 19.99), "Ultimativer Leitfaden für den Job an einem Helpdesk", "Simon Travaglia", "6666666666666", ArticleId.BOOK, "Fiktion", "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99)));
 		articleCatalog.save(new Article("Trost und Rat", Money.of(EUR, 9.99), "Ein Ratgeber der besonderen Art", "Flann O'Brien", "1234567890421", ArticleId.BOOK, "Ratgeber", "Flann O'Brien", "trostundrat.jpg"));
 		articleCatalog.save(new Article("50 Schatten des Grauens", Money.of(EUR, 7.98), "Horrorpersiflage des Bestsellers", "Chris Ragman", "0000000000001", ArticleId.BOOK, "Fiktion", "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99)));
 		articleCatalog.save(new Article("Der Doktor und seine Gefährten", Money.of(EUR, 14.99), "Das Begleitbuch zur Serie", "Sir Doctor from Tardis", "0000000000002", ArticleId.BOOK, "Fiktion", "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99)));

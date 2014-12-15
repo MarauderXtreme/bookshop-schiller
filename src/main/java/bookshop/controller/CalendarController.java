@@ -17,7 +17,13 @@ import bookshop.model.Room;
 public class CalendarController {
 	
 	@PreAuthorize("hasRole('ROLE_EVENTMANAGER') || hasRole('ROLE_ADMIN')")
-	@RequestMapping(value="/addEvent", method = RequestMethod.POST)
+	@RequestMapping("/admin/event/add")
+	public String addEvent(Model model) {
+		return "addevent";
+	}
+	
+	@PreAuthorize("hasRole('ROLE_EVENTMANAGER') || hasRole('ROLE_ADMIN')")
+	@RequestMapping(value="/admin/event/new", method = RequestMethod.POST)
 	public String add(@RequestParam("name") String name, @RequestParam("dated") String dated , @RequestParam("datet") String datet)
 	{
 		CalendarManagement.getInstance().addEvent(name, new Date(dated,datet), new Room("Lesesaal","123"));
