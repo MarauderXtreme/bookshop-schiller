@@ -18,6 +18,7 @@ import org.salespointframework.quantity.Units;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
@@ -29,6 +30,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import bookshop.model.Article;
 import bookshop.model.Article.ArticleId;
+import bookshop.model.OrderManagement;
 
 
 
@@ -36,6 +38,7 @@ import bookshop.model.Article.ArticleId;
 public class CartController {
 
 	private final OrderManager<Order> orderManager;
+
 	
 	@Autowired
 	public CartController(OrderManager<Order> orderManager) {
@@ -44,26 +47,6 @@ public class CartController {
 		this.orderManager = orderManager;
 	}
 	
-	/*
-	@RequestMapping(value = "/checkout")
-	public String buy(HttpSession session, @LoggedIn Optional<UserAccount> userAccount) {
-
-		return userAccount.map(account -> {
-
-				Order order = new Order(account, Cash.CASH);
-				Cart cart = getCart(session);
-				cart.toOrder(order);
-
-				orderManager.payOrder(order);
-				orderManager.completeOrder(order);
-				orderManager.add(order);
-				
-				cart.clear();
-
-				return "redirect:/";
-			}).orElse("redirect:/cart");
-	}
-	*/
 	
 	@RequestMapping(value="/cart")
 	public String cart(ModelMap modelMap, String name, HttpSession session){
@@ -72,6 +55,7 @@ public class CartController {
 		return "cart";
 	}
 	
+	@PreAuthorize("hasRole('ROLE_CUSTOMER')")
 	@RequestMapping(value="/cart/checkout", method = RequestMethod.POST)
 	public String buy(HttpSession session, @LoggedIn Optional<UserAccount> userAccount){
 		/*

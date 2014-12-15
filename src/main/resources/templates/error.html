@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head th:include="head :: head"></head>
+	<body>
+		<div class="off-canvas-wrap" data-offcanvas="">
+			<div class="fixed" th:include="topbar :: topbar"></div>
+	    <div class="inner-wrap">
+	    	<aside class="left-off-canvas-menu" aria-hidden="true">
+	    		<nav th:include="navigation :: navigation"></nav>
+	    	</aside>
+	    	<div class="main-content">
+		    	<header class="large-12 medium-12 show-for-landscape show-for-medium-up">
+		        <div class="panel">
+		          <div class="header-slider row" th:include="slider :: slider"></div>
+		        </div>
+		      </header>
+	        <div class="large-12">&nbsp;</div>
+	        <div class="large-12 medium-12 small-12 row">
+	          <h2 class="small-4 small-centered columns">OOOOPPPSSS</h2>
+	          <p class="alert-box alert small-6 small-centered columns">
+	          	Da ist gerade etwas Doofes passiert. Hier geht's erstmal nicht weiter.<br />
+	          	Bitte begebe dich zurück auf <a href="/">Start</a>.<br />
+	          	Gehe nicht über Los. Ziehe nicht 2000€ ein.<br />
+	          </p>
+	        </div>
+	    	</div>
+	    </div>
+		</div>
+	</body>
+</html>

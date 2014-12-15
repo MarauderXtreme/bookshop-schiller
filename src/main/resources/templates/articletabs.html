@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head>
+	</head>
+	<body>
+		<div th:fragment="articletabs">
+	  	<a class="tiny button" th:href="@{'/detail/' + ${book.identifier}}" href="detail.html">View</a>
+	 		<a class="tiny button" th:href="@{'/article/' + ${book.identifier} + '/edit'}" href="editarticle.html">Edit</a>
+	   	<a class="tiny button" th:href="@{'/article/' + ${book.identifier} + '/delete/confirm'}" href="confirmdelete.html">Delete</a>
+		</div>
+	</body>
+</html>

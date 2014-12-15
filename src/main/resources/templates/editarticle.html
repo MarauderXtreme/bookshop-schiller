@@ -16,123 +16,72 @@
 		        </div>
 		      </header>
 	        <div class="large-12">&nbsp;</div>
-	        <div class="large-12 medium-12 small-12 columns">
-	          <div class="large-3 columns">
-  						<img alt="cover" class="cover" th:src="@{'/resources/img/' + ${book.image}}" />
-						</div>
-						<div class="large-9 medium-9 small-9 columns">
-							<ul class="pricing-table">
-					      <li class="title">
-					      <span th:text="${book.name}">Last Action Hero</span>
-									<form method="post" action="/article/set/title">
-										<fieldset>
-											<input type="text" name="newname" />
-											<input type="hidden" name="article" th:value="${book.identifier}" />
-											<input type="submit" value="Change Title" />
-										</fieldset>
-									</form>
-					      </li>
-					      <li class="description">
-					      <label>Artist:</label><span th:text="${book.author}">Simon Travaglia</span>
-									<form method="post" action="/article/set/author">
-										<fieldset>
-											<input type="text" name="newauthor" />
-											<input type="hidden" name="article" th:value="${book.identifier}" />
-											<input type="submit" value="Change Author" />
-										</fieldset>
-									</form>
-					      </li>
-					      <li class="bullet-item">
-					      <label>Publisher:</label><span th:text="${book.publisher}">Verlag</span>
-									<form method="post" action="/article/set/publisher">
-										<fieldset>
-											<input type="text" name="newpublisher" />
-											<input type="hidden" name="article" th:value="${book.identifier}" />
-											<input type="submit" value="Change Publisher" />
-										</fieldset>
-									</form>
-					      </li>
-					      <li class="description">
-					      <label>Beschreibung:</label><span th:text="${book.beschreibung}">Simon Travaglia</span>
-									<form method="post" action="/article/set/description">
-										<fieldset>
-											<textarea name="descriptiontext" cols="40" rows="5"></textarea>
-											<input type="hidden" name="article" th:value="${book.identifier}" />
-											<input type="submit" value="Change Description" />
-										</fieldset>
-									</form>
-					      </li>
-					      <li class="bullet-item">
-					      <label>ISBN-Nr.:</label><span th:text="${book.id}">ISBN</span>
-									<form method="post" action="/article/set/isbn">
-										<fieldset>
-											<input type="text" name="newisbn" />
-											<input type="hidden" name="article" th:value="${book.identifier}" />
-											<input type="submit" value="Change ISBN" />
-										</fieldset>
-									</form>
-					      </li>
-					      <li class="bullet-item">
-					      <label>Kategorie:</label><span th:text="${book.getCategoryList()}">Kategorie</span>
-									<form method="post" action="/article/set/category">
-										<fieldset>
-											<input type="text" name="newcategory" />
-											<input type="hidden" name="article" th:value="${book.identifier}" />
-											<input type="submit" value="Change Category" />
-										</fieldset>
-									</form>
-									<form method="post" action="/article/delete/category">
-										<fieldset>
-											<input type="text" name="categorytodelete" />
-											<input type="hidden" name="article" th:value="${book.identifier}" />
-											<input type="submit" value="Delete Category" />
-										</fieldset>
-									</form>
-					      </li>
-					      <li class="bullet-item">
-					      <label>Bild:</label><span th:text="${book.image}">Bild-Pfad</span>
-									<form method="post" action="/article/set/image">
-										<fieldset>
-											<input type="text" name="newimage" />
-											<input type="hidden" name="article" th:value="${book.identifier}" />
-											<input type="submit" value="Change Image" />
-										</fieldset>
-									</form>
-					      </li>
-					      <li class="bullet-item">
-					      <label>Anzahl:</label><span th:text="${quantity.amount}">Units</span>
-									<form method="post" action="/article/amount/increase">
-										<fieldset>
-											<input type="text" name="addquan" />
-											<input type="hidden" name="article" value="0"  th:value="${book.identifier}" />
-											<input type="submit" value="Increase Article" />
-										</fieldset>
-									</form>
-									<form method="post" action="/article/amount/decrease">
-										<fieldset>
-											<input type="text" name="removequan" />
-											<input type="hidden" name="article" value="0" th:value="${book.identifier}" />
-											<input type="submit" value="Decrease Article" />
-										</fieldset>
-									</form>
-					      </li>
-					      <li class="price">
-					      <label>Preis:</label><span th:text="${book.price}">9.99€</span>
-									<form method="post" action="/article/set/price">
-										<fieldset>
-											<input type="text" name="newprice" />
-											<input type="hidden" name="article" th:value="${book.identifier}" />
-											<input type="submit" value="Change Price" />
-										</fieldset>
-									</form>
-					      </li>
-					    </ul>
-					  </div>
-						<div class="large-12">
-							<p>
-					      <label>Beschreibung:</label><span th:text="${book.beschreibung}">Simon Travaglia</span>
-							</p>
-						</div>
+	        <div class="large-12 medium-12 small-12 row">
+	        	<h3>Edit <span th:text="${book.name}"></span></h3>
+	        	<div sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')" th:include="articletabs :: articletabs"></div>
+	        	<form method="POST" action="/article/editinformation" data-abide="">
+							<input type="hidden" name="article" th:value="${book.identifier}" />
+							
+							<div class="large-6 medium-6 small-12 columns">
+								<label for="newname">Titel</label>
+								<input type="text" id="newname" name="newname" th:value="${book.name}" required="" />
+								<small class="alert-box alert error">Bitte Titel eingeben.</small>
+							</div>
+							<div class="large-6 medium-6 small-12 columns">
+								<label for="newauthor">Autor</label>
+								<input type="text" id="newauthor" name="newauthor" th:value="${book.author}" required="" />
+								<small class="alert-box alert error">Bitte Autor eingeben.</small>
+							</div>
+							<div class="large-6 medium-6 small-12 columns">
+								<label for="newpublisher">Verlag</label>
+								<input type="text" id="newpublisher" name="newpublisher" th:value="${book.publisher}" required="" />
+								<small class="alert-box alert error">Bitte Verlag eingeben.</small>
+							</div>
+							<div class="large-6 medium-6 small-12 columns">
+								<label for="newisbn">ISBN</label>
+								<input type="text" id="newisbn" name="newisbn" th:value="${book.id}" required="" pattern="isbn13" />
+								<small class="alert-box alert error">Bitte ISBN 13 ohne Trennstriche eingeben.</small>
+							</div>
+							<div class="large-6 medium-6 small-12 columns">
+								<label for="newimage">Bild</label>
+								<input type="text" id="newimage" name="newimage" th:value="${book.image}" required="" />
+								<small class="alert-box alert error">Bitte Dateinamen eingeben.</small>
+							</div>
+							<div class="large-6 medium-6 small-12 columns">
+								<label for="newprice">Preis</label>
+								<input type="text" id="newprice" name="newprice" th:value="${book.price}" required="" pattern="custom_price" />
+								<small class="alert-box alert error">Bitte neuen Preis im Format "EUR xx.xx" eingeben.</small>
+							</div>
+							<div class="large-3 medium-3 small-6 columns">
+								<label for="newcategory">Neue Kategorie</label>
+								<input type="text" id="newcategory" name="newcategory" placeholder="Category to add" />
+								<small class="alert-box alert error">Bitte neue Kategorie eingeben.</small>
+							</div>
+							<div class="large-3 medium-3 small-6 columns">
+								<label for="categorytodelete">Zu löschende Kategorie</label>
+								<input type="text" id="categorytodelete" name="categorytodelete" placeholder="Category to delete" />
+								<small class="alert-box alert error">Bitte zu löschende Kategorie eingeben.</small>
+							</div>
+							<div class="large-3 medium-3 small-6 columns">
+								<label for="addquan">Hinzu zu fügende Menge</label>
+								<input type="number" id="addquan" name="addquan" placeholder="Quantity to add" min="0" />
+								<small class="alert-box alert error">Bitte hinzu zu fügende Menge eingeben.</small>
+							</div>
+							<div class="large-3 medium-3 small-6 columns">
+								<label for="removequan">Hinzu zu löschende Menge</label>
+								<input type="number" id="removequan" name="removequan" placeholder="Quantity to remove" min="0" />
+								<small class="alert-box alert error">Bitte hinzu zu löschende Menge eingeben.</small>
+							</div>
+							<div>
+								<label for="descriptiontext">Beschreibung</label>
+								<textarea id="descriptiontext" name="descriptiontext" cols="40" rows="5" th:text="${book.beschreibung}" required=""></textarea>
+								<small class="alert-box alert error">Bitte Beschreibung eingeben.</small>
+							</div>
+							<p></p>
+							<div>
+	        			<input class="small button" type="submit" value="Speichern" />
+	        		</div>
+	        	</form>
 	        </div>
 	    	</div>
 	    </div>

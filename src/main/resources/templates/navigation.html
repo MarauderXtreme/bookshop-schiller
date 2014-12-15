@@ -14,29 +14,47 @@
 		      </label>
 		    </a>
 		  </li>
-		  <li>
-		    <a th:href="@{/article}" href="articles.html">
-		      Alle Artikel                 
-		    </a>
-		  </li>
-		  <li>
-		    <a th:href="@{/article/book}" href="books.html">
-		      Bücher                  
-		    </a>
-		  </li>
-		  <li>
-		    <a th:href="@{/article/cd}" href="cds.html">
-		      CD's                  
-		    </a>
-		  </li>
-		  <li>
-		    <a th:href="@{/article/dvd}" href="dvds.html">
-		      DVD's                  
-		    </a>
+		  <li class="has-submenu">
+		    <a href="#">Artikel</a>
+		    <ul class="left-submenu">
+   				<li class="back">
+   					<a href="#">Zurück</a>
+   				</li>
+   				<li>
+				    <a th:href="@{/article}" href="articles.html">
+				      Alle                  
+				    </a>
+				  </li>
+   				<li>
+				    <a th:href="@{/article/book}" href="books.html">
+				      Bücher                  
+				    </a>
+				  </li>
+				  <li>
+				    <a th:href="@{/article/cd}" href="cds.html">
+				      CD's                  
+				    </a>
+				  </li>
+				  <li>
+				    <a th:href="@{/article/dvd}" href="dvds.html">
+				      DVD's                  
+				    </a>
+				  </li>
+		    </ul>
 		  </li>
 		  <li>
 		    <a th:href="@{/calendar}" href="calendar.html">
 		      Kalender
+		    </a>
+		  </li>
+		  <li>
+		    <a th:href="@{/history}" href="history.html">
+		      Geschichte
+		    </a>
+		  </li>
+		  <li>
+		    <a th:href="@{/contact}" href="contact.html">
+		      Kontakt
 		    </a>
 		  </li>
 		  <li class="hide-for-large-up" sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_USERMANAGER')" >
@@ -49,13 +67,13 @@
    					<a href="#">Zurück</a>
    				</li>
    				<li>
-   					<a th:href="@{/admin/statictics}" href="statistics.html">Not Implemented</a>
+   					<a th:href="@{/admin/statictics}" href="statistics.html">Statistik</a>
    				</li>
    				<li>
-   					<a th:href="@{/admin/orders}" href="order.html">Not Implemented</a>
+   					<a th:href="@{/admin/orders}" href="order.html">Bestellungen</a>
    				</li>
    				<li>
-   					<a th:href="@{/admin/stock}" href="stock.html">Not Implemented</a>
+   					<a th:href="@{/admin/stock}" href="stock.html">Lager</a>
    				</li>
    			</ul>
    		</li>
