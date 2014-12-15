@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.validation.Valid;
 
+import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManager;
@@ -86,19 +87,19 @@ public class UserController {
 			BindingResult result, @RequestParam("roleInput") String roleInput) {
 
 		if (!registrationForm.getPasswordRepeat().equals(registrationForm.getPassword())) {
-			result.addError(new ObjectError("password.noMatch", "Ihre eingegebenen Passwörter stimmen nicht überein!"));
+			result.addError(new ObjectError("password.noMatch", "Die eingegebenen Passwörter stimmen nicht überein!"));
 		}
 		
 		Iterable<User> users = userRepository.findAll();
 		
 		for (User u : users) {
 			if (u.getUserAccount().getIdentifier().getIdentifier().equals(registrationForm.getUsername())) {
-				result.addError(new ObjectError("username.isUsed", "Ihre eingegebener Nutzername ist bereits vergeben!"));
+				result.addError(new ObjectError("username.isUsed", "Die eingegebener Nutzername ist bereits vergeben!"));
 			}
 		}
 		for (User u : users) {
 			if (u.getUserAccount().getEmail().equals(registrationForm.getEmail())) {
-				result.addError(new ObjectError("email.isUsed", "Ihre eingegebene E-Mail-Adresse ist bereits vergeben!"));
+				result.addError(new ObjectError("email.isUsed", "Die eingegebene E-Mail-Adresse ist bereits vergeben!"));
 			}
 		}
 		
@@ -142,19 +143,19 @@ public class UserController {
 			BindingResult result) {
 
 		if (!registrationForm.getPasswordRepeat().equals(registrationForm.getPassword())) {
-			result.addError(new ObjectError("password.noMatch", "Ihre eingegebenen Passwörter stimmen nicht überein!"));
+			result.addError(new ObjectError("password.noMatch", "Die eingegebenen Passwörter stimmen nicht überein!"));
 		}
 		
 		Iterable<User> users = userRepository.findAll();
 		
 		for (User u : users) {
 			if (u.getUserAccount().getIdentifier().getIdentifier().equals(registrationForm.getUsername())) {
-				result.addError(new ObjectError("username.isUsed", "Ihre eingegebener Nutzername ist bereits vergeben!"));
+				result.addError(new ObjectError("username.isUsed", "Die eingegebener Nutzername ist bereits vergeben!"));
 			}
 		}
 		for (User u : users) {
 			if (u.getUserAccount().getEmail().equals(registrationForm.getEmail())) {
-				result.addError(new ObjectError("email.isUsed", "Ihre eingegebene E-Mail-Adresse ist bereits vergeben!"));
+				result.addError(new ObjectError("email.isUsed", "Die eingegebene E-Mail-Adresse ist bereits vergeben!"));
 			}
 		}
 		
@@ -246,54 +247,63 @@ public class UserController {
 	}
 	
 	/**
-	 * Reads data from the profileForm and changes profile data.
-	 * @param registrationForm
+	 * Reads data from the profileForm and changes profile data of a special user.
+	 * @param userAccount
+	 * @param profileForm
 	 * @param result
+	 * @param modelMap
 	 * @return
 	 */
 	@RequestMapping("/user/profile/{pid}/change/edit")
 	public String changeProfileEdit(@PathVariable("pid") UserAccount userAccount, @ModelAttribute("profileForm") @Valid ProfileForm profileForm,
 			BindingResult result, ModelMap modelMap) {
 
-		modelMap.addAttribute(userAccount);
+		User user = userRepository.findByUserAccount(userAccount);
+		modelMap.addAttribute(user);
 		
 		if (!profileForm.getPasswordRepeat().equals(profileForm.getPassword())) {
-			result.addError(new ObjectError("password.noMatch", "Ihre eingegebenen neuen Passwörter stimmen nicht überein!"));
+			result.addError(new ObjectError("password.noMatch", "Die eingegebenen Passwörter stimmen nicht überein!"));
 		}
 		
-		Iterable<User> users = userRepository.findAll();
+		//if (!userAccount.getPassword().equals(new Password(profileForm.getOldPassword()))) {
+		//	result.addError(new ObjectError("password.old.error", "Das eingegebene alte Passwort ist nicht korrekt!"));
+		//}
+		
+		Iterable<User> users = userRepository.findAll();	
 		
 		for (User u : users) {
-			if (u.getUserAccount().getEmail().equals(profileForm.getEmail())) {
-				result.addError(new ObjectError("email.isUsed", "Ihre eingegebene E-Mail-Adresse ist bereits vergeben!"));
+			if (u.getUserAccount().getEmail().equals(profileForm.getEmail()) && !(u.getUserAccount().equals(userAccount))) {
+				result.addError(new ObjectError("email.isUsed", "Die eingegebene E-Mail-Adresse ist bereits vergeben!"));
 			}
 		}
 		
 		if (result.hasErrors()) {
 			return "editprofile";
 		}
-
-		User user = userRepository.findByUserAccount(userAccount);
 		
 		userAccount.setFirstname(profileForm.getFirstname());
 		userAccount.setLastname(profileForm.getLastname());
 		userAccount.setEmail(profileForm.getEmail());
+		userAccountManager.changePassword(userAccount, profileForm.getPassword());
 		userAccountManager.save(userAccount);
 
 		user.setAddress(profileForm.getAddress());
 		userRepository.save(user);
 
-		return "redirect:/";
+		return "profile";
 	}
 
 	/**
-	 * Maps the registration form for an unregistered to modelMap.
+	 * Maps the profile change form of a special user to modelMap.
+	 * @param userAccount
 	 * @param modelMap
+	 * @return
 	 */
 	@RequestMapping("/user/profile/{pid}/change")
 	public String changeProfile(@PathVariable("pid") UserAccount userAccount, ModelMap modelMap) {
 		
-		modelMap.addAttribute(userAccount);
+		User user = userRepository.findByUserAccount(userAccount);
+		modelMap.addAttribute(user);
 		modelMap.addAttribute("profileForm", new ProfileForm());
 		return "editprofile";
 	}
