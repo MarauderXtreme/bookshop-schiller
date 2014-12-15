@@ -178,8 +178,7 @@ public class ArticleController {
 	 * @param input
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
-	@RequestMapping(value="/article/search", method=RequestMethod.POST)
+	@RequestMapping(value="/article/search", method=RequestMethod.GET)
 	public String searchArticles(ModelMap modelMap, @RequestParam("typeInput") int typeInput, @RequestParam("input") String input){
 
 		if(typeInput == 1){
