@@ -18,23 +18,6 @@
 	        <div class="large-12">&nbsp;</div>
 	        <div class="large-12 medium-12 small-12 columns">
 	          <h3>Verkaufsbilanz</h3>
-	          <!--
-	          <table>
-							<caption th:text="#{statistics.lastweek}"></caption>
-							<thead>
-								<tr>
-									<th th:text="#{statistics.article}">Artikel</th>
-									<th th:text="#{statistics.quantity}">Anzahl</th>
-								</tr>
-							</thead>
-							<tbody>
-									<tr th:each="orderline : ${ordersLastWeek} ">
-										<td th:text="${orderline.productName}" ></td>
-										<td th:text="${orderline.quantity}"></td>
-									</tr>
-							</tbody>
-						</table> 
-						-->
 						<table>
 							<thead>
 								<tr>
@@ -50,16 +33,6 @@
 										<td th:text="${orderline.productName}">Last Action Hero</td>
 										<td th:text="${orderline.quantity.amount}">9000</td>
 										<td th:text="${orderline.price}">10</td>
-										<td>
-										  <div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE')">
-												<form method="post" action="/article/editinformation">
-												<!-- <input type="hidden" name="article" th:value="${book.identifier}" />
-													<input type="number" id="addquan" name="addquan" placeholder="Quantity to add" min="0" />
-													<small class="alert-box alert error">Bitte hinzu zu fügende Menge eingeben.</small>
-													<input class="small button" type="submit" value="Speichern" /> -->
-												</form>
-											</div>
-							 	    </td>
 									</tr>																	
 							</tbody>
 						</table>
