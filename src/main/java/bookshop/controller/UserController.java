@@ -245,6 +245,61 @@ public class UserController {
 	}
 	
 	/**
+	 * Reads data from the registrationForm for an unregistered user and registers a new customer.
+	 * @param registrationForm
+	 * @param result
+	 * @return
+	 */
+	@RequestMapping("/user/register/new")
+	public String changeProfileOf(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
+			BindingResult result) {
+
+		if (!registrationForm.getPasswordRepeat().equals(registrationForm.getPassword())) {
+			result.addError(new ObjectError("password.noMatch", "Ihre eingegebenen Passwörter stimmen nicht überein!"));
+		}
+		
+		Iterable<User> users = userRepository.findAll();
+		
+		for (User u : users) {
+			if (u.getUserAccount().getIdentifier().getIdentifier().equals(registrationForm.getUsername())) {
+				result.addError(new ObjectError("username.isUsed", "Ihre eingegebener Nutzername ist bereits vergeben!"));
+			}
+		}
+		for (User u : users) {
+			if (u.getUserAccount().getEmail().equals(registrationForm.getEmail())) {
+				result.addError(new ObjectError("email.isUsed", "Ihre eingegebene E-Mail-Adresse ist bereits vergeben!"));
+			}
+		}
+		
+		if (result.hasErrors()) {
+			return "register";
+		}
+
+		UserAccount userAccount = userAccountManager.create(registrationForm.getUsername(), registrationForm.getPassword(),
+				new Role("ROLE_CUSTOMER"));
+		userAccount.setFirstname(registrationForm.getFirstname());
+		userAccount.setLastname(registrationForm.getLastname());
+		userAccount.setEmail(registrationForm.getEmail());
+		userAccountManager.save(userAccount);
+
+		User user = new User(userAccount, registrationForm.getAddress());
+		userRepository.save(user);
+
+		return "redirect:/";
+	}
+
+	/**
+	 * Maps the registration form for an unregistered to modelMap.
+	 * @param modelMap
+	 */
+	@RequestMapping("/user/register")
+	public String changeProfile(ModelMap modelMap) {
+		
+		modelMap.addAttribute("registrationForm", new RegistrationForm());
+		return "register";
+	}
+	
+	/**
 	 * Maps the index page.
 	 */
 	@RequestMapping({ "/", "/index" })

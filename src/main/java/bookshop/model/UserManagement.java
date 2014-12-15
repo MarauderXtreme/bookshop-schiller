@@ -2,6 +2,7 @@ package bookshop.model;
 
 import java.util.ArrayList;
 
+import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManager;
@@ -148,7 +149,7 @@ public class UserManagement {
 	 * @param password
 	 */
 	public void changePassword(UserAccount userAccount, String password) {
-		// fehlt
+		userAccountManager.changePassword(userAccount, password);
 	}
 
 }

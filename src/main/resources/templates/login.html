@@ -21,10 +21,13 @@
 	          <p>Loggen Sie sich mit Ihren Benutzerdaten in das System ein und greifen Sie auf alle Funktionen zu, die die Buchhandlung Schiller Ihnen bietet!</p>
 	          <div class="row">
 	          	<div class="large-4 medium-4 small-4 large-offset-4">
-		          	<p th:if="${loginError}">Wrong user or password</p>
 		        		<form th:action="@{/user/login}" method="post">
+		        			<!-- <div th:if="${#fields.hasErrors('*')}">
+										<p class="alert-box warning"><b>Ihr eingegebener Nutzername oder ihr Passwort ist nicht korrekt. Bitte versuchen Sie es erneut!</b></p>
+									  ... th:field="*{...}" th:errorclass="fieldError" 
+									</div> -->
 			            <label for="username">Nutzername:</label>
-			            <input type="text" id="username" name="username" autofocus="autofocus" />
+			            <input type="text" id="username" name="username" autofocus="" />
 			            <label for="password">Passwort:</label>
 			            <input type="password" id="password" name="password" />
 			            <input class="button round" type="submit" value="Login" />
