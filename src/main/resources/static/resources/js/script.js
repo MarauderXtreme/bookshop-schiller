@@ -17,4 +17,5 @@ $(document).ready(function(){
 		autoplay: true,
 		autoplaySpeed: 10000,
 	});
+	CKEDITOR.replace( 'descriptiontext' );
 });
