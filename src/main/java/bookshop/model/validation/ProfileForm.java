@@ -9,6 +9,11 @@ import bookshop.model.Address;
 
 public class ProfileForm {
 	
+	@NotEmpty(message = "{RegistrationForm.username.NotEmpty}")
+	@Length(max = 16, message = "{RegistrationForm.username.Length}")
+	@Pattern(regexp="([A-ZÄÖÜa-zäöüß]{1}[A-ZÄÖÜa-zäöüß0-9]+){0,1}", message = "{RegistrationForm.username.Format}")
+	private String username;
+	
 	@NotEmpty(message = "{RegistrationForm.firstname.NotEmpty}")
 	@Length(max = 32, message = "{RegistrationForm.firstname.Length}")
 	@Pattern(regexp="([A-ZÄÖÜ]{1}[a-zäöüß]+([\\-\\s]{1}[A-ZÄÖÜ]{1}[a-zäöüß]+){0,}){0,1}", message = "{RegistrationForm.firstname.Format}")
@@ -23,9 +28,6 @@ public class ProfileForm {
 	@Length(max = 64, message = "{RegistrationForm.email.Length}")
 	@Pattern(regexp="([A-Za-z0-9\\.\\_\\-]+@{1}[A-Za-z0-9\\.\\-]+[\\.]{1}[A-Za-z]{2,24}){0,1}", message = "{RegistrationForm.email.Format}")
 	private String email;
-	
-	@NotEmpty(message = "{RegistrationForm.oldPassword.NotEmpty}")
-	private String oldPassword;
 	
 	@Length(min = 8, max = 32, message = "{RegistrationForm.password.Length}")
 	@Pattern(regexp="((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[_\\W]).{8,32})", message = "{RegistrationForm.password.Format}")
@@ -54,14 +56,29 @@ public class ProfileForm {
 	private String city;
 	
 	/**
-	 * @return the given first name from the profile form
+	 * @return the given user name from the registration form
+	 */
+	public String getUsername() {
+		return username;
+	}
+	
+	/**
+	 * Sets the user name of the registration form to the given value.
+	 * @param username
+	 */
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	/**
+	 * @return the given first name from the registration form
 	 */
 	public String getFirstname() {
 		return firstname;
 	}
 	
 	/**
-	 * Sets the first name of the profile form to the given value.
+	 * Sets the first name of the registration form to the given value.
 	 * @param username
 	 */
 	public void setFirstname(String firstname) {
@@ -69,14 +86,14 @@ public class ProfileForm {
 	}
 	
 	/**
-	 * @return the given last name from the profile form
+	 * @return the given last name from the registration form
 	 */
 	public String getLastname() {
 		return lastname;
 	}
 	
 	/**
-	 * Sets the last name of the profile form to the given value.
+	 * Sets the last name of the registration form to the given value.
 	 * @param username
 	 */
 	public void setLastname(String lastname) {
@@ -84,14 +101,14 @@ public class ProfileForm {
 	}
 	
 	/**
-	 * @return the given email address from the profile form
+	 * @return the given email address from the registration form
 	 */
 	public String getEmail() {
 		return email;
 	}
 	
 	/**
-	 * Sets the email address of the profile form to the given value.
+	 * Sets the email address of the registration form to the given value.
 	 * @param username
 	 */
 	public void setEmail(String email) {
@@ -99,14 +116,14 @@ public class ProfileForm {
 	}
 	
 	/**
-	 * @return the given password name from the profile form
+	 * @return the given password name from the registration form
 	 */
 	public String getPassword() {
 		return password;
 	}
 	
 	/**
-	 * Sets the password of the profile form to the given value.
+	 * Sets the password of the registration form to the given value.
 	 * @param username
 	 */
 	public void setPassword(String password) {
@@ -114,14 +131,14 @@ public class ProfileForm {
 	}
 	
 	/**
-	 * @return the given repeated password name from the profile form
+	 * @return the given repeated password name from the registration form
 	 */
 	public String getPasswordRepeat() {
 		return passwordRepeat;
 	}
 	
 	/**
-	 * Sets the repeated password of the profile form to the given value.
+	 * Sets the repeated password of the registration form to the given value.
 	 * @param username
 	 */
 	public void setPasswordRepeat(String passwordRepeat) {
@@ -130,21 +147,21 @@ public class ProfileForm {
 	
 
 	/**
-	 * @return the given address from the profile form
+	 * @return the given address from the registration form
 	 */
 	public Address getAddress() {
 		return new Address(street, streetnumber, plz, city);
 	}
 	
 	/**
-	 * @return the given street name from the profile form
+	 * @return the given street name from the registration form
 	 */
 	public String getStreet() {
 		return street;
 	}
 	
 	/**
-	 * Sets the street name of the profile form to the given value.
+	 * Sets the street name of the registration form to the given value.
 	 * @param username
 	 */
 	public void setStreet(String street) {
@@ -152,14 +169,14 @@ public class ProfileForm {
 	}
 	
 	/**
-	 * @return the given street number from the profile form
+	 * @return the given street number from the registration form
 	 */
 	public String getStreetnumber() {
 		return streetnumber;
 	}
 	
 	/**
-	 * Sets the street number of the profile form to the given value.
+	 * Sets the street number of the registration form to the given value.
 	 * @param username
 	 */
 	public void setStreetnumber(String streetnumber) {
@@ -167,14 +184,14 @@ public class ProfileForm {
 	}
 	
 	/**
-	 * @return the given PLZ from the profile form
+	 * @return the given PLZ from the registration form
 	 */
 	public String getPlz() {
 		return plz;
 	}
 	
 	/**
-	 * Sets the PLZ of the profile form to the given value.
+	 * Sets the PLZ of the registration form to the given value.
 	 * @param username
 	 */
 	public void setPlz(String plz) {
@@ -182,32 +199,17 @@ public class ProfileForm {
 	}
 	
 	/**
-	 * @return the given city from the profile form
+	 * @return the given city from the registration form
 	 */
 	public String getCity() {
 		return city;
 	}
 	
 	/**
-	 * Sets the city of the profile form to the given value.
+	 * Sets the city of the registration form to the given value.
 	 * @param username
 	 */
 	public void setCity(String city) {
 		this.city = city;
-	}
-
-	/**
-	 * @return the old password from the profile form
-	 */
-	public String getOldPassword() {
-		return oldPassword;
-	}
-
-	/**
-	 * Sets the old password of the profile form to the given value
-	 * @param oldPassword
-	 */
-	public void setOldPassword(String oldPassword) {
-		this.oldPassword = oldPassword;
 	}
 }
