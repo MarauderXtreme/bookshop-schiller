@@ -99,22 +99,40 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		testdate.getMonth();
 		testdate.getYear();
 		testdate.getHours();
-		testdate.getMinutes();
-		
+		testdate.getMinutes();	
 		
 		CalendarManagement.getInstance().addEvent("Praesentation", new Date("26112014","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
 		CalendarManagement.getInstance().addEvent("FSR-Filmabend", new Date("27112014","1915"), RoomManagement.getInstance().getRoom("Ratssaal"));
-		CalendarManagement.getInstance().addEvent("Tutorenbesprechung", new Date("03122014","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
+		CalendarManagement.getInstance().addEvent("Tutorenbesprechung", new Date("03122011","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
 		CalendarManagement.getInstance().addEvent("Tutorenbesprechung", new Date("10122014","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
 		CalendarManagement.getInstance().addEvent("Gluehweinverkoestigung", new Date("18122014","0905"), RoomManagement.getInstance().getRoom("ASCII"));
 		CalendarManagement.getInstance().addEvent("Weihnachtsfeier", new Date("22122014","1800"), RoomManagement.getInstance().getRoom("Ratssaal"));
 		CalendarManagement.getInstance().addEvent("Weihnachtsfeier", new Date("22122014","1830"), RoomManagement.getInstance().getRoom("ASCII"));
-		CalendarManagement.getInstance().addEvent("Praesentation", new Date("19012015","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
+		CalendarManagement.getInstance().addEvent("Praesentation", new Date("19011824","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
 		CalendarManagement.getInstance().addEvent("Lernen", new Date("23012015","1640"), RoomManagement.getInstance().getRoom("Computerraum"));
 		CalendarManagement.getInstance().addEvent("Fasching", new Date("10102015","0920"), RoomManagement.getInstance().getRoom("Computerraum"));
-		CalendarManagement.getInstance().addEvent("1. April", new Date("01042015","1111"), RoomManagement.getInstance().getRoom("FSR-Büro"));
-	
-		articleCatalog.save(new Article("Bastard Operator from Hell", Money.of(EUR, 19.99), "Ultimativer Leitfaden für den Job an einem Helpdesk", "Simon Travaglia", "6666666666666", ArticleId.BOOK, "Fiction", "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99)));
+		CalendarManagement.getInstance().addEvent("1. April", new Date("01042015","1111"), RoomManagement.getInstance().getRoom("FSR-Buero"));
+		CalendarManagement.getInstance().addEvent("TestVorAllenBitches", new Date("01042011","1111"), RoomManagement.getInstance().getRoom("FSR-Buero"));
+		
+		System.out.println("\n\n");
+
+		CalendarManagement.getInstance().getCalendar().sortEvents();
+		System.out.println("\n\n");
+		CalendarManagement.getInstance().getCalendar().showList();
+		System.out.println("\n\n");
+		
+		System.out.println(CalendarManagement.getInstance().getCalendar().getEventsByMonth(CalendarManagement.getInstance().getCalendar().getEventsByYear(2014),12).get(2).getName());
+		
+		CategoryManagement.getInstance().addCategory(ArticleId.BOOK, "Ratgeber");
+		CategoryManagement.getInstance().addCategory(ArticleId.BOOK, "Komödie");
+		CategoryManagement.getInstance().addCategory(ArticleId.DVD, "Action");
+		CategoryManagement.getInstance().addCategory(ArticleId.CD, "Ballade");
+		
+
+		categories = new ArrayList<Category>();
+		categories.add(new Category("Ratgeber", ArticleId.BOOK));
+		
+		
 		articleCatalog.save(new Article("Trost und Rat", Money.of(EUR, 9.99), "Ein Ratgeber der besonderen Art", "Flann O'Brien", "1234567890421", ArticleId.BOOK, "Ratgeber", "Flann O'Brien", "trostundrat.jpg"));
 		articleCatalog.save(new Article("50 Schatten des Grauens", Money.of(EUR, 7.98), "Horrorpersiflage des Bestsellers", "Chris Ragman", "0000000000001", ArticleId.BOOK, "Fiktion", "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99)));
 		articleCatalog.save(new Article("Der Doktor und seine Gefährten", Money.of(EUR, 14.99), "Das Begleitbuch zur Serie", "Sir Doctor from Tardis", "0000000000002", ArticleId.BOOK, "Fiktion", "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99)));
