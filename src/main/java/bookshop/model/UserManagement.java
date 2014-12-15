@@ -68,7 +68,7 @@ public class UserManagement {
 	public void disable(UserAccount userAccount) {
 		if (userAccount.isEnabled()) {
 			User user = userRepository.findByUserAccount(userAccount);
-			userAccountManager.disable(new UserAccountIdentifier(String.valueOf(user.getId())));
+			userAccountManager.disable(user.getUserAccount().getIdentifier());
 		}
 	}
 	
@@ -79,7 +79,7 @@ public class UserManagement {
 	public void enable(UserAccount userAccount) {
 		if (!userAccount.isEnabled()) {
 			User user = userRepository.findByUserAccount(userAccount);
-			userAccountManager.enable(new UserAccountIdentifier(String.valueOf(user.getId())));
+			userAccountManager.enable(user.getUserAccount().getIdentifier());
 		}
 	}
 	
@@ -89,7 +89,9 @@ public class UserManagement {
 	 * @param role
 	 */
 	public void addRole(UserAccount userAccount, Role role) {
-		userAccount.add(role);
+		if (!userAccount.hasRole(role)) {
+			userAccount.add(role);
+		}
 	}
 	
 	/**

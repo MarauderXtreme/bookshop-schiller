@@ -18,6 +18,7 @@ import org.salespointframework.quantity.Units;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
@@ -54,6 +55,7 @@ public class CartController {
 		return "cart";
 	}
 	
+	@PreAuthorize("hasRole('ROLE_CUSTOMER')")
 	@RequestMapping(value="/cart/checkout", method = RequestMethod.POST)
 	public String buy(HttpSession session, @LoggedIn Optional<UserAccount> userAccount){
 		/*

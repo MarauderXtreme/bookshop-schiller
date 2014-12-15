@@ -102,7 +102,7 @@ public class UserController {
 		}
 		
 		if (result.hasErrors()) {
-			return "registerUser";
+			return "registeruser";
 		}
 		
 		UserAccount userAccount = userAccountManager.create(registrationForm.getUsername(), registrationForm.getPassword(),
@@ -127,7 +127,7 @@ public class UserController {
 	public String registerUser(ModelMap modelMap) {
 		
 		modelMap.addAttribute("registrationForm", new RegistrationForm());
-		return "registerUser";
+		return "registeruser";
 	}
 	
 	/**
@@ -195,6 +195,50 @@ public class UserController {
 	@RequestMapping("/user/profile/{pid}")
 	public String profile(@PathVariable("pid") UserAccount userAccount, Model modelMap) {
 		
+		User user = userRepository.findByUserAccount(userAccount);
+		modelMap.addAttribute("user", user);
+		return "profile";
+	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
+	@RequestMapping("/user/profile/{pid}/disable")
+	public String disable(@PathVariable("pid") UserAccount userAccount, Model modelMap) {
+		
+		userManagement.disable(userAccount);
+		userAccountManager.save(userAccount);
+		User user = userRepository.findByUserAccount(userAccount);
+		modelMap.addAttribute("user", user);
+		return "profile";
+	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
+	@RequestMapping("/user/profile/{pid}/enable")
+	public String enable(@PathVariable("pid") UserAccount userAccount, Model modelMap) {
+		
+		userManagement.enable(userAccount);
+		userAccountManager.save(userAccount);
+		User user = userRepository.findByUserAccount(userAccount);
+		modelMap.addAttribute("user", user);
+		return "profile";
+	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
+	@RequestMapping("/user/profile/{pid}/roles/add")
+	public String addRole(@PathVariable("pid") UserAccount userAccount, Model modelMap, @RequestParam("roleInput") String roleInput) {
+		
+		userManagement.addRole(userAccount, new Role(roleInput));
+		userAccountManager.save(userAccount);
+		User user = userRepository.findByUserAccount(userAccount);
+		modelMap.addAttribute("user", user);
+		return "profile";
+	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
+	@RequestMapping("/user/profile/{pid}/roles/remove")
+	public String removeRole(@PathVariable("pid") UserAccount userAccount, Model modelMap, @RequestParam("roleInput") String roleInput) {
+		
+		userManagement.removeRole(userAccount, new Role(roleInput));
+		userAccountManager.save(userAccount);
 		User user = userRepository.findByUserAccount(userAccount);
 		modelMap.addAttribute("user", user);
 		return "profile";

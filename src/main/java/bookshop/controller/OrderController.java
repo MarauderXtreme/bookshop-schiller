@@ -50,12 +50,14 @@ public class OrderController {
 		return "redirect:/orders";
 	}*/
 	
+	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/stock")
 	public String stock(HttpSession session, ModelMap modelMap){
+
 		modelMap.addAttribute("stock", inventory.findAll());
 		return "/stock";
 	}
-	
+	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/statictics")
 	public String statistic(HttpSession session, ModelMap modelMap, @LoggedIn UserAccount userAccount){
 		//LocalDateTime date;

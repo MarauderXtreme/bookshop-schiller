@@ -18,9 +18,6 @@
 		      </header>
 	        <div class="large-12">&nbsp;</div>
 	        <div class="large-12 medium-12 small-12 columns">
-	          <div class="large-3 columns">
-  						<img alt="cover" class="cover" /><!-- src="../resources/img/cover/lac.jpg" th:src="@{'/resources/img/cover/' + ${book.image} + '.jpg'}" -->
-						</div>
 						<div class="large-9 medium-9 small-9 columns">
 							<ul class="pricing-table">
 					      <li class="title">
@@ -41,31 +38,32 @@
 					      <div class="salespoint" sec:authorize="hasRole('ROLE_ADMIN') || hasRole('ROLE_BOSS') || hasRole('ROLE_USERMANAGER')">
 					      	<li class="bullet-item">
 					      		<label>Rollen:</label><span th:text="${user.roles}">Musterrolle</span>
-					      		<form action="/user/profile/roles/add" method="POST">
+					      		<form action="'/user/profile/' + ${user.userAccount.identifier} + '/roles/add'" method="POST">
 											<input class="button round" type="submit" value="Rolle hinzufügen" />
 										</form>
-										<form action="/user/profile/roles/remove" method="POST">
+										<form action="'/user/profile/' + ${user.userAccount.identifier} + '/roles/remove'" method="POST">
 											<input class="button round" type="submit" value="Rolle entfernen" />
 										</form>
 					      	</li>
 					      	<li class="bullet-item">
 					      		<label>Status:</label><span th:text="${user.state}">Musterstatus</span>
-					      		<form action="/user/profile/state/disable" method="POST">
+					      		<form th:action="@{${user.userAccount.identifier} + '/disable'}" method="POST">
+					      			<input type="hidden" name="article" th:value="${user.getId()}" />
 											<input class="button round" type="submit" value="Profil deaktivieren" />
 										</form>
-										<form action="/user/profile/state/enable" method="POST">
+										<form th:action="@{${user.userAccount.identifier} + '/enable'}" method="POST">
 											<input class="button round" type="submit" value="Profil aktivieren" />
 										</form>
 					      	</li>
 					      </div>
 					    </ul>
 					    <div class="salespoint" sec:authorize="hasRole('ROLE_ADMIN')">
-								<form action="/user/profile/change" method="POST">
+								<form action="'/user/profile/' + ${user.userAccount.identifier} + '/change'" method="POST">
 									<input class="button round" type="submit" value="Änderung persönlicher Daten" />
 								</form>
 							</div>
 							<div class="salespoint" sec:authorize="hasRole('ROLE_ADMIN')">
-								<form action="/user/password/change" method="POST">
+								<form action="'/user/profile/' + ${user.userAccount.identifier} + '/password/change'" method="POST">
 									<input class="button round" type="submit" value="Änderung des Passwortes" />
 								</form>
 							</div>

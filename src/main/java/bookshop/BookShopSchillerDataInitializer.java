@@ -114,36 +114,17 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		CategoryManagement.getInstance().addCategory(ArticleId.DVD, "Action");
 		CategoryManagement.getInstance().addCategory(ArticleId.CD, "Ballade");
 		
-
-		/*
-		articleCatalog.save(new Article("Bastard Operator from Hell", Money.of(EUR, 19.99), "Ultimativer Leitfaden für den Job an einem Helpdesk", "Simon Travaglia", "42", ArticleId.BOOK, CategoryManagement.getInstance().getCategory(ArticleId.BOOK, "Komödie"), "Flann O'Brien"));
-		articleCatalog.save(new Article("Trost und Rat", Money.of(EUR, 9.99), "Ein Ratgeber der besonderen Art", "Flann O'Brien", "123", ArticleId.BOOK, CategoryManagement.getInstance().getCategory(ArticleId.BOOK, "Ratgeber"), "Flann O'Brien", "trostundrat.jpg"));
-		articleCatalog.save(new Article("50 Schatten des Grauens", Money.of(EUR, 7.98), "Horrorpersiflage des BEstsellers", "Chris Ragman", "124", ArticleId.BOOK, CategoryManagement.getInstance().getCategory(ArticleId.BOOK, "Komödie"), "Flann O'Brien"));
-		articleCatalog.save(new Article("Der Doktor und seine Gefährten", Money.of(EUR, 14.99), "Das Begleitbuch zur Serie", "Sir Doctor from Tardis", "125", ArticleId.BOOK, CategoryManagement.getInstance().getCategory(ArticleId.BOOK, "Ratgeber"), "Flann O'Brien"));
-		articleCatalog.save(new Article("Stargate - Kommando SG-1", Money.of(EUR, 17.95), "Kurzbeschreibungen der Episoden der ersten Staffel", "Wolfgang Hohlbein", "126", ArticleId.BOOK, CategoryManagement.getInstance().getCategory(ArticleId.BOOK, "Ratgeber"), "Flann O'Brien"));
-		articleCatalog.save(new Article("Depedro", Money.of(EUR, 17.95), "Spanische Musik", "Spanish Records", "1263453rr", ArticleId.CD, CategoryManagement.getInstance().getCategory(ArticleId.CD, "Ballade"), "Flann O'Brien"));
-		articleCatalog.save(new Article("Begotten", Money.of(EUR, 17.95), "Strange...", "Indie Records", "1263453rr", ArticleId.DVD, CategoryManagement.getInstance().getCategory(ArticleId.BOOK, "Action"), "Flann O'Brien"));
-		*/
-		
-		
-		
-		articleCatalog.save(new Article("Bastard Operator from Hell", Money.of(EUR, 19.99), "Ultimativer Leitfaden für den Job an einem Helpdesk", "Simon Travaglia", "42", ArticleId.BOOK, "Fiktion", "Flann O'Brien"));
-		articleCatalog.save(new Article("Trost und Rat", Money.of(EUR, 9.99), "Ein Ratgeber der besonderen Art", "Flann O'Brien", "123", ArticleId.BOOK, "Ratgeber", "Flann O'Brien", "trostundrat.jpg"));
-		articleCatalog.save(new Article("50 Schatten des Grauens", Money.of(EUR, 7.98), "Horrorpersiflage des BEstsellers", "Chris Ragman", "124", ArticleId.BOOK, "Fiktion", "Flann O'Brien"));
-		articleCatalog.save(new Article("Der Doktor und seine Gefährten", Money.of(EUR, 14.99), "Das Begleitbuch zur Serie", "Sir Doctor from Tardis", "125", ArticleId.BOOK, "Fiktion", "Flann O'Brien"));
-		articleCatalog.save(new Article("Stargate - Kommando SG-1", Money.of(EUR, 17.95), "Kurzbeschreibungen der Episoden der ersten Staffel", "Wolfgang Hohlbein", "126", ArticleId.BOOK, "Unterhaltung", "Flann O'Brien"));
+		articleCatalog.save(new Article("Bastard Operator from Hell", Money.of(EUR, 19.99), "Ultimativer Leitfaden für den Job an einem Helpdesk", "Simon Travaglia", "6666666666666", ArticleId.BOOK, "Fiktion", "Flann O'Brien"));
+		articleCatalog.save(new Article("Trost und Rat", Money.of(EUR, 9.99), "Ein Ratgeber der besonderen Art", "Flann O'Brien", "1234567890421", ArticleId.BOOK, "Ratgeber", "Flann O'Brien", "trostundrat.jpg"));
+		articleCatalog.save(new Article("50 Schatten des Grauens", Money.of(EUR, 7.98), "Horrorpersiflage des Bestsellers", "Chris Ragman", "0000000000001", ArticleId.BOOK, "Fiktion", "Flann O'Brien"));
+		articleCatalog.save(new Article("Der Doktor und seine Gefährten", Money.of(EUR, 14.99), "Das Begleitbuch zur Serie", "Sir Doctor from Tardis", "0000000000002", ArticleId.BOOK, "Fiktion", "Flann O'Brien"));
+		articleCatalog.save(new Article("Stargate - Kommando SG-1", Money.of(EUR, 17.95), "Kurzbeschreibungen der Episoden der ersten Staffel", "Wolfgang Hohlbein", "0000000000003", ArticleId.BOOK, "Unterhaltung", "Flann O'Brien"));
+		articleCatalog.save(new Article("Stargate - Kommando SG-1", Money.of(EUR, 17.95), "Kurzbeschreibungen der Episoden der ersten Staffel", "Wolfgang Hohlbein", "0000000000004", ArticleId.BOOK, "Unterhaltung", "Flann O'Brien"));
+		articleCatalog.save(new Article("Stargate - Kommando SG-1", Money.of(EUR, 17.95), "Kurzbeschreibungen der Episoden der ersten Staffel", "Wolfgang Hohlbein", "0000000000005", ArticleId.BOOK, "Unterhaltung", "Flann O'Brien"));
+		articleCatalog.save(new Article("Stargate - Kommando SG-1", Money.of(EUR, 17.95), "Kurzbeschreibungen der Episoden der ersten Staffel", "Wolfgang Hohlbein", "0000000000006", ArticleId.BOOK, "Unterhaltung", "Flann O'Brien"));
 		articleCatalog.save(new Article("Depedro", Money.of(EUR, 17.95), "Spanische Musik", "Spanish Records", "1263453rr", ArticleId.CD, "Pop", "Pedro"));
 		articleCatalog.save(new Article("Begotten", Money.of(EUR, 17.95), "Strange...", "Indie Records", "1263453rr", ArticleId.DVD, "Horror", "God"));
 		 
-		
-		
-
-
-		/*for (Article article : articleCatalog.getArticleList()) {
-			InventoryItem inventoryItem = new InventoryItem(article, Units.TEN);
-			inventory.save(inventoryItem);
-		}*/
-		
 		for (Article article : articleCatalog.findAll()) {
 			InventoryItem inventoryItem = new InventoryItem(article, Units.TEN);
 			inventory.save(inventoryItem);
@@ -167,6 +148,9 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		final Role bossRole = new Role("ROLE_BOSS");
 		final Role employeeRole = new Role("ROLE_EMPLOYEE");
 		final Role userManagerRole = new Role("ROLE_USERMANAGER");
+		final Role articleManagerRole = new Role("ROLE_ARTICLEMANAGER");
+		final Role eventManagerRole = new Role("ROLE_EVENTMANAGER");
+		final Role salesManagerRole = new Role("ROLE_SALESMANAGER");
 		final Role customerRole = new Role("ROLE_CUSTOMER");
 		
 		UserAccount adminAccount = userAccountManager.create("admin", "123", employeeRole);

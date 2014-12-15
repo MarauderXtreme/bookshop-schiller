@@ -17,122 +17,22 @@
 		      </header>
 	        <div class="large-12">&nbsp;</div>
 	        <div class="large-12 medium-12 small-12 columns">
-	          <div class="large-3 columns">
-  						<img alt="cover" class="cover" th:src="@{'/resources/img/' + ${book.image}}" />
-						</div>
-						<div class="large-9 medium-9 small-9 columns">
-							<ul class="pricing-table">
-					      <li class="title">
-					      <span th:text="${book.name}">Last Action Hero</span>
-									<form method="post" action="/setNewTitle">
-										<fieldset>
-											<input type="text" name="newname" />
-											<input type="hidden" name="article" th:value="${book.identifier}" />
-											<input type="submit" value="Change Title" />
-										</fieldset>
-									</form>
-					      </li>
-					      <li class="description">
-					      <label>Autor</label><span th:text="${book.author}">Simon Travaglia</span>
-									<form method="post" action="/setNewAuthor">
-										<fieldset>
-											<input type="text" name="newauthor" />
-											<input type="hidden" name="article" th:value="${book.identifier}" />
-											<input type="submit" value="Change Author" />
-										</fieldset>
-									</form>
-					      </li>
-					      <li class="bullet-item">
-					      <label>Publisher:</label><span th:text="${book.publisher}">Verlag</span>
-									<form method="post" action="/setNewPublisher">
-										<fieldset>
-											<input type="text" name="newpublisher" />
-											<input type="hidden" name="article" th:value="${book.identifier}" />
-											<input type="submit" value="Change Publisher" />
-										</fieldset>
-									</form>
-					      </li>
-					      <li class="description">
-					      <label>Beschreibung:</label><span th:text="${book.beschreibung}">Simon Travaglia</span>
-									<form method="post" action="/setNewDescription">
-										<fieldset>
-											<textarea name="descriptiontext" cols="40" rows="5"></textarea>
-											<input type="hidden" name="article" th:value="${book.identifier}" />
-											<input type="submit" value="Change Description" />
-										</fieldset>
-									</form>
-					      </li>
-					      <li class="bullet-item">
-					      <label>ISBN-Nr.:</label><span th:text="${book.id}">ISBN</span>
-									<form method="post" action="/setNewIsbn">
-										<fieldset>
-											<input type="text" name="newisbn" />
-											<input type="hidden" name="article" th:value="${book.identifier}" />
-											<input type="submit" value="Change ISBN" />
-										</fieldset>
-									</form>
-					      </li>
-					      <li class="bullet-item">
-					      <label>Kategorie:</label><span th:text="${book.getCategoryList()}">Kategorie</span>
-									<form method="post" action="/setNewCategory">
-										<fieldset>
-											<input type="text" name="newcategory" />
-											<input type="hidden" name="article" th:value="${book.identifier}" />
-											<input type="submit" value="Change Category" />
-										</fieldset>
-									</form>
-									<form method="post" action="/deletecategory">
-										<fieldset>
-											<input type="text" name="categorytodelete" />
-											<input type="hidden" name="article" th:value="${book.identifier}" />
-											<input type="submit" value="Delete Category" />
-										</fieldset>
-									</form>
-					      </li>
-					      <li class="bullet-item">
-					      <label>Bild:</label><span th:text="${book.image}">Bild-Pfad</span>
-									<form method="post" action="/setNewImage">
-										<fieldset>
-											<input type="text" name="newimage" />
-											<input type="hidden" name="article" th:value="${book.identifier}" />
-											<input type="submit" value="Change Image" />
-										</fieldset>
-									</form>
-					      </li>
-					      <li class="bullet-item">
-					      <label>Anzahl:</label><span th:text="${quantity.amount}">Units</span>
-									<form method="post" action="/increase">
-										<fieldset>
-											<input type="text" name="addquan" />
-											<input type="hidden" name="article" value="0"  th:value="${book.identifier}" />
-											<input type="submit" value="Increase Article" />
-										</fieldset>
-									</form>
-									<form method="post" action="/decrease">
-										<fieldset>
-											<input type="text" name="removequan" />
-											<input type="hidden" name="article" value="0" th:value="${book.identifier}" />
-											<input type="submit" value="Decrease Article" />
-										</fieldset>
-									</form>
-					      </li>
-					      <li class="price">
-					      <label>Preis:</label><span th:text="${book.price}">9.99€</span>
-									<form method="post" action="/setNewPrice">
-										<fieldset>
-											<input type="text" name="newprice" />
-											<input type="hidden" name="article" th:value="${book.identifier}" />
-											<input type="submit" value="Change Price" />
-										</fieldset>
-									</form>
-					      </li>
-					    </ul>
-					  </div>
-						<div class="large-12">
-							<p>
-					      <label>Beschreibung:</label><span th:text="${book.beschreibung}">Simon Travaglia</span>
-							</p>
-						</div>
+	        	<form method="POST" action="/article/editinformation" data-abide="">
+							<input type="hidden" name="article" th:value="${book.identifier}" />
+							
+							<input type="text" name="newname" th:value="${book.name}" required="" />
+							<input type="text" name="newauthor" th:value="${book.author}" required="" />
+							<input type="text" name="newpublisher" th:value="${book.publisher}" required="" />
+							<textarea name="descriptiontext" cols="40" rows="5" th:text="${book.beschreibung}" required=""></textarea>
+							<input type="text" name="newisbn" th:value="${book.id}" required="" />
+							<input type="text" name="newcategory" placeholder="Category to add" required="" />
+							<input type="text" name="categorytodelete" placeholder="Category to add" required="" />
+							<input type="text" name="newimage" th:value="${book.image}" required="" />
+							<input type="text" name="addquan" placeholder="Quantity to add" required="" />
+							<input type="text" name="removequan" placeholder="Quantity to remove" required="" />
+							<input type="text" name="newprice" th:value="${book.price}" required="" pattern="custom_price" />
+	        		<input type="submit" value="Speichern" />
+	        	</form>
 	        </div>
 	    	</div>
 	    </div>

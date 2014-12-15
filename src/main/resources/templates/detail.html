@@ -28,7 +28,7 @@
 					      <span th:text="${book.name}">Last Action Hero</span>
 					      </li>
 					      <li class="description">
-					      <label>Autor</label><span th:text="${book.author}">Simon Travaglia</span>
+					      <label>Artist:</label><span th:text="${book.author}">Simon Travaglia</span>
 
 					      </li>
 					      <li class="bullet-item">
@@ -55,10 +55,10 @@
 					      </li>
 					      <div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')">
 					      <li>
-								<a th:href="@{'/editarticle/' + ${book.identifier}}" href="editarticle.html"><input class="button postfix" type="button" value="Edit Article" /></a>
+								<a th:href="@{'/article/' + ${book.identifier} + '/edit'}" href="editarticle.html"><input class="button postfix" type="button" value="Edit Article" /></a>
 					      </li>
 					      <li>
-					      	<form method="post" action="/deleteArticle">
+					      	<form method="post" action="/article/delete">
 									<input type="hidden" name="article" value="0" th:value="${book.identifier}" />
 									<input class="button postfix" type="submit" value="Delete Article"/>
 							</form>
