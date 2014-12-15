@@ -123,14 +123,14 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		
 		System.out.println(CalendarManagement.getInstance().getCalendar().getEventsByMonth(CalendarManagement.getInstance().getCalendar().getEventsByYear(2014),12).get(2).getName());
 		
-		CategoryManagement.getInstance().addCategory(ArticleId.BOOK, "Ratgeber");
-		CategoryManagement.getInstance().addCategory(ArticleId.BOOK, "Komödie");
-		CategoryManagement.getInstance().addCategory(ArticleId.DVD, "Action");
-		CategoryManagement.getInstance().addCategory(ArticleId.CD, "Ballade");
-		
-
-		categories = new ArrayList<Category>();
-		categories.add(new Category("Ratgeber", ArticleId.BOOK));
+//		CategoryManagement.getInstance().addCategory(ArticleId.BOOK, "Ratgeber");
+//		CategoryManagement.getInstance().addCategory(ArticleId.BOOK, "Komödie");
+//		CategoryManagement.getInstance().addCategory(ArticleId.DVD, "Action");
+//		CategoryManagement.getInstance().addCategory(ArticleId.CD, "Ballade");
+//		
+//
+//		categories = new ArrayList<Category>();
+//		categories.add(new Category("Ratgeber", ArticleId.BOOK));
 		
 		
 		articleCatalog.save(new Article("Trost und Rat", Money.of(EUR, 9.99), "Ein Ratgeber der besonderen Art", "Flann O'Brien", "1234567890421", ArticleId.BOOK, "Ratgeber", "Flann O'Brien", "trostundrat.jpg"));
