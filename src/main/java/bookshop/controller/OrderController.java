@@ -1,11 +1,14 @@
 package bookshop.controller;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.joda.money.Money;
 import org.salespointframework.catalog.Product;
+import org.salespointframework.catalog.ProductIdentifier;
 import org.salespointframework.inventory.Inventory;
 import org.salespointframework.inventory.InventoryItem;
 import org.salespointframework.order.Order;
@@ -19,8 +22,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import bookshop.model.Statistic;
 
 
 @Controller
@@ -43,50 +49,25 @@ public class OrderController {
 		
 		return "/orders";
 	}
-	/*
-	@RequestMapping(value="/admin/orders", method = RequestMethod.GET)
-	public String getOrders(ModelMap modelMap){
-		
-		return "redirect:/orders";
-	}*/
+	
+	@RequestMapping(value="/user/orders", method = RequestMethod.GET)
+	public String getOrders(ModelMap modelMap,@PathVariable("pid") UserAccount userAccount){
+			
+		modelMap.addAttribute("myOrders", orderManager.find(userAccount));
+		return "/myorders";
+	}
 	
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/stock")
 	public String stock(HttpSession session, ModelMap modelMap){
 
+		for(InventoryItem item : inventory.findAll()){
+			
+		}
+		
 		modelMap.addAttribute("stock", inventory.findAll());
 		return "/stock";
 	}
-	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
-	@RequestMapping("/admin/statictics")
-	public String statistic(HttpSession session, ModelMap modelMap, @LoggedIn UserAccount userAccount){
-		//LocalDateTime date;
-		//date.getTime();
-		LocalDateTime time = date.getTime();
-		time.minusDays(7);		
-		//modelMap.addAttribute("ordersLastWeek", orderManager.find(date.getTime(), time));
-		Order ordersLastWeek = new Order(userAccount);
-		
-		/*
-		for(Order order : orderManager.find(date.getTime(), time)){	
-			for(OrderLine orderLine : order.getOrderLines()){
-				ordersLastWeek.add(orderLine);
-			}
-		}	
-		
-		modelMap.addAttribute("ordersLastWeek", ordersLastWeek.getOrderLines());
-		*/
-		for(Order order : orderManager.find(OrderStatus.COMPLETED)){	
-			for(OrderLine orderLine : order.getOrderLines()){
-				ordersLastWeek.add(orderLine);
-			}
-		}	
-		
-		modelMap.addAttribute("ordersLastWeek", ordersLastWeek.getOrderLines());
-		
-		return "/statistics";
-	}
-	
 	
 	public String getMyOrders(){
 		
