@@ -30,6 +30,7 @@ public class RegistrationForm {
 	private String email;
 	
 	@Length(min = 8, max = 32, message = "{RegistrationForm.password.Length}")
+	@Pattern(regexp="((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[_\\W]).{8,32})", message = "{RegistrationForm.password.Format}")
 	private String password;
 	
 	@NotEmpty(message = "{RegistrationForm.passwordRepeat.NotEmpty}")
