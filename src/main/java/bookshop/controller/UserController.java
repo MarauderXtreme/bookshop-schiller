@@ -251,21 +251,18 @@ public class UserController {
 	 * @param result
 	 * @return
 	 */
-	@RequestMapping("/test")
-	public String changeProfile(@ModelAttribute("profileForm") @Valid ProfileForm profileForm,
-			BindingResult result) {
+	@RequestMapping("/user/profile/{pid}/change/edit")
+	public String changeProfileEdit(@PathVariable("pid") UserAccount userAccount, @ModelAttribute("profileForm") @Valid ProfileForm profileForm,
+			BindingResult result, ModelMap modelMap) {
 
+		modelMap.addAttribute(userAccount);
+		
 		if (!profileForm.getPasswordRepeat().equals(profileForm.getPassword())) {
-			result.addError(new ObjectError("password.noMatch", "Ihre eingegebenen Passwörter stimmen nicht überein!"));
+			result.addError(new ObjectError("password.noMatch", "Ihre eingegebenen neuen Passwörter stimmen nicht überein!"));
 		}
 		
 		Iterable<User> users = userRepository.findAll();
 		
-		for (User u : users) {
-			if (u.getUserAccount().getIdentifier().getIdentifier().equals(profileForm.getUsername())) {
-				result.addError(new ObjectError("username.isUsed", "Ihre eingegebener Nutzername ist bereits vergeben!"));
-			}
-		}
 		for (User u : users) {
 			if (u.getUserAccount().getEmail().equals(profileForm.getEmail())) {
 				result.addError(new ObjectError("email.isUsed", "Ihre eingegebene E-Mail-Adresse ist bereits vergeben!"));
@@ -273,17 +270,17 @@ public class UserController {
 		}
 		
 		if (result.hasErrors()) {
-			return "register";
+			return "editprofile";
 		}
 
-		UserAccount userAccount = userAccountManager.create(profileForm.getUsername(), profileForm.getPassword(),
-				new Role("ROLE_CUSTOMER"));
+		User user = userRepository.findByUserAccount(userAccount);
+		
 		userAccount.setFirstname(profileForm.getFirstname());
 		userAccount.setLastname(profileForm.getLastname());
 		userAccount.setEmail(profileForm.getEmail());
 		userAccountManager.save(userAccount);
 
-		User user = new User(userAccount, profileForm.getAddress());
+		user.setAddress(profileForm.getAddress());
 		userRepository.save(user);
 
 		return "redirect:/";
@@ -293,11 +290,12 @@ public class UserController {
 	 * Maps the registration form for an unregistered to modelMap.
 	 * @param modelMap
 	 */
-	@RequestMapping("/test2")
-	public String changeProfile(ModelMap modelMap) {
+	@RequestMapping("/user/profile/{pid}/change")
+	public String changeProfile(@PathVariable("pid") UserAccount userAccount, ModelMap modelMap) {
 		
-		modelMap.addAttribute("registrationForm", new RegistrationForm());
-		return "register";
+		modelMap.addAttribute(userAccount);
+		modelMap.addAttribute("profileForm", new ProfileForm());
+		return "editprofile";
 	}
 	
 	/**
