@@ -40,7 +40,7 @@
 								</form>
 							</div>
           	</div>
-          	<div th:each="cd : ${catalog}" class="large-2 medium-4 small-12 columns article-box">
+          	<!-- <div th:each="cd : ${catalog}" class="large-2 medium-4 small-12 columns article-box">
 	          	<div class="large-centered">
 	          		<h6 class="article-head">
 	          			<a th:text="${cd.name}" th:href="@{'/detail/' + ${cd.identifier}}" href="detail.html">Bastard Operator from Hell</a>
@@ -62,30 +62,30 @@
 									</div>
 								</form>
 							</div>
-							<div th:each="dvd : ${catalog}" class="large-2 medium-4 small-12 columns article-box">
-		          	<div class="large-centered">
-		          		<h6 class="article-head">
-		          			<a th:text="${dvd.name}" th:href="@{'/detail/' + ${dvd.identifier}}" href="detail.html">Bastard Operator from Hell</a>
-		          			<br />
-		          			<small th:text="${dvd.author}">Simon Travaglia</small>
-		          		</h6>
-		          		<img alt="cover" class="cover" src="/resources/img/notAvaliableBook.jpg" />
-			          	<form action="/cart" method="POST">
-										<input type="hidden" name="article" value="0" th:value="${dvd.identifier}" />
-										<label class="right" th:text="${dvd.price}">0,99€</label>
-										<br />
-										<div class="row collapse postfix-round">
-											<div class="large-4 medium-4 small-4 columns">
-												<input id="number" type="number" name="number" step="1" value="1"/>										
-											</div>
-											<div class="large-8 medium-8 small-8 columns">
-												<input class="tiny round button postfix" type="submit" value="In den Warenkorb"/>
-											</div>
-										</div>
-									</form>
-								</div>
-							</div>
 						</div>
+						<div th:each="dvd : ${catalog}" class="large-2 medium-4 small-12 columns article-box">
+	          	<div class="large-centered">
+	          		<h6 class="article-head">
+	          			<a th:text="${dvd.name}" th:href="@{'/detail/' + ${dvd.identifier}}" href="detail.html">Bastard Operator from Hell</a>
+	          			<br />
+	          			<small th:text="${dvd.author}">Simon Travaglia</small>
+	          		</h6>
+	          		<img alt="cover" class="cover" src="/resources/img/notAvaliableBook.jpg" />
+		          	<form action="/cart" method="POST">
+									<input type="hidden" name="article" value="0" th:value="${dvd.identifier}" />
+									<label class="right" th:text="${dvd.price}">0,99€</label>
+									<br />
+									<div class="row collapse postfix-round">
+										<div class="large-4 medium-4 small-4 columns">
+											<input id="number" type="number" name="number" step="1" value="1"/>										
+										</div>
+										<div class="large-8 medium-8 small-8 columns">
+											<input class="tiny round button postfix" type="submit" value="In den Warenkorb"/>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div> -->
 					</div>
 		    </div>
 			</div>

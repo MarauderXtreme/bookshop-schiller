@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 	<head>
 	</head>
@@ -15,11 +14,11 @@
     		</li>
     		<li class="has-form">
 		      <h2 class="title">
-		        <a href="/" th:text="#{home.title}">Buchhandlung Schiller</a>
+		        <a href="/" >Schiller</a>
 		      </h2>
 	      </li>
     		<li class="has-form show-for-large-up">
-   				<form class="row collapse" method="post" action="/article/search">
+   				<form class="row collapse" method="get" action="/article/search">
    					<div class="large-3 medium-3 columns">
 							<select name="typeInput">
 								<option value="1">Titel</option>
