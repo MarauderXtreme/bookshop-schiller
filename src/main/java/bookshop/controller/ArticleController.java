@@ -133,7 +133,7 @@ public class ArticleController {
 	 * @param modelMap
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ARTICLE_USERMANAGER')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
 	@RequestMapping("/article/book/add")
 	public String addBook(ModelMap modelMap) {
 
@@ -148,7 +148,7 @@ public class ArticleController {
 	 * @param modelMap
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ARTICLE_USERMANAGER')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
 	@RequestMapping("/article/cd/add")
 	public String addCd(ModelMap modelMap) {
 
@@ -163,7 +163,7 @@ public class ArticleController {
 	 * @param modelMap
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ARTICLE_USERMANAGER')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
 	@RequestMapping("/article/dvd/add")
 	public String addDvd(ModelMap modelMap) {
 
@@ -183,7 +183,7 @@ public class ArticleController {
 	 * @param input
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ARTICLE_USERMANAGER')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
 	@RequestMapping(value="/article/search", method=RequestMethod.POST)
 	public String searchArticles(ModelMap modelMap, @RequestParam("typeInput") int typeInput, @RequestParam("input") String input){
 
@@ -262,7 +262,7 @@ public class ArticleController {
 	 * @param category
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ARTICLE_USERMANAGER')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
 	@RequestMapping(value="/article/book/new", method=RequestMethod.POST)
 	public String addBook(	@RequestParam("titleArticle") String title,
 							@RequestParam("beschreibungArticle") String beschreibung,
@@ -312,7 +312,7 @@ public class ArticleController {
 	 * @param category
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ARTICLE_USERMANAGER')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
 	@RequestMapping(value="/article/cd/new", method=RequestMethod.POST)
 	public String addCD(@RequestParam("titleArticle") String title,
 						@RequestParam("beschreibungArticle") String beschreibung,
@@ -350,7 +350,7 @@ public class ArticleController {
 	 * @param category
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ARTICLE_USERMANAGER')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
 	@RequestMapping(value="/article/dvd/new", method=RequestMethod.POST)
 	public String addDVD(	@RequestParam("titleArticle") String title,
 							@RequestParam("beschreibungArticle") String beschreibung,
@@ -391,7 +391,7 @@ public class ArticleController {
 	 * @param article
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ARTICLE_USERMANAGER')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
 	@RequestMapping(value="/article/delete", method=RequestMethod.POST)
 	public String deleteArticle(@RequestParam("article") Article article){
 
@@ -509,7 +509,7 @@ public class ArticleController {
 	 * @param model
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ARTICLE_USERMANAGER')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
 	@RequestMapping("/article/{pid}/edit")
 	public String editarticle(@PathVariable("pid") Article article, Model model) {
 		
@@ -544,7 +544,7 @@ public class ArticleController {
 	 * @param delcategory takes the category that sould be delted
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ARTICLE_USERMANAGER')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
 	@RequestMapping(value="/article/editinformation", method=RequestMethod.POST)
 	public String editArticle(	@RequestParam("article") Article article,
 			 					@RequestParam("newname") String name,
