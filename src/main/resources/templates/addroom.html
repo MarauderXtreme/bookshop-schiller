@@ -1,10 +1,41 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
 
-</body>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head th:include="head :: head"></head>
+	<body>
+		<div class="off-canvas-wrap" data-offcanvas="">
+			<div class="fixed" th:include="topbar :: topbar"></div>
+	    <div class="inner-wrap">
+	    	<aside class="left-off-canvas-menu" aria-hidden="true">
+	    		<nav th:include="navigation :: navigation"></nav>
+	    	</aside>
+	    	<div class="main-content">
+		    	<header class="large-12 medium-12 show-for-landscape show-for-medium-up">
+		        <div class="panel">
+		          <div class="header-slider row" th:include="slider :: slider"></div>
+		        </div>
+		      </header>
+	        <div class="large-12">&nbsp;</div>
+	        <div class="large-12 medium-12 small-12 columns">
+	          <h2>Seitenüberschrift</h2>
+	          <form action="/admin/room/add/new" data-abide="">
+	          	<div>
+	          		<label>Raum Nummer</label>
+	          		<input type="text" name="roomnumber" required="" />
+	          		<small>Bitte Raumnummer eingeben</small>
+	          	</div>
+	          	<div>
+	          		<label>Raum Name</label>
+	          		<input type="text" name="roomname" required="" pattern="caps_start" />
+	          		<small>Der Raumname muss mit einem Großbuchstaben beginnen</small>
+	          	</div>
+	          	<div>
+	          		<input class="tiny button" type="submit" value="Raum hinzufügen" />
+	          	</div>
+	          </form>
+	        </div>
+	    	</div>
+	    </div>
+		</div>
+	</body>
 </html>

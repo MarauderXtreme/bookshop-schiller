@@ -10,7 +10,7 @@ public class RoomForm {
 	private String roomNumber;
 	
 	@NotEmpty(message = "{RoomFrom.roomname.NotEmpty}")
-	@Pattern(regexp="([A-Z]{1}.)", message ="{RoomForm.roomName.capitalbeginning}")
+	@Pattern(regexp="(^[A-Z]{1}.)", message ="{RoomForm.roomName.capitalbeginning}")
 	private String roomName;
 	
 	public String getRoomNumber() {
