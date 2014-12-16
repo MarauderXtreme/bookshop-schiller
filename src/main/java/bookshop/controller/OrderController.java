@@ -57,27 +57,24 @@ public class OrderController {
 	//@PreAuthorize("hastRole('Role_customer')")
 	@RequestMapping(value="/user/order")
 	public String getOrders(ModelMap modelMap, @LoggedIn Optional<UserAccount> userAccount){
-		modelMap.addAttribute("myOrders", orderManager.find(userAccount.get()));
-		
+		modelMap.addAttribute("myOrders", orderManager.find(userAccount.get()));;
 		return "/myorders";
 	}
 	
 	@RequestMapping(value="/order/cancel")
-	public String cancelOrder(@RequestParam("oderDelete") Order order){
-		System.out.println(order);
-		order.isCanceled();
-		System.out.println(order.getOrderStatus());
+	public String cancelOrder(@RequestParam("orderDelete") Order order){
+		orderManager.cancelOrder(order);
 		return "redirect:/user/order";
+	}
+	
+	public String compledOrder(){
+		return "";
 	}
 	
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/stock")
 	public String stock(HttpSession session, ModelMap modelMap){
 
-		for(InventoryItem item : inventory.findAll()){
-			
-		}
-		
 		modelMap.addAttribute("stock", inventory.findAll());
 		return "/stock";
 	}

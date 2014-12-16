@@ -32,7 +32,7 @@
 										<td th:text="${order.totalPrice}"></td>
 										<td>
 											<form class="salespoint" method="POST" action="/order/cancel">
-											  <input type="hidden" name="oderDelete" value="0" th:value="${order.identifier}"/>
+											  <input type="hidden" name="orderDelete" value="0" th:value="${order.identifier}"/>
 												<input class="button" type="submit" value="Cancel"/> 
 											</form>
 										</td>
