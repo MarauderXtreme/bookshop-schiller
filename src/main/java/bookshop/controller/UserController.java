@@ -208,6 +208,7 @@ public class UserController {
 	 * @param modelMap
 	 * @return
 	 */
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
 	@RequestMapping("/user/profile/{pid}/accountsettings")
 	public String changeAccountsettings(@PathVariable("pid") UserAccount userAccount, ModelMap modelMap) {
 		
