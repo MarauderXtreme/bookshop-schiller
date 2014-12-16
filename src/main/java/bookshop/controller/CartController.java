@@ -58,24 +58,17 @@ public class CartController {
 	@PreAuthorize("hasRole('ROLE_CUSTOMER')")
 	@RequestMapping(value="/cart/checkout", method = RequestMethod.POST)
 	public String buy(HttpSession session, @LoggedIn Optional<UserAccount> userAccount){
-		/*
-		Cart cart = getCart(session);
-		Order order = new Order(userAccount);
-		cart.addItemsTo(order);
-		order.isOpen();
-		orderManager.add(order);
-		cart.clear();
-		
-		return "redirect:/";
-		*/
+
 		return userAccount.map(account -> {
 			
 				Order order = new Order(account, Cash.CASH);
 				Cart cart = getCart(session);
 				cart.addItemsTo(order);
-
+				
+				
 				orderManager.payOrder(order);
-				//order.isOpen();
+				order.isOpen();
+				
 				orderManager.completeOrder(order);
 				orderManager.add(order);
 				cart.clear();

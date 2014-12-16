@@ -25,7 +25,7 @@
 									<legend th:text="#{register.title2}">Persönliche Daten</legend>
 									
 									<div th:if="${#fields.hasErrors('*')}">
-										<p class="alert-box alert"><b>Einige Angaben sind nicht korrekt. Bitte versuchen Sie es erneut!</b></p>
+										<p class="alert-box warning"><b>Einige Angaben sind nicht korrekt. Bitte versuchen Sie es erneut!</b></p>
 									</div>
 									
 									<div>
@@ -106,7 +106,7 @@
 										<label th:text="#{register.passwordRepeat}" for="passwordRepeat">Passwort</label>
 										<input id="passwordRepeat" th:field="*{passwordRepeat}" th:errorclass="fieldError" type="password" name="passwordRepeat" required="" data-equalto="password" />
 										<small class="alert-box alert error">Passwörter nicht identisch.</small>
-										<small class="alert-box alert" th:if="${#fields.hasErrors('passwordRepeat')}" th:errors="*{passwordRepeat}">Passwörter nicht identlisch.</small>
+										<small class="alert-box alert" th:if="${#fields.hasErrors('passwordRepeat')}" th:errors="*{passwordRepeat}">Passwörter nicht identisch.</small>
 									</div>
 								
 								</fieldset>

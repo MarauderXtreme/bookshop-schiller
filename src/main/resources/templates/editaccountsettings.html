@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head th:include="head :: head"></head>
+	<body>
+		<div class="off-canvas-wrap" data-offcanvas="">
+			<div class="fixed" th:include="topbar :: topbar"></div>
+	    <div class="inner-wrap">
+	    	<aside class="left-off-canvas-menu" aria-hidden="true">
+	    		<nav th:include="navigation :: navigation"></nav>
+	    	</aside>
+	    	<div class="main-content">
+		    	<header class="large-12 medium-12 show-for-landscape show-for-medium-up">
+		        <div class="panel">
+		          <div class="header-slider row" th:include="slider :: slider"></div>
+		        </div>
+		      </header>
+		      <div class="large-12 medium-12 small-12 row">
+	        <div class="large-12">&nbsp;</div>
+	        	<div th:include="profiletabs :: profiletabs"></div>
+	        	<form th:action="@{'/user/profile/' + ${user.userAccount.identifier} + '/accountsettings/disable'}" method="POST">
+							<input class="button round" type="submit" value="Profil deaktivieren" />
+						</form>
+						<form th:action="@{'/user/profile/' + ${user.userAccount.identifier} + '/accountsettings/enable'}" method="POST">
+							<input class="button round" type="submit" value="Profil aktivieren" />
+						</form>
+						<form th:action="@{'/user/profile/' + ${user.userAccount.identifier} + '/accountsettings/roles/add'}" method="POST">
+							<div class="large-3 medium-3 columns">
+								<select name="roleInput">
+									<option value="1">ROLE_CUSTOMER</option>
+									<option value="2">ROLE_EMPLOYEE</option>
+									<option value="3">ROLE_ADMIN</option>
+									<option value="4">ROLE_BOSS</option>
+									<option value="5">ROLE_USERMANAGER</option>
+									<option value="6">ROLE_ARTICLEMANAGER</option>
+									<option value="7">ROLE_SALESMANAGER</option>
+									<option value="8">ROLE_EVENTMANAGER</option>
+								</select>
+							</div>
+							<input class="button round" type="submit" value="Rolle hinzufügen" />
+						</form>
+						<form th:action="@{'/user/profile/' + ${user.userAccount.identifier} + '/accountsettings/roles/remove'}" method="POST">
+							<div class="large-3 medium-3 columns">
+								<select name="roleInput">
+									<option value="1">ROLE_CUSTOMER</option>
+									<option value="2">ROLE_EMPLOYEE</option>
+									<option value="3">ROLE_ADMIN</option>
+									<option value="4">ROLE_BOSS</option>
+									<option value="5">ROLE_USERMANAGER</option>
+									<option value="6">ROLE_ARTICLEMANAGER</option>
+									<option value="7">ROLE_SALESMANAGER</option>
+									<option value="8">ROLE_EVENTMANAGER</option>
+								</select>
+							</div>
+							<input class="button round" type="submit" value="Rolle entfernen" />
+						</form>
+	        </div>
+	    	</div>
+	    </div>
+		</div>
+	</body>
+</html>

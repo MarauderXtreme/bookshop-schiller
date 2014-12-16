@@ -17,23 +17,31 @@
 		      </header>
 	        <div class="large-12">&nbsp;</div>
 	        <div class="large-12 medium-12 small-12 columns">
-	          <h3>Verkaufsbilanz</h3>
-						<table>
+	          <h3>Bestellübersicht</h3>
+	          <table>
+							<caption th:text="#{orders.completed}"></caption>
 							<thead>
 								<tr>
-									<th th:text="#{statistics.article}">Titel</th>
-									<th th:text="#{statistics.sell}">Verkauft</th>
-									<th th:text="#{statistics.income}"> Einnahmen</th>
-									<th th:text="#{statistics.buy}">Gekauft</th>
-									<th th:text="#{statistics.outcome}">Ausgaben</th>
+									<th th:text="#{orders.date}">Datum</th>
+									<th th:text="#{orders.payed}">Bezahlt</th>
 								</tr>
 							</thead>
-							<tbody th:remove="all-but-first">
-									<tr th:each=" orderline : ${statistic}">
+							<tbody>
+									<tr th:each="order : ${myOrders} ">
+										<td th:text="${order.dateCreated}" ></td>
+										<td th:text="${order.totalPrice}"></td>
+										<td>
+											<form class="salespoint" method="POST" action="/order/cancel">
+											  <input type="hidden" name="oderDelete" value="0" th:value="${order.identifier}"/>
+												<input class="button" type="submit" value="Cancel"/> 
+											</form>
+										</td>
+									</tr>
+					<!--				<tr th:each=" orderline : ${}">
 										<td th:text="${orderline.productName}">Last Action Hero</td>
 										<td th:text="${orderline.quantity.amount}">9000</td>
 										<td th:text="${orderline.price}">10</td>
-									</tr>																	
+									</tr> -->
 							</tbody>
 						</table>
 	        </div>
