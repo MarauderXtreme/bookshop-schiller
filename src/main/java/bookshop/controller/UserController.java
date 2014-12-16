@@ -1,6 +1,8 @@
 package bookshop.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import javax.validation.Valid;
 
@@ -10,6 +12,8 @@ import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -17,6 +21,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -197,7 +202,8 @@ public class UserController {
 	@RequestMapping("/user/profile/{pid}")
 	public String profile(@PathVariable("pid") UserAccount userAccount, Model modelMap) {
 		
-		User user = userRepository.findByUserAccount(userAccount);
+		User user = userRepository.findUserByUserAccount(userAccount);
+		System.out.println(user.getUserAccount().getIdentifier().toString());
 		modelMap.addAttribute("user", user);
 		return "profile";
 	}
@@ -208,10 +214,11 @@ public class UserController {
 	 * @param modelMap
 	 * @return
 	 */
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
 	@RequestMapping("/user/profile/{pid}/accountsettings")
 	public String changeAccountsettings(@PathVariable("pid") UserAccount userAccount, ModelMap modelMap) {
 		
-		User user = userRepository.findByUserAccount(userAccount);
+		User user = userRepository.findUserByUserAccount(userAccount);
 		modelMap.addAttribute(user);
 		return "editaccountsettings";
 	}
@@ -220,7 +227,7 @@ public class UserController {
 	@RequestMapping("/user/profile/{pid}/accountsettings/disable")
 	public String disable(@PathVariable("pid") UserAccount userAccount, Model modelMap) {
 		
-		User user = userRepository.findByUserAccount(userAccount);
+		User user = userRepository.findUserByUserAccount(userAccount);
 		modelMap.addAttribute("user", user);
 		userManagement.disable(userAccount);
 		userAccountManager.save(userAccount);
@@ -231,7 +238,7 @@ public class UserController {
 	@RequestMapping("/user/profile/{pid}/accountsettings/enable")
 	public String enable(@PathVariable("pid") UserAccount userAccount, Model modelMap) {
 		
-		User user = userRepository.findByUserAccount(userAccount);
+		User user = userRepository.findUserByUserAccount(userAccount);
 		modelMap.addAttribute("user", user);
 		userManagement.enable(userAccount);
 		userAccountManager.save(userAccount);
@@ -242,7 +249,7 @@ public class UserController {
 	@RequestMapping("/user/profile/{pid}/accountsettings/roles/add")
 	public String addRole(@PathVariable("pid") UserAccount userAccount, Model modelMap, @RequestParam("roleInput") String roleInput) {
 		
-		User user = userRepository.findByUserAccount(userAccount);
+		User user = userRepository.findUserByUserAccount(userAccount);
 		modelMap.addAttribute("user", user);
 		userManagement.addRole(userAccount, new Role(roleInput));
 		userAccountManager.save(userAccount);
@@ -253,7 +260,7 @@ public class UserController {
 	@RequestMapping("/user/profile/{pid}/accountsettings/roles/remove")
 	public String removeRole(@PathVariable("pid") UserAccount userAccount, Model modelMap, @RequestParam("roleInput") String roleInput) {
 		
-		User user = userRepository.findByUserAccount(userAccount);
+		User user = userRepository.findUserByUserAccount(userAccount);
 		modelMap.addAttribute("user", user);
 		userManagement.removeRole(userAccount, new Role(roleInput));
 		userAccountManager.save(userAccount);
@@ -272,8 +279,9 @@ public class UserController {
 	public String changeProfileEdit(@PathVariable("pid") UserAccount userAccount, @ModelAttribute("profileForm") @Valid ProfileForm profileForm,
 			BindingResult result, ModelMap modelMap) {
 
-		User user = userRepository.findByUserAccount(userAccount);
+		User user = userRepository.findUserByUserAccount(userAccount);
 		modelMap.addAttribute("user", user);
+		modelMap.addAttribute("userAccount", userAccount);
 		
 		if (!profileForm.getPasswordRepeat().equals(profileForm.getPassword())) {
 			result.addError(new ObjectError("password.noMatch", "Die eingegebenen Passwörter stimmen nicht überein!"));
@@ -316,19 +324,33 @@ public class UserController {
 	@RequestMapping("/user/profile/{pid}/change")
 	public String changeProfile(@PathVariable("pid") UserAccount userAccount, ModelMap modelMap) {
 		
-		User user = userRepository.findByUserAccount(userAccount);
+		User user = userRepository.findUserByUserAccount(userAccount);
 		modelMap.addAttribute("user", user);
 		modelMap.addAttribute("profileForm", new ProfileForm());
 		return "editprofile";
 	}
 	
-	/**
-	 * Maps the index page.
-	 */
-	@RequestMapping({ "/", "/index" })
-	public String index() {
+	@RequestMapping("/user")
+	public String myProfile(Model modelMap) {
 		
-		return "index";
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Object principal = (authentication == null) ? null : authentication.getPrincipal();
+        
+        User user = marauderhack(principal);
+                
+		modelMap.addAttribute("user", user);
+		
+        return "profile";
+	}
+	
+	private User marauderhack(Object prinz) {
+		Iterable<User> userlist = userRepository.findAll();
+        for(User u : userlist) {
+        	if(u.getUserAccount().getIdentifier().toString().equals(prinz.toString())) {
+        		return u;
+        	}
+        }
+        return null;
 	}
 
 }
