@@ -202,47 +202,61 @@ public class UserController {
 		return "profile";
 	}
 	
+	/**
+	 * Maps the account settings of a special user to modelMap.
+	 * @param userAccount
+	 * @param modelMap
+	 * @return
+	 */
+	@RequestMapping("/user/profile/{pid}/accountsettings")
+	public String changeAccountsettings(@PathVariable("pid") UserAccount userAccount, ModelMap modelMap) {
+		
+		User user = userRepository.findByUserAccount(userAccount);
+		modelMap.addAttribute(user);
+		return "editaccountsettings";
+	}
+	
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
-	@RequestMapping("/user/profile/{pid}/disable")
+	@RequestMapping("/user/profile/{pid}/accountsettings/disable")
 	public String disable(@PathVariable("pid") UserAccount userAccount, Model modelMap) {
 		
+		User user = userRepository.findByUserAccount(userAccount);
+		modelMap.addAttribute("user", user);
 		userManagement.disable(userAccount);
 		userAccountManager.save(userAccount);
-		User user = userRepository.findByUserAccount(userAccount);
-		modelMap.addAttribute("user", user);
 		return "profile";
 	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
-	@RequestMapping("/user/profile/{pid}/enable")
+	@RequestMapping("/user/profile/{pid}/accountsettings/enable")
 	public String enable(@PathVariable("pid") UserAccount userAccount, Model modelMap) {
 		
+		User user = userRepository.findByUserAccount(userAccount);
+		modelMap.addAttribute("user", user);
 		userManagement.enable(userAccount);
 		userAccountManager.save(userAccount);
-		User user = userRepository.findByUserAccount(userAccount);
-		modelMap.addAttribute("user", user);
 		return "profile";
 	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
-	@RequestMapping("/user/profile/{pid}/roles/add")
+	@RequestMapping("/user/profile/{pid}/accountsettings/roles/add")
 	public String addRole(@PathVariable("pid") UserAccount userAccount, Model modelMap, @RequestParam("roleInput") String roleInput) {
 		
-		userManagement.addRole(userAccount, new Role(roleInput));
-		userAccountManager.save(userAccount);
 		User user = userRepository.findByUserAccount(userAccount);
 		modelMap.addAttribute("user", user);
+		userManagement.addRole(userAccount, new Role(roleInput));
+		userAccountManager.save(userAccount);
 		return "profile";
 	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
-	@RequestMapping("/user/profile/{pid}/roles/remove")
+	@RequestMapping("/user/profile/{pid}/accountsettings/roles/remove")
 	public String removeRole(@PathVariable("pid") UserAccount userAccount, Model modelMap, @RequestParam("roleInput") String roleInput) {
 		
-		userManagement.removeRole(userAccount, new Role(roleInput));
-		userAccountManager.save(userAccount);
 		User user = userRepository.findByUserAccount(userAccount);
 		modelMap.addAttribute("user", user);
+		userManagement.removeRole(userAccount, new Role(roleInput));
+		userAccountManager.save(userAccount);
 		return "profile";
 	}
 	
@@ -259,7 +273,7 @@ public class UserController {
 			BindingResult result, ModelMap modelMap) {
 
 		User user = userRepository.findByUserAccount(userAccount);
-		modelMap.addAttribute(user);
+		modelMap.addAttribute("user", user);
 		
 		if (!profileForm.getPasswordRepeat().equals(profileForm.getPassword())) {
 			result.addError(new ObjectError("password.noMatch", "Die eingegebenen Passwörter stimmen nicht überein!"));
@@ -303,7 +317,7 @@ public class UserController {
 	public String changeProfile(@PathVariable("pid") UserAccount userAccount, ModelMap modelMap) {
 		
 		User user = userRepository.findByUserAccount(userAccount);
-		modelMap.addAttribute(user);
+		modelMap.addAttribute("user", user);
 		modelMap.addAttribute("profileForm", new ProfileForm());
 		return "editprofile";
 	}
