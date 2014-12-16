@@ -51,15 +51,15 @@ public class OrderController {
 		
 		modelMap.addAttribute("ordersCompleted", orderManager.find(OrderStatus.COMPLETED));
 		
-		return "/orders";
+		return "orders";
 	}
 	
-	//@PreAuthorize("hastRole('Role_customer')")
+	@PreAuthorize("hasRole('ROLE_CUSTOMER')")
 	@RequestMapping(value="/user/order")
 	public String getOrders(ModelMap modelMap, @LoggedIn Optional<UserAccount> userAccount){
 		modelMap.addAttribute("myOrders", orderManager.find(userAccount.get()));
 		
-		return "/myorders";
+		return "myorders";
 	}
 	
 	@RequestMapping(value="/order/cancel")
@@ -79,7 +79,7 @@ public class OrderController {
 		}
 		
 		modelMap.addAttribute("stock", inventory.findAll());
-		return "/stock";
+		return "stock";
 	}
 	
 	public String getMyOrders(){
