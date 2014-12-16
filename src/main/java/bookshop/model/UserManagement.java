@@ -69,7 +69,7 @@ public class UserManagement {
 	 */
 	public void disable(UserAccount userAccount) {
 		if (userAccount.isEnabled()) {
-			User user = userRepository.findByUserAccount(userAccount);
+			User user = userRepository.findUserByUserAccount(userAccount);
 			userAccountManager.disable(user.getUserAccount().getIdentifier());
 		}
 	}
@@ -80,7 +80,7 @@ public class UserManagement {
 	 */
 	public void enable(UserAccount userAccount) {
 		if (!userAccount.isEnabled()) {
-			User user = userRepository.findByUserAccount(userAccount);
+			User user = userRepository.findUserByUserAccount(userAccount);
 			userAccountManager.enable(user.getUserAccount().getIdentifier());
 		}
 	}
@@ -165,7 +165,7 @@ public class UserManagement {
 	 * @param address
 	 */
 	public void changeAddress(UserAccount userAccount, Address address) {
-		User user = userRepository.findByUserAccount(userAccount);
+		User user = userRepository.findUserByUserAccount(userAccount);
 		user.setAddress(address);
 	}
 	
