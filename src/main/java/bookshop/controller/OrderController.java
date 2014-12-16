@@ -89,8 +89,4 @@ public class OrderController {
 		return "stock";
 	}
 	
-	public String getMyOrders(){
-		
-		return "";
-	}
 }
