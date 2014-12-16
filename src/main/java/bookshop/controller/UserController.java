@@ -2,6 +2,7 @@ package bookshop.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import javax.validation.Valid;
 
@@ -201,9 +202,8 @@ public class UserController {
 	@RequestMapping("/user/profile/{pid}")
 	public String profile(@PathVariable("pid") UserAccount userAccount, Model modelMap) {
 		
-		User user = userRepository.findByUserAccount(userAccount);
-		System.out.println(user);
-        System.out.println(user.getClass());
+		User user = userRepository.findUserByUserAccount(userAccount);
+		System.out.println(user.getUserAccount().getIdentifier().toString());
 		modelMap.addAttribute("user", user);
 		return "profile";
 	}
@@ -218,7 +218,7 @@ public class UserController {
 	@RequestMapping("/user/profile/{pid}/accountsettings")
 	public String changeAccountsettings(@PathVariable("pid") UserAccount userAccount, ModelMap modelMap) {
 		
-		User user = userRepository.findByUserAccount(userAccount);
+		User user = userRepository.findUserByUserAccount(userAccount);
 		modelMap.addAttribute(user);
 		return "editaccountsettings";
 	}
@@ -227,7 +227,7 @@ public class UserController {
 	@RequestMapping("/user/profile/{pid}/accountsettings/disable")
 	public String disable(@PathVariable("pid") UserAccount userAccount, Model modelMap) {
 		
-		User user = userRepository.findByUserAccount(userAccount);
+		User user = userRepository.findUserByUserAccount(userAccount);
 		modelMap.addAttribute("user", user);
 		userManagement.disable(userAccount);
 		userAccountManager.save(userAccount);
@@ -238,7 +238,7 @@ public class UserController {
 	@RequestMapping("/user/profile/{pid}/accountsettings/enable")
 	public String enable(@PathVariable("pid") UserAccount userAccount, Model modelMap) {
 		
-		User user = userRepository.findByUserAccount(userAccount);
+		User user = userRepository.findUserByUserAccount(userAccount);
 		modelMap.addAttribute("user", user);
 		userManagement.enable(userAccount);
 		userAccountManager.save(userAccount);
@@ -249,7 +249,7 @@ public class UserController {
 	@RequestMapping("/user/profile/{pid}/accountsettings/roles/add")
 	public String addRole(@PathVariable("pid") UserAccount userAccount, Model modelMap, @RequestParam("roleInput") String roleInput) {
 		
-		User user = userRepository.findByUserAccount(userAccount);
+		User user = userRepository.findUserByUserAccount(userAccount);
 		modelMap.addAttribute("user", user);
 		userManagement.addRole(userAccount, new Role(roleInput));
 		userAccountManager.save(userAccount);
@@ -260,7 +260,7 @@ public class UserController {
 	@RequestMapping("/user/profile/{pid}/accountsettings/roles/remove")
 	public String removeRole(@PathVariable("pid") UserAccount userAccount, Model modelMap, @RequestParam("roleInput") String roleInput) {
 		
-		User user = userRepository.findByUserAccount(userAccount);
+		User user = userRepository.findUserByUserAccount(userAccount);
 		modelMap.addAttribute("user", user);
 		userManagement.removeRole(userAccount, new Role(roleInput));
 		userAccountManager.save(userAccount);
@@ -279,7 +279,7 @@ public class UserController {
 	public String changeProfileEdit(@PathVariable("pid") UserAccount userAccount, @ModelAttribute("profileForm") @Valid ProfileForm profileForm,
 			BindingResult result, ModelMap modelMap) {
 
-		User user = userRepository.findByUserAccount(userAccount);
+		User user = userRepository.findUserByUserAccount(userAccount);
 		modelMap.addAttribute("user", user);
 		modelMap.addAttribute("userAccount", userAccount);
 		
@@ -324,7 +324,7 @@ public class UserController {
 	@RequestMapping("/user/profile/{pid}/change")
 	public String changeProfile(@PathVariable("pid") UserAccount userAccount, ModelMap modelMap) {
 		
-		User user = userRepository.findByUserAccount(userAccount);
+		User user = userRepository.findUserByUserAccount(userAccount);
 		modelMap.addAttribute("user", user);
 		modelMap.addAttribute("profileForm", new ProfileForm());
 		return "editprofile";
@@ -335,12 +335,22 @@ public class UserController {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = (authentication == null) ? null : authentication.getPrincipal();
-                        
-        User user = userRepository.findByUserAccountIdentifier(principal.toString());
         
+        User user = marauderhack(principal);
+                
 		modelMap.addAttribute("user", user);
 		
         return "profile";
+	}
+	
+	private User marauderhack(Object prinz) {
+		Iterable<User> userlist = userRepository.findAll();
+        for(User u : userlist) {
+        	if(u.getUserAccount().getIdentifier().toString().equals(prinz.toString())) {
+        		return u;
+        	}
+        }
+        return null;
 	}
 
 }
