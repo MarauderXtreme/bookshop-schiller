@@ -203,7 +203,6 @@ public class UserController {
 	public String profile(@PathVariable("pid") UserAccount userAccount, Model modelMap) {
 		
 		User user = userRepository.findUserByUserAccount(userAccount);
-		System.out.println(user.getUserAccount().getIdentifier().toString());
 		modelMap.addAttribute("user", user);
 		return "profile";
 	}
