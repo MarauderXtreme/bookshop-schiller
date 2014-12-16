@@ -113,7 +113,7 @@ public class CartController {
 	 * Clears your entire card
 	 * @param session
 	 */
-	@RequestMapping(value = "/cart/clear", method = RequestMethod.POST)
+	@RequestMapping(value = "/cart/clear")
 	public String clear (HttpSession session){
 		
 		Cart cart = getCart(session);

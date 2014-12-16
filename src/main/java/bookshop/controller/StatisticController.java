@@ -38,7 +38,13 @@ public class StatisticController {
 		this.date = date;
 	}
 	
-	
+	/**
+	 * 
+	 * @param session
+	 * @param modelMap
+	 * @param userAccount
+	 * 
+	 */
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/statictics")
 	public String statistic(HttpSession session, ModelMap modelMap, @LoggedIn UserAccount userAccount){
@@ -75,7 +81,7 @@ public class StatisticController {
 		
 		
 		modelMap.addAttribute("statistic", statisticOrder.getOrderLines());
-		
+		modelMap.addAttribute("statisticPrice", statisticOrder.getTotalPrice());
 		
 		return "/statistics";
 	}
