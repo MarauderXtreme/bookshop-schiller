@@ -202,6 +202,8 @@ public class UserController {
 	public String profile(@PathVariable("pid") UserAccount userAccount, Model modelMap) {
 		
 		User user = userRepository.findByUserAccount(userAccount);
+		System.out.println(user);
+        System.out.println(user.getClass());
 		modelMap.addAttribute("user", user);
 		return "profile";
 	}
@@ -328,16 +330,15 @@ public class UserController {
 		return "editprofile";
 	}
 	
-	@RequestMapping("/user/profile/me")
+	@RequestMapping("/user")
 	public String myProfile(Model modelMap) {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = (authentication == null) ? null : authentication.getPrincipal();
+                        
+        User user = userRepository.findByUserAccountIdentifier(principal.toString());
         
-        System.out.println(principal);
-        System.out.println(principal.getClass());
-        
-		modelMap.addAttribute("user", principal);
+		modelMap.addAttribute("user", user);
 		
         return "profile";
 	}
