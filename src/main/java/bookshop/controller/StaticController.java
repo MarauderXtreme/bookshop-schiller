@@ -13,7 +13,10 @@ public class StaticController {
 	 * Maps the index page.
 	 */
 	@RequestMapping({ "/", "/index" })
-	public String index() {
+	public String index(ModelMap modelMap) {
+		
+		//modelMap.addAttribute(null);
+		
 		return "index";
 	}
 	
