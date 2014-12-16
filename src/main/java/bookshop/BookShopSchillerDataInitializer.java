@@ -113,15 +113,8 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		CalendarManagement.getInstance().addEvent("Fasching", new Date("10102015","0920"), RoomManagement.getInstance().getRoom("Computerraum"));
 		CalendarManagement.getInstance().addEvent("1. April", new Date("01042015","1111"), RoomManagement.getInstance().getRoom("FSR-Buero"));
 		CalendarManagement.getInstance().addEvent("TestVorAllenBitches", new Date("01042011","1111"), RoomManagement.getInstance().getRoom("FSR-Buero"));
-		
-		System.out.println("\n\n");
-
 		CalendarManagement.getInstance().getCalendar().sortEvents();
-		System.out.println("\n\n");
-		CalendarManagement.getInstance().getCalendar().showList();
-		System.out.println("\n\n");
-		
-		System.out.println(CalendarManagement.getInstance().getCalendar().getEventsByMonth(CalendarManagement.getInstance().getCalendar().getEventsByYear(2014),12).get(2).getName());
+		CalendarManagement.getInstance().getCalendar().showList();		
 		
 //		CategoryManagement.getInstance().addCategory(ArticleId.BOOK, "Ratgeber");
 //		CategoryManagement.getInstance().addCategory(ArticleId.BOOK, "Komödie");
