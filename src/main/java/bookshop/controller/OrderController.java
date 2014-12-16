@@ -45,9 +45,15 @@ public class OrderController {
 		this.date = date;
 	}
 	
+	/**
+	 * Shows orders
+	 * @param session
+	 * @param modelMap
+	 * 
+	 */
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/orders")
-	public String ordersOpen(HttpSession session, ModelMap modelMap){
+	public String orders(HttpSession session, ModelMap modelMap){
 		
 		modelMap.addAttribute("ordersOpen", orderManager.find(OrderStatus.OPEN));
 		modelMap.addAttribute("ordersCompleted", orderManager.find(OrderStatus.COMPLETED));
@@ -56,7 +62,12 @@ public class OrderController {
 	}
 	
 	
-	
+	/**
+	 * Get Orders from logged in User
+	 * @param modelMap
+	 * @param userAccount
+	 * 
+	 */
 	@PreAuthorize("hasRole('ROLE_CUSTOMER')")
 	@RequestMapping(value="/user/order")
 	public String getOrders(ModelMap modelMap, @LoggedIn Optional<UserAccount> userAccount){
@@ -66,6 +77,11 @@ public class OrderController {
 		return "/myorders";
 	}
 	
+	/**
+	 * Cancel order
+	 * @param order
+	 * 
+	 */
 	@PreAuthorize("hasRole('ROLE_CUSTOMER')")
 	@RequestMapping(value="/order/cancel")
 	public String cancelOrder(@RequestParam("orderDelete") Order order){
@@ -73,6 +89,11 @@ public class OrderController {
 		return "redirect:/user/order";
 	}
 	
+	/**
+	 * Complete an order
+	 * @param order
+	 * 
+	 */
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
 	@RequestMapping(value="/order/complete")
 	public String compledOrder(@RequestParam("orderComplete") Order order){
@@ -81,6 +102,12 @@ public class OrderController {
 		return "redirect:/admin/orders";
 	}
 	
+	/**
+	 * Shows stock
+	 * @param session
+	 * @param modelMap
+	 * 
+	 */
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/stock")
 	public String stock(HttpSession session, ModelMap modelMap){
