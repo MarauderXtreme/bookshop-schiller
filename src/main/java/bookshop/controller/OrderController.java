@@ -47,29 +47,38 @@ public class OrderController {
 	
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/orders")
-	public String orders(HttpSession session, ModelMap modelMap){
+	public String ordersOpen(HttpSession session, ModelMap modelMap){
 		
+		modelMap.addAttribute("ordersOpen", orderManager.find(OrderStatus.OPEN));
 		modelMap.addAttribute("ordersCompleted", orderManager.find(OrderStatus.COMPLETED));
 		
 		return "orders";
 	}
 	
+	
+	
 	@PreAuthorize("hasRole('ROLE_CUSTOMER')")
 	@RequestMapping(value="/user/order")
 	public String getOrders(ModelMap modelMap, @LoggedIn Optional<UserAccount> userAccount){
-
-		modelMap.addAttribute("myOrders", orderManager.find(userAccount.get()));;
+		
+		modelMap.addAttribute("myOrders", orderManager.find(userAccount.get()));
+		
 		return "/myorders";
 	}
 	
+	@PreAuthorize("hasRole('ROLE_CUSTOMER')")
 	@RequestMapping(value="/order/cancel")
 	public String cancelOrder(@RequestParam("orderDelete") Order order){
 		orderManager.cancelOrder(order);
 		return "redirect:/user/order";
 	}
 	
-	public String compledOrder(){
-		return "";
+	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
+	@RequestMapping(value="/order/complete")
+	public String compledOrder(@RequestParam("orderComplete") Order order){
+		orderManager.payOrder(order);
+		orderManager.completeOrder(order);
+		return "redirect:/admin/orders";
 	}
 	
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
