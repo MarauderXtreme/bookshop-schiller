@@ -83,6 +83,7 @@ public class CartController {
 	 * @param article
 	 * @param session
 	 */
+	
 	@RequestMapping(value="/cart", method = RequestMethod.POST)
 	public String addArticleIntoCart(ModelMap modelMap, @RequestParam("number") int number, @RequestParam("article") Article article,
 		HttpSession session){
@@ -97,7 +98,15 @@ public class CartController {
 		}*/
 		
 		cart.addOrUpdateItem(article, quantity);	
-		return "cart";
+		switch (article.getType()) {
+		case DVD:
+			return "redirect:/article/dvd";
+		case CD:
+			return "redirect:/article/cd";
+		case BOOK:
+		default:
+			return "redirect:/article/book";			
+		}
 	}
 	
 	/**
