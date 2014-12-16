@@ -66,8 +66,8 @@ public class CartController {
 				cart.addItemsTo(order);
 				
 				
-				orderManager.payOrder(order);	
-				orderManager.completeOrder(order);
+				//orderManager.payOrder(order);	
+				//orderManager.completeOrder(order);
 				orderManager.add(order);
 				cart.clear();
 

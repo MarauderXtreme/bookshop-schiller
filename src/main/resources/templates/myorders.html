@@ -24,12 +24,18 @@
 								<tr>
 									<th th:text="#{orders.date}">Datum</th>
 									<th th:text="#{orders.payed}">Bezahlt</th>
+									<th></th>
+									<th th:text="#{statistics.article}">Artikel</th>
 								</tr>
 							</thead>
 							<tbody>
 									<tr th:each="order : ${myOrders} ">
 										<td th:text="${order.dateCreated}" ></td>
 										<td th:text="${order.totalPrice}"></td>
+											<td th:each="orderline : ${order.orderLines}">
+												<td th:text="${orderline.productName}" ></td>
+												<td th:text="${orderline.quantity}"></td>
+											</td>
 										<td>
 											<form class="salespoint" method="POST" action="/order/cancel">
 											  <input type="hidden" name="orderDelete" value="0" th:value="${order.identifier}"/>
