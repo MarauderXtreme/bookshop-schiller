@@ -27,21 +27,11 @@
 								</tr>
 							</thead>
 							<tbody>
-									<tr th:each="order : ${myOrders} ">
-										<td th:text="${order.dateCreated}" ></td>
-										<td th:text="${order.totalPrice}"></td>
-										<td>
-											<form class="salespoint" method="POST" action="/order/cancel">
-											  <input type="hidden" name="oderDelete" value="0" th:value="${order.identifier}"/>
-												<input class="button" type="submit" value="Cancel"/> 
-											</form>
-										</td>
-									</tr>
-					<!--				<tr th:each=" orderline : ${}">
+									<tr th:each="orderline : ${myOrders} ">
 										<td th:text="${orderline.productName}">Last Action Hero</td>
 										<td th:text="${orderline.quantity.amount}">9000</td>
 										<td th:text="${orderline.price}">10</td>
-									</tr> -->
+									</tr>
 							</tbody>
 						</table>
 	        </div>
