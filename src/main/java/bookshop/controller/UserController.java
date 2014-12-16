@@ -1,5 +1,6 @@
 package bookshop.controller;
 
+import java.security.Principal;
 import java.util.ArrayList;
 
 import javax.validation.Valid;
@@ -275,6 +276,7 @@ public class UserController {
 
 		User user = userRepository.findByUserAccount(userAccount);
 		modelMap.addAttribute("user", user);
+		modelMap.addAttribute("userAccount", userAccount);
 		
 		if (!profileForm.getPasswordRepeat().equals(profileForm.getPassword())) {
 			result.addError(new ObjectError("password.noMatch", "Die eingegebenen Passwörter stimmen nicht überein!"));
@@ -321,15 +323,6 @@ public class UserController {
 		modelMap.addAttribute("user", user);
 		modelMap.addAttribute("profileForm", new ProfileForm());
 		return "editprofile";
-	}
-	
-	/**
-	 * Maps the index page.
-	 */
-	@RequestMapping({ "/", "/index" })
-	public String index() {
-		
-		return "index";
 	}
 
 }
