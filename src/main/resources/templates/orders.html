@@ -19,6 +19,33 @@
 	        <div class="large-12 medium-12 small-12 columns">
 	          <h3>Bestellübersicht</h3>
 	          <table>
+							<caption th:text="#{orders.open}"></caption>
+							<thead>
+								<tr>
+									<th th:text="#{orders.date}">Datum</th>
+									<th th:text="#{orders.customer}">Kunde</th>
+									<th th:text="#{orders.payed}">Bezahlt</th>
+								</tr>
+							</thead>
+							<tbody>
+									<tr th:each="order : ${ordersOpen} ">
+										<td th:text="${order.dateCreated}" ></td>
+										<td th:text="${order.userAccount.identifier}"></td>
+										<td th:text="${order.totalPrice}"></td>
+										<td th:each="orderline : ${order.orderLines}">
+											<td th:text="${orderline.productName}" ></td>
+											<td th:text="${orderline.quantity}"></td>
+										</td>
+										<td>
+											<form class="salespoint" method="POST" action="/order/complete">
+											  <input type="hidden" name="orderComplete" value="0" th:value="${order.identifier}"/>
+												<input class="button" type="submit" value="Complete"/> 
+											</form>
+										</td>
+									</tr>
+							</tbody>
+						</table>
+						<table>
 							<caption th:text="#{orders.completed}"></caption>
 							<thead>
 								<tr>
@@ -32,6 +59,10 @@
 										<td th:text="${order.dateCreated}" ></td>
 										<td th:text="${order.userAccount.identifier}"></td>
 										<td th:text="${order.totalPrice}"></td>
+										<td th:each="orderline : ${order.orderLines}">
+												<td th:text="${orderline.productName}" ></td>
+												<td th:text="${orderline.quantity}"></td>
+										</td>
 									</tr>
 							</tbody>
 						</table>

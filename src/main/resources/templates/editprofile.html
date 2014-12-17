@@ -21,7 +21,7 @@
 	          <div class="row">
 	          	<form method="post" th:action="@{'/user/profile/' + ${user.userAccount.identifier}} + '/change/edit'" th:object="${profileForm}" data-abide="">
 								<fieldset class="large-4 medium-4 large-offset-1 medium-offset-1 small-12 columns">
-									<legend th:text="#{register.title2}">Persönliche Daten</legend>
+									<legend th:text="#{register.title2}">PersÃ¶nliche Daten</legend>
 									
 									<div th:if="${#fields.hasErrors('*')}">
 										<p class="alert-box warning"><b>Einige Angaben sind nicht korrekt. Bitte versuchen Sie es erneut!</b></p>

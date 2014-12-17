@@ -38,7 +38,13 @@ public class StatisticController {
 		this.date = date;
 	}
 	
-	
+	/**
+	 * 
+	 * @param session
+	 * @param modelMap
+	 * @param userAccount
+	 * 
+	 */
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/statictics")
 	public String statistic(HttpSession session, ModelMap modelMap, @LoggedIn UserAccount userAccount){
@@ -55,18 +61,18 @@ public class StatisticController {
 			quantity = quantity.subtract(item.getQuantity());
 			
 			for(Order order : orderManager.find(time, date.getTime())){
-
-				for(OrderLine orderLine : order.getOrderLines()){
-					
-					ProductIdentifier name1 = item.getProduct().getIdentifier();
-					ProductIdentifier name2 = orderLine.getProductIdentifier();
-					
-					if(name1.equals(name2)== true){
-						quantity = quantity.add(orderLine.getQuantity());
-					}
+				if(order.isCompleted()==true){
+					for(OrderLine orderLine : order.getOrderLines()){
 						
-				}			
-				
+						ProductIdentifier name1 = item.getProduct().getIdentifier();
+						ProductIdentifier name2 = orderLine.getProductIdentifier();
+						
+						if(name1.equals(name2)== true){
+							quantity = quantity.add(orderLine.getQuantity());
+						}
+							
+					}			
+				}
 			}
 			
 			OrderLine orderLine = new OrderLine(item.getProduct(), quantity);
@@ -75,7 +81,7 @@ public class StatisticController {
 		
 		
 		modelMap.addAttribute("statistic", statisticOrder.getOrderLines());
-		
+		modelMap.addAttribute("statisticPrice", statisticOrder.getTotalPrice());
 		
 		return "/statistics";
 	}

@@ -36,7 +36,7 @@ public class CalendarController {
 
 		model.addAttribute("event", event);
 		model.addAttribute("date", date);
-		model.addAttribute("eventList" , CalendarManagement.getInstance().getCalendar().getEventList());
+		model.addAttribute("eventList" , CalendarManagement.getInstance().getCalendar().getSortedEvents());
 
 		return "calendar";
 	}

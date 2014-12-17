@@ -45,45 +45,75 @@ public class OrderController {
 		this.date = date;
 	}
 	
+	/**
+	 * Shows orders
+	 * @param session
+	 * @param modelMap
+	 * 
+	 */
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/orders")
 	public String orders(HttpSession session, ModelMap modelMap){
 		
+		modelMap.addAttribute("ordersOpen", orderManager.find(OrderStatus.OPEN));
 		modelMap.addAttribute("ordersCompleted", orderManager.find(OrderStatus.COMPLETED));
 		
-		return "/orders";
+		return "orders";
 	}
 	
-	//@PreAuthorize("hastRole('Role_customer')")
+	
+	/**
+	 * Get Orders from logged in User
+	 * @param modelMap
+	 * @param userAccount
+	 * 
+	 */
+	@PreAuthorize("hasRole('ROLE_CUSTOMER')")
 	@RequestMapping(value="/user/order")
 	public String getOrders(ModelMap modelMap, @LoggedIn Optional<UserAccount> userAccount){
+		
 		modelMap.addAttribute("myOrders", orderManager.find(userAccount.get()));
 		
 		return "/myorders";
 	}
 	
+	/**
+	 * Cancel order
+	 * @param order
+	 * 
+	 */
+	@PreAuthorize("hasRole('ROLE_CUSTOMER')")
 	@RequestMapping(value="/order/cancel")
-	public String cancelOrder(@RequestParam("oderDelete") Order order){
-		System.out.println(order);
-		order.isCanceled();
-		System.out.println(order.getOrderStatus());
+	public String cancelOrder(@RequestParam("orderDelete") Order order){
+		orderManager.cancelOrder(order);
 		return "redirect:/user/order";
 	}
 	
+	/**
+	 * Complete an order
+	 * @param order
+	 * 
+	 */
+	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
+	@RequestMapping(value="/order/complete")
+	public String compledOrder(@RequestParam("orderComplete") Order order){
+		orderManager.payOrder(order);
+		orderManager.completeOrder(order);
+		return "redirect:/admin/orders";
+	}
+	
+	/**
+	 * Shows stock
+	 * @param session
+	 * @param modelMap
+	 * 
+	 */
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/stock")
 	public String stock(HttpSession session, ModelMap modelMap){
 
-		for(InventoryItem item : inventory.findAll()){
-			
-		}
-		
 		modelMap.addAttribute("stock", inventory.findAll());
-		return "/stock";
+		return "stock";
 	}
 	
-	public String getMyOrders(){
-		
-		return "";
-	}
 }

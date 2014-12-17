@@ -9,6 +9,16 @@ public class StaticController {
 	
 	public StaticController() {}	
 	
+	/**
+	 * Maps the index page.
+	 */
+	@RequestMapping({ "/", "/index" })
+	public String index(ModelMap modelMap) {
+		
+		//modelMap.addAttribute(null);
+		
+		return "index";
+	}
 	
 	@RequestMapping("contact")
 	public String contact(ModelMap modelMap) {

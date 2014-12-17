@@ -17,26 +17,22 @@
 		      </header>
 	        <div class="large-12">&nbsp;</div>
 	        <div class="large-12 medium-12 small-12 columns">
-	          <h3>Verkaufsbilanz</h3>
-						<table>
-							<thead>
-								<tr>
-									<th th:text="#{statistics.article}">Titel</th>
-									<th th:text="#{statistics.sell}">Verkauft</th>
-									<th th:text="#{statistics.income}"> Einnahmen</th>
-									<th th:text="#{statistics.buy}">Gekauft</th>
-									<th th:text="#{statistics.outcome}">Ausgaben</th>
-								</tr>
-							</thead>
-							<tbody th:remove="all-but-first">
-									<tr th:each=" orderline : ${statistic}">
-										<td th:text="${orderline.productName}">Last Action Hero</td>
-										<td th:text="${orderline.quantity.amount}">9000</td>
-										<td th:text="${orderline.price}">10</td>
-									</tr>																	
-							</tbody>
-						</table>
-						<p th:text="#{statistics.total} + ': ' + ${statisticPrice}">Summe: 100 Euro</p>
+	          <h2>Seitenüberschrift</h2>
+	          <form action="/admin/room/add/new" data-abide="">
+	          	<div>
+	          		<label>Raum Nummer</label>
+	          		<input type="text" name="roomnumber" required="" />
+	          		<small>Bitte Raumnummer eingeben</small>
+	          	</div>
+	          	<div>
+	          		<label>Raum Name</label>
+	          		<input type="text" name="roomname" required="" pattern="caps_start" />
+	          		<small>Der Raumname muss mit einem Großbuchstaben beginnen</small>
+	          	</div>
+	          	<div>
+	          		<input class="tiny button" type="submit" value="Raum hinzufügen" />
+	          	</div>
+	          </form>
 	        </div>
 	    	</div>
 	    </div>
