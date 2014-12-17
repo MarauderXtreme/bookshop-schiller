@@ -1,6 +1,7 @@
 package bookshop.controller;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
@@ -47,30 +48,44 @@ public class StatisticController {
 	 */
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/statictics")
-	public String statistic(HttpSession session, ModelMap modelMap, @LoggedIn UserAccount userAccount){
+	public String statistic(HttpSession session, ModelMap modelMap, @LoggedIn Optional<UserAccount> userAccount){
 
 		LocalDateTime time = date.getTime();
 		time = time.minusDays(7);		
 
 		
-		Order statisticOrder = new Order(userAccount);
-		Order gesOrder = new Order(userAccount);
+		Order statisticOrder = new Order(userAccount.get());
+		Order gesOrderBuy = new Order(userAccount.get());
+		Order gesOrderSell = new Order(userAccount.get());
+		Order sellOrder = new Order(userAccount.get());
 		
 		for(Order order : orderManager.find(OrderStatus.COMPLETED)){
+				for(OrderLine orderLine : order.getOrderLines()){
+					gesOrderSell.add(orderLine);
+				}
+		}
+		
+		for(Order order : orderManager.find(OrderStatus.PAID)){
 			for(OrderLine orderLine : order.getOrderLines()){
-				gesOrder.add(orderLine);
+				gesOrderBuy.add(orderLine);
 			}
 		}
-		modelMap.addAttribute("statisticPriceAll", gesOrder.getTotalPrice());
+		
+		modelMap.addAttribute("statisticPriceSellAll", gesOrderSell.getTotalPrice());		
+		modelMap.addAttribute("statisticPriceBuyAll", gesOrderBuy.getTotalPrice());
 		
 		for(InventoryItem item : inventory.findAll()){
 
 			Quantity quantity = item.getQuantity();
 			quantity = quantity.subtract(item.getQuantity());
+			Quantity quantity1 = quantity;
 			
 			for(Order order : orderManager.find(time, date.getTime())){
 				
-				if(order.isCompleted()==true){
+				
+				if(order.isPaid()==true){
+				
+				
 					for(OrderLine orderLine : order.getOrderLines()){
 						
 						ProductIdentifier name1 = item.getProduct().getIdentifier();
@@ -78,21 +93,45 @@ public class StatisticController {
 						
 						
 						if(name1.equals(name2)== true){
-							quantity = quantity.add(orderLine.getQuantity());
+								quantity = quantity.add(orderLine.getQuantity());
 						}
 							
-					}			
+					}	
+				
+				}
+				if(order.isCompleted() == true){
+					for(OrderLine orderLine : order.getOrderLines()){
+						
+						ProductIdentifier name1 = item.getProduct().getIdentifier();
+						ProductIdentifier name2 = orderLine.getProductIdentifier();
+						
+						
+						if(name1.equals(name2)== true){
+								quantity1 = quantity1.add(orderLine.getQuantity());
+							
+						}
+							
+					}	
 				}
 			}
 			
+			
 			OrderLine orderLine = new OrderLine(item.getProduct(), quantity);
+			OrderLine orderLine1 = new OrderLine(item.getProduct(), quantity1);
 			statisticOrder.add(orderLine);
+			sellOrder.add(orderLine1);
 		}
 		
 		
-		modelMap.addAttribute("statistic", statisticOrder.getOrderLines());
-		modelMap.addAttribute("statisticPrice", statisticOrder.getTotalPrice());
+		
+		
+		modelMap.addAttribute("statisticsell", statisticOrder.getOrderLines());
+		modelMap.addAttribute("statisticPriceSell", statisticOrder.getTotalPrice());
+		modelMap.addAttribute("statisticbuy", sellOrder.getOrderLines());
+		modelMap.addAttribute("statisticPriceBuy", sellOrder.getTotalPrice());
 		
 		return "/statistics";
 	}
+	
+	
 }

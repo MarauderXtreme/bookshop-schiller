@@ -1,5 +1,6 @@
 package bookshop.controller;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +18,11 @@ import org.salespointframework.order.OrderIdentifier;
 import org.salespointframework.order.OrderLine;
 import org.salespointframework.order.OrderManager;
 import org.salespointframework.order.OrderStatus;
+import org.salespointframework.payment.Cash;
+import org.salespointframework.quantity.Quantity;
 import org.salespointframework.time.BusinessTime;
 import org.salespointframework.useraccount.UserAccount;
+import org.salespointframework.useraccount.UserAccountManager;
 import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,6 +33,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+//import com.itextpdf.text.DocumentException;
+
+import bookshop.model.Article;
+import bookshop.model.PDFCreator;
 import bookshop.model.Statistic;
 
 
@@ -53,7 +61,7 @@ public class OrderController {
 	 */
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/orders")
-	public String orders(HttpSession session, ModelMap modelMap){
+	public String getOrders(HttpSession session, ModelMap modelMap){
 		
 		modelMap.addAttribute("ordersOpen", orderManager.find(OrderStatus.OPEN));
 		modelMap.addAttribute("ordersCompleted", orderManager.find(OrderStatus.COMPLETED));
@@ -66,13 +74,17 @@ public class OrderController {
 	 * Get Orders from logged in User
 	 * @param modelMap
 	 * @param userAccount
+	 * @throws IOException 
+	 * @throws DocumentException 
 	 * 
 	 */
 	@PreAuthorize("hasRole('ROLE_CUSTOMER')")
 	@RequestMapping(value="/user/order")
-	public String getOrders(ModelMap modelMap, @LoggedIn Optional<UserAccount> userAccount){
+	public String getMyOrders(ModelMap modelMap, @LoggedIn Optional<UserAccount> userAccount){
 		
 		modelMap.addAttribute("myOrders", orderManager.find(userAccount.get()));
+		//PDFCreator pdf = new PDFCreator("test");
+		//pdf.createPdf("simplePDF");
 		
 		return "/myorders";
 	}
@@ -114,6 +126,31 @@ public class OrderController {
 
 		modelMap.addAttribute("stock", inventory.findAll());
 		return "stock";
+	}
+	
+	@RequestMapping("/article/reorder")
+	public String makeAnOrder(@RequestParam("article") Article article, @LoggedIn Optional<UserAccount> userAccount){
+		
+		Quantity quantity;		
+		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
+		quantity = new Quantity(10, item.get().getQuantity().getMetric(), item.get().getQuantity().getRoundingStrategy());
+		
+		//quantity = item.get().getQuantity();
+		//quantity = quantity.divide(item.get().getQuantity());
+		
+		item.get().increaseQuantity(quantity);
+		
+		OrderLine orderLine = new OrderLine(article, quantity);
+		System.out.println(userAccount.get().getIdentifier());
+		
+		
+		Order order = new Order(userAccount.get(), Cash.CASH);
+		order.add(orderLine);
+		
+		orderManager.payOrder(order);
+		
+		orderManager.add(order);
+		return"/stock";
 	}
 	
 }

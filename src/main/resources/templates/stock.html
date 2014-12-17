@@ -32,11 +32,9 @@
 										<td th:text="${item.quantity}">9000</td>
 										<td>
 										  <div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE')">
-												<form method="post" action="/article/editinformation">
-												<!-- <input type="hidden" name="article" th:value="${book.identifier}" />
-													<input type="number" id="addquan" name="addquan" placeholder="Quantity to add" min="0" />
-													<small class="alert-box alert error">Bitte hinzu zu fügende Menge eingeben.</small>
-													<input class="small button" type="submit" value="Speichern" /> -->
+												<form method="post" action="/article/reorder">
+													<input type="hidden"  id="article" name="article" th:value="${item.product.identifier}" />
+													<input class="small button" type="submit" value="Speichern" /> 
 												</form>
 											</div>
 							 	    </td>
