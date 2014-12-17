@@ -229,7 +229,7 @@ public class UserController {
 	 * @param modelMap
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')|| hasRole('ROLE_USERMANAGER')")
 	@RequestMapping("/user/profile/{pid}/change/edit")
 	public String changeProfileEdit(@PathVariable("pid") UserAccount userAccount, @ModelAttribute("profileForm") @Valid ProfileForm profileForm,
 			BindingResult result, ModelMap modelMap) {
