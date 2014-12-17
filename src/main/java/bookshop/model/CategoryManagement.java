@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
@@ -12,11 +13,14 @@ import org.springframework.stereotype.Component;
 
 import bookshop.model.Article.ArticleId;
 
-//@Component
-//public interface CategoryManagement extends CrudRepository<Category, Long>{
+@Component
+public interface CategoryManagement extends CrudRepository<Category, String>{
 	
-	//Iterable<Category> findById(String id);
+	Optional<Category> findById(String id);
 	
+	Iterable<Category> findByCategoryName(String categoryname);
+	
+	Iterable<Category> findByType(ArticleId type);
 	
 	
 	
@@ -119,4 +123,4 @@ import bookshop.model.Article.ArticleId;
 	/*public String getCategoryList(){
 		return categories.get(ArticleId.BOOK).toString();
 	}*/
-//}
+}

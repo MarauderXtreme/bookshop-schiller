@@ -1,6 +1,9 @@
 package bookshop.controller;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import javax.validation.Valid;
 
@@ -19,6 +22,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +32,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import bookshop.model.ArticleManagement;
 import bookshop.model.Article;
 import bookshop.model.Article.ArticleId;
+import bookshop.model.Category;
+import bookshop.model.CategoryManagement;
 import bookshop.model.validation.ArticleForm;
 //import bookshop.model.CategoryManagement;
 import bookshop.model.validation.RegistrationForm;
@@ -37,6 +43,7 @@ public class ArticleController {
 	
 	private final ArticleManagement articleCatalog;
 	private final Inventory<InventoryItem> inventory;
+	private final CategoryManagement categories;
 	private final MessageSourceAccessor messageSourceAccessor; 
 
 	/**
@@ -46,9 +53,10 @@ public class ArticleController {
 	 * @param messageSource
 	 */
 	@Autowired
-	public ArticleController(ArticleManagement articleCatalog, Inventory<InventoryItem> inventory, MessageSource messageSource) {
+	public ArticleController(ArticleManagement articleCatalog, Inventory<InventoryItem> inventory, CategoryManagement categories, MessageSource messageSource) {
 		this.articleCatalog = articleCatalog;
 		this.inventory = inventory;
+		this.categories = categories;
 		this.messageSourceAccessor = new MessageSourceAccessor(messageSource);
 	}
 	
@@ -71,6 +79,32 @@ public class ArticleController {
 
 		return "articles";
 	}*/
+	
+	
+	//@RequestMapping("/")
+	public String randomArticleList(ModelMap modelMap) {
+		
+		List<Article> list = new LinkedList<Article>();
+		List<Article> li = new LinkedList<Article>();
+		Random rand = new Random();
+		int randomNum;
+		
+		Iterable<Article> articles = articleCatalog.findByType(ArticleId.BOOK);
+		for(Article art : articles){
+			li.add(art);
+		}
+		
+		randomNum = rand.nextInt((li.size() - 0) + 1) + 0;
+		
+		for(int i=0; i<5; i++){
+			list.add(li.get(randomNum));
+		}
+
+		modelMap.addAttribute("random", list);
+		modelMap.addAttribute("promo", list.get(randomNum));
+
+		return "/";
+	}
 	
 	
 	/**
@@ -139,7 +173,8 @@ public class ArticleController {
 	public String addBook(ModelMap modelMap) {
 
 		modelMap.addAttribute("catalog", articleCatalog.findByType(ArticleId.BOOK));
-		modelMap.addAttribute("title", messageSourceAccessor.getMessage("catalog.dvd.title"));
+		modelMap.addAttribute("title", messageSourceAccessor.getMessage("catalog.article.title"));
+		modelMap.addAttribute("categories", categories.findByType(ArticleId.BOOK));
 		modelMap.addAttribute("articleForm", new ArticleForm());
 		
 		return "addbook";
@@ -201,12 +236,14 @@ public class ArticleController {
 		}
 		
 		if(typeInput == 4){
-			if(!(articleCatalog.findByAuthor(input)==null))
+			/*if(!(articleCatalog.findByAuthor(input)==null))
 				modelMap.addAttribute("catalog", articleCatalog.findByAuthor(input));
 			if(!(articleCatalog.findByInterpret(input)==null))
 				modelMap.addAttribute("catalog", articleCatalog.findByInterpret(input));
 			if(!(articleCatalog.findByDirector(input)==null))
-				modelMap.addAttribute("catalog", articleCatalog.findByDirector(input));
+				modelMap.addAttribute("catalog", articleCatalog.findByDirector(input));*/
+			modelMap.addAttribute("catalog", articleCatalog.findByArtist(input));
+			
 		}
 		/*
 		if(typeInput == 5){
@@ -265,21 +302,35 @@ public class ArticleController {
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
 	@RequestMapping(value="/article/book/new", method=RequestMethod.POST)
-	public String addBook(	@ModelAttribute("articleForm") @Valid ArticleForm articleForm, BindingResult result, 
-							@RequestParam("categoryArticle") String category){
+	public String addBook(	@ModelAttribute("articleForm") @Valid ArticleForm articleForm, BindingResult result){
+		
+		System.out.println("start addbook");
+
+		if (articleForm.getPrice()<0) {
+			result.addError(new ObjectError("price", "Der Preis muss grosser als 0 sein"));
+		}
+		
+		if (result.hasErrors()) {
+			System.out.println("haserrors");
+			return "addbook";
+		}
+
+		
 		Article article = new Article(	articleForm.getName(),
 										Money.of(EUR, articleForm.getPrice()),
 										articleForm.getBeschreibung(),
 										articleForm.getPublisher(),
 										articleForm.getId(),
 										ArticleId.BOOK,
-										category,
-										articleForm.getAuthor(),
+										articleForm.getCategory(),
+										articleForm.getArtist(),
 										"01.01.2015",
 										Money.of(EUR, 0.99)
 										);
 	
 		//article.setAuthor(author);
+		
+		System.out.println("book added");
 			
 		articleCatalog.save(article);
 		
@@ -566,10 +617,19 @@ public class ArticleController {
 		
 		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
 		Quantity quantity = item.map(InventoryItem::getQuantity).orElse(Units.TEN);
+		
+		//Category category = new Category();
 
 		model.addAttribute("book", article);
 		model.addAttribute("quantity", quantity);
 		model.addAttribute("orderable", quantity.isGreaterThan(Units.ZERO));
+		if(article.getType()==ArticleId.BOOK)
+			{model.addAttribute("categories", categories.findByType(ArticleId.BOOK));}
+		if(article.getType()==ArticleId.CD)
+			{model.addAttribute("categories", categories.findByType(ArticleId.CD));}
+		if(article.getType()==ArticleId.DVD)
+			{model.addAttribute("categories", categories.findByType(ArticleId.DVD));}
+		//model.addAttribute("category", category);
 
 		return "editarticle";
 	}
@@ -602,31 +662,73 @@ public class ArticleController {
 			 					@RequestParam("newpublisher") String publisher,
 			 					@RequestParam("descriptiontext") String beschreibung,
 			 					@RequestParam("newisbn") String isbn,
-			 					@RequestParam("newprice") double price,
 			 					@RequestParam("newcategory") String addcategory,
 			 					@RequestParam("newimage") String image,
-			 					@RequestParam("newauthor") String author,
-			 					@RequestParam("newInterpret") String interpret,
-			 					@RequestParam("newdirector") String director,
+			 					@RequestParam("newartist") String artist,
 			 					@RequestParam("addquan") long increase,
 			 					@RequestParam("removequan") long decrease,
 			 					@RequestParam("categorytodelete") String delcategory) {
 		
 		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
 		
+		if(name==null){}
+		else
 		article.setName(name);
+		
+		if(publisher==null){}
+		else
 		article.setPublisher(publisher);
+		
+		if(beschreibung==null){}
+		else
 		article.setBeschreibung(beschreibung);
+		
+		if(isbn==null){}
+		else
 		article.setId(isbn);
-		article.setPrice(Money.of(EUR, price));
-		article.addCategory(addcategory);
+		
+		//article.setPrice(Money.of(EUR, price));
+		
+		if(addcategory==null){}
+		else{
+			if(delcategory=="1"){}
+			else
+				article.addCategory(addcategory);
+		}
+		
+		if(image==null){}
+		else
 		article.setImage(image);
+		
+		if(artist==null){}
+		else
+			article.setArtist(artist);
+		
+		/*if(author==null){}
+		else
 		article.setAuthor(author);
+		
+		if(interpret==null){}
+		else
 		article.setInterpret(interpret);
+		
+		if(director==null){}
+		else
 		article.setDirector(director);
-		article.removeCategory(delcategory);
-				
+		*/
+		if(delcategory==null){}
+		else{
+			if(delcategory=="1"){}
+			else
+				article.removeCategory(delcategory);
+		}
+		
+		if(increase==0){}
+		else
 		item.get().increaseQuantity(Units.of(increase));
+		
+		if(decrease==0){}
+		else
 		item.get().increaseQuantity(Units.of(decrease));
 		
 		

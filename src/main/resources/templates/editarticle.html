@@ -28,9 +28,9 @@
 								<small class="alert-box alert error">Bitte Titel eingeben.</small>
 							</div>
 							<div class="large-6 medium-6 small-12 columns">
-								<label for="newauthor">Autor</label>
-								<input type="text" id="newauthor" name="newauthor" th:value="${book.author}" required="" />
-								<small class="alert-box alert error">Bitte Autor eingeben.</small>
+								<label for="newartist">Autor</label>
+								<input type="text" id="newauthor" name="newartist" th:value="${book.artist}" required="" />
+								<small class="alert-box alert error">Bitte Künstler eingeben.</small>
 							</div>
 							<div class="large-6 medium-6 small-12 columns">
 								<label for="newpublisher">Verlag</label>
@@ -47,29 +47,55 @@
 								<input type="text" id="newimage" name="newimage" th:value="${book.image}" required="" />
 								<small class="alert-box alert error">Bitte Dateinamen eingeben.</small>
 							</div>
-							<div class="large-6 medium-6 small-12 columns">
+							<!--  <div class="large-6 medium-6 small-12 columns">
 								<label for="newprice">Preis</label>
 								<input type="text" id="newprice" name="newprice" th:value="${book.price.amount}" required="" pattern="custom_price" />
 								<small class="alert-box alert error">Bitte neuen Preis im Format "EUR xx.xx" eingeben.</small>
-							</div>
+							</div> -->
 							<div class="large-3 medium-3 small-6 columns">
 								<label for="newcategory">Neue Kategorie</label>
-								<input type="text" id="newcategory" name="newcategory" placeholder="Category to add" />
+								<!--<input type="text" id="newcategory" name="newcategory" placeholder="Category to add" /> -->
+														<select name="newcategory">
+															<option value="1">Keine</option>
+														<div th:each="category : ${categories}">
+															<option th:text="${category.categoryName}" th:value="${category.categoryName}" value="1">category</option>
+														</div>
+														</select>
 								<small class="alert-box alert error">Bitte neue Kategorie eingeben.</small>
 							</div>
 							<div class="large-3 medium-3 small-6 columns">
 								<label for="categorytodelete">Zu löschende Kategorie</label>
-								<input type="text" id="categorytodelete" name="categorytodelete" placeholder="Category to delete" />
-								<small class="alert-box alert error">Bitte zu löschende Kategorie eingeben.</small>
+								<!--<input type="text" id="categorytodelete" name="categorytodelete" placeholder="Category to delete" />-->
+														<select name="categorytodelete">
+															<option value="1">Keine</option>
+														<div th:each="category : ${categories}">
+															<option th:text="${category.categoryName}" th:value="${category.categoryName}" value="2">category</option>
+														</div>
+														</select>		
+							<small class="alert-box alert error">Bitte zu löschende Kategorie eingeben.</small>
 							</div>
 							<div class="large-3 medium-3 small-6 columns">
 								<label for="addquan">Hinzu zu fügende Menge</label>
-								<input type="number" id="addquan" name="addquan" placeholder="Quantity to add" min="0" />
+								<!--<input type="number" id="addquan" name="addquan" placeholder="Quantity to add" min="0" />-->
+										
+										<div class="row collapse postfix-round">
+											<div class="small-9 columns">
+												<input id="addquan" type="number" name="addquan" value="0" min="0" />
+											</div>
+										</div>
+										
 								<small class="alert-box alert error">Bitte hinzu zu fügende Menge eingeben.</small>
 							</div>
 							<div class="large-3 medium-3 small-6 columns">
 								<label for="removequan">Hinzu zu löschende Menge</label>
-								<input type="number" id="removequan" name="removequan" placeholder="Quantity to remove" min="0" />
+								<!--<input type="number" id="removequan" name="removequan" placeholder="Quantity to remove" min="0" />-->
+								
+										<div class="row collapse postfix-round">
+											<div class="small-9 columns">
+												<input id="removequan" type="number" name="removequan" value="0" min="0" />
+											</div>
+										</div>
+								
 								<small class="alert-box alert error">Bitte hinzu zu löschende Menge eingeben.</small>
 							</div>
 							<div>
