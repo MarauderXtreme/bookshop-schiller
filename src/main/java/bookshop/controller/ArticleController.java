@@ -35,6 +35,7 @@ import bookshop.model.Article.ArticleId;
 import bookshop.model.Category;
 import bookshop.model.CategoryManagement;
 import bookshop.model.validation.ArticleForm;
+import bookshop.model.validation.CategoriesForm;
 import bookshop.model.validation.EditArticleForm;
 //import bookshop.model.CategoryManagement;
 import bookshop.model.validation.RegistrationForm;
@@ -124,16 +125,21 @@ public class ArticleController {
 	public String addCategories(ModelMap modelMap) {
 
 		modelMap.addAttribute("categories", categories.findAll());
+		modelMap.addAttribute("categoriesbook", categories.findByType(ArticleId.BOOK));
+		modelMap.addAttribute("categoriescd", categories.findByType(ArticleId.CD));
+		modelMap.addAttribute("categoriesdvd", categories.findByType(ArticleId.DVD));
+		modelMap.addAttribute("categoriesform", new CategoriesForm());
 		
 		return "editcategories";
 	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
 	@RequestMapping(value="/editcategories/delete", method=RequestMethod.POST)
-	public String deleteCategory(@RequestParam("categorytodelete") String category){
+	public String deleteCategory(ModelMap modelMap, @RequestParam("categorytodelete") String category){
 		
-		
-		categories.delete(categories.findByCategoryName(category));
+		if(category=="1"){}
+		else
+			categories.delete(categories.findByCategoryName(category));
 		
 		return "redirect:/editcategories";
 
@@ -142,18 +148,23 @@ public class ArticleController {
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
 	@RequestMapping(value="/editcategories/add", method=RequestMethod.POST)
-	public String addCategory(@RequestParam("newcategory") String category, @RequestParam("type") int type){
+	public String addCategory(@ModelAttribute("categoriesform") @Valid CategoriesForm categoriesform, BindingResult result){
 		
-		if(type == 1){
-			Category cat = new Category(category, ArticleId.BOOK);
+		if (result.hasErrors()) {
+			System.out.println("haserrors");
+			return "editcategories";
+		}
+		
+		if(categoriesform.getType().equals("Buch")){
+			Category cat = new Category(categoriesform.getCategory(), ArticleId.BOOK);
 			categories.save(cat);
 		}
-		if(type == 2){
-			Category cat = new Category(category, ArticleId.CD);
+		if(categoriesform.getType().equals("CD")){
+			Category cat = new Category(categoriesform.getCategory(), ArticleId.CD);
 			categories.save(cat);
 		}
-		if(type == 3){
-			Category cat = new Category(category, ArticleId.DVD);
+		if(categoriesform.getType().equals("DVD")){
+			Category cat = new Category(categoriesform.getCategory(), ArticleId.DVD);
 			categories.save(cat);
 		}
 		

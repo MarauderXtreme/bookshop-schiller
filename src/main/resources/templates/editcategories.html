@@ -22,20 +22,45 @@
 							
 		
 							<div class="large-3 medium-3 small-6 columns">
-								<label th:each="category : ${categories}" th:text="${category.categoryName}" th:value="${category.categoryName}">Neue Kategorie</label>
+								<ul th:each="category : ${categoriesbook}">
+									<li th:text="${category.categoryName}"></li>
+								</ul>
+								<br />
+								<ul th:each="category : ${categoriescd}">
+									<li th:text="${category.categoryName}"></li>
+								</ul>
+								<br />
+								<ul th:each="category : ${categoriesdvd}">
+									<li th:text="${category.categoryName}"></li>
+								</ul>
+								<br />
 							</div>
-						<form method="POST" action="/editcategories/add" data-abide="">
-							<div class="large-6 medium-6 small-12 columns">
+						<form method="POST" action="/editcategories/add" th:object="${categoriesform}" data-abide="">
+						
+							<!-- <div th:if="${#fields.hasErrors('*')}">
+										<p class="alert-box warning"><b>Einige Angaben sind nicht korrekt. Bitte versuchen Sie es erneut!</b></p>
+							</div>-->
+						
+							<div>
 								<label>Neue Kategorie</label>
-								<input type="text" id="newcategory" name="newcategory" placeholder="Kategorie" required="" />
-								<input type="text" id="type" name="type" placeholder="Typ" required="" />
+								<input th:field="*{category}" th:errorclass="fieldError" type="text" id="newcategory" name="newcategory" placeholder="Kategorie" required="" />
+								<!--<small class="alert-box alert error">Bitte neue Kategorie auswählen.</small>-->
+								<small class="alert-box alert" th:if="${#fields.hasErrors('category')}" th:errors="*{category}">Der Vorname darf nicht leer sein.</small>
+								<input th:field="*{type}" th:errorclass="fieldError" type="text" id="type" name="type" placeholder="Typ" required="" />
+								<!--<small class="alert-box alert error">Bitte neue Kategorie auswählen.</small> -->
+								<small class="alert-box alert" th:if="${#fields.hasErrors('type')}" th:errors="*{type}">Der Vorname darf nicht leer sein.</small>
 							</div>
-								 <input class="small button" type="submit" value="Speichern" />
+							
+							<input class="small button" type="submit" value="Speichern" />
+								 
 						</form>	 
 						<form method="POST" action="/editcategories/delete" data-abide="">				
-							<div class="large-6 medium-6 small-12 columns">
+							<div>
 								<label>Entferne Kategorie</label>
-								<input type="text" id="categorytodelete" name="categorytodelete" required="" />
+								<select name="categorytodelete" required="">
+									<option value="1">Keine</option>
+									<option th:each="category : ${categories}" th:text="${category.categoryName}" th:value="${category.categoryName}" value="2">category</option>
+								</select>	
 							</div>
 								 <input class="small button" type="submit" value="Entfernen" />
 						</form>
