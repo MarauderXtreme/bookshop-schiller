@@ -57,13 +57,10 @@
 									<small class="alert-box alert" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Der Vorname darf nicht leer sein.</small>
 								</div>
 								<div class="large-6 medium-6 small-12 columns">
-									<label>Kategorie</label>
-									<!--<input th:field="*{category}" th:errorclass="fieldError" type="text" name="categoryArticle" placeholder="Kategorie" required="" />-->
-														<select th:field="*{category}" th:errorclass="fieldError" type="text" name="categoryArticle">
-														<div th:each="category : ${categories}">
-															<option th:text="${category.categoryName}" th:value="${category.categoryName}" value="1">category</option>
-														</div>
-														</select>
+								<label for="newcategory">Neue Kategorie</label>
+								<select name="newcategory"  required="">
+									<option th:each="category : ${categories}" th:text="${category.categoryName}" th:value="${category.categoryName}" value="1">category</option>
+								</select>
 									<small class="alert-box alert error">Bitte Kategorie eingeben.</small>
 									<small class="alert-box alert" th:if="${#fields.hasErrors('category')}" th:errors="*{category}">Der Vorname darf nicht leer sein.</small>
 								</div>
