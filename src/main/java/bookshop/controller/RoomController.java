@@ -16,7 +16,6 @@ public class RoomController {
 	@RequestMapping(value="/admin/room/new", method = RequestMethod.POST)
 	public String add(@RequestParam("rName") String rName, @RequestParam("rNum") String rNum)
 	{
-		System.out.println("Add aufgerufen");
 		RoomManagement.getInstance().addRoom(rName, rNum);
 		return "redirect:/admin/room/add";
 	}

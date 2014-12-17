@@ -78,34 +78,7 @@ public class ArticleController {
 		modelMap.addAttribute("title", messageSourceAccessor.getMessage("catalog.dvd.title"));
 
 		return "articles";
-	}*/
-	
-	
-	//@RequestMapping("/")
-	public String randomArticleList(ModelMap modelMap) {
-		
-		List<Article> list = new LinkedList<Article>();
-		List<Article> li = new LinkedList<Article>();
-		Random rand = new Random();
-		int randomNum;
-		
-		Iterable<Article> articles = articleCatalog.findByType(ArticleId.BOOK);
-		for(Article art : articles){
-			li.add(art);
-		}
-		
-		randomNum = rand.nextInt((li.size() - 0) + 1) + 0;
-		
-		for(int i=0; i<5; i++){
-			list.add(li.get(randomNum));
-		}
-
-		modelMap.addAttribute("random", list);
-		modelMap.addAttribute("promo", list.get(randomNum));
-
-		return "/";
-	}
-	
+	}*/	
 	
 	/**
 	 * Maps a list of all articles to modelMap.
@@ -132,7 +105,7 @@ public class ArticleController {
 		modelMap.addAttribute("catalog", articleCatalog.findByType(ArticleId.BOOK));
 		modelMap.addAttribute("title", messageSourceAccessor.getMessage("catalog.dvd.title"));
 
-		return "books";
+		return "articles";
 	}
 	
 	/**
@@ -146,7 +119,7 @@ public class ArticleController {
 		modelMap.addAttribute("catalog", articleCatalog.findByType(ArticleId.CD));
 		modelMap.addAttribute("title", messageSourceAccessor.getMessage("catalog.dvd.title"));
 
-		return "cds";
+		return "articles";
 	}
 	
 	/**
@@ -160,7 +133,7 @@ public class ArticleController {
 		modelMap.addAttribute("catalog", articleCatalog.findByType(ArticleId.DVD));
 		modelMap.addAttribute("title", messageSourceAccessor.getMessage("catalog.dvd.title"));
 
-		return "dvds";
+		return "articles";
 	}
 	
 	/**
@@ -282,7 +255,7 @@ public class ArticleController {
 			modelMap.addAttribute("catalog", articleCatalog.findByCategory(input));
 		}
 			
-		return "search";	//!? Wird nicht als URL angezeigt sondern "article/search"
+		return "articles";
 		
 	}
 	
