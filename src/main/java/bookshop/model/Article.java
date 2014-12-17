@@ -110,6 +110,8 @@ public class Article extends Product{
 		}
 		
 		
+		
+		
 		/**
 		 * @return the description of the article
 		 */

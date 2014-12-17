@@ -5,9 +5,9 @@
 	</head>
 	<body>
 		<div th:fragment="articletabs">
-	  	<a class="tiny button" th:href="@{'/detail/' + ${book.identifier}}" href="detail.html">View</a>
-	 		<a class="tiny button" th:href="@{'/article/' + ${book.identifier} + '/edit'}" href="editarticle.html">Edit</a>
-	   	<a class="tiny button" th:href="@{'/article/' + ${book.identifier} + '/delete/confirm'}" href="confirmdelete.html">Delete</a>
+	  	<a class="tiny button" th:href="@{'/detail/' + ${article.identifier}}" href="detail.html">View</a>
+	 		<a class="tiny button" th:href="@{'/article/' + ${article.identifier} + '/edit'}" href="editarticle.html">Edit</a>
+	   	<a class="tiny button" th:href="@{'/article/' + ${article.identifier} + '/delete/confirm'}" href="confirmdelete.html">Delete</a>
 		</div>
 	</body>
 </html>
