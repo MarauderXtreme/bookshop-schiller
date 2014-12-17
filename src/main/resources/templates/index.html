@@ -34,6 +34,7 @@
 			          	<form action="/cart" method="POST">
 										<input type="hidden" name="article" value="0" th:value="${promo.identifier}" />
 										<label>Preis: <span th:text="${promo.price.amount}"> </span><i class="fi-euro"></i></label>
+										<input id="number" type="hidden" name="number" th:value="1" />
 										<input class="button tiny round" type="submit" value="In den Warenkorb"/>
 									</form>
 								</div>
@@ -53,6 +54,7 @@
 			          	<form action="/cart" method="POST">
 										<input type="hidden" name="article" value="0" th:value="${book.identifier}" />
 										<label>Preis: <span th:text="${book.price.amount}"> </span><i class="fi-euro"></i></label>
+										<input id="number" type="hidden" name="number" th:value="1" />
 										<input class="button tiny round" type="submit" value="In den Warenkorb"/>
 									</form>
 								</div>

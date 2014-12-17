@@ -54,6 +54,14 @@ public class StatisticController {
 
 		
 		Order statisticOrder = new Order(userAccount);
+		Order gesOrder = new Order(userAccount);
+		
+		for(Order order : orderManager.find(OrderStatus.COMPLETED)){
+			for(OrderLine orderLine : order.getOrderLines()){
+				gesOrder.add(orderLine);
+			}
+		}
+		modelMap.addAttribute("statisticPriceAll", gesOrder.getTotalPrice());
 		
 		for(InventoryItem item : inventory.findAll()){
 
@@ -61,11 +69,13 @@ public class StatisticController {
 			quantity = quantity.subtract(item.getQuantity());
 			
 			for(Order order : orderManager.find(time, date.getTime())){
+				
 				if(order.isCompleted()==true){
 					for(OrderLine orderLine : order.getOrderLines()){
 						
 						ProductIdentifier name1 = item.getProduct().getIdentifier();
 						ProductIdentifier name2 = orderLine.getProductIdentifier();
+						
 						
 						if(name1.equals(name2)== true){
 							quantity = quantity.add(orderLine.getQuantity());
