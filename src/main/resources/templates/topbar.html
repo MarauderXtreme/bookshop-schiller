@@ -97,7 +97,7 @@
     		</li>
     		<li sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE')" class="divider"></li>
     		<li sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE')">
-    			<a class="round button" th:href="@{/cart}" href="cart.html">Warenkorb</a>
+    			<a th:href="@{/cart}" href="cart.html"><i class="fi-shopping-cart"></i></a>
     		</li>
     		<li sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="divider"></li>
     		<li>
