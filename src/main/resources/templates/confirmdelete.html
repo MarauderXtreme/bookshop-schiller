@@ -17,10 +17,10 @@
 		      </header>
 	        <div class="large-12">&nbsp;</div>
 	        <div class="large-12 medium-12 small-12 columns">
-	          <h2><span th:text="${book.name}"></span> löschen</h2>
+	          <h2><span th:text="${article.name}"></span> löschen</h2>
 	        	<div sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')" th:include="articletabs :: articletabs"></div>
 	          <form method="post" action="/article/delete">
-							<input type="hidden" name="article" value="0" th:value="${book.identifier}" />
+							<input type="hidden" name="article" value="0" th:value="${article.identifier}" />
 							<label for="delete">Sind Sie sich sicher. Diese Aktion kann nicht rückgängig gemacht werden.</label>
 							<input id="delete" class="button" type="submit" value="Delete Article"/>
 						</form>
