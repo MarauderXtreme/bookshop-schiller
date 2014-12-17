@@ -19,14 +19,12 @@
 	        <div class="large-12 medium-12 small-12 columns">
 	          <h3>Bestellübersicht</h3>
 	          <table>
-							<caption th:text="#{orders.completed}"></caption>
+							<caption th:text="#{orders.myorders}"></caption>
 							<thead>
 								<tr>
 									<th th:text="#{orders.status}">Datum</th>
 									<th th:text="#{orders.date}">Datum</th>
-									<th th:text="#{orders.payed}">Bezahlt</th>
-									<th></th>
-									<th th:text="#{statistics.article}">Artikel</th>
+									<th th:text="#{orders.payed}">Bezahlt</th>								
 								</tr>
 							</thead>
 							<tbody>
@@ -34,10 +32,14 @@
 										<td th:text="${order.orderStatus}"></td>
 										<td th:text="${order.dateCreated}"></td>
 										<td th:text="${order.totalPrice}"></td>
-											<td th:each="orderline : ${order.orderLines}">
-												<td th:text="${orderline.productName}" ></td>
-												<td th:text="${orderline.quantity}"></td>
-											</td>
+											<tr>
+												<th th:text="#{statistics.article}">Artikel</th>
+												<th th:text="#{orders.quantity}">Anzahl</th>
+											</tr>
+												<tr th:each="orderline : ${order.orderLines}">
+													<td th:text="${orderline.productName}" ></td>
+													<td th:text="${orderline.quantity}"></td>
+												</tr>
 										<div th:if="${order.open}">
 											<td>
 												<form class="salespoint" method="POST" action="/order/cancel">
