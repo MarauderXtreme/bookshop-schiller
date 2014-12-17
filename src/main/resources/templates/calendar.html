@@ -16,29 +16,29 @@
 		        </div>
 		      </header>
 	        <div class="large-12">&nbsp;</div>
-	        <div class="large-12 medium-12 small-12 columns">
-	          <h2>Kalender</h2>
-		        <table class="large-12 medium-12 small-12">
-		        	<thead>
-		          	<tr>
-		            	<th class="large-3">Datum</th>
-		              <th class="large-3">Zeit</th>
-		              <th class="large-3">Event</th>
-		              <th class="large-3">Raum</th>
-		            </tr>
-		          </thead>
-		          <tbody th:remove="all-but-first">
-		          	<tr th:each="event : ${eventList}">
-		            	<td>
-		            		<span th:text="${event.getDate().getEventDate()}">13</span>
-		            	</td>
-		              <td th:text="${event.getDate().getEventTime()}">0000</td>
-		              <td th:text="${event.getName()}">Testtext</td>
-		              <td th:text="${event.getRoom().getNumber() + ': ' + event.getRoom().getName()}">Testtext</td>
-		            </tr>
-		          </tbody>
-		        </table>
-	        </div>
+		        <div class="large-12 medium-12 small-12 columns">
+		          <h2>Kalender</h2>
+			        <table class="large-12 medium-12 small-12">
+			        	<thead>
+			          	<tr>
+			            	<th class="large-3">Datum</th>
+			              	<th class="large-3">Zeit</th>
+			             	<th class="large-3">Event</th>
+			             	<th class="large-3">Raum</th>
+			            </tr>
+			          </thead>
+			          <tbody th:remove="all-but-first">
+			          	<tr th:each="event : ${eventList}">
+			            	<td>
+			            		<span th:text="${event.getDate().getEventDate()}">13</span>
+			            	</td>
+			              <td th:text="${event.getDate().getEventTime()}">0000</td>
+			              <td th:text="${event.getName()}">Testtext</td>
+			              <td th:text="${event.getRoom().getNumber() + ': ' + event.getRoom().getName()}">Testtext</td>
+			            </tr>
+			          </tbody>
+			        </table>
+		        </div>
 	    	</div>
 	    </div>
 		</div>

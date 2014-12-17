@@ -1,5 +1,6 @@
 package bookshop.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,6 +50,11 @@ public class RoomManagement {
 			return rooms.get(name);
 		}
 		return null;
+	}
+	
+	public ArrayList<Room> getAllRooms()
+	{
+		return new ArrayList<Room>(rooms.values());
 	}
 	
 

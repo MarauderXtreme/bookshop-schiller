@@ -1,37 +1,36 @@
 package bookshop.controller;
 
-import javax.validation.Valid;
-
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import bookshop.model.RoomManagement;
-import bookshop.model.validation.RoomForm;
 
 @Controller
 public class RoomController {
-	
-	public RoomController() {}
-	
-	@RequestMapping("/admin/room/add")
-	public String room(@ModelAttribute("profileForm") @Valid RoomForm roomForm, BindingResult result, ModelMap modelMap) {
-		
-		RoomManagement.getInstance();
-		
-		return "addroom";
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(value="/admin/room/new", method = RequestMethod.POST)
+	public String add(@RequestParam("rName") String rName, @RequestParam("rNum") String rNum)
+	{
+		System.out.println("Add aufgerufen");
+		RoomManagement.getInstance().addRoom(rName, rNum);
+		return "redirect:/admin/room/add";
 	}
 	
-	@RequestMapping("/admin/room/new")
-	public String addRoom(@ModelAttribute("profileForm") @Valid RoomForm roomForm, BindingResult result, ModelMap modelMap) {
-		
-		RoomManagement.getInstance();
-		
-		return "addroom";
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping("/admin/room/add")
+	public String rooms(String roomNumber, String roomName, Model model) {
 
+		System.out.println("Rooms aufgerufen");
+		model.addAttribute("roomname", roomName);
+		model.addAttribute("roomNumber", roomNumber);
+		model.addAttribute("roomList" , RoomManagement.getInstance().getAllRooms());
+
+		return "addroom";
 	}
 	
 }
