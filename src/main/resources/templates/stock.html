@@ -34,7 +34,7 @@
 										  <div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE')">
 												<form method="post" action="/article/reorder">
 													<input type="hidden"  id="article" name="article" th:value="${item.product.identifier}" />
-													<input class="small button" type="submit" value="Speichern" /> 
+													<input class="small button" type="submit" value="Nachbestellen" /> 
 												</form>
 											</div>
 							 	    </td>
