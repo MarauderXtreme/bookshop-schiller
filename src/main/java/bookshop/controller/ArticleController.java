@@ -1,5 +1,6 @@
 package bookshop.controller;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -234,16 +235,53 @@ public class ArticleController {
 	@RequestMapping(value="/article/search", method=RequestMethod.GET)
 	public String searchArticles(ModelMap modelMap, @RequestParam("typeInput") int typeInput, @RequestParam("input") String input){
 
+		List<Article> li = new LinkedList<Article>();
+		
+		
+		Iterable<Article> articles = articleCatalog.findAll();
+		
 		if(typeInput == 1){
-			modelMap.addAttribute("catalog", articleCatalog.findByName(input));
+			for(Article a : articles){
+				if(input.length()<=3){
+					if(a.getName().startsWith(input))
+						li.add(a);
+				}
+				else{
+				if(a.getName().contains(input)){
+					li.add(a);
+				}
+				}
+			}
 		}
 		
 		if(typeInput == 2){
-			modelMap.addAttribute("catalog", articleCatalog.findByPublisher(input));
+			for(Article a : articles){
+				if(input.length()<=3){
+					if(a.getPublisher().startsWith(input))
+						li.add(a);
+				}
+				else{
+				if(a.getPublisher().contains(input)){
+					li.add(a);
+				}
+				}
+			}
+			//modelMap.addAttribute("catalog", articleCatalog.findByPublisher(input));
 		}
 		
 		if(typeInput == 3){
-			modelMap.addAttribute("catalog", articleCatalog.findById(input));
+			for(Article a : articles){
+				if(input.length()<=8){
+					if(a.getId().startsWith(input))
+						li.add(a);
+				}
+				else{
+				if(a.getId().contains(input)){
+					li.add(a);
+				}
+				}
+			}
+			//modelMap.addAttribute("catalog", articleCatalog.findById(input));
 		}
 		
 		if(typeInput == 4){
@@ -253,7 +291,19 @@ public class ArticleController {
 				modelMap.addAttribute("catalog", articleCatalog.findByInterpret(input));
 			if(!(articleCatalog.findByDirector(input)==null))
 				modelMap.addAttribute("catalog", articleCatalog.findByDirector(input));*/
-			modelMap.addAttribute("catalog", articleCatalog.findByArtist(input));
+			//modelMap.addAttribute("catalog", articleCatalog.findByArtist(input));
+			
+			for(Article a : articles){
+				if(input.length()<=3){
+					if(a.getArtist().startsWith(input))
+						li.add(a);
+				}
+				else{
+				if(a.getArtist().contains(input)){
+					li.add(a);
+				}
+				}
+			}
 			
 		}
 		/*
@@ -290,9 +340,19 @@ public class ArticleController {
 			
 			modelMap.addAllAttribute("catalog", categories);*/
 			
-			modelMap.addAttribute("catalog", articleCatalog.findByCategory(input));
+			for(Article a : articles){
+				
+				if(a.getCategoryList().contains(input)){
+					li.add(a);
+			
+				}
+			}
+			
+			//modelMap.addAttribute("catalog", articleCatalog.findByCategory(input));
 		}
 			
+		modelMap.addAttribute("catalog", li);
+		
 		return "articles";
 		
 	}
