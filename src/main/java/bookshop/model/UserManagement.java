@@ -64,45 +64,55 @@ public class UserManagement {
 	}
 	
 	/**
-	 * Disables the given UserAccount, if it is enabled.
+	 * Disables the given userAccount, if it is enabled.
 	 * @param userAccount
+	 * @return true if account was disabled and false if not
 	 */
-	public void disable(UserAccount userAccount) {
+	public boolean disable(UserAccount userAccount) {
 		if (userAccount.isEnabled()) {
 			User user = userRepository.findUserByUserAccount(userAccount);
 			userAccountManager.disable(user.getUserAccount().getIdentifier());
+			return true;
 		}
+		return false;
 	}
 	
 	/**
-	 * Enables the given UserAccount, if it is disabled.
+	 * Enables the given userAccount, if it is disabled.
 	 * @param userAccount
+	 * @return true if account was enabled and false if not
 	 */
-	public void enable(UserAccount userAccount) {
+	public boolean enable(UserAccount userAccount) {
 		if (!userAccount.isEnabled()) {
 			User user = userRepository.findUserByUserAccount(userAccount);
 			userAccountManager.enable(user.getUserAccount().getIdentifier());
+			return true;
 		}
+		return false;
 	}
 	
 	/**
 	 * Adds the given role to the given userAccount.
 	 * @param userAccount
 	 * @param role
+	 * @return true if role was added and false if not
 	 */
-	public void addRole(UserAccount userAccount, Role role) {
+	public boolean addRole(UserAccount userAccount, Role role) {
 
 		if (!userAccount.hasRole(role)) {
 			userAccount.add(role);
+			return true;
 		}
+		return false;
 	}
 	
 	/**
 	 * Removes the given role to the given userAccount.
 	 * @param userAccount
 	 * @param role
+	 * @return true if role was removed and false if not
 	 */
-	public void removeRole(UserAccount userAccount, Role role) {
+	public boolean removeRole(UserAccount userAccount, Role role) {
 		
 		int sizeRoles = 0;
 		for (Iterator<Role> iteratorRoles = userAccount.getRoles().iterator(); iteratorRoles.hasNext();) {
@@ -110,7 +120,7 @@ public class UserManagement {
 			sizeRoles++;
 		}
 		if (sizeRoles <= 1) {
-			return;
+			return false;
 		}
 		
 		if (role.equals(new Role("ROLE_ADMIN"))) {
@@ -123,13 +133,15 @@ public class UserManagement {
 				}
 			}
 			if (numberAdmins <= 1) {
-				return;
+				return false;
 			}
 		}
 			
 		if (userAccount.hasRole(role)) {
 			userAccount.remove(role);
+			return true;
 		}
+		return false;
 	}
 	
 	/**

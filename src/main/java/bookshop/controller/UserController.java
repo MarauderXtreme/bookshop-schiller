@@ -205,10 +205,12 @@ public class UserController {
 	  */
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_BOSS') || hasRole('ROLE_USERMANAGER')")
 	@RequestMapping("/user/profile/{pid}")
-	public String profile(@PathVariable("pid") UserAccount userAccount, Model modelMap) {
+	public String profile(@PathVariable("pid") UserAccount userAccount, @LoggedIn Optional<UserAccount> currentUserAccount, Model modelMap) {
 		
 		User user = userRepository.findUserByUserAccount(userAccount);
 		modelMap.addAttribute("user", user);
+		User currentUser = userRepository.findUserByUserAccount(currentUserAccount.get());
+		modelMap.addAttribute("currentUser", currentUser);
 		return "profile";
 	}
 	
@@ -278,12 +280,23 @@ public class UserController {
 	 * @param modelMap
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER') || hasRole('ROLE_BOSS')")
 	@RequestMapping("/user/profile/{pid}/change")
-	public String changeProfile(@PathVariable("pid") UserAccount userAccount, ModelMap modelMap) {
+	public String changeProfile(@PathVariable("pid") UserAccount userAccount, @LoggedIn Optional<UserAccount> currentUserAccount, ModelMap modelMap) {
 		
 		User user = userRepository.findUserByUserAccount(userAccount);
 		modelMap.addAttribute("user", user);
+		User currentUser = userRepository.findUserByUserAccount(currentUserAccount.get());
+		modelMap.addAttribute("currentUser", currentUser);
+		
+		if (userAccount.hasRole(new Role("ROLE_ADMIN")) && !currentUserAccount.get().hasRole(new Role("ROLE_ADMIN"))) {
+			return "profile";
+		}
+		
+		if (!userAccount.hasRole(new Role("ROLE_BOSS")) && !currentUserAccount.get().hasRole(new Role("ROLE_ADMIN")) && !currentUserAccount.get().hasRole(new Role("ROLE_USERMANAGER"))) {
+			return "profile";
+		}
+		
 		modelMap.addAttribute("profileForm", new ProfileForm());
 		return "editprofile";
 	}
@@ -363,19 +376,33 @@ public class UserController {
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
 	@RequestMapping("/user/profile/{pid}/accountsettings")
-	public String changeAccountsettings(@PathVariable("pid") UserAccount userAccount, ModelMap modelMap) {
+	public String changeAccountsettings(@PathVariable("pid") UserAccount userAccount, @LoggedIn Optional<UserAccount> currentUserAccount, ModelMap modelMap) {
 		
 		User user = userRepository.findUserByUserAccount(userAccount);
-		modelMap.addAttribute(user);
+		modelMap.addAttribute("user", user);
+		User currentUser = userRepository.findUserByUserAccount(currentUserAccount.get());
+		modelMap.addAttribute("currentUser", currentUser);
+		
+		if ((userAccount.hasRole(new Role("ROLE_ADMIN")) || userAccount.hasRole(new Role("ROLE_USERMANAGER"))) && !currentUserAccount.get().hasRole(new Role("ROLE_ADMIN"))) {
+			return "profile";
+		}
+		
 		return "editaccountsettings";
 	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
 	@RequestMapping("/user/profile/{pid}/accountsettings/disable")
-	public String disable(@PathVariable("pid") UserAccount userAccount, Model modelMap) {
+	public String disable(@PathVariable("pid") UserAccount userAccount, @LoggedIn Optional<UserAccount> currentUserAccount, Model modelMap) {
 		
 		User user = userRepository.findUserByUserAccount(userAccount);
 		modelMap.addAttribute("user", user);
+		User currentUser = userRepository.findUserByUserAccount(currentUserAccount.get());
+		modelMap.addAttribute("currentUser", currentUser);
+		
+		if ((userAccount.hasRole(new Role("ROLE_ADMIN")) || userAccount.hasRole(new Role("ROLE_USERMANAGER"))) && !currentUserAccount.get().hasRole(new Role("ROLE_ADMIN"))) {
+			return "profile";
+		}
+		
 		userManagement.disable(userAccount);
 		userAccountManager.save(userAccount);
 		return "editaccountsettings";
@@ -383,10 +410,17 @@ public class UserController {
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
 	@RequestMapping("/user/profile/{pid}/accountsettings/enable")
-	public String enable(@PathVariable("pid") UserAccount userAccount, Model modelMap) {
+	public String enable(@PathVariable("pid") UserAccount userAccount, @LoggedIn Optional<UserAccount> currentUserAccount, Model modelMap) {
 		
 		User user = userRepository.findUserByUserAccount(userAccount);
 		modelMap.addAttribute("user", user);
+		User currentUser = userRepository.findUserByUserAccount(currentUserAccount.get());
+		modelMap.addAttribute("currentUser", currentUser);
+		
+		if ((userAccount.hasRole(new Role("ROLE_ADMIN")) || userAccount.hasRole(new Role("ROLE_USERMANAGER"))) && !currentUserAccount.get().hasRole(new Role("ROLE_ADMIN"))) {
+			return "profile";
+		}
+		
 		userManagement.enable(userAccount);
 		userAccountManager.save(userAccount);
 		return "editaccountsettings";
@@ -394,10 +428,17 @@ public class UserController {
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
 	@RequestMapping("/user/profile/{pid}/accountsettings/roles/add")
-	public String addRole(@PathVariable("pid") UserAccount userAccount, Model modelMap, @RequestParam("roleInput") String roleInput) {
+	public String addRole(@PathVariable("pid") UserAccount userAccount, @LoggedIn Optional<UserAccount> currentUserAccount, Model modelMap, @RequestParam("roleInput") String roleInput) {
 		
 		User user = userRepository.findUserByUserAccount(userAccount);
 		modelMap.addAttribute("user", user);
+		User currentUser = userRepository.findUserByUserAccount(currentUserAccount.get());
+		modelMap.addAttribute("currentUser", currentUser);
+		
+		if ((userAccount.hasRole(new Role("ROLE_ADMIN")) || userAccount.hasRole(new Role("ROLE_USERMANAGER"))) && !currentUserAccount.get().hasRole(new Role("ROLE_ADMIN"))) {
+			return "profile";
+		}
+		
 		userManagement.addRole(userAccount, new Role(roleInput));
 		userAccountManager.save(userAccount);
 		return "editaccountsettings";
@@ -405,28 +446,20 @@ public class UserController {
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
 	@RequestMapping("/user/profile/{pid}/accountsettings/roles/remove")
-	public String removeRole(@PathVariable("pid") UserAccount userAccount, Model modelMap, @RequestParam("roleInput") String roleInput) {
+	public String removeRole(@PathVariable("pid") UserAccount userAccount, @LoggedIn Optional<UserAccount> currentUserAccount, Model modelMap, @RequestParam("roleInput") String roleInput) {
 		
 		User user = userRepository.findUserByUserAccount(userAccount);
 		modelMap.addAttribute("user", user);
+		User currentUser = userRepository.findUserByUserAccount(currentUserAccount.get());
+		modelMap.addAttribute("currentUser", currentUser);
+		
+		if ((userAccount.hasRole(new Role("ROLE_ADMIN")) || userAccount.hasRole(new Role("ROLE_USERMANAGER"))) && !currentUserAccount.get().hasRole(new Role("ROLE_ADMIN"))) {
+			return "profile";
+		}
+		
 		userManagement.removeRole(userAccount, new Role(roleInput));
 		userAccountManager.save(userAccount);
 		return "editaccountsettings";
 	}
 	
-	
-	private User getCurrentUser() {
-		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        Object principal = (authentication == null) ? null : authentication.getPrincipal();
-        
-		Iterable<User> users = userRepository.findAll();
-        for(User u : users) {
-        	if (u.getUserAccount().getIdentifier().toString().equals(principal.toString())) {
-        		return u;
-        	}
-        }
-        return null;
-	}
-
 }

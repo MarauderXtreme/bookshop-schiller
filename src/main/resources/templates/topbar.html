@@ -68,8 +68,8 @@
     				</li>
     			</ul>
     		</li>
-    		<li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USERMANAGER')" class="divider"></li>
-    		<li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USERMANAGER')" class="has-dropdown not-click">
+    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_USERMANAGER')" class="divider"></li>
+    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_USERMANAGER')" class="has-dropdown not-click">
     			<a>Nutzer Management</a>
     			<ul class="dropdown">
     				<li>
@@ -78,7 +78,7 @@
     				<li>
     					<a th:href="@{/admin/employees}" href="employees.html">Angestellte</a>
     				</li>
-    				<li>
+    				<li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USERMANAGER')">
     					<a th:href="@{/admin/user/add}" href="registeruser.html">Neuer Nutzer</a>
     				</li>
     			</ul>
