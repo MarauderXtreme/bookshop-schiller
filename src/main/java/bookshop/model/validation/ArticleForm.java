@@ -45,10 +45,10 @@ public class ArticleForm {
 	/*@NotEmpty(message = "{addArticeForm.name.NotEmpty}")
 	private ArticleId type;*/
 	
-	/*@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
+	@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
 	@Pattern(regexp="([A-Za-z0-9]+\\.(jpg|png|gif))", message = "{ArticleForm.Image.Format}")
 	private String image;
-	*/
+	
 	/*@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
 	@Pattern(regexp="([0-9]+)", message = "{ArticleForm.Amount.Format}")
 	private int amount;
@@ -216,17 +216,17 @@ public class ArticleForm {
 	/**
 	 * @return the given filename from the article form
 	 */
-	//public String getImage(){
-	//	return image;
-	//}
+	public String getImage(){
+		return image;
+	}
 	
 	/**
 	 * Sets the image of the article form to the given value.
 	 * @param image
 	 */
-	//public void setImage(String image){
-	//	this.image = image;
-	//}
+	public void setImage(String image){
+		this.image = image;
+	}
 	
 	public String getCategory(){
 		return category;

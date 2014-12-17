@@ -30,7 +30,6 @@
 									<input th:field="*{name}" th:errorclass="fieldError" type="text" name="titleArticle" placeholder="Titel" required="" />
 									<small class="alert-box alert error">Bitte Titel eingeben.</small>
 									<small class="alert-box alert" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Der Vorname darf nicht leer sein.</small>
-									
 								</div>
 								<div class="large-6 medium-6 small-12 columns">
 									<label for="author">Autor</label>
@@ -68,6 +67,14 @@
 									<small class="alert-box alert error">Bitte Kategorie eingeben.</small>
 									<small class="alert-box alert" th:if="${#fields.hasErrors('category')}" th:errors="*{category}">Der Vorname darf nicht leer sein.</small>
 								</div>
+								
+								<div class="large-6 medium-6 small-12 columns">								
+								<label for="image">Bild</label>
+								<input th:field="*{image}" th:errorclass="fieldError" type="text" id="newimage" name="newimage" placeholder="Image" required="" />
+								<small class="alert-box alert error">Bitte Dateinamen eingeben.</small>
+								<small class="alert-box alert" th:if="${#fields.hasErrors('image')}" th:errors="*{image}">Das Bild darf nicht leer sein.</small>
+								</div>
+								
 								<div>
 									<label for="beschreibung">Beschreibung</label>
 									<textarea  th:field="*{beschreibung}" th:errorclass="fieldError" id="descriptiontext" cols="40" rows="5"  name="beschreibungArticle" placeholder="Beschreibung" required=""></textarea>
