@@ -24,36 +24,20 @@
 									<th th:text="#{statistics.article}">Titel</th>
 									<th th:text="#{statistics.sell}">Verkauft</th>
 									<th th:text="#{statistics.income}"> Einnahmen</th>
-								</tr>
-							</thead>
-							<tbody th:remove="all-but-first">
-									<tr th:each=" orderline : ${statisticbuy}">
-										<td th:text="${orderline.productName}">Last Action Hero</td>
-										<td th:text="${orderline.quantity.amount}">9000</td>
-										<td th:text="${orderline.price}">10</td>
-									</tr>																
-							</tbody>
-						</table>
-						<table>
-							<thead>
-								<tr>
-									<th th:text="#{statistics.article}">Titel</th>
 									<th th:text="#{statistics.buy}">Gekauft</th>
 									<th th:text="#{statistics.outcome}">Ausgaben</th>
 								</tr>
 							</thead>
-							<tbody th:remove="all-but-first">	
-									<tr th:each=" orderline : ${statisticsell}">
+							<tbody th:remove="all-but-first">
+									<tr th:each=" orderline : ${statistic}">
 										<td th:text="${orderline.productName}">Last Action Hero</td>
 										<td th:text="${orderline.quantity.amount}">9000</td>
 										<td th:text="${orderline.price}">10</td>
-									</tr>															
+									</tr>																	
 							</tbody>
-						</table>						
-						<p th:text="#{statistics.totalweeksell} + ': ' + ${statisticPriceSell}">Summe: 100 Euro</p>
-						<p th:text="#{statistics.totalsell} + ': ' + ${statisticPriceSellAll}">Summe: 100 Euro</p>
-						<p th:text="#{statistics.totalweekbuy} + ': ' + ${statisticPriceBuy}">Summe: 100 Euro</p>
-						<p th:text="#{statistics.totalbuy} + ': ' + ${statisticPriceBuyALl}">Summe: 100 Euro</p>
+						</table>
+						<p th:text="#{statistics.totalweek} + ': ' + ${statisticPrice}">Summe: 100 Euro</p>
+						<p th:text="#{statistics.total} + ': ' + ${statisticPriceAll}">Summe: 100 Euro</p>
 	        </div>
 	    	</div>
 	    </div>
