@@ -40,11 +40,11 @@ public class StaticController {
 			li.add(art);
 		}
 		Random rand = new Random();
-		promoNum = rand.nextInt((li.size() - 0) + 1) + 0;
+		promoNum = rand.nextInt(((li.size()-1) - 0) + 1) + 0;
 		
 		
-		for(int i=0; i<4; i++){
-			randomNum = rand.nextInt((li.size() - 0) + 1) + 0;
+		for(int i=0; i<6; i++){
+			randomNum = rand.nextInt(((li.size()-1) - 0) + 1) + 0;
 			list.add(li.get(randomNum));
 		}
 
