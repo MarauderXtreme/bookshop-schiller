@@ -12,6 +12,7 @@ import bookshop.model.CalendarManagement;
 import bookshop.model.Date;
 import bookshop.model.Event;
 import bookshop.model.Room;
+import bookshop.model.RoomManagement;
 
 @Controller
 public class CalendarController {
@@ -27,6 +28,7 @@ public class CalendarController {
 	public String add(@RequestParam("name") String name, @RequestParam("dated") String dated , @RequestParam("datet") String datet)
 	{
 		CalendarManagement.getInstance().addEvent(name, new Date(dated,datet), new Room("Lesesaal","123"));
+		System.out.println("Anzahl Raeume: " + RoomManagement.getInstance().getAllRooms().size());
 		return "redirect:calendar";
 	}
 	
@@ -36,9 +38,9 @@ public class CalendarController {
 
 		model.addAttribute("event", event);
 		model.addAttribute("date", date);
-		model.addAttribute("eventList" , CalendarManagement.getInstance().getCalendar().getSortedEvents());
+		model.addAttribute("eventList", CalendarManagement.getInstance().getCalendar().getSortedEvents());
+		model.addAttribute("roomList", RoomManagement.getInstance().getAllRooms());
 
 		return "calendar";
 	}
-
 }

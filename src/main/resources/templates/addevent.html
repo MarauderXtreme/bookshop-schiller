@@ -17,11 +17,14 @@
 		      </header>
 	        <div class="large-12">&nbsp;</div>
 	        <div class="large-12 medium-12 small-12 columns">
-	          <h2>Seitenüberschrift</h2>
+	          <h2>Event hinzufuegen</h2>
 	          <form method="post" action="/admin/event/new">
 	            <input type="text" name="dated"/>
 	            <input type="text" name="datet"/>
 	            <input type="text" name="name"/>
+	            <select th:each="room : ${roomList}">
+	            	<option th:text="room.getName()"></option>
+	            </select>
 	            <input type="submit" name="add" value="Event hinzufügen"/>
 		        </form>
 	        </div>
