@@ -1,5 +1,6 @@
 package bookshop.controller;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +36,7 @@ import bookshop.model.Article.ArticleId;
 import bookshop.model.Category;
 import bookshop.model.CategoryManagement;
 import bookshop.model.validation.ArticleForm;
+import bookshop.model.validation.CategoriesForm;
 import bookshop.model.validation.EditArticleForm;
 //import bookshop.model.CategoryManagement;
 import bookshop.model.validation.RegistrationForm;
@@ -119,6 +121,60 @@ public class ArticleController {
 		return "articles";
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
+	@RequestMapping("/editcategories")
+	public String addCategories(ModelMap modelMap) {
+
+		modelMap.addAttribute("categories", categories.findAll());
+		modelMap.addAttribute("categoriesbook", categories.findByType(ArticleId.BOOK));
+		modelMap.addAttribute("categoriescd", categories.findByType(ArticleId.CD));
+		modelMap.addAttribute("categoriesdvd", categories.findByType(ArticleId.DVD));
+		modelMap.addAttribute("categoriesform", new CategoriesForm());
+		
+		return "editcategories";
+	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
+	@RequestMapping(value="/editcategories/delete", method=RequestMethod.POST)
+	public String deleteCategory(ModelMap modelMap, @RequestParam("categorytodelete") String category){
+		
+		if(category=="1"){}
+		else
+			categories.delete(categories.findByCategoryName(category));
+		
+		return "redirect:/editcategories";
+
+	}
+	
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
+	@RequestMapping(value="/editcategories/add", method=RequestMethod.POST)
+	public String addCategory(@ModelAttribute("categoriesform") @Valid CategoriesForm categoriesform, BindingResult result){
+		
+		if (result.hasErrors()) {
+			System.out.println("haserrors");
+			return "editcategories";
+		}
+		
+		if(categoriesform.getType().equals("Buch")){
+			Category cat = new Category(categoriesform.getCategory(), ArticleId.BOOK);
+			categories.save(cat);
+		}
+		if(categoriesform.getType().equals("CD")){
+			Category cat = new Category(categoriesform.getCategory(), ArticleId.CD);
+			categories.save(cat);
+		}
+		if(categoriesform.getType().equals("DVD")){
+			Category cat = new Category(categoriesform.getCategory(), ArticleId.DVD);
+			categories.save(cat);
+		}
+		
+		return "redirect:/editcategories";
+
+	}
+	
+	
+	
 	/**
 	 * Maps a list of all articles of type book to modelMap for the add book html.
 	 * @param modelMap
@@ -147,6 +203,8 @@ public class ArticleController {
 
 		modelMap.addAttribute("catalog", articleCatalog.findByType(ArticleId.CD));
 		modelMap.addAttribute("title", messageSourceAccessor.getMessage("catalog.dvd.title"));
+		modelMap.addAttribute("categories", categories.findByType(ArticleId.CD));
+		modelMap.addAttribute("articleForm", new ArticleForm());
 
 		return "addcd";
 	}
@@ -162,7 +220,9 @@ public class ArticleController {
 
 		modelMap.addAttribute("catalog", articleCatalog.findByType(ArticleId.DVD));
 		modelMap.addAttribute("title", messageSourceAccessor.getMessage("catalog.dvd.title"));
-
+		modelMap.addAttribute("categories", categories.findByType(ArticleId.DVD));
+		modelMap.addAttribute("articleForm", new ArticleForm());
+		
 		return "adddvd";
 	}
 	
@@ -179,16 +239,53 @@ public class ArticleController {
 	@RequestMapping(value="/article/search", method=RequestMethod.GET)
 	public String searchArticles(ModelMap modelMap, @RequestParam("typeInput") int typeInput, @RequestParam("input") String input){
 
+		List<Article> li = new LinkedList<Article>();
+		
+		
+		Iterable<Article> articles = articleCatalog.findAll();
+		
 		if(typeInput == 1){
-			modelMap.addAttribute("catalog", articleCatalog.findByName(input));
+			for(Article a : articles){
+				if(input.length()<=3){
+					if(a.getName().startsWith(input))
+						li.add(a);
+				}
+				else{
+				if(a.getName().contains(input)){
+					li.add(a);
+				}
+				}
+			}
 		}
 		
 		if(typeInput == 2){
-			modelMap.addAttribute("catalog", articleCatalog.findByPublisher(input));
+			for(Article a : articles){
+				if(input.length()<=3){
+					if(a.getPublisher().startsWith(input))
+						li.add(a);
+				}
+				else{
+				if(a.getPublisher().contains(input)){
+					li.add(a);
+				}
+				}
+			}
+			//modelMap.addAttribute("catalog", articleCatalog.findByPublisher(input));
 		}
 		
 		if(typeInput == 3){
-			modelMap.addAttribute("catalog", articleCatalog.findById(input));
+			for(Article a : articles){
+				if(input.length()<=8){
+					if(a.getId().startsWith(input))
+						li.add(a);
+				}
+				else{
+				if(a.getId().contains(input)){
+					li.add(a);
+				}
+				}
+			}
+			//modelMap.addAttribute("catalog", articleCatalog.findById(input));
 		}
 		
 		if(typeInput == 4){
@@ -198,7 +295,19 @@ public class ArticleController {
 				modelMap.addAttribute("catalog", articleCatalog.findByInterpret(input));
 			if(!(articleCatalog.findByDirector(input)==null))
 				modelMap.addAttribute("catalog", articleCatalog.findByDirector(input));*/
-			modelMap.addAttribute("catalog", articleCatalog.findByArtist(input));
+			//modelMap.addAttribute("catalog", articleCatalog.findByArtist(input));
+			
+			for(Article a : articles){
+				if(input.length()<=3){
+					if(a.getArtist().startsWith(input))
+						li.add(a);
+				}
+				else{
+				if(a.getArtist().contains(input)){
+					li.add(a);
+				}
+				}
+			}
 			
 		}
 		/*
@@ -235,9 +344,19 @@ public class ArticleController {
 			
 			modelMap.addAllAttribute("catalog", categories);*/
 			
-			modelMap.addAttribute("catalog", articleCatalog.findByCategory(input));
+			for(Article a : articles){
+				
+				if(a.getCategoryList().contains(input)){
+					li.add(a);
+			
+				}
+			}
+			
+			//modelMap.addAttribute("catalog", articleCatalog.findByCategory(input));
 		}
 			
+		modelMap.addAttribute("catalog", li);
+		
 		return "articles";
 		
 	}
@@ -258,7 +377,7 @@ public class ArticleController {
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
 	@RequestMapping(value="/article/book/new", method=RequestMethod.POST)
-	public String addBook(@ModelAttribute("articleForm") @Valid ArticleForm articleForm, BindingResult result){
+	public String addBook(@ModelAttribute("articleForm") @Valid ArticleForm articleForm, BindingResult result, @RequestParam("newcategory") String category){
 		
 		System.out.println("start addbook");
 
@@ -278,7 +397,7 @@ public class ArticleController {
 										articleForm.getPublisher(),
 										articleForm.getId(),
 										ArticleId.BOOK,
-										articleForm.getCategory(),
+										category,
 										articleForm.getArtist(),
 										articleForm.getImage(),
 										"01.01.2015",
@@ -321,27 +440,33 @@ public class ArticleController {
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
 	@RequestMapping(value="/article/cd/new", method=RequestMethod.POST)
-	public String addCD(@RequestParam("titleArticle") String title,
-						@RequestParam("beschreibungArticle") String beschreibung,
-						@RequestParam("priceArticle") double price,
-						@RequestParam("idArticle") String isbn,
-						@RequestParam("publisherArticle") String publisher,
-						@RequestParam("interpretArticle") String interpret,
-						@RequestParam("categoryArticle") String category){
-	
-		Article article = new Article(	title,
-										Money.of(EUR, price),
-										beschreibung,
-										publisher,
-										isbn,
+	public String addCD(@ModelAttribute("articleForm") @Valid ArticleForm articleForm, BindingResult result, @RequestParam("newcategory") String category){
+		
+		if (articleForm.getPrice()<0) {
+			result.addError(new ObjectError("price", "Der Preis muss grosser als 0 sein"));
+		}
+		
+		if (result.hasErrors()) {
+			System.out.println("haserrors");
+			return "addcd";
+		}
+
+		
+		Article article = new Article(	articleForm.getName(),
+										Money.of(EUR, articleForm.getPrice()),
+										articleForm.getBeschreibung(),
+										articleForm.getPublisher(),
+										articleForm.getId(),
 										ArticleId.CD,
 										category,
-										interpret,
+										articleForm.getArtist(),
+										articleForm.getImage(),
 										"01.01.2015",
-										Money.of(EUR, 0.99));
-	
-		
+										Money.of(EUR, 0.99)
+										);
+			
 		articleCatalog.save(article);
+				
 		
 		InventoryItem item = new InventoryItem(article, Units.TEN);
 		inventory.save(item);
@@ -363,32 +488,33 @@ public class ArticleController {
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
 	@RequestMapping(value="/article/dvd/new", method=RequestMethod.POST)
-	public String addDVD(	@RequestParam("titleArticle") String title,
-							@RequestParam("beschreibungArticle") String beschreibung,
-							@RequestParam("priceArticle") double price,
-							@RequestParam("idArticle") String isbn,
-							@RequestParam("publisherArticle") String publisher,
-							@RequestParam("directorArticle") String director,
-							@RequestParam("categoryArticle") String category){
-	
-		Article article = new Article(	title,
-										Money.of(EUR, price),
-										beschreibung,
-										publisher,
-										isbn,
+	public String addDVD(@ModelAttribute("articleForm") @Valid ArticleForm articleForm, BindingResult result, @RequestParam("newcategory") String category){
+		
+		if (articleForm.getPrice()<0) {
+			result.addError(new ObjectError("price", "Der Preis muss grosser als 0 sein"));
+		}
+		
+		if (result.hasErrors()) {
+			System.out.println("haserrors");
+			return "adddvd";
+		}
+
+		
+		Article article = new Article(	articleForm.getName(),
+										Money.of(EUR, articleForm.getPrice()),
+										articleForm.getBeschreibung(),
+										articleForm.getPublisher(),
+										articleForm.getId(),
 										ArticleId.DVD,
 										category,
-										director,
-										"01.01.2015", 
-										Money.of(EUR, 0.99));
-
-		//article.setDirector(director);
+										articleForm.getArtist(),
+										articleForm.getImage(),
+										"01.01.2015",
+										Money.of(EUR, 0.99)
+										);		
 			
-		articleCatalog.save(article);
-			
-		//Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
-		//Quantity quantity = item.map(InventoryItem::getQuantity).orElse(Units.TEN);
-	
+		articleCatalog.save(article);		
+		
 		InventoryItem item = new InventoryItem(article, Units.TEN);
 		inventory.save(item);
 	
@@ -402,7 +528,7 @@ public class ArticleController {
 	@RequestMapping("/article/{pid}/delete/confirm")
 	public String confirmDelete(@PathVariable("pid") Article article, Model model) {
 		
-		model.addAttribute("book", article);
+		model.addAttribute("article", article);
 		
 		return "confirmdelete";
 	}
@@ -571,6 +697,8 @@ public class ArticleController {
 			else
 				article.removeCategory(delcategory);
 		}
+		
+		System.out.println(articleForm.getIncreaseAmount());
 		
 		if(articleForm.getIncreaseAmount()==0){}
 		else

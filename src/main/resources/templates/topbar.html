@@ -38,8 +38,8 @@
     		</li>
     	</ul>
     	<ul class="right show-for-large-up">
-    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN')" class="divider"></li>
-    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN')" class="has-dropdown not-click">
+    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_SALESMANAGER')" class="divider"></li>
+    		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_SALESMANAGER')" class="has-dropdown not-click">
     			<a>Nützliche Links</a>
     			<ul class="dropdown">
     				<li>
@@ -53,8 +53,8 @@
     				</li>
     			</ul>
     		</li>
-    		<li sec:authorize="hasAnyRole('ROLE_ADMIN','ARTICLE_USERMANAGER')" class="divider"></li>
-    		<li sec:authorize="hasAnyRole('ROLE_ADMIN','ARTICLE_USERMANAGER')" class="has-dropdown not-click">
+    		<li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_ARTICLEMANAGER')" class="divider"></li>
+    		<li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_ARTICLEMANAGER')" class="has-dropdown not-click">
     			<a>Artikel Management</a>
     			<ul class="dropdown">
     				<li>
@@ -83,8 +83,8 @@
     				</li>
     			</ul>
     		</li>
-    		<li sec:authorize="hasAnyRole('ROLE_ADMIN','EVENT_USERMANAGER')" class="divider"></li>
-    		<li sec:authorize="hasAnyRole('ROLE_ADMIN','EVENT_USERMANAGER')" class="has-dropdown not-click">
+    		<li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EVENTMANAGER')" class="divider"></li>
+    		<li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EVENTMANAGER')" class="has-dropdown not-click">
     			<a>Event Management</a>
     			<ul class="dropdown">
     				<li>

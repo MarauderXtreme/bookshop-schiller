@@ -22,7 +22,7 @@
 	          		<h6 class="article-head">
 	          			<a th:text="${article.name}" th:href="@{'/detail/' + ${article.identifier}}" href="detail.html">Bastard Operator from Hell</a>
 	          			<br />
-	          			<!-- <small th:text="${book.author}">Simon Travaglia</small> -->
+	          			<small th:text="${article.artist}">Simon Travaglia</small>
 	          		</h6>
 	          		<img alt="cover" class="cover" th:src="@{'/resources/img/' + ${article.image}}" src="/resources/img/notAvaliableBook.jpg" />
 		          	<form action="/cart" method="POST">

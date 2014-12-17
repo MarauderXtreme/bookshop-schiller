@@ -67,9 +67,9 @@ public class ArticleForm {
 	@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
 	private String director;
 	*/
-	@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
-	@Pattern(regexp="([a-zA-Z]+)", message = "{ArticleForm.name.NotEmpty}")
-	private String category;
+	//@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
+	//@Pattern(regexp="([a-zA-Z]+)", message = "{ArticleForm.name.NotEmpty}")
+	//private String category;
 	
 	//Setter and Getter
 	
@@ -228,13 +228,13 @@ public class ArticleForm {
 		this.image = image;
 	}
 	
-	public String getCategory(){
+	/*public String getCategory(){
 		return category;
 	}
 	
 	public void setCategory(String category){
 		this.category = category;
-	}
+	}*/
 	
 	/**
 	 * @return the given amount of article units from the article form
