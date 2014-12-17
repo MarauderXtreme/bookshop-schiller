@@ -33,8 +33,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-//import com.itextpdf.text.DocumentException;
-
 import bookshop.model.Article;
 import bookshop.model.PDFCreator;
 import bookshop.model.Statistic;
@@ -83,8 +81,6 @@ public class OrderController {
 	public String getMyOrders(ModelMap modelMap, @LoggedIn Optional<UserAccount> userAccount){
 		
 		modelMap.addAttribute("myOrders", orderManager.find(userAccount.get()));
-		//PDFCreator pdf = new PDFCreator("test");
-		//pdf.createPdf("simplePDF");
 		
 		return "/myorders";
 	}
