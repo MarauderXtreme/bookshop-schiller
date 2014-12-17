@@ -479,7 +479,7 @@ public class ArticleController {
 		
 		//Category category = new Category();
 
-		model.addAttribute("book", article);
+		model.addAttribute("article", article);
 		model.addAttribute("quantity", quantity);
 		model.addAttribute("orderable", quantity.isGreaterThan(Units.ZERO));
 		if(article.getType()==ArticleId.BOOK)

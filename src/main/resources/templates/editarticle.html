@@ -17,39 +17,39 @@
 		      </header>
 	        <div class="large-12">&nbsp;</div>
 	        <div class="large-12 medium-12 small-12 row">
-	        	<h3>Edit <span th:text="${book.name}"></span></h3>
+	        	<h3>Edit <span th:text="${article.name}"></span></h3>
 	        	<div sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')" th:include="articletabs :: articletabs"></div>
 	        	<form method="POST" action="/article/editinformation" data-abide="">
-							<input type="hidden" name="article" th:value="${book.identifier}" />
+							<input type="hidden" name="article" th:value="${article.identifier}" />
 							
 							<div class="large-6 medium-6 small-12 columns">
 								<label for="newname">Titel</label>
-								<input type="text" id="newname" name="newname" th:value="${book.name}" required="" />
+								<input type="text" id="newname" name="newname" th:value="${article.name}" required="" />
 								<small class="alert-box alert error">Bitte Titel eingeben.</small>
 							</div>
 							<div class="large-6 medium-6 small-12 columns">
 								<label for="newartist">Autor</label>
-								<input type="text" id="newauthor" name="newartist" th:value="${book.artist}" required="" />
+								<input type="text" id="newauthor" name="newartist" th:value="${article.artist}" required="" />
 								<small class="alert-box alert error">Bitte Künstler eingeben.</small>
 							</div>
 							<div class="large-6 medium-6 small-12 columns">
 								<label for="newpublisher">Verlag</label>
-								<input type="text" id="newpublisher" name="newpublisher" th:value="${book.publisher}" required="" />
+								<input type="text" id="newpublisher" name="newpublisher" th:value="${article.publisher}" required="" />
 								<small class="alert-box alert error">Bitte Verlag eingeben.</small>
 							</div>
 							<div class="large-6 medium-6 small-12 columns">
 								<label for="newisbn">ISBN</label>
-								<input type="text" id="newisbn" name="newisbn" th:value="${book.id}" required="" pattern="isbn13" />
+								<input type="text" id="newisbn" name="newisbn" th:value="${article.id}" required="" pattern="isbn13" />
 								<small class="alert-box alert error">Bitte ISBN 13 ohne Trennstriche eingeben.</small>
 							</div>
 							<div class="large-6 medium-6 small-12 columns">
 								<label for="newimage">Bild</label>
-								<input type="text" id="newimage" name="newimage" th:value="${book.image}" required="" />
+								<input type="text" id="newimage" name="newimage" th:value="${article.image}" required="" />
 								<small class="alert-box alert error">Bitte Dateinamen eingeben.</small>
 							</div>
 							<div class="large-6 medium-6 small-12 columns">
 								<label for="newprice">Preis</label>
-								<input type="text" id="newprice" name="newprice" th:value="${book.price.amount}" required="" />
+								<input type="text" id="newprice" name="newprice" th:value="${article.price.amount}" required="" />
 								<small class="alert-box alert error">Bitte neuen Preis im Format "EUR xx.xx" eingeben.</small>
 							</div>
 							<div class="large-3 medium-3 small-6 columns">
@@ -91,7 +91,7 @@
 							</div>
 							<div>
 								<label for="descriptiontext">Beschreibung</label>
-								<textarea id="descriptiontext" name="descriptiontext" cols="40" rows="5" th:text="${book.beschreibung}" required=""></textarea>
+								<textarea id="descriptiontext" name="descriptiontext" cols="40" rows="5" th:text="${article.beschreibung}" required=""></textarea>
 								<small class="alert-box alert error">Bitte Beschreibung eingeben.</small>
 							</div>
 							<p></p>
