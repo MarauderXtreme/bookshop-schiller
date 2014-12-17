@@ -35,6 +35,7 @@ import bookshop.model.Article.ArticleId;
 import bookshop.model.Category;
 import bookshop.model.CategoryManagement;
 import bookshop.model.validation.ArticleForm;
+import bookshop.model.validation.EditArticleForm;
 //import bookshop.model.CategoryManagement;
 import bookshop.model.validation.RegistrationForm;
 
@@ -82,7 +83,7 @@ public class ArticleController {
 	
 	
 	//@RequestMapping("/")
-	public String randomArticleList(ModelMap modelMap) {
+	/*public String randomArticleList(ModelMap modelMap) {
 		
 		List<Article> list = new LinkedList<Article>();
 		List<Article> li = new LinkedList<Article>();
@@ -104,7 +105,7 @@ public class ArticleController {
 		modelMap.addAttribute("promo", list.get(randomNum));
 
 		return "/";
-	}
+	}*/
 	
 	
 	/**
@@ -302,7 +303,7 @@ public class ArticleController {
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
 	@RequestMapping(value="/article/book/new", method=RequestMethod.POST)
-	public String addBook(	@ModelAttribute("articleForm") @Valid ArticleForm articleForm, BindingResult result){
+	public String addBook(@ModelAttribute("articleForm") @Valid ArticleForm articleForm, BindingResult result){
 		
 		System.out.println("start addbook");
 
@@ -324,6 +325,7 @@ public class ArticleController {
 										ArticleId.BOOK,
 										articleForm.getCategory(),
 										articleForm.getArtist(),
+										articleForm.getImage(),
 										"01.01.2015",
 										Money.of(EUR, 0.99)
 										);
@@ -630,8 +632,100 @@ public class ArticleController {
 		if(article.getType()==ArticleId.DVD)
 			{model.addAttribute("categories", categories.findByType(ArticleId.DVD));}
 		//model.addAttribute("category", category);
+		model.addAttribute("editArticleForm", new EditArticleForm());
 
 		return "editarticle";
+	}
+	
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
+	@RequestMapping(value="/article/editinformation", method=RequestMethod.POST)
+	public String editArticle(@ModelAttribute("editArticleForm") @Valid EditArticleForm articleForm, BindingResult result, @RequestParam("article") Article article, @RequestParam("categorytodelete") String delcategory, @RequestParam("newcategory") String newCategory) {
+		
+		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
+		
+		/*if (articleForm.getPrice()<0) {
+			result.addError(new ObjectError("price", "Der Preis muss grosser als 0 sein"));
+		}
+		
+		if (articleForm.getIncreaseAmount()<0) {
+			result.addError(new ObjectError("increaseAmount", "Die Menge muss grosser als 0 sein"));
+		}
+		
+		if (articleForm.getDecreaseAmount()<0) {
+			result.addError(new ObjectError("decreaseAmount", "Die Menge muss grosser als 0 sein"));
+		}
+		
+		if (result.hasErrors()) {
+			System.out.println("haserrors");
+			return "redirect:/article/" + article.getIdentifier() + "/edit";
+		}
+		*/
+		if(articleForm.getName()==null){}
+		else
+		article.setName(articleForm.getName());
+		
+
+		articleForm.setPublisher(articleForm.getPublisher());
+		
+		if(articleForm.getBeschreibung()==null){}
+		else
+		article.setBeschreibung(articleForm.getBeschreibung());
+		
+		if(articleForm.getId()==null){}
+		else
+		article.setId(articleForm.getId());
+		
+		if(articleForm.getPrice()==0){}
+		else
+		article.setPrice(Money.of(EUR, articleForm.getPrice()));
+		
+		if(newCategory==null){}
+		else{
+			if(newCategory=="1"){}
+			else
+				article.removeCategory(newCategory);
+		}
+		
+		if(articleForm.getImage()==null){}
+		else
+		article.setImage(articleForm.getImage());
+		
+		if(articleForm.getArtist()==null){}
+		else
+			article.setArtist(articleForm.getArtist());
+		
+		/*if(author==null){}
+		else
+		article.setAuthor(author);
+		
+		if(interpret==null){}
+		else
+		article.setInterpret(interpret);
+		
+		if(director==null){}
+		else
+		article.setDirector(director);
+		*/
+		if(delcategory==null){}
+		else{
+			if(delcategory=="1"){}
+			else
+				article.removeCategory(delcategory);
+		}
+		
+		if(articleForm.getIncreaseAmount()==0){}
+		else
+		item.get().increaseQuantity(Units.of(articleForm.getIncreaseAmount()));
+		
+		if(articleForm.getDecreaseAmount()==0){}
+		else
+		item.get().decreaseQuantity(Units.of(articleForm.getDecreaseAmount()));
+		
+		
+		articleCatalog.save(article);
+		
+		return "redirect:/article/" + article.getIdentifier() + "/edit";
 	}
 	
 	
@@ -655,7 +749,7 @@ public class ArticleController {
 	 * @param delcategory takes the category that sould be delted
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
+	/*@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
 	@RequestMapping(value="/article/editinformation", method=RequestMethod.POST)
 	public String editArticle(	@RequestParam("article") Article article,
 			 					@RequestParam("newname") String name,
@@ -715,7 +809,7 @@ public class ArticleController {
 		if(director==null){}
 		else
 		article.setDirector(director);
-		*/
+		
 		if(delcategory==null){}
 		else{
 			if(delcategory=="1"){}
@@ -735,7 +829,7 @@ public class ArticleController {
 		articleCatalog.save(article);
 		
 		return "redirect:/article/" + article.getIdentifier() + "/edit";
-	}
+	}*/
 
 	
 //	//Change Informations of an Article

@@ -91,7 +91,7 @@ public class Article extends Product{
 		 * @param image
 		 */
 		//@SuppressWarnings("deprecation")//was ist das?!
-		public Article(String title, Money price, String beschreibung, String publisher, String id, ArticleId type, String category, String artist, String image){
+		public Article(String title, Money price, String beschreibung, String publisher, String id, ArticleId type, String category, String artist, String image,String releaseDate, Money stockPrice){
 			super(title, price, Units.METRIC);
 			super.addCategory(category);
 			
@@ -102,6 +102,9 @@ public class Article extends Product{
 			this.id = id;
 			this.type = type;
 			this.artist = artist;
+			this.stockPrice = stockPrice;
+			this.releaseDate = releaseDate;
+			
 			
 			this.image = image;
 		}
