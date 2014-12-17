@@ -18,42 +18,61 @@
 	        <div class="large-12">&nbsp;</div>
 	        <div class="large-12 medium-12 small-12 row">
 	        	<h3>Neues Buch anlegen</h3>
-        		<form method="post" action="/article/book/new" data-abide="">
+        		<form method="post" action="/article/book/new" th:object="${articleForm}" data-abide="">
 							<fieldset>
+							
+								<div th:if="${#fields.hasErrors('*')}">
+										<p class="alert-box warning"><b>Einige Angaben sind nicht korrekt. Bitte versuchen Sie es erneut!</b></p>
+								</div>
+							
 								<div class="large-6 medium-6 small-12 columns">
-									<label>Titel</label>
-									<input type="text" name="titleArticle" placeholder="Titel" required="" />
+									<label for="name">Titel</label>
+									<input th:field="*{name}" th:errorclass="fieldError" type="text" name="titleArticle" placeholder="Titel" required="" />
 									<small class="alert-box alert error">Bitte Titel eingeben.</small>
+									<small class="alert-box alert" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Der Vorname darf nicht leer sein.</small>
+									
 								</div>
 								<div class="large-6 medium-6 small-12 columns">
-									<label>Autor</label>
-									<input type="text" name="authorArticle" placeholder="Autor" required="" />
+									<label for="author">Autor</label>
+									<input th:field="*{artist}" th:errorclass="fieldError" type="text" name="authorArticle" placeholder="Autor" required="" />
 									<small class="alert-box alert error">Bitte Autor eingeben.</small>
+									<small class="alert-box alert" th:if="${#fields.hasErrors('artist')}" th:errors="*{artist}">Der Vorname darf nicht leer sein.</small>
+									
 								</div>
 								<div class="large-6 medium-6 small-12 columns">
-									<label>Verlag</label>
-									<input type="text" name="publisherArticle" placeholder="Verlag" required="" />
+									<label for="publisher">Verlag</label>
+									<input th:field="*{publisher}" th:errorclass="fieldError" type="text" name="publisherArticle" placeholder="Verlag" required="" />
 									<small class="alert-box alert error">Bitte Verlag eingeben.</small>
+									<small class="alert-box alert" th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}">Der Vorname darf nicht leer sein.</small>
 								</div>
 								<div class="large-6 medium-6 small-12 columns">
-									<label>ISBN</label>
-									<input type="text" name="idArticle" placeholder="ISBN" required="" pattern="isbn13" />
+									<label for="id">ISBN</label>
+									<input th:field="*{id}" th:errorclass="fieldError" type="text" name="idArticle" placeholder="ISBN" required="" pattern="isbn13" />
 									<small class="alert-box alert error">Bitte ISBN 13 ohne Trennstriche eingeben.</small>
+									<small class="alert-box alert" th:if="${#fields.hasErrors('id')}" th:errors="*{id}">Der Vorname darf nicht leer sein.</small>
 								</div>
 								<div class="large-6 medium-6 small-12 columns">
-									<label>Preis</label>
-									<input type="text" name="priceArticle" placeholder="Preis" required="" patter="custom_price" />
+									<label for="price">Preis</label>
+									<input th:field="*{price}" th:errorclass="fieldError" type="text" name="priceArticle" placeholder="Preis" required="" patter="custom_price" />
 									<small class="alert-box alert error">Bitte neuen Preis im Format "EUR xx.xx" eingeben.</small>
+									<small class="alert-box alert" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Der Vorname darf nicht leer sein.</small>
 								</div>
 								<div class="large-6 medium-6 small-12 columns">
 									<label>Kategorie</label>
-									<input type="text" name="categoryArticle" placeholder="Kategorie" required="" />
+									<!--<input th:field="*{category}" th:errorclass="fieldError" type="text" name="categoryArticle" placeholder="Kategorie" required="" />-->
+														<select th:field="*{category}" th:errorclass="fieldError" type="text" name="categoryArticle">
+														<div th:each="category : ${categories}">
+															<option th:text="${category.categoryName}" th:value="${category.categoryName}" value="1">category</option>
+														</div>
+														</select>
 									<small class="alert-box alert error">Bitte Kategorie eingeben.</small>
+									<small class="alert-box alert" th:if="${#fields.hasErrors('category')}" th:errors="*{category}">Der Vorname darf nicht leer sein.</small>
 								</div>
 								<div>
-									<label>Beschreibung</label>
-									<textarea id="descriptiontext" cols="40" rows="5"  name="beschreibungArticle" placeholder="Beschreibung" required=""></textarea>
+									<label for="beschreibung">Beschreibung</label>
+									<textarea  th:field="*{beschreibung}" th:errorclass="fieldError" id="descriptiontext" cols="40" rows="5"  name="beschreibungArticle" placeholder="Beschreibung" required=""></textarea>
 									<small class="alert-box alert error">Bitte Beschreibung eingeben.</small>
+									<small class="alert-box alert" th:if="${#fields.hasErrors('beschreibung')}" th:errors="*{beschreibung}">Der Vorname darf nicht leer sein.</small>
 								</div>
 								<p></p>
 								<div>

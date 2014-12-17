@@ -22,6 +22,7 @@
 							<caption th:text="#{orders.completed}"></caption>
 							<thead>
 								<tr>
+									<th th:text="#{orders.status}">Datum</th>
 									<th th:text="#{orders.date}">Datum</th>
 									<th th:text="#{orders.payed}">Bezahlt</th>
 									<th></th>
@@ -30,24 +31,22 @@
 							</thead>
 							<tbody>
 									<tr th:each="order : ${myOrders} ">
-										<td th:text="${order.dateCreated}" ></td>
+										<td th:text="${order.orderStatus}"></td>
+										<td th:text="${order.dateCreated}"></td>
 										<td th:text="${order.totalPrice}"></td>
 											<td th:each="orderline : ${order.orderLines}">
 												<td th:text="${orderline.productName}" ></td>
 												<td th:text="${orderline.quantity}"></td>
 											</td>
-										<td>
-											<form class="salespoint" method="POST" action="/order/cancel">
-											  <input type="hidden" name="orderDelete" value="0" th:value="${order.identifier}"/>
-												<input class="button" type="submit" value="Cancel"/> 
-											</form>
-										</td>
+										<div th:if="${order.open}">
+											<td>
+												<form class="salespoint" method="POST" action="/order/cancel">
+												  <input type="hidden" name="orderDelete" value="0" th:value="${order.identifier}"/>
+													<input class="button" type="submit" value="Cancel"/> 
+												</form>
+											</td>
+										</div>
 									</tr>
-					<!--				<tr th:each=" orderline : ${}">
-										<td th:text="${orderline.productName}">Last Action Hero</td>
-										<td th:text="${orderline.quantity.amount}">9000</td>
-										<td th:text="${orderline.price}">10</td>
-									</tr> -->
 							</tbody>
 						</table>
 	        </div>

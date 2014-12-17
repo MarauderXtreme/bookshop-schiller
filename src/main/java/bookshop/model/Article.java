@@ -1,10 +1,15 @@
 package bookshop.model;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 
 import org.joda.money.Money;
 import org.salespointframework.catalog.Product;
 import org.salespointframework.quantity.Units;
+import org.salespointframework.useraccount.Role;
 
 @Entity
 public class Article extends Product{
@@ -17,13 +22,16 @@ public class Article extends Product{
 		private ArticleId type;
 		private String image;
 		private String releaseDate;
-		private Money stockPrice; 
+		private Money stockPrice;
+		//@OneToOne
+		private String category;
 		
 		//spezifische Variablen
-		private String author;
+		private String artist;
+		/*private String author;
 		private String interpret;
 		private String director;
-		
+		*/
 		
 		//!!! - Kategorie manuell in der Main neben Artikel definieren 
 		//oder im Artikel direkt hinzufügen im Kostruktor
@@ -53,18 +61,19 @@ public class Article extends Product{
 			this.type = type;
 			this.stockPrice = stockPrice;
 			this.releaseDate = releaseDate;
-						
+			
+			this.artist = artist;
 			
 			if(type==ArticleId.BOOK){
-				this.author = artist;
+				//this.author = artist;
 				this.image = "notAvaliableBook.jpg";
 			}
 			if(type==ArticleId.CD){
-				this.interpret = artist;
+				//this.interpret = artist;
 				this.image = "notAvaliableCd.jpg";
 			}
 			if(type==ArticleId.DVD){
-				this.director = artist;
+				//this.director = artist;
 				this.image = "notAvaliableDvd.png";
 			}
 		}
@@ -85,10 +94,14 @@ public class Article extends Product{
 		public Article(String title, Money price, String beschreibung, String publisher, String id, ArticleId type, String category, String artist, String image){
 			super(title, price, Units.METRIC);
 			super.addCategory(category);
+			
+			//this.category=category;
+			
 			this.beschreibung = beschreibung;
 			this.publisher = publisher;
 			this.id = id;
 			this.type = type;
+			this.artist = artist;
 			
 			this.image = image;
 		}
@@ -125,15 +138,16 @@ public class Article extends Product{
 		}
 		
 		
-		/*
-		public void setCategory(Category category){
+		
+		public void setCategory(String category){
 			this.category = category;
+			super.addCategory(category);
 		}
 		
-		public Category getCategory(){
+		public String getCategory(){
 			return this.category;
 		}
-		*/
+		
 		
 		/**
 		 * @return the type of the article
@@ -167,50 +181,58 @@ public class Article extends Product{
 		
 		//Spezifische Variablen
 		
+		public String getArtist(){
+			return artist;
+		}
+		
+		public void setArtist(String artist){
+			this.artist = artist;
+		}
+		
 		/**
 		 * @return the name of the author of the article
 		 */
-		public String getAuthor(){
-			return author;
-		}
+		//public String getAuthor(){
+		//	return author;
+		//}
 		
 		/**
 		 * Sets the name of the author of the article.
 		 * @param author
 		 */
-		public void setAuthor(String author){
-			this.author = author;
-		}
+		//public void setAuthor(String author){
+		//	this.author = author;
+		//}
 		
 		/**
 		 * @return the name of the interpret of the article
 		 */
-		public String getInterpret(){
-			return interpret;
-		}
+		//public String getInterpret(){
+		//	return interpret;
+		//}
 		
 		/**
 		 * Sets the name of the interpret of the article.
 		 * @param interpret
 		 */
-		public void setInterpret(String interpret){
-			this.interpret = interpret;
-		}
+		//public void setInterpret(String interpret){
+		//	this.interpret = interpret;
+		//}
 		
 		/**
 		 * @return the name of the director of the article
 		 */
-		public String getDirector(){
-			return director;
-		}
+		//public String getDirector(){
+		//	return director;
+		//}
 		
 		/**
 		 * Sets the name of the director of the article.
 		 * @param director
 		 */
-		public void setDirector(String director){
-			this.director = director;
-		}
+		//public void setDirector(String director){
+		//	this.director = director;
+		//}
 		
 		/**
 		 * @return a list of all categories of the article

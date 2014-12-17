@@ -27,8 +27,8 @@ public class ArticleForm {
 	@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
 	private String name;
 	
-	@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
-	@Pattern(regexp="([0-9]+\\.{0,1}[0-9]*)", message = "{ArticleForm.Price.Format}")
+	//@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
+	//@Pattern(regexp="([0-9]+\\.{0,1}[0-9]*)", message = "{ArticleForm.Price.Format}")
 	private double price;
 	
 	@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
@@ -39,16 +39,16 @@ public class ArticleForm {
 	
 	//EAN-Code oder ISBN-Nr.
 	@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
-	@Pattern(regexp="([0-9]{3}\\-[0-9]{1}\\-[0-9]{3}\\-[0-9]{5}\\-[0-9]{1})|([0-9]{1}\\-[0-9]{6}\\-[0-9]{6})", message = "{ArticleForm.Id.Format}")
+	//@Pattern(regexp="([0-9]{3}\\-[0-9]{1}\\-[0-9]{3}\\-[0-9]{5}\\-[0-9]{1})|([0-9]{1}\\-[0-9]{6}\\-[0-9]{6})", message = "{ArticleForm.Id.Format}")
 	private String id;
 	
 	/*@NotEmpty(message = "{addArticeForm.name.NotEmpty}")
 	private ArticleId type;*/
 	
-	@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
+	/*@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
 	@Pattern(regexp="([A-Za-z0-9]+\\.(jpg|png|gif))", message = "{ArticleForm.Image.Format}")
 	private String image;
-	
+	*/
 	/*@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
 	@Pattern(regexp="([0-9]+)", message = "{ArticleForm.Amount.Format}")
 	private int amount;
@@ -56,13 +56,20 @@ public class ArticleForm {
 	
 	//spezifische Variablen
 	@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
-	private String author;
+	private String artist;
 	
-	@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
+	/*@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
+	private String author;
+	*/
+	/*@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
 	private String interpret;
 	
 	@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
 	private String director;
+	*/
+	@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
+	@Pattern(regexp="([a-zA-Z]+)", message = "{ArticleForm.name.NotEmpty}")
+	private String category;
 	
 	//Setter and Getter
 	
@@ -145,65 +152,88 @@ public class ArticleForm {
 	}
 	
 	//Spezifische Variablen
-	
+
 	/**
 	 * @return the given author name from the article form
 	 */
-	public String getAuthor(){
-		return author;
+	public String getArtist(){
+		return artist;
 	}
 	
 	/**
 	 * Sets the author of the article form to the given value.
 	 * @param author
 	 */
-	public void setAuthor(String author){
-		this.author = author;
+	public void setArtist(String artist){
+		this.artist = artist;
 	}
+	
+	/**
+	 * @return the given author name from the article form
+	 */
+	//public String getAuthor(){
+	//	return author;
+	//}
+	
+	/**
+	 * Sets the author of the article form to the given value.
+	 * @param author
+	 */
+	//public void setAuthor(String author){
+	//	this.author = author;
+	//}
 	
 	/**
 	 * @return the given user interpret name the article form
 	 */
-	public String getInterpret(){
-		return interpret;
-	}
+	//public String getInterpret(){
+	//	return interpret;
+	//}
 	
 	/**
 	 * Sets the interpret of the article form to the given value.
 	 * @param interpret
 	 */
-	public void setInterpret(String interpret){
-		this.interpret = interpret;
-	}
+	//public void setInterpret(String interpret){
+	//	this.interpret = interpret;
+	//}
 	
 	/**
 	 * @return the given director name from the article form
 	 */
-	public String getDirector(){
-		return director;
-	}
+	//public String getDirector(){
+	//	return director;
+	//}
 	
 	/**
 	 * Sets the director of the article form to the given value.
 	 * @param director
 	 */
-	public void setDirector(String director){
-		this.director = director;
-	}
+	//public void setDirector(String director){
+	//	this.director = director;
+	//}
 	
 	/**
 	 * @return the given filename from the article form
 	 */
-	public String getImage(){
-		return image;
-	}
+	//public String getImage(){
+	//	return image;
+	//}
 	
 	/**
 	 * Sets the image of the article form to the given value.
 	 * @param image
 	 */
-	public void setImage(String image){
-		this.image = image;
+	//public void setImage(String image){
+	//	this.image = image;
+	//}
+	
+	public String getCategory(){
+		return category;
+	}
+	
+	public void setCategory(String category){
+		this.category = category;
 	}
 	
 	/**

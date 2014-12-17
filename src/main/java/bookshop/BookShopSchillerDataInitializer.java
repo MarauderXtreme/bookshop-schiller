@@ -4,6 +4,7 @@ import static org.joda.money.CurrencyUnit.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.joda.money.Money;
@@ -25,6 +26,7 @@ import bookshop.model.ArticleManagement;
 import bookshop.model.Article.ArticleId;
 import bookshop.model.CalendarManagement;
 import bookshop.model.Category;
+import bookshop.model.CategoryManagement;
 //import bookshop.model.CategoryManagement;
 import bookshop.model.Date;
 import bookshop.model.RoomManagement;
@@ -39,6 +41,7 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 	private final Inventory<InventoryItem> inventory;
 	private final UserAccountManager userAccountManager;
 	private final UserRepository userRepository;
+	private final CategoryManagement categories;
 
 	/**
 	 * Constructor for BookShopDataInitializer.
@@ -49,18 +52,19 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 	 */
 	@Autowired
 	public BookShopSchillerDataInitializer(UserRepository userRepository, Inventory<InventoryItem> inventory,
-			UserAccountManager userAccountManager, ArticleManagement articleCatalog) {
+			UserAccountManager userAccountManager, ArticleManagement articleCatalog, CategoryManagement categories) {
 
 		Assert.notNull(userRepository, "UserRepository must not be null!");
 		Assert.notNull(inventory, "Inventory must not be null!");
 		Assert.notNull(userAccountManager, "UserAccountManager must not be null!");
 		Assert.notNull(articleCatalog, "ArticleCatalog must not be null!");
-
+		Assert.notNull(categories, "CategoryManagement must not be null!");
 
 		this.userRepository = userRepository;
 		this.inventory = inventory;
 		this.userAccountManager = userAccountManager;
 		this.articleCatalog = articleCatalog;
+		this.categories = categories;
 
 		//RoomManagement.getInstance().addRoom("Computerraum","067");
 		//CalendarManagement.getInstance().addEvent("Praesentation", new Date("26112014","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
@@ -116,26 +120,38 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		CalendarManagement.getInstance().getCalendar().sortEvents();
 		CalendarManagement.getInstance().getCalendar().showList();		
 		
-//		CategoryManagement.getInstance().addCategory(ArticleId.BOOK, "Ratgeber");
-//		CategoryManagement.getInstance().addCategory(ArticleId.BOOK, "Komödie");
-//		CategoryManagement.getInstance().addCategory(ArticleId.DVD, "Action");
-//		CategoryManagement.getInstance().addCategory(ArticleId.CD, "Ballade");
-//		
-//
-//		categories = new ArrayList<Category>();
-//		categories.add(new Category("Ratgeber", ArticleId.BOOK));
 		
 		
-		articleCatalog.save(new Article("Trost und Rat", Money.of(EUR, 9.99), "Ein Ratgeber der besonderen Art", "Flann O'Brien", "1234567890421", ArticleId.BOOK, "Ratgeber", "Flann O'Brien", "trostundrat.jpg"));
-		articleCatalog.save(new Article("50 Schatten des Grauens", Money.of(EUR, 7.98), "Horrorpersiflage des Bestsellers", "Chris Ragman", "0000000000001", ArticleId.BOOK, "Fiktion", "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99)));
+		//Category cat = new Category("Book", ArticleId.BOOK, "Fiction");
+		Category unterhaltung = new Category("Unterhaltung", ArticleId.BOOK);
+		Category ratgeber = new Category("Ratgeber", ArticleId.BOOK);
+		Category fiktion = new Category("Fiktion", ArticleId.BOOK);
+		Category pop = new Category("Pop", ArticleId.CD);
+		Category horror = new Category("Horror", ArticleId.DVD);
+
+		
+		categories.save(unterhaltung);
+		categories.save(ratgeber);
+		categories.save(fiktion);
+		categories.save(pop);
+		categories.save(horror);
+		
+		System.out.println(categories.findById("BOOKFiktion").get().getCategoryName());
+		
+		Article v = new Article("Trost und Rat", Money.of(EUR, 9.99), "Ein Ratgeber der besonderen Art", "Flann O'Brien", "1234567890421", ArticleId.BOOK, categories.findById("BOOKFiktion").get().getCategoryName(), "Flann O'Brien", "trostundrat.jpg");		
+		articleCatalog.save(v);
+		articleCatalog.save(new Article("50 Schatten des Grauens", Money.of(EUR, 7.98), "Horrorpersiflage des Bestsellers", "Chris Ragman", "0000000000001", ArticleId.BOOK, categories.findById("BOOKRatgeber").get().getCategoryName(), "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99)));
 		articleCatalog.save(new Article("Der Doktor und seine Gefährten", Money.of(EUR, 14.99), "Das Begleitbuch zur Serie", "Sir Doctor from Tardis", "0000000000002", ArticleId.BOOK, "Fiktion", "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99)));
-		articleCatalog.save(new Article("Stargate - Kommando SG-1", Money.of(EUR, 17.95), "Kurzbeschreibungen der Episoden der ersten Staffel", "Wolfgang Hohlbein", "0000000000003", ArticleId.BOOK, "Unterhaltung", "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99)));
-		articleCatalog.save(new Article("Stargate - Kommando SG-1", Money.of(EUR, 17.95), "Kurzbeschreibungen der Episoden der ersten Staffel", "Wolfgang Hohlbein", "0000000000004", ArticleId.BOOK, "Unterhaltung", "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99)));
-		articleCatalog.save(new Article("Stargate - Kommando SG-1", Money.of(EUR, 17.95), "Kurzbeschreibungen der Episoden der ersten Staffel", "Wolfgang Hohlbein", "0000000000005", ArticleId.BOOK, "Unterhaltung", "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99)));
-		articleCatalog.save(new Article("Stargate - Kommando SG-1", Money.of(EUR, 17.95), "Kurzbeschreibungen der Episoden der ersten Staffel", "Wolfgang Hohlbein", "0000000000006", ArticleId.BOOK, "Unterhaltung", "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99)));
-		articleCatalog.save(new Article("Depedro", Money.of(EUR, 17.95), "Spanische Musik", "Spanish Records", "1263453rr", ArticleId.CD, "Pop", "Pedro", "01.01.2015", Money.of(EUR, 0.99)));
-		articleCatalog.save(new Article("Begotten", Money.of(EUR, 17.95), "Strange...", "Indie Records", "1263453rr", ArticleId.DVD, "Horror", "God", "01.01.2015", Money.of(EUR, 0.99)));
+		articleCatalog.save(new Article("Stargate - Kommando SG-1", Money.of(EUR, 17.95), "Kurzbeschreibungen der Episoden der ersten Staffel", "Wolfgang Hohlbein", "0000000000003", ArticleId.BOOK, categories.findById("BOOKUnterhaltung").get().getCategoryName(), "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99)));
+		articleCatalog.save(new Article("Stargate - Kommando SG-1", Money.of(EUR, 17.95), "Kurzbeschreibungen der Episoden der ersten Staffel", "Wolfgang Hohlbein", "0000000000004", ArticleId.BOOK, categories.findById("BOOKUnterhaltung").get().getCategoryName(), "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99)));
+		articleCatalog.save(new Article("Stargate - Kommando SG-1", Money.of(EUR, 17.95), "Kurzbeschreibungen der Episoden der ersten Staffel", "Wolfgang Hohlbein", "0000000000005", ArticleId.BOOK, categories.findById("BOOKUnterhaltung").get().getCategoryName(), "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99)));
+		articleCatalog.save(new Article("Stargate - Kommando SG-1", Money.of(EUR, 17.95), "Kurzbeschreibungen der Episoden der ersten Staffel", "Wolfgang Hohlbein", "0000000000006", ArticleId.BOOK, categories.findById("BOOKUnterhaltung").get().getCategoryName(), "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99)));
+		articleCatalog.save(new Article("Depedro", Money.of(EUR, 17.95), "Spanische Musik", "Spanish Records", "1263453rr", ArticleId.CD, categories.findById("CDPop").get().getCategoryName(), "Pedro", "01.01.2015", Money.of(EUR, 0.99)));
+		articleCatalog.save(new Article("Begotten", Money.of(EUR, 17.95), "Strange...", "Indie Records", "1263453rr", ArticleId.DVD, categories.findById("DVDHorror").get().getCategoryName(), "God", "01.01.2015", Money.of(EUR, 0.99)));
 		 
+		
+		
+		
 		for (Article article : articleCatalog.findAll()) {
 			InventoryItem inventoryItem = new InventoryItem(article, Units.TEN);
 			inventory.save(inventoryItem);
