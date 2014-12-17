@@ -691,7 +691,7 @@ public class ArticleController {
 		
 		if(addcategory==null){}
 		else{
-			if(delcategory=="1"){}
+			if(addcategory=="1"){}
 			else
 				article.addCategory(addcategory);
 		}
