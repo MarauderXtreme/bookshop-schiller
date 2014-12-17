@@ -3,6 +3,7 @@ package bookshop.controller;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -10,10 +11,14 @@ import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManager;
+import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -209,11 +214,11 @@ public class UserController {
 	
 	@PreAuthorize("hasRole('ROLE_CUSTOMER') || hasRole('ROLE_EMPLOYEE')")
 	@RequestMapping("/user")
-	public String myProfile(Model modelMap) {
+	public String myProfile(@LoggedIn Optional<UserAccount> userAccount, Model modelMap) {
 		
-        User user = getCurrentUser();   
+		User user = userRepository.findUserByUserAccount(userAccount.get());
 		modelMap.addAttribute("user", user);
-        return "profile";
+		return "profile";
 	}
 	
 	/**
@@ -224,7 +229,7 @@ public class UserController {
 	 * @param modelMap
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_CUSTOMER') || hasRole('ROLE_EMPLOYEE')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
 	@RequestMapping("/user/profile/{pid}/change/edit")
 	public String changeProfileEdit(@PathVariable("pid") UserAccount userAccount, @ModelAttribute("profileForm") @Valid ProfileForm profileForm,
 			BindingResult result, ModelMap modelMap) {
@@ -237,9 +242,11 @@ public class UserController {
 			result.addError(new ObjectError("password.noMatch", "Die eingegebenen Passwörter stimmen nicht überein!"));
 		}
 		
-		//if (!userAccount.getPassword().equals(new Password(profileForm.getOldPassword()))) {
-		//	result.addError(new ObjectError("password.old.error", "Das eingegebene alte Passwort ist nicht korrekt!"));
-		//}
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+		if (!encoder.matches(profileForm.getOldPassword(), userAccount.getPassword().toString())) {
+			result.addError(new ObjectError("password.old.error", "Das eingegebene alte Passwort ist nicht korrekt!"));
+		}
 		
 		Iterable<User> users = userRepository.findAll();	
 		
@@ -271,11 +278,78 @@ public class UserController {
 	 * @param modelMap
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_CUSTOMER') || hasRole('ROLE_EMPLOYEE')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
 	@RequestMapping("/user/profile/{pid}/change")
 	public String changeProfile(@PathVariable("pid") UserAccount userAccount, ModelMap modelMap) {
 		
 		User user = userRepository.findUserByUserAccount(userAccount);
+		modelMap.addAttribute("user", user);
+		modelMap.addAttribute("profileForm", new ProfileForm());
+		return "editprofile";
+	}
+	
+	/**
+	 * Reads data from the profileForm and changes profile data of a special user.
+	 * @param userAccount
+	 * @param profileForm
+	 * @param result
+	 * @param modelMap
+	 * @return
+	 */
+	@PreAuthorize("hasRole('ROLE_CUSTOMER') || hasRole('ROLE_EMPLOYEE')")
+	@RequestMapping("/user/profile/change/edit")
+	public String changeProfileEditOfMe(@LoggedIn Optional<UserAccount> userAccount, @ModelAttribute("profileForm") @Valid ProfileForm profileForm,
+			BindingResult result, ModelMap modelMap) {
+
+		User user = userRepository.findUserByUserAccount(userAccount.get());
+		modelMap.addAttribute("user", user);
+		modelMap.addAttribute("userAccount", userAccount);
+		
+		if (!profileForm.getPasswordRepeat().equals(profileForm.getPassword())) {
+			result.addError(new ObjectError("password.noMatch", "Die eingegebenen Passwörter stimmen nicht überein!"));
+		}
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
+		if (!encoder.matches(profileForm.getOldPassword(), userAccount.get().getPassword().toString())) {
+			result.addError(new ObjectError("password.old.error", "Das eingegebene alte Passwort ist nicht korrekt!"));
+		}
+		
+		Iterable<User> users = userRepository.findAll();	
+		
+		for (User u : users) {
+			if (u.getUserAccount().getEmail().equals(profileForm.getEmail()) && !(u.getUserAccount().equals(userAccount))) {
+				result.addError(new ObjectError("email.isUsed", "Die eingegebene E-Mail-Adresse ist bereits vergeben!"));
+			}
+		}
+		
+		if (result.hasErrors()) {
+			return "editprofile";
+		}
+		
+		userAccount.get().setFirstname(profileForm.getFirstname());
+		userAccount.get().setLastname(profileForm.getLastname());
+		userAccount.get().setEmail(profileForm.getEmail());
+		userAccountManager.changePassword(userAccount.get(), profileForm.getPassword());
+		userAccountManager.save(userAccount.get());
+
+		user.setAddress(profileForm.getAddress());
+		userRepository.save(user);
+
+		return "profile";
+	}
+
+	/**
+	 * Maps the profile change form of a special user to modelMap.
+	 * @param userAccount
+	 * @param modelMap
+	 * @return
+	 */
+	@PreAuthorize("hasRole('ROLE_CUSTOMER') || hasRole('ROLE_EMPLOYEE')")
+	@RequestMapping("/user/profile/change")
+	public String changeProfileOfMe(@LoggedIn Optional<UserAccount> userAccount, ModelMap modelMap) {
+		
+		User user = userRepository.findUserByUserAccount(userAccount.get());
 		modelMap.addAttribute("user", user);
 		modelMap.addAttribute("profileForm", new ProfileForm());
 		return "editprofile";
@@ -304,7 +378,7 @@ public class UserController {
 		modelMap.addAttribute("user", user);
 		userManagement.disable(userAccount);
 		userAccountManager.save(userAccount);
-		return "profile";
+		return "editaccountsettings";
 	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
@@ -315,7 +389,7 @@ public class UserController {
 		modelMap.addAttribute("user", user);
 		userManagement.enable(userAccount);
 		userAccountManager.save(userAccount);
-		return "profile";
+		return "editaccountsettings";
 	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
@@ -326,7 +400,7 @@ public class UserController {
 		modelMap.addAttribute("user", user);
 		userManagement.addRole(userAccount, new Role(roleInput));
 		userAccountManager.save(userAccount);
-		return "profile";
+		return "editaccountsettings";
 	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
@@ -337,7 +411,7 @@ public class UserController {
 		modelMap.addAttribute("user", user);
 		userManagement.removeRole(userAccount, new Role(roleInput));
 		userAccountManager.save(userAccount);
-		return "profile";
+		return "editaccountsettings";
 	}
 	
 	

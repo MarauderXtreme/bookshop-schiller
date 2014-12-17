@@ -20,38 +20,39 @@
 	        	<div th:include="profiletabs :: profiletabs"></div>
 	        	<label>Aktuelles Status:</label><span th:text="${user.state}">Musterstatus</span>
 	        	<form th:action="@{'/user/profile/' + ${user.userAccount.identifier} + '/accountsettings/disable'}" method="POST">
-							<input class="button round" type="submit" value="Profil deaktivieren" />
+							<input th:if="${user.userAccount.isEnabled()}" class="button round" type="submit" value="Profil deaktivieren" />
 						</form>
 						<form th:action="@{'/user/profile/' + ${user.userAccount.identifier} + '/accountsettings/enable'}" method="POST">
-							<input class="button round" type="submit" value="Profil aktivieren" />
+							<input th:if="${!user.userAccount.isEnabled()}" class="button round" type="submit" value="Profil aktivieren" />
 						</form>
+						<br />
 						<label>Aktuelle Rollen:</label><span th:text="${user.roles}">Musterrolle</span>
 						<form th:action="@{'/user/profile/' + ${user.userAccount.identifier} + '/accountsettings/roles/add'}" method="POST">
 							<div class="large-3 medium-3 columns">
 								<select name="roleInput">
-									<option value="ROLE_CUSTOMER">CUSTOMER</option>
-									<option value="ROLE_EMPLOYEE">EMPLOYEE</option>
-									<option value="ROLE_ADMIN">ADMIN</option>
-									<option value="ROLE_BOSS">BOSS</option>
-									<option value="ROLE_USERMANAGER">USERMANAGER</option>
-									<option value="ROLE_ARTICLEMANAGER">ARTICLEMANAGER</option>
-									<option value="ROLE_SALESMANAGER">SALESMANAGER</option>
-									<option value="ROLE_EVENTMANAGER">EVENTMANAGER</option>
+									<option th:if="${!user.userAccount.hasRole('ROLE_CUSTOMER')}" value="ROLE_CUSTOMER">CUSTOMER</option>
+									<option th:if="${!user.userAccount.hasRole('ROLE_EMPLOYEE')}" value="ROLE_EMPLOYEE">EMPLOYEE</option>
+									<option th:if="${!user.userAccount.hasRole('ROLE_ADMIN')}" value="ROLE_ADMIN">ADMIN</option>
+									<option th:if="${!user.userAccount.hasRole('ROLE_BOSS')}" value="ROLE_BOSS">BOSS</option>
+									<option th:if="${!user.userAccount.hasRole('ROLE_USERMANAGER')}" value="ROLE_USERMANAGER">USERMANAGER</option>
+									<option th:if="${!user.userAccount.hasRole('ROLE_ARTICLEMANAGER')}" value="ROLE_ARTICLEMANAGER">ARTICLEMANAGER</option>
+									<option th:if="${!user.userAccount.hasRole('ROLE_SALESMANAGER')}" value="ROLE_SALESMANAGER">SALESMANAGER</option>
+									<option th:if="${!user.userAccount.hasRole('ROLE_EVENTMANAGER')}" value="ROLE_EVENTMANAGER">EVENTMANAGER</option>
 								</select>
 							</div>
-							<input class="button round" type="submit" value="Rolle hinzufügen" />
+							<input class="button round" type="submit" value="Rolle hinzufÃ¼gen" />
 						</form>
 						<form th:action="@{'/user/profile/' + ${user.userAccount.identifier} + '/accountsettings/roles/remove'}" method="POST">
 							<div class="large-3 medium-3 columns">
 								<select name="roleInput">
-									<option value="ROLE_CUSTOMER">CUSTOMER</option>
-									<option value="ROLE_EMPLOYEE">EMPLOYEE</option>
-									<option value="ROLE_ADMIN">ADMIN</option>
-									<option value="ROLE_BOSS">BOSS</option>
-									<option value="ROLE_USERMANAGER">USERMANAGER</option>
-									<option value="ROLE_ARTICLEMANAGER">ARTICLEMANAGER</option>
-									<option value="ROLE_SALESMANAGER">SALESMANAGER</option>
-									<option value="ROLE_EVENTMANAGER">EVENTMANAGER</option>
+									<option th:if="${user.userAccount.hasRole('ROLE_CUSTOMER')}" value="ROLE_CUSTOMER">CUSTOMER</option>
+									<option th:if="${user.userAccount.hasRole('ROLE_EMPLOYEE')}" value="ROLE_EMPLOYEE">EMPLOYEE</option>
+									<option th:if="${user.userAccount.hasRole('ROLE_ADMIN')}" value="ROLE_ADMIN">ADMIN</option>
+									<option th:if="${user.userAccount.hasRole('ROLE_BOSS')}" value="ROLE_BOSS">BOSS</option>
+									<option th:if="${user.userAccount.hasRole('ROLE_USERMANAGER')}" value="ROLE_USERMANAGER">USERMANAGER</option>
+									<option th:if="${user.userAccount.hasRole('ROLE_ARTICLEMANAGER')}" value="ROLE_ARTICLEMANAGER">ARTICLEMANAGER</option>
+									<option th:if="${user.userAccount.hasRole('ROLE_SALESMANAGER')}" value="ROLE_SALESMANAGER">SALESMANAGER</option>
+									<option th:if="${user.userAccount.hasRole('ROLE_EVENTMANAGER')}" value="ROLE_EVENTMANAGER">EVENTMANAGER</option>
 								</select>
 							</div>
 							<input class="button round" type="submit" value="Rolle entfernen" />
