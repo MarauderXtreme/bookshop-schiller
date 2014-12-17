@@ -14,33 +14,25 @@
 		      </label>
 		    </a>
 		  </li>
-		  <li class="has-submenu">
-		    <a href="#">Artikel</a>
-		    <ul class="left-submenu">
-   				<li class="back">
-   					<a href="#">Zurück</a>
-   				</li>
-   				<li>
-				    <a th:href="@{/article}" href="articles.html">
-				      Alle                  
-				    </a>
-				  </li>
-   				<li>
-				    <a th:href="@{/article/book}" href="articles.html">
-				      Bücher                  
-				    </a>
-				  </li>
-				  <li>
-				    <a th:href="@{/article/cd}" href="articles.html">
-				      CD's                  
-				    </a>
-				  </li>
-				  <li>
-				    <a th:href="@{/article/dvd}" href="articles.html">
-				      DVD's                  
-				    </a>
-				  </li>
-		    </ul>
+ 			<li>
+		    <a th:href="@{/article}" href="articles.html">
+		      Alle Artikel                 
+		    </a>
+		  </li>
+ 			<li>
+		    <a th:href="@{/article/book}" href="articles.html">
+		      Bücher                  
+		    </a>
+		  </li>
+		  <li>
+		    <a th:href="@{/article/cd}" href="articles.html">
+		      CD's                  
+		    </a>
+		  </li>
+		  <li>
+		    <a th:href="@{/article/dvd}" href="articles.html">
+		      DVD's                  
+		    </a>
 		  </li>
 		  <li>
 		    <a th:href="@{/calendar}" href="calendar.html">
@@ -129,19 +121,25 @@
    			</ul>
    		</li>
    		<li class="hide-for-large-up">
-   			<label>Buttons</label>
+   			<label>Account</label>
    		</li>
-   		<li class="hide-for-large-up" sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE')">
-   			<a class="round button" th:href="@{/cart}" href="cart.html">Warenkorb</a>
+   		<li class="hide-for-large-up" sec:authorize="hasAnyRole('ROLE_CUSTOMER')">
+    			<a th:href="@{/user/order}" href="myorders.html"><i class="fi-shopping-bag"></i> Bestellungen</a>
+    	</li>
+    	<li class="hide-for-large-up" sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE')">
+    		<a th:href="@{/cart}" href="cart.html"><i class="fi-shopping-cart"></i> Warenkorb</a>
+    	</li>
+    	<li class="hide-for-large-up" sec:authorize="hasAnyRole('ROLE_CUSTOMER','ROLE_EMPLOYEE')">
+    		<a th:href="@{/user}" href="profile.html"><i class="fi-torso"></i> Profil</a>
+    	</li>
+   		<li class="hide-for-large-up" sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')">
+   			<a class="round button" th:href="@{/user/register}" href="register.html">Registrieren</a>
    		</li>
-   		<li class="hide-for-large-up">
-   			<a sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="round button" th:href="@{/user/register}" href="register.html">Registrieren</a>
+   		<li class="hide-for-large-up" sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')">
+   			<a class="round secondary button" th:href="@{/user/login}" href="login.html">Login</a>
    		</li>
-   		<li class="hide-for-large-up">
-   			<a sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="round secondary button" th:href="@{/user/login}" href="login.html">Login</a>
-   		</li>
-   		<li class="hide-for-large-up">
-   			<a sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="round secondary button" th:href="@{/logout}" href="logout.html">Logout</a>
+   		<li class="hide-for-large-up" sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')">
+   			<a  class="round secondary button" th:href="@{/logout}" href="logout.html">Logout</a>
    		</li>
 		</ul>
 	</nav>

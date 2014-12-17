@@ -62,24 +62,7 @@ public class ArticleController {
 	
 	
 	//Initilize Cataloglists
-	
-	
-	/*
-	@RequestMapping("/")
-	public String news(ModelMap modelMap, String name) {
 		
-		Iterable<Article> b = articleCatalog.findAll();
-		
-		for(int i=0; i<=4; i++){
-			b
-		}
-
-		modelMap.addAttribute("catalog", articleCatalog.findAll());
-		modelMap.addAttribute("title", messageSourceAccessor.getMessage("catalog.dvd.title"));
-
-		return "articles";
-	}*/	
-	
 	/**
 	 * Maps a list of all articles to modelMap.
 	 * @param modelMap
@@ -323,49 +306,7 @@ public class ArticleController {
 
 	}
 	
-	/*
-	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
-	@RequestMapping(value="/article/book/new", method=RequestMethod.POST)
-	public String addBook(	@RequestParam("titleArticle") String title,
-							@RequestParam("beschreibungArticle") String beschreibung,
-							@RequestParam("priceArticle") double price,
-							@RequestParam("idArticle") String isbn,
-							@RequestParam("publisherArticle") String publisher,
-							@RequestParam("authorArticle") String author,
-							@RequestParam("categoryArticle") String category){
 	
-		Article article = new Article(	title,
-										Money.of(EUR, price),
-										beschreibung,
-										publisher,
-										isbn,
-										ArticleId.BOOK,
-										category,
-										author,
-										"01.01.2015",
-										Money.of(EUR, 0.99)
-										);
-	
-		//article.setAuthor(author);
-			
-		articleCatalog.save(article);
-		
-		//System.out.println(article.getAuthor());
-		
-		
-		InventoryItem item = new InventoryItem(article, Units.TEN);
-		inventory.save(item);
-		
-		//System.out.println("ITEM: " + item);
-		
-		//Quantity quantity = item.map(InventoryItem::getQuantity).orElse(Units.TEN);
-		
-	
-
-		return "redirect:/article/book";
-
-	}*/
-
 	/**
 	 * Adds a new article of type cd with the given attributes to the catalog and the inventory.
 	 * @param title
@@ -387,20 +328,24 @@ public class ArticleController {
 						@RequestParam("interpretArticle") String interpret,
 						@RequestParam("categoryArticle") String category){
 	
-	Article article = new Article(title, Money.of(EUR, price), beschreibung,
-			publisher, isbn, ArticleId.CD, category, interpret, "01.01.2015", Money.of(EUR, 0.99));
+		Article article = new Article(	title,
+										Money.of(EUR, price),
+										beschreibung,
+										publisher,
+										isbn,
+										ArticleId.CD,
+										category,
+										interpret,
+										"01.01.2015",
+										Money.of(EUR, 0.99));
 	
-	//article.setInterpret(interpret);
 		
-	articleCatalog.save(article);
+		articleCatalog.save(article);
 		
-	//Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
-	//Quantity quantity = item.map(InventoryItem::getQuantity).orElse(Units.TEN);
-
-	InventoryItem item = new InventoryItem(article, Units.TEN);
-	inventory.save(item);
-	
-	 return "redirect:/article/cd";
+		InventoryItem item = new InventoryItem(article, Units.TEN);
+		inventory.save(item);
+		
+		return "redirect:/article/cd";
 
 	}
 	
@@ -498,65 +443,6 @@ public class ArticleController {
 	}
 	
 	
-	/*
-	@RequestMapping(value="/deleteBook", method=RequestMethod.POST)
-	public String deleteBook(@RequestParam("article") Article article){
-		//Test: Vor des Entfernens
-		System.out.println(inventory.count());
-
-		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
-		inventory.delete(item.get().getIdentifier());
-		
-		//Test: Nach des Entfernens
-		System.out.println(inventory.count());
-		
-		articleCatalog.delete(article.getIdentifier());
-		
-		System.out.println(articleCatalog.count());
-
-		//return "books";
-		return "redirect:books";
-	}
-	
-	@RequestMapping(value="/deleteCD", method=RequestMethod.POST)
-	public String deleteCD(@RequestParam("article") Article article){
-		//Test: Vor des Entfernens
-		System.out.println(inventory.count());
-
-		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
-		inventory.delete(item.get().getIdentifier());
-		
-		//Test: Nach des Entfernens
-		System.out.println(inventory.count());
-		
-		articleCatalog.delete(article.getIdentifier());
-		
-		System.out.println(articleCatalog.count());
-
-		//return "books";
-		return "redirect:cds";
-	}
-	
-	@RequestMapping(value="/deleteDVD", method=RequestMethod.POST)
-	public String deleteDVD(@RequestParam("article") Article article){
-		//Test: Vor des Entfernens
-		System.out.println(inventory.count());
-
-		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
-		inventory.delete(item.get().getIdentifier());
-		
-		//Test: Nach des Entfernens
-		System.out.println(inventory.count());
-		
-		articleCatalog.delete(article.getIdentifier());
-		
-		System.out.println(articleCatalog.count());
-
-		//return "books";
-		return "redirect:dvds";
-	}*/
-	
-	
 	//Initilize the Details of an Article
 	
 	/**
@@ -571,7 +457,7 @@ public class ArticleController {
 		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
 		Quantity quantity = item.map(InventoryItem::getQuantity).orElse(Units.TEN);
 
-		model.addAttribute("book", article);
+		model.addAttribute("article", article);
 		model.addAttribute("quantity", quantity);
 		model.addAttribute("orderable", quantity.isGreaterThan(Units.ZERO));
 

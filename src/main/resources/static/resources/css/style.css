@@ -17,7 +17,7 @@ body {
 }
 
 .cover {
-	height: 120px;
+	max-height: 500px;
 }
 
 .row.full-width {
@@ -40,6 +40,10 @@ body {
 
 .article-box {
 	height: 300px;
+}
+
+.article-box .cover {
+	height: 120px;
 }
 
 .article-head {

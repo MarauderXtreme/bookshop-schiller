@@ -208,7 +208,7 @@ public class UserController {
 	}
 	
 	@PreAuthorize("hasRole('ROLE_CUSTOMER') || hasRole('ROLE_EMPLOYEE')")
-	@RequestMapping("/user/profile")
+	@RequestMapping("/user")
 	public String myProfile(Model modelMap) {
 		
         User user = getCurrentUser();   

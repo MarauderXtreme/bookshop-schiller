@@ -95,21 +95,21 @@
     				</li>
     			</ul>
     		</li>
+    		<li sec:authorize="hasAnyRole('ROLE_CUSTOMER')" class="divider"></li>
+    		<li>
+    			<a sec:authorize="hasAnyRole('ROLE_CUSTOMER')" th:href="@{/user/order}" href="myorders.html"><i class="fi-shopping-bag"></i></a>
+    		</li>
     		<li sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE')" class="divider"></li>
     		<li sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE')">
     			<a th:href="@{/cart}" href="cart.html"><i class="fi-shopping-cart"></i></a>
     		</li>
+    		<li sec:authorize="hasAnyRole('ROLE_CUSTOMER','ROLE_EMPLOYEE')" class="divider"></li>
+    		<li>
+    			<a sec:authorize="hasAnyRole('ROLE_CUSTOMER','ROLE_EMPLOYEE')" th:href="@{/user}" href="profile.html"><i class="fi-torso"></i></a>
+    		</li>
     		<li sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="divider"></li>
     		<li>
     			<a sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="round button" th:href="@{/user/register}" href="register.html">Registrieren</a>
-    		</li>
-    		<li sec:authorize="hasAnyRole('ROLE_CUSTOMER')" class="divider"></li>
-    		<li>
-    			<a sec:authorize="hasAnyRole('ROLE_CUSTOMER')" class="round button" th:href="@{/user/order}" href="myorders.html">Meine Bestellungen</a>
-    		</li>
-    		<li sec:authorize="hasAnyRole('ROLE_CUSTOMER','ROLE_EMPLOYEE')" class="divider"></li>
-    		<li>
-    			<a sec:authorize="hasAnyRole('ROLE_CUSTOMER','ROLE_EMPLOYEE')" class="round button" th:href="@{/user/profile}" href="profile.html">Mein Profil</a>
     		</li>
     		<li sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="divider"></li>
     		<li>
