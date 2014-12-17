@@ -517,7 +517,7 @@ public class ArticleController {
 	@RequestMapping("/article/{pid}/delete/confirm")
 	public String confirmDelete(@PathVariable("pid") Article article, Model model) {
 		
-		model.addAttribute("book", article);
+		model.addAttribute("article", article);
 		
 		return "confirmdelete";
 	}
