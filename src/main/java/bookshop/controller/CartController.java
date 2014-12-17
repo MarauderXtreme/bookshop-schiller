@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import bookshop.model.Article;
+import bookshop.model.PDFCreator;
 import bookshop.model.Article.ArticleId;
 import bookshop.model.OrderManagement;
 
@@ -66,11 +67,11 @@ public class CartController {
 				cart.addItemsTo(order);
 				
 				
-				//orderManager.payOrder(order);	
-				//orderManager.completeOrder(order);
 				orderManager.add(order);
 				cart.clear();
-
+				PDFCreator pdf = new PDFCreator();
+				pdf.pdfCreate(order, userAccount.get());
+				
 				return "redirect:/";
 			}).orElse("redirect:/cart");
 	}
