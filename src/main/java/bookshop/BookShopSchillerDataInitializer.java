@@ -193,6 +193,7 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		bossAccount.setFirstname("Philipp");
 		bossAccount.setLastname("Waack");
 		bossAccount.setEmail("philipp.waack@schiller.de");
+		bossAccount.add(articleManagerRole);
 		bossAccount.add(bossRole);
 		userAccountManager.save(bossAccount);
 		
@@ -202,6 +203,7 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		ua1.setFirstname("Philipp");
 		ua1.setLastname("Jäschke");
 		ua1.setEmail("philipp.jaeschke@schiller.de");
+		ua1.add(salesManagerRole);
 		userAccountManager.save(ua1);
 		User e1 = new User(ua1, new Address("Zellescher Weg", "18", "01187", "Dresden"));
 		
@@ -209,6 +211,7 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		ua2.setFirstname("Maximilian");
 		ua2.setLastname("Dühr");
 		ua2.setEmail("max.duehr@schiller.de");
+		ua2.add(eventManagerRole);
 		userAccountManager.save(ua2);
 		User e2 = new User(ua2, new Address("Nöthnitzer Straße", "46", "01187", "Dresden"));
 		

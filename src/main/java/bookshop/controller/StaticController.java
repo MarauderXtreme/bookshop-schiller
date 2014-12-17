@@ -39,17 +39,19 @@ public class StaticController {
 		for(Article art : articles){
 			li.add(art);
 		}
+		
 		Random rand = new Random();
-		promoNum = rand.nextInt(((li.size()-1) - 0) + 1) + 0;
-		
-		
 		for(int i=0; i<6; i++){
-			randomNum = rand.nextInt(((li.size()-1) - 0) + 1) + 0;
+			randomNum = rand.nextInt(li.size()-1);
 			list.add(li.get(randomNum));
 		}
 
-		modelMap.addAttribute("random", list);
+		promoNum = rand.nextInt(li.size()-1);
+		
+
 		modelMap.addAttribute("promo", list.get(promoNum));
+		list.remove(promoNum);
+		modelMap.addAttribute("random", list);
 		
 		
 		//modelMap.addAttribute(null);

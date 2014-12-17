@@ -17,7 +17,7 @@ body {
 }
 
 .cover {
-	height: 300px;
+	max-height: 500px;
 }
 
 .row.full-width {
@@ -39,7 +39,11 @@ body {
 }
 
 .article-box {
-	height: 500px;
+	height: 300px;
+}
+
+.article-box .cover {
+	height: 120px;
 }
 
 .article-head {
@@ -48,4 +52,12 @@ body {
 
 .article-box + [class*="column"] + [class*="column"]:last-child {
 	float: left;
+}
+
+.promo-box {
+	height: 600px;
+}
+
+.promo-box .cover {
+	height: 400px;
 }

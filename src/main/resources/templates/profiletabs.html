@@ -5,9 +5,10 @@
 	</head>
 	<body>
 		<div th:fragment="profiletabs">
-	  	<a class="tiny button" th:href="@{'/user/profile/' + ${user.userAccount.identifier}}" href="profile.html">Profilansicht</a>
+	  	<a sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USERMANAGER')" class="tiny button" th:href="@{'/user/profile/' + ${user.userAccount.identifier}}" href="profile.html">Profilansicht</a>
+	  	<a sec:authorize="!hasAnyRole('ROLE_ADMIN','ROLE_USERMANAGER')" class="tiny button" th:href="@{'/user'}" href="profile.html">Profilansicht</a>
 	 		<a class="tiny button" th:href="@{'/user/profile/' + ${user.userAccount.identifier} + '/change'}" href="editprofile.html">Profildaten ändern</a>
-	   	<a class="tiny button" th:href="@{'/user/profile/' + ${user.userAccount.identifier} + '/accountsettings'}" href="editaccountsettings.html">Accounteinstellungen ändern</a>
+	   	<a sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USERMANAGER')" class="tiny button" th:href="@{'/user/profile/' + ${user.userAccount.identifier} + '/accountsettings'}" href="editaccountsettings.html">Accounteinstellungen ändern</a>
 		</div>
 	</body>
 </html>

@@ -22,73 +22,40 @@
 	          	<h3>Unsere Neuerscheinungen von der Buchmesse</h3>
 	          </div>
 	          <div class="row full-width">
-	          	<div class="large-2 medium-4 small-12 columns article-box">
+	          	<fieldset class="large-5 medium-5 small-12 columns promo-box">
+	          		<legend>Heute vorgestellt:</legend>
+	          		<h3 class="article-head large-12 medium-12 small-12">
+	          			<a th:text="${promo.name}" th:href="@{'/detail/' + ${promo.identifier}}" href="detail.html">Bastard Operator from Hell</a>
+	          			<br />
+	          			<small th:text="${promo.artist}">Simon Travaglia</small>
+	          		</h3>
+	          		<div class="large-6 medium-6 small-12 columns">
+		          		<img alt="cover" class="cover" src="/resources/img/notAvaliableBook.jpg" />
+			          	<form action="/cart" method="POST">
+										<input type="hidden" name="article" value="0" th:value="${promo.identifier}" />
+										<label>Preis: <span th:text="${promo.price.amount}"> </span><i class="fi-euro"></i></label>
+										<input class="button tiny round" type="submit" value="In den Warenkorb"/>
+									</form>
+								</div>
+								<fieldset class="large-5 medium-5 small-12 columns">
+									<legend>Beschreibung</legend>
+									<p th:text="${promo.beschreibung}"></p>
+								</fieldset>
+	          	</fieldset>
+	          	<div th:each="book : ${random}" class="large-2 medium-4 small-12 columns article-box">
 	          		<div class="large-centered">
-		          		<h6 th:text="${promo.name}" class="article-head">Bastard Operator from Hell <br /><small th:text="${promo.artist}">Simon Travaglia</small></h6>
+		          		<h6 class="article-head">
+		          			<a th:text="${promo.name}" th:href="@{'/detail/' + ${book.identifier}}" href="detail.html">Bastard Operator from Hell</a>
+		          			<br />
+		          			<small th:text="${promo.artist}">Simon Travaglia</small>
+		          		</h6>
 		          		<img alt="cover" class="cover" src="/resources/img/notAvaliableBook.jpg" />
 			          	<form action="/cart" method="POST">
-										<input type="hidden" name="article" value="0" />
-										<label th:text="${promo.price}" class="left inline">Preis: 0,99€</label>
-										<input class="button tiny round" type="submit" value="In den Warenkorb"/>
-									</form>
-					</div>
-	          	</div>
-	          	<div th:each="book : ${random}">
-	          	<div class="large-2 medium-4 small-12 columns article-box">
-	          		<div class="large-centered">
-		          		<h6 th:text="${book.name}" class="article-head">50 Schatten des Grauens <br /><small th:text="${book.artist}">Simon Travaglia</small></h6>
-		          		<img alt="cover" class="cover" src="/resources/img/notAvaliableBook.jpg" />
-			          	<form action="/cart" method="POST">
-										<input type="hidden" name="article" value="0" />
-										<label th:text="${book.price}" class="left inline">Preis: 0,99€</label>
+										<input type="hidden" name="article" value="0" th:value="${book.identifier}" />
+										<label>Preis: <span th:text="${book.price.amount}"> </span><i class="fi-euro"></i></label>
 										<input class="button tiny round" type="submit" value="In den Warenkorb"/>
 									</form>
 								</div>
-	          	</div>
-	          	<!--<div class="large-2 medium-4 small-12 columns article-box">
-		          	<div class="large-centered">
-		          		<h6 class="article-head">Stargate - SG-1 <br /><small>Simon Travaglia</small></h6>
-		          		<img alt="cover" class="cover" src="/resources/img/notAvaliableBook.jpg" />
-			          	<form action="/cart" method="POST">
-										<input type="hidden" name="article" value="0" />
-										<label class="left inline">Preis: 0,99€</label>
-										<input class="button tiny round" type="submit" value="In den Warenkorb"/>
-									</form>
-								</div>
-	          	</div>
-	          	<div class="large-2 medium-4 small-12 columns article-box">
-		          	<div class="large-centered">
-		          		<h6 class="article-head">Der Doktor und Gefährten <br /><small>Simon Travaglia</small></h6>
-		          		<img alt="cover" class="cover" src="/resources/img/notAvaliableBook.jpg" />
-			          	<form action="/cart" method="POST">
-										<input type="hidden" name="article" value="0" />
-										<label class="left inline">Preis: 0,99€</label>
-										<input class="button tiny round" type="submit" value="In den Warenkorb"/>
-									</form>
-								</div>
-	          	</div>
-	          	<div class="large-2 medium-4 small-12 columns article-box">
-		          	<div class="large-centered">
-		          		<h6 class="article-head">Trost und Rat <br /><small>Simon Travaglia</small></h6>
-		          		<img alt="cover" class="cover" src="/resources/img/notAvaliableBook.jpg" />
-			          	<form action="/cart" method="POST">
-										<input type="hidden" name="article" value="0" />
-										<label class="left inline">Preis: 0,99€</label>
-										<input class="button tiny round" type="submit" value="In den Warenkorb"/>
-									</form>
-								</div>
-	          	</div>
-	          	<div class="large-2 medium-4 small-12 columns article-box">
-		          	<div class="large-centered">
-		          		<h6 class="article-head">Er ist zurück <br /><small>Simon Travaglia</small></h6>
-		          		<img alt="cover" class="cover" src="/resources/img/notAvaliableBook.jpg" />
-			          	<form action="/cart" method="POST">
-										<input type="hidden" name="article" value="0" />
-										<label class="left inline">Preis: 0,99€</label>
-										<input class="button tiny round" type="submit" value="In den Warenkorb"/>
-									</form>
-								</div>
-	          	</div>-->
 	          	</div>
 	          </div>
 	          <div class="row full-width">&nbsp;</div>

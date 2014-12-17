@@ -207,6 +207,80 @@ public class UserController {
 		return "profile";
 	}
 	
+	@PreAuthorize("hasRole('ROLE_CUSTOMER') || hasRole('ROLE_EMPLOYEE')")
+	@RequestMapping("/user")
+	public String myProfile(Model modelMap) {
+		
+        User user = getCurrentUser();   
+		modelMap.addAttribute("user", user);
+        return "profile";
+	}
+	
+	/**
+	 * Reads data from the profileForm and changes profile data of a special user.
+	 * @param userAccount
+	 * @param profileForm
+	 * @param result
+	 * @param modelMap
+	 * @return
+	 */
+	@PreAuthorize("hasRole('ROLE_CUSTOMER') || hasRole('ROLE_EMPLOYEE')")
+	@RequestMapping("/user/profile/{pid}/change/edit")
+	public String changeProfileEdit(@PathVariable("pid") UserAccount userAccount, @ModelAttribute("profileForm") @Valid ProfileForm profileForm,
+			BindingResult result, ModelMap modelMap) {
+
+		User user = userRepository.findUserByUserAccount(userAccount);
+		modelMap.addAttribute("user", user);
+		modelMap.addAttribute("userAccount", userAccount);
+		
+		if (!profileForm.getPasswordRepeat().equals(profileForm.getPassword())) {
+			result.addError(new ObjectError("password.noMatch", "Die eingegebenen Passwörter stimmen nicht überein!"));
+		}
+		
+		//if (!userAccount.getPassword().equals(new Password(profileForm.getOldPassword()))) {
+		//	result.addError(new ObjectError("password.old.error", "Das eingegebene alte Passwort ist nicht korrekt!"));
+		//}
+		
+		Iterable<User> users = userRepository.findAll();	
+		
+		for (User u : users) {
+			if (u.getUserAccount().getEmail().equals(profileForm.getEmail()) && !(u.getUserAccount().equals(userAccount))) {
+				result.addError(new ObjectError("email.isUsed", "Die eingegebene E-Mail-Adresse ist bereits vergeben!"));
+			}
+		}
+		
+		if (result.hasErrors()) {
+			return "editprofile";
+		}
+		
+		userAccount.setFirstname(profileForm.getFirstname());
+		userAccount.setLastname(profileForm.getLastname());
+		userAccount.setEmail(profileForm.getEmail());
+		userAccountManager.changePassword(userAccount, profileForm.getPassword());
+		userAccountManager.save(userAccount);
+
+		user.setAddress(profileForm.getAddress());
+		userRepository.save(user);
+
+		return "profile";
+	}
+
+	/**
+	 * Maps the profile change form of a special user to modelMap.
+	 * @param userAccount
+	 * @param modelMap
+	 * @return
+	 */
+	@PreAuthorize("hasRole('ROLE_CUSTOMER') || hasRole('ROLE_EMPLOYEE')")
+	@RequestMapping("/user/profile/{pid}/change")
+	public String changeProfile(@PathVariable("pid") UserAccount userAccount, ModelMap modelMap) {
+		
+		User user = userRepository.findUserByUserAccount(userAccount);
+		modelMap.addAttribute("user", user);
+		modelMap.addAttribute("profileForm", new ProfileForm());
+		return "editprofile";
+	}
+	
 	/**
 	 * Maps the account settings of a special user to modelMap.
 	 * @param userAccount
@@ -266,86 +340,15 @@ public class UserController {
 		return "profile";
 	}
 	
-	/**
-	 * Reads data from the profileForm and changes profile data of a special user.
-	 * @param userAccount
-	 * @param profileForm
-	 * @param result
-	 * @param modelMap
-	 * @return
-	 */
-	@RequestMapping("/user/profile/{pid}/change/edit")
-	public String changeProfileEdit(@PathVariable("pid") UserAccount userAccount, @ModelAttribute("profileForm") @Valid ProfileForm profileForm,
-			BindingResult result, ModelMap modelMap) {
-
-		User user = userRepository.findUserByUserAccount(userAccount);
-		modelMap.addAttribute("user", user);
-		modelMap.addAttribute("userAccount", userAccount);
-		
-		if (!profileForm.getPasswordRepeat().equals(profileForm.getPassword())) {
-			result.addError(new ObjectError("password.noMatch", "Die eingegebenen Passwörter stimmen nicht überein!"));
-		}
-		
-		//if (!userAccount.getPassword().equals(new Password(profileForm.getOldPassword()))) {
-		//	result.addError(new ObjectError("password.old.error", "Das eingegebene alte Passwort ist nicht korrekt!"));
-		//}
-		
-		Iterable<User> users = userRepository.findAll();	
-		
-		for (User u : users) {
-			if (u.getUserAccount().getEmail().equals(profileForm.getEmail()) && !(u.getUserAccount().equals(userAccount))) {
-				result.addError(new ObjectError("email.isUsed", "Die eingegebene E-Mail-Adresse ist bereits vergeben!"));
-			}
-		}
-		
-		if (result.hasErrors()) {
-			return "editprofile";
-		}
-		
-		userAccount.setFirstname(profileForm.getFirstname());
-		userAccount.setLastname(profileForm.getLastname());
-		userAccount.setEmail(profileForm.getEmail());
-		userAccountManager.changePassword(userAccount, profileForm.getPassword());
-		userAccountManager.save(userAccount);
-
-		user.setAddress(profileForm.getAddress());
-		userRepository.save(user);
-
-		return "profile";
-	}
-
-	/**
-	 * Maps the profile change form of a special user to modelMap.
-	 * @param userAccount
-	 * @param modelMap
-	 * @return
-	 */
-	@RequestMapping("/user/profile/{pid}/change")
-	public String changeProfile(@PathVariable("pid") UserAccount userAccount, ModelMap modelMap) {
-		
-		User user = userRepository.findUserByUserAccount(userAccount);
-		modelMap.addAttribute("user", user);
-		modelMap.addAttribute("profileForm", new ProfileForm());
-		return "editprofile";
-	}
 	
-	@RequestMapping("/user")
-	public String myProfile(Model modelMap) {
+	private User getCurrentUser() {
 		
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = (authentication == null) ? null : authentication.getPrincipal();
         
-        User user = marauderhack(principal);
-                
-		modelMap.addAttribute("user", user);
-		
-        return "profile";
-	}
-	
-	private User marauderhack(Object prinz) {
-		Iterable<User> userlist = userRepository.findAll();
-        for(User u : userlist) {
-        	if(u.getUserAccount().getIdentifier().toString().equals(prinz.toString())) {
+		Iterable<User> users = userRepository.findAll();
+        for(User u : users) {
+        	if (u.getUserAccount().getIdentifier().toString().equals(principal.toString())) {
         		return u;
         	}
         }

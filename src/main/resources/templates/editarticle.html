@@ -59,42 +59,33 @@
 							 <div class="large-6 medium-6 small-12 columns">
 								<label for="price">Preis</label>
 								<input th:field="*{price}" type="text" id="newprice" name="newprice" th:value="${book.price.amount}" required="" />
-								<!-- <small class="alert-box alert error">Bitte neuen Preis im Format "EUR xx.xx" eingeben.</small> -->
-								<!-- <small class="alert-box alert" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Der Vorname darf nicht leer sein.</small>-->
+								<small class="alert-box alert error">Bitte neuen Preis im Format "EUR xx.xx" eingeben.</small>
+								<small class="alert-box alert" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Der Vorname darf nicht leer sein.</small>
 							</div>
 							<div class="large-3 medium-3 small-6 columns">
 								<label for="newcategory">Neue Kategorie</label>
-								<!--<input type="text" id="newcategory" name="newcategory" placeholder="Category to add" /> -->
-														<select name="newcategory">
-															<option value="1">Keine</option>
-														<div th:each="category : ${categories}">
-															<option th:text="${category.categoryName}" th:value="${category.categoryName}" value="1">category</option>
-														</div>
-														</select>
-								<small class="alert-box alert error">Bitte neue Kategorie eingeben.</small>
-								<!-- <small class="alert-box alert" th:if="${#fields.hasErrors('category')}" th:errors="*{category}">Der Vorname darf nicht leer sein.</small> -->
+								<select name="newcategory"  required="">
+									<option value="1">Keine</option>
+									<option th:each="category : ${categories}" th:text="${category.categoryName}" th:value="${category.categoryName}" value="1">category</option>
+								</select>
+								<small class="alert-box alert error">Bitte neue Kategorie auswählen.</small>
 							</div>
 							<div class="large-3 medium-3 small-6 columns">
 								<label for="categorytodelete">Zu löschende Kategorie</label>
-								<!--<input type="text" id="categorytodelete" name="categorytodelete" placeholder="Category to delete" />-->
-														<select name="categorytodelete">
-															<option value="1">Keine</option>
-														<div th:each="category : ${categories}">
-															<option th:text="${category.categoryName}" th:value="${category.categoryName}" value="2">category</option>
-														</div>
-														</select>		
-							<small class="alert-box alert error">Bitte zu löschende Kategorie eingeben.</small>
+								<select name="categorytodelete" required="">
+									<option value="1">Keine</option>
+									<option th:each="category : ${categories}" th:text="${category.categoryName}" th:value="${category.categoryName}" value="2">category</option>
+								</select>		
+								<small class="alert-box alert error">Bitte zu löschende Kategorie auswählen.</small>
 							</div>
 							<div class="large-3 medium-3 small-6 columns">
 								<label for="increaseAmount">Hinzu zu fügende Menge</label>
 								<!--<input type="number" id="addquan" name="addquan" placeholder="Quantity to add" min="0" />-->
-										
 										<div class="row collapse postfix-round">
 											<div class="small-9 columns">
 												<input id="addquan" type="number" name="addquan" value="0" min="0" />
 											</div>
 										</div>
-										
 								<small class="alert-box alert error">Bitte hinzu zu fügende Menge eingeben.</small>
 								<small class="alert-box alert" th:if="${#fields.hasErrors('increaseAmount')}" th:errors="*{increaseAmount}">Der Vorname darf nicht leer sein.</small>
 							</div>
