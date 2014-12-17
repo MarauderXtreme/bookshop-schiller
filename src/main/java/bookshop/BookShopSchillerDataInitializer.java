@@ -126,15 +126,32 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		Category unterhaltung = new Category("Unterhaltung", ArticleId.BOOK);
 		Category ratgeber = new Category("Ratgeber", ArticleId.BOOK);
 		Category fiktion = new Category("Fiktion", ArticleId.BOOK);
+		Category sachbuch = new Category("Sachbuch", ArticleId.BOOK);
+
 		Category pop = new Category("Pop", ArticleId.CD);
+		Category rock = new Category("Rock", ArticleId.CD);
+		Category electronic = new Category("Electronic", ArticleId.CD);
+		Category hiphop = new Category("Hip Hop", ArticleId.CD);
+		
+		Category action = new Category("Action", ArticleId.DVD);
 		Category horror = new Category("Horror", ArticleId.DVD);
+		Category drama = new Category("Drama", ArticleId.DVD);
+
 
 		
 		categories.save(unterhaltung);
 		categories.save(ratgeber);
 		categories.save(fiktion);
+		categories.save(sachbuch);
+		
 		categories.save(pop);
+		categories.save(rock);
+		categories.save(electronic);
+		categories.save(hiphop);
+		
 		categories.save(horror);
+		categories.save(action);
+		categories.save(drama);
 		
 		System.out.println(categories.findById("BOOKFiktion").get().getCategoryName());
 		
