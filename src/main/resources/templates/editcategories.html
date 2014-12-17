@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head th:include="head :: head"></head>
+	<body>
+		<div class="off-canvas-wrap" data-offcanvas="">
+			<div class="fixed" th:include="topbar :: topbar"></div>
+	    <div class="inner-wrap">
+	    	<aside class="left-off-canvas-menu" aria-hidden="true">
+	    		<nav th:include="navigation :: navigation"></nav>
+	    	</aside>
+	    	<div class="main-content">
+		    	<header class="large-12 medium-12 show-for-landscape show-for-medium-up">
+		        <div class="panel">
+		          <div class="header-slider row" th:include="slider :: slider"></div>
+		        </div>
+		      </header>
+	        <div class="large-12">&nbsp;</div>
+	        <div class="large-12 medium-12 small-12 row">
+	        	<h3>Edit <span>Categories</span></h3>
+	        	<div sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')"></div>
+							
+		
+							<div class="large-3 medium-3 small-6 columns">
+								<label th:each="category : ${categories}" th:text="${category.categoryName}" th:value="${category.categoryName}">Neue Kategorie</label>
+							</div>
+						<form method="POST" action="/editcategories/add" data-abide="">
+							<div class="large-6 medium-6 small-12 columns">
+								<label>Neue Kategorie</label>
+								<input type="text" id="newcategory" name="newcategory" placeholder="Kategorie" required="" />
+								<input type="text" id="type" name="type" placeholder="Typ" required="" />
+							</div>
+								 <input class="small button" type="submit" value="Speichern" />
+						</form>	 
+						<form method="POST" action="/editcategories/delete" data-abide="">				
+							<div class="large-6 medium-6 small-12 columns">
+								<label>Entferne Kategorie</label>
+								<input type="text" id="categorytodelete" name="categorytodelete" required="" />
+							</div>
+								 <input class="small button" type="submit" value="Entfernen" />
+						</form>
+
+
+	        	
+	        </div>
+	    	</div>
+	    </div>
+		</div>
+	</body>
+</html>

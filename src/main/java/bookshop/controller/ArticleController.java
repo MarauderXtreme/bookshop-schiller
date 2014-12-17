@@ -119,6 +119,50 @@ public class ArticleController {
 		return "articles";
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
+	@RequestMapping("/editcategories")
+	public String addCategories(ModelMap modelMap) {
+
+		modelMap.addAttribute("categories", categories.findAll());
+		
+		return "editcategories";
+	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
+	@RequestMapping(value="/editcategories/delete", method=RequestMethod.POST)
+	public String deleteCategory(@RequestParam("categorytodelete") String category){
+		
+		
+		categories.delete(categories.findByCategoryName(category));
+		
+		return "redirect:/editcategories";
+
+	}
+	
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
+	@RequestMapping(value="/editcategories/add", method=RequestMethod.POST)
+	public String addCategory(@RequestParam("newcategory") String category, @RequestParam("type") int type){
+		
+		if(type == 1){
+			Category cat = new Category(category, ArticleId.BOOK);
+			categories.save(cat);
+		}
+		if(type == 2){
+			Category cat = new Category(category, ArticleId.CD);
+			categories.save(cat);
+		}
+		if(type == 3){
+			Category cat = new Category(category, ArticleId.DVD);
+			categories.save(cat);
+		}
+		
+		return "redirect:/editcategories";
+
+	}
+	
+	
+	
 	/**
 	 * Maps a list of all articles of type book to modelMap for the add book html.
 	 * @param modelMap
