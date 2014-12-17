@@ -698,6 +698,8 @@ public class ArticleController {
 				article.removeCategory(delcategory);
 		}
 		
+		System.out.println(articleForm.getIncreaseAmount());
+		
 		if(articleForm.getIncreaseAmount()==0){}
 		else
 		item.get().increaseQuantity(Units.of(articleForm.getIncreaseAmount()));
