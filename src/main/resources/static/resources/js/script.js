@@ -6,7 +6,7 @@ $(document).ready(function(){
 				plz: /^(\d){5}$/,
 				custom_price: /^EUR\s[1-9]{1}[0-9]*\.[0-9]{2}$/,
 				isbn13: /^[0-9]{13}$/,
-				caps_start: /^[A-Z](1)./
+				caps_start: /^[A-Z](1).*/
 			}
 		}
 	});
