@@ -46,8 +46,14 @@
 												  <input type="hidden" name="orderDelete" value="0" th:value="${order.identifier}"/>
 													<input class="button" type="submit" value="Cancel"/> 
 												</form>
-											</td>
+											</td>											
 										</div>
+										<td>
+												<form class="salespoint" method="POST" action="/order/pdf">
+												  <input type="hidden" name="orderPDF" value="0" th:value="${order.identifier}"/>
+													<input class="button" type="submit" value="Rechnung"/> 
+												</form>
+											</td>
 									</tr>
 							</tbody>
 						</table>

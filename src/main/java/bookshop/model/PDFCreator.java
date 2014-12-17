@@ -1,81 +1,110 @@
 package bookshop.model;
 
 
-/*
+
 import java.io.*;
 
 import javax.persistence.Entity;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletResponse;
+
+import org.salespointframework.order.Order;
+import org.salespointframework.order.OrderIdentifier;
+import org.salespointframework.order.OrderLine;
+import org.salespointframework.useraccount.UserAccount;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
 
 
 
-*/
-public class PDFCreator {
-	
-	/*
-	
-	public void PDFerzeugen(){
-		    try {
-		       PDFCreator pdf = new PDFCreator();
-		       Document document = new Document();
-		       PdfWriter.getInstance(document,new FileOutputStream("SimplePdf.pdf"));
-		       document.open();
-		       document.add(new Paragraph(pdf.getLines()));
-		       document.close();
-		     } catch (Exception e) {
-		       e.printStackTrace();
-		     }
-		  }
-	
-	private String getLines() throws IOException {
-		     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		     StringBuffer result = new StringBuffer();
-		     String line;
-		     while((line = reader.readLine()) != null)
-		       result.append(line).append("n");
-		    return result.toString();
-		   }
-	*/
-	/*
-	
-	public static final String result
-    = "results/part1/chapter01/hello.pdf";
 
-	/**
-	 * Creates a PDF file: hello.pdf
-	 * @param    args    no arguments needed
-	 */
+public class PDFCreator extends HttpServlet {
+	
 	/*
-	public static void main(String[] args)
-		throws DocumentException, IOException {
-		new PDFCreator().createPdf(result);
+	private final OrderIdentifier orderId;
+
+	public PDFCreator(OrderIdentifier orderId){
+		this.orderId = orderId;
 	}
 	*/
-/*
-	public PDFCreator(String result){
-		//this.result = result;
+	public void pdfCreate(Order order, UserAccount userAccount){
+		Document document = new Document();
+		HttpServletResponse test;
+		//String curDir = System.getProperty(")
+	    try {
+	        PdfWriter.getInstance(document,
+	            new FileOutputStream(System.getProperty("user.dir") + "/src/main/resources/orders/" + order.getIdentifier().toString() + ".pdf"));
+	
+	        document.open();
+	        document.add(new Paragraph("Bestellnummer:"));
+	        document.add(new Paragraph(order.getIdentifier().toString()));
+	        document.add(new Paragraph("Kunde:"));
+	        document.add(new Paragraph(userAccount.getFirstname()));
+	        document.add(new Paragraph(userAccount.getLastname()));
+	        document.add(new Paragraph("Artikel:"));
+	        
+	        for(OrderLine orderLine : order.getOrderLines()){
+	        	document.add(new Paragraph(orderLine.getProductName()));
+	        	document.add(new Paragraph(orderLine.getQuantity().toString()));
+	        }
+	        document.close();
+	
+	    } catch (DocumentException e) {
+	        e.printStackTrace();
+	    } catch (FileNotFoundException e) {
+	        e.printStackTrace();
+	    }
 	}
-	/**
-	 * Creates a PDF document.
-	 * @param filename the path to the new PDF document
-	 * @throws    DocumentException 
-	 * @throws    IOException 
-	 */
-/*
-	public void createPdf(String filename)
-	throws DocumentException, IOException {
-		    // step 1
-		    Document document = new Document();
-		    // step 2
-		    PdfWriter.getInstance(document, new FileOutputStream(filename));
-		    // step 3
-		    document.open();
-		    // step 4
-		    document.add(new Paragraph("Hello World!"));
-		    // step 5
-		    document.close();
-	}
+	/*
+	
+	public void pdfCreate(Order order, UserAccount userAccount, HttpServletResponse response)throws ServletException, IOException{
+	
+		Document document = new Document();
+		//orderId = orderId + ".pdf";
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		//PdfWriter writer = PdfWriter.getInstance(document, baos);
+		
+		try {
+	        PdfWriter.getInstance(document,baos);
+	
+	        document.open();
+	        document.add(new Paragraph("Bestellnummer:"));
+	        document.add(new Paragraph(order.getIdentifier().toString()));
+	        document.add(new Paragraph("Kunde:"));
+	        document.add(new Paragraph(userAccount.getFirstname()));
+	        document.add(new Paragraph(userAccount.getLastname()));
+	        document.add(new Paragraph("Artikel:"));
+	        
+	        for(OrderLine orderLine : order.getOrderLines()){
+	        	document.add(new Paragraph(orderLine.getProductName()));
+	        	document.add(new Paragraph(orderLine.getQuantity().toString()));
+	        }
+	        document.close(); 
+	        
+	        // setting some response headers
+	            response.setHeader("Expires", "0");
+	            response.setHeader("Cache-Control",
+	                "must-revalidate, post-check=0, pre-check=0");
+	            response.setHeader("Pragma", "public");
+            // setting the content type
+	            response.setContentType("application/pdf");
+            // the contentlength
+	            response.setContentLength(baos.size());
+            // write ByteArrayOutputStream to the ServletOutputStream
+	            OutputStream os = response.getOutputStream();
+	            baos.writeTo(os);
+	            os.flush();
+	            os.close();
+
+	
+	    } catch (DocumentException e) {
+	    	throw new IOException(e.getMessage());
+	    }
+		
+	
+	}	
 	*/
+	
 }
