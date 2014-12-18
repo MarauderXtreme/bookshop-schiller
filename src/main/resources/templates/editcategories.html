@@ -37,17 +37,23 @@
 							</div>
 						<form method="POST" action="/editcategories/add" th:object="${categoriesform}" data-abide="">
 						
-							<!-- <div th:if="${#fields.hasErrors('*')}">
+							<div th:if="${#fields.hasErrors('*')}">
 										<p class="alert-box warning"><b>Einige Angaben sind nicht korrekt. Bitte versuchen Sie es erneut!</b></p>
-							</div>-->
+							</div>
 						
 							<div>
 								<label>Neue Kategorie</label>
 								<input th:field="*{category}" th:errorclass="fieldError" type="text" id="newcategory" name="newcategory" placeholder="Kategorie" required="" />
-								<!--<small class="alert-box alert error">Bitte neue Kategorie auswählen.</small>-->
+								<small class="alert-box alert error">Bitte Namen eingeben.</small>
 								<small class="alert-box alert" th:if="${#fields.hasErrors('category')}" th:errors="*{category}">Der Vorname darf nicht leer sein.</small>
-								<input th:field="*{type}" th:errorclass="fieldError" type="text" id="type" name="type" placeholder="Typ" required="" />
-								<!--<small class="alert-box alert error">Bitte neue Kategorie auswählen.</small> -->
+								
+								<select th:field="*{type}" th:errorclass="fieldError" id="type" name="type" required="">
+									<option value="Buch">Buch</option>
+									<option value="CD">CD</option>
+									<option value="DVD">DVD</option>
+								</select>								
+								
+								<small class="alert-box alert error">Bitte neue Kategorie auswählen.</small>
 								<small class="alert-box alert" th:if="${#fields.hasErrors('type')}" th:errors="*{type}">Der Vorname darf nicht leer sein.</small>
 							</div>
 							
@@ -61,6 +67,7 @@
 									<option value="1">Keine</option>
 									<option th:each="category : ${categories}" th:text="${category.categoryName}" th:value="${category.categoryName}" value="2">category</option>
 								</select>	
+								<small class="alert-box alert error">Bitte neue Kategorie auswählen.</small>
 							</div>
 								 <input class="small button" type="submit" value="Entfernen" />
 						</form>

@@ -40,13 +40,13 @@ public class EditArticleForm {
 		/*@NotEmpty(message = "{addArticeForm.name.NotEmpty}")
 		private ArticleId type;*/
 		
-		@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
+		//@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
 		@Pattern(regexp="([A-Za-z0-9]+\\.(jpg|png|gif))", message = "{ArticleForm.Image.Format}")
 		private String image;
 		
 		//@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
 		//@Pattern(regexp="([0-9]+)", message = "{ArticleForm.Amount.Format}")
-		private long increaseAmount;
+		//private long increaseAmount;
 		
 		//@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
 		//@Pattern(regexp="([0-9]+)", message = "{ArticleForm.Amount.Format}")
@@ -238,17 +238,17 @@ public class EditArticleForm {
 		/**
 		 * @return the given amount of article units from the article form
 		 */
-		public long getIncreaseAmount(){
-			return increaseAmount;
-		}
+		//public long getIncreaseAmount(){
+		//	return increaseAmount;
+		//}
 		
 		/**
 		 * Sets the amount of the article form to the given value.
 		 * @param amount
 		 */
-		public void setAmount(long amount){
-			this.increaseAmount = amount;
-		}
+		//public void setAmount(long amount){
+		//	this.increaseAmount = amount;
+		//}
 		
 		public long getDecreaseAmount(){
 			return decreaseAmount;

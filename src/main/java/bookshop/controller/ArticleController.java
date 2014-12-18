@@ -601,11 +601,14 @@ public class ArticleController {
 	@RequestMapping("/article/{pid}/edit")
 	public String editarticle(@PathVariable("pid") Article article, Model model) {
 		
+		//For quantity mapping
 		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
 		Quantity quantity = item.map(InventoryItem::getQuantity).orElse(Units.TEN);
 		
-		//Category category = new Category();
-
+		//List for categories of article - deleteCategories
+		
+		
+		
 		model.addAttribute("article", article);
 		model.addAttribute("quantity", quantity);
 		model.addAttribute("orderable", quantity.isGreaterThan(Units.ZERO));
@@ -615,7 +618,6 @@ public class ArticleController {
 			{model.addAttribute("categories", categories.findByType(ArticleId.CD));}
 		if(article.getType()==ArticleId.DVD)
 			{model.addAttribute("categories", categories.findByType(ArticleId.DVD));}
-		//model.addAttribute("category", category);
 		model.addAttribute("editArticleForm", new EditArticleForm());
 
 		return "editarticle";
@@ -628,13 +630,13 @@ public class ArticleController {
 		
 		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
 		
-		/*if (articleForm.getPrice()<0) {
+		if (articleForm.getPrice()<0) {
 			result.addError(new ObjectError("price", "Der Preis muss grosser als 0 sein"));
 		}
 		
-		if (articleForm.getIncreaseAmount()<0) {
+		/*if (articleForm.getIncreaseAmount()<0) {
 			result.addError(new ObjectError("increaseAmount", "Die Menge muss grosser als 0 sein"));
-		}
+		}*/
 		
 		if (articleForm.getDecreaseAmount()<0) {
 			result.addError(new ObjectError("decreaseAmount", "Die Menge muss grosser als 0 sein"));
@@ -644,7 +646,7 @@ public class ArticleController {
 			System.out.println("haserrors");
 			return "redirect:/article/" + article.getIdentifier() + "/edit";
 		}
-		*/
+		
 		if(articleForm.getName()==null){}
 		else
 		article.setName(articleForm.getName());
@@ -663,21 +665,10 @@ public class ArticleController {
 		if(articleForm.getPrice()==0){}
 		else
 		article.setPrice(Money.of(EUR, articleForm.getPrice()));
-		
-		if(newCategory==null){}
-		else{
-			if(newCategory=="1"){}
-			else
-				article.removeCategory(newCategory);
-		}
-		
-		if(articleForm.getImage()==null){}
-		else
+
 		article.setImage(articleForm.getImage());
 		
-		if(articleForm.getArtist()==null){}
-		else
-			article.setArtist(articleForm.getArtist());
+		article.setArtist(articleForm.getArtist());
 		
 		/*if(author==null){}
 		else
@@ -691,27 +682,25 @@ public class ArticleController {
 		else
 		article.setDirector(director);
 		*/
-		if(delcategory==null){}
-		else{
-			if(delcategory=="1"){}
-			else
+		
+		if(newCategory=="1"){}
+			else{
+				article.addCategory(newCategory);
+			}
+				
+		if(delcategory=="1"){}
+			else{
 				article.removeCategory(delcategory);
-		}
+			}
 		
-		System.out.println(articleForm.getIncreaseAmount());
-		
-		if(articleForm.getIncreaseAmount()==0){}
-		else
-		item.get().increaseQuantity(Units.of(articleForm.getIncreaseAmount()));
-		
-		if(articleForm.getDecreaseAmount()==0){}
-		else
+		System.out.println(articleForm.getDecreaseAmount());
+
 		item.get().decreaseQuantity(Units.of(articleForm.getDecreaseAmount()));
 		
 		
 		articleCatalog.save(article);
 		
-		return "redirect:/article/" + article.getIdentifier() + "/edit";
+		return "redirect:/detail/" + article.getIdentifier();
 	}
 	
 	

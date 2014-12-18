@@ -52,7 +52,7 @@
 								</div>
 								<div class="large-6 medium-6 small-12 columns">
 									<label for="price">Preis</label>
-									<input th:field="*{price}" th:errorclass="fieldError" type="text" name="priceArticle" placeholder="Preis" required="" patter="custom_price" />
+									<input th:field="*{price}" th:errorclass="fieldError" type="text" name="price" placeholder="Preis" required="" patter="custom_price" />
 									<small class="alert-box alert error">Bitte neuen Preis im Format "EUR xx.xx" eingeben.</small>
 									<small class="alert-box alert" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Der Vorname darf nicht leer sein.</small>
 								</div>
