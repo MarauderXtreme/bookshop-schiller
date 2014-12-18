@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
+import org.joda.money.Money;
 import org.salespointframework.catalog.ProductIdentifier;
 import org.salespointframework.inventory.Inventory;
 import org.salespointframework.inventory.InventoryItem;
@@ -52,10 +53,11 @@ public class StatisticController {
 
 		LocalDateTime time = date.getTime();
 		time = time.minusDays(7);		
-
+		
+		Money profit;
 		
 		Order statisticOrder = new Order(userAccount.get());
-		Order gesOrderBuy = new Order(userAccount.get());
+		//Order gesOrderBuy = new Order(userAccount.get());
 		Order gesOrderSell = new Order(userAccount.get());
 		Order sellOrder = new Order(userAccount.get());
 		
@@ -64,15 +66,15 @@ public class StatisticController {
 					gesOrderSell.add(orderLine);
 				}
 		}
-		
+		/*
 		for(Order order : orderManager.find(OrderStatus.PAID)){
 			for(OrderLine orderLine : order.getOrderLines()){
 				gesOrderBuy.add(orderLine);
 			}
 		}
-		
+		*/
 		modelMap.addAttribute("statisticPriceSellAll", gesOrderSell.getTotalPrice());		
-		modelMap.addAttribute("statisticPriceBuyAll", gesOrderBuy.getTotalPrice());
+		//modelMap.addAttribute("statisticPriceBuyAll", gesOrderBuy.getTotalPrice());
 		
 		for(InventoryItem item : inventory.findAll()){
 
@@ -98,20 +100,21 @@ public class StatisticController {
 							
 					}	
 				
-				}
-				if(order.isCompleted() == true){
-					for(OrderLine orderLine : order.getOrderLines()){
-						
-						ProductIdentifier name1 = item.getProduct().getIdentifier();
-						ProductIdentifier name2 = orderLine.getProductIdentifier();
-						
-						
-						if(name1.equals(name2)== true){
-								quantity1 = quantity1.add(orderLine.getQuantity());
+				}else{
+					if(order.isCompleted() == true){
+						for(OrderLine orderLine : order.getOrderLines()){
 							
-						}
+							ProductIdentifier name1 = item.getProduct().getIdentifier();
+							ProductIdentifier name2 = orderLine.getProductIdentifier();
 							
-					}	
+							
+							if(name1.equals(name2)== true){
+									quantity1 = quantity1.add(orderLine.getQuantity());
+								
+							}
+								
+						}	
+					}
 				}
 			}
 			
@@ -121,9 +124,9 @@ public class StatisticController {
 			statisticOrder.add(orderLine);
 			sellOrder.add(orderLine1);
 		}
+		profit = sellOrder.getTotalPrice().minus(statisticOrder.getTotalPrice());
 		
-		
-		
+		modelMap.addAttribute("profit", profit);
 		
 		modelMap.addAttribute("statisticsell", statisticOrder.getOrderLines());
 		modelMap.addAttribute("statisticPriceSell", statisticOrder.getTotalPrice());
