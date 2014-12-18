@@ -3,6 +3,7 @@ package bookshop.controller;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -86,15 +87,16 @@ public class UserController {
 	}
 	
 	/**
-	 * Reads data from the registrationForm for administrators and registers a new user.
+	 * Reads data from the registrationForm for administrators and registers a new user with the given role.
 	 * @param registrationForm
 	 * @param result
+	 * @param role
 	 * @return
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/user/add/new")
 	public String registerNewUser(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
-			BindingResult result, @RequestParam("roleInput") String roleInput) {
+			BindingResult result, @RequestParam("roleInput") String role) {
 
 		if (!registrationForm.getPasswordRepeat().equals(registrationForm.getPassword())) {
 			result.addError(new ObjectError("password.noMatch", "Die eingegebenen Passwörter stimmen nicht überein!"));
@@ -118,7 +120,7 @@ public class UserController {
 		}
 		
 		UserAccount userAccount = userAccountManager.create(registrationForm.getUsername(), registrationForm.getPassword(),
-				new Role(roleInput));
+				new Role(role));
 		userAccount.setFirstname(registrationForm.getFirstname());
 		userAccount.setLastname(registrationForm.getLastname());
 		userAccount.setEmail(registrationForm.getEmail());
@@ -143,7 +145,7 @@ public class UserController {
 	}
 	
 	/**
-	 * Reads data from the registrationForm for an unregistered user and registers a new customer.
+	 * Reads data from the registrationForm for unregistered users and registers a new customer.
 	 * @param registrationForm
 	 * @param result
 	 * @return
@@ -187,7 +189,7 @@ public class UserController {
 	}
 
 	/**
-	 * Maps the registration form for an unregistered to modelMap.
+	 * Maps the registration form for unregistered users to modelMap.
 	 * @param modelMap
 	 */
 	@RequestMapping("/user/register")
@@ -197,12 +199,13 @@ public class UserController {
 		return "register";
 	}
 	
-	 /**
-	  * Maps the given user to modelMap.
-	  * @param user
-	  * @param modelMap
-	  * @return
-	  */
+	/**
+	 * Maps the given user and the current user to modelMap for the profile view.
+	 * @param userAccount
+	 * @param currentUserAccount
+	 * @param modelMap
+	 * @return
+	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_BOSS') || hasRole('ROLE_USERMANAGER')")
 	@RequestMapping("/user/profile/{pid}")
 	public String profile(@PathVariable("pid") UserAccount userAccount, @LoggedIn Optional<UserAccount> currentUserAccount, Model modelMap) {
@@ -214,6 +217,12 @@ public class UserController {
 		return "profile";
 	}
 	
+	/**
+	 * Maps the current user to modelMap for the own profile view.
+	 * @param userAccount
+	 * @param modelMap
+	 * @return
+	 */
 	@PreAuthorize("hasRole('ROLE_CUSTOMER') || hasRole('ROLE_EMPLOYEE')")
 	@RequestMapping("/user")
 	public String myProfile(@LoggedIn Optional<UserAccount> userAccount, Model modelMap) {
@@ -302,7 +311,7 @@ public class UserController {
 	}
 	
 	/**
-	 * Reads data from the profileForm and changes profile data of a special user.
+	 * Reads data from the profileForm and changes profile data of the current user.
 	 * @param userAccount
 	 * @param profileForm
 	 * @param result
@@ -353,7 +362,7 @@ public class UserController {
 	}
 
 	/**
-	 * Maps the profile change form of a special user to modelMap.
+	 * Maps the profile change form of the current user to modelMap.
 	 * @param userAccount
 	 * @param modelMap
 	 * @return
@@ -369,8 +378,9 @@ public class UserController {
 	}
 	
 	/**
-	 * Maps the account settings of a special user to modelMap.
+	 * Maps the given user and the current user to modelMap for the account setting view.
 	 * @param userAccount
+	 * @param currentUserAccount
 	 * @param modelMap
 	 * @return
 	 */
@@ -387,9 +397,19 @@ public class UserController {
 			return "profile";
 		}
 		
+		int numberAdmins = userManagement.getNumberOfAdmins();
+		modelMap.addAttribute("numberAdmins", numberAdmins);
+		
 		return "editaccountsettings";
 	}
 	
+	/**
+	 * Maps the given user and the current user to modelMap and disables the given userAccount.
+	 * @param userAccount
+	 * @param currentUserAccount
+	 * @param modelMap
+	 * @return
+	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
 	@RequestMapping("/user/profile/{pid}/accountsettings/disable")
 	public String disable(@PathVariable("pid") UserAccount userAccount, @LoggedIn Optional<UserAccount> currentUserAccount, Model modelMap) {
@@ -399,15 +419,30 @@ public class UserController {
 		User currentUser = userRepository.findUserByUserAccount(currentUserAccount.get());
 		modelMap.addAttribute("currentUser", currentUser);
 		
+		if (userAccount.hasRole(new Role("ROLE_ADMIN"))) {
+			return "profile";
+		}
+		
 		if ((userAccount.hasRole(new Role("ROLE_ADMIN")) || userAccount.hasRole(new Role("ROLE_USERMANAGER"))) && !currentUserAccount.get().hasRole(new Role("ROLE_ADMIN"))) {
 			return "profile";
 		}
 		
 		userManagement.disable(userAccount);
 		userAccountManager.save(userAccount);
+		
+		int numberAdmins = userManagement.getNumberOfAdmins();
+		modelMap.addAttribute("numberAdmins", numberAdmins);
+		
 		return "editaccountsettings";
 	}
 	
+	/**
+	 * Maps the given user and the current user to modelMap and enables the given userAccount.
+	 * @param userAccount
+	 * @param currentUserAccount
+	 * @param modelMap
+	 * @return
+	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
 	@RequestMapping("/user/profile/{pid}/accountsettings/enable")
 	public String enable(@PathVariable("pid") UserAccount userAccount, @LoggedIn Optional<UserAccount> currentUserAccount, Model modelMap) {
@@ -423,12 +458,24 @@ public class UserController {
 		
 		userManagement.enable(userAccount);
 		userAccountManager.save(userAccount);
+		
+		int numberAdmins = userManagement.getNumberOfAdmins();
+		modelMap.addAttribute("numberAdmins", numberAdmins);
+		
 		return "editaccountsettings";
 	}
 	
+	/**
+	 * Maps the given user and the current user to modelMap and adds the given role to the given userAccount.
+	 * @param userAccount
+	 * @param currentUserAccount
+	 * @param modelMap
+	 * @param roleInput
+	 * @return
+	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
 	@RequestMapping("/user/profile/{pid}/accountsettings/roles/add")
-	public String addRole(@PathVariable("pid") UserAccount userAccount, @LoggedIn Optional<UserAccount> currentUserAccount, Model modelMap, @RequestParam("roleInput") String roleInput) {
+	public String addRole(@PathVariable("pid") UserAccount userAccount, @LoggedIn Optional<UserAccount> currentUserAccount, Model modelMap, @RequestParam("roleInput") String role) {
 		
 		User user = userRepository.findUserByUserAccount(userAccount);
 		modelMap.addAttribute("user", user);
@@ -439,11 +486,23 @@ public class UserController {
 			return "profile";
 		}
 		
-		userManagement.addRole(userAccount, new Role(roleInput));
+		userManagement.addRole(userAccount, new Role(role));
 		userAccountManager.save(userAccount);
+		
+		int numberAdmins = userManagement.getNumberOfAdmins();
+		modelMap.addAttribute("numberAdmins", numberAdmins);
+		
 		return "editaccountsettings";
 	}
 	
+	/**
+	 * Maps the given user and the current user to modelMap and removes the given role from the given userAccount.
+	 * @param userAccount
+	 * @param currentUserAccount
+	 * @param modelMap
+	 * @param roleInput
+	 * @return
+	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
 	@RequestMapping("/user/profile/{pid}/accountsettings/roles/remove")
 	public String removeRole(@PathVariable("pid") UserAccount userAccount, @LoggedIn Optional<UserAccount> currentUserAccount, Model modelMap, @RequestParam("roleInput") String roleInput) {
@@ -459,6 +518,10 @@ public class UserController {
 		
 		userManagement.removeRole(userAccount, new Role(roleInput));
 		userAccountManager.save(userAccount);
+		
+		int numberAdmins = userManagement.getNumberOfAdmins();
+		modelMap.addAttribute("numberAdmins", numberAdmins);
+		
 		return "editaccountsettings";
 	}
 	

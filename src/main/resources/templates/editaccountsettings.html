@@ -20,7 +20,8 @@
 	        	<div th:include="profiletabs :: profiletabs"></div>
 	        	<label>Aktueller Status:</label><span th:text="${user.state}">Musterstatus</span>
 	        	<form th:action="@{'/user/profile/' + ${user.userAccount.identifier} + '/accountsettings/disable'}" method="POST">
-							<input th:if="${user.userAccount.isEnabled()}" class="button round" type="submit" value="Profil deaktivieren" />
+							<input th:if="${!(!user.userAccount.isEnabled() || user.userAccount.hasRole('ROLE_ADMIN'))}" class="button round" type="submit" value="Profil deaktivieren" />
+							<p class="alert-box alert" th:if="${user.userAccount.hasRole('ROLE_ADMIN')}">ACHTUNG: Das Profil eines Administrators kann nicht deaktiviert werden!</p>
 						</form>
 						<form th:action="@{'/user/profile/' + ${user.userAccount.identifier} + '/accountsettings/enable'}" method="POST">
 							<input th:if="${!user.userAccount.isEnabled()}" class="button round" type="submit" value="Profil aktivieren" />
@@ -47,7 +48,7 @@
 								<select name="roleInput">
 									<option th:if="${user.userAccount.hasRole('ROLE_CUSTOMER')}" value="ROLE_CUSTOMER">CUSTOMER</option>
 									<option th:if="${user.userAccount.hasRole('ROLE_EMPLOYEE')}" value="ROLE_EMPLOYEE">EMPLOYEE</option>
-									<option th:if="${user.userAccount.hasRole('ROLE_ADMIN')}" value="ROLE_ADMIN">ADMIN</option>
+									<option th:if="${!(!user.userAccount.hasRole('ROLE_ADMIN') || numberAdmins.equals(1))}" value="ROLE_ADMIN">ADMIN</option>
 									<option th:if="${user.userAccount.hasRole('ROLE_BOSS')}" value="ROLE_BOSS">BOSS</option>
 									<option th:if="${user.userAccount.hasRole('ROLE_USERMANAGER')}" value="ROLE_USERMANAGER">USERMANAGER</option>
 									<option th:if="${user.userAccount.hasRole('ROLE_ARTICLEMANAGER')}" value="ROLE_ARTICLEMANAGER">ARTICLEMANAGER</option>

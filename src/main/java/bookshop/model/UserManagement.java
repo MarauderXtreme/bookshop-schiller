@@ -33,6 +33,7 @@ public class UserManagement {
 	 * @return a List of all existing employees
 	 */
 	public ArrayList<User> getEmployees() {
+		
 		Iterable<User> users = userRepository.findAll();
 		ArrayList<User> employees = new ArrayList<User>();
 		for(User u : users) {
@@ -50,6 +51,7 @@ public class UserManagement {
 	 * @return a List of all existing customers
 	 */
 	public ArrayList<User> getCustomers() {
+		
 		Iterable<User> users = userRepository.findAll();
 		ArrayList<User> customers = new ArrayList<User>();
 		for(User u : users) {
@@ -69,6 +71,7 @@ public class UserManagement {
 	 * @return true if account was disabled and false if not
 	 */
 	public boolean disable(UserAccount userAccount) {
+		
 		if (userAccount.isEnabled()) {
 			User user = userRepository.findUserByUserAccount(userAccount);
 			userAccountManager.disable(user.getUserAccount().getIdentifier());
@@ -83,6 +86,7 @@ public class UserManagement {
 	 * @return true if account was enabled and false if not
 	 */
 	public boolean enable(UserAccount userAccount) {
+		
 		if (!userAccount.isEnabled()) {
 			User user = userRepository.findUserByUserAccount(userAccount);
 			userAccountManager.enable(user.getUserAccount().getIdentifier());
@@ -124,14 +128,7 @@ public class UserManagement {
 		}
 		
 		if (role.equals(new Role("ROLE_ADMIN"))) {
-			int numberAdmins = 0;
-			for (Iterator<User> iteratorUsers = userRepository.findAll().iterator(); iteratorUsers.hasNext();) {
-				for (Iterator<Role> iteratorRoles = iteratorUsers.next().getUserAccount().getRoles().iterator(); iteratorRoles.hasNext();) {
-					if (iteratorRoles.next().equals(new Role("ROLE_ADMIN"))) {
-						numberAdmins++;
-					}
-				}
-			}
+			int numberAdmins = getNumberOfAdmins();
 			if (numberAdmins <= 1) {
 				return false;
 			}
@@ -188,6 +185,21 @@ public class UserManagement {
 	 */
 	public void changePassword(UserAccount userAccount, String password) {
 		userAccountManager.changePassword(userAccount, password);
+	}
+	
+	/**
+	 * @return the number of administrators
+	 */
+	public int getNumberOfAdmins() {
+		int numberAdmins = 0;
+		for (Iterator<User> iteratorUsers = userRepository.findAll().iterator(); iteratorUsers.hasNext();) {
+			for (Iterator<Role> iteratorRoles = iteratorUsers.next().getUserAccount().getRoles().iterator(); iteratorRoles.hasNext();) {
+				if (iteratorRoles.next().equals(new Role("ROLE_ADMIN"))) {
+					numberAdmins++;
+				}
+			}
+		}
+		return numberAdmins;
 	}
 
 }

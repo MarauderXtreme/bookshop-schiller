@@ -106,6 +106,8 @@
 										<small class="alert-box alert error">Passwörter nicht identisch.</small>
 										<small class="alert-box alert" th:if="${#fields.hasErrors('passwordRepeat')}" th:errors="*{passwordRepeat}">Passwörter nicht identisch.</small>
 									</div>
+									
+									<small>*ACHTUNG: Wenn Sie Ihr Passwort nicht ändern wollen, dann geben sie bitte dreimal Ihr altes Passwort ein!</small>
 								
 								</fieldset>
 								<input class="button round large-offset-1 medium-offset-1" type="submit" value="Neue Profildaten speichern" /> 
