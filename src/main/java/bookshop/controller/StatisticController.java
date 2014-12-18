@@ -47,7 +47,7 @@ public class StatisticController {
 	 * @param userAccount
 	 * 
 	 */
-	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN') || hasRole('ROLE_SALESMANAGER')")
 	@RequestMapping("/admin/statictics")
 	public String statistic(HttpSession session, ModelMap modelMap, @LoggedIn Optional<UserAccount> userAccount){
 
