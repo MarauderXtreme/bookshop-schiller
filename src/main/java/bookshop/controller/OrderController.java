@@ -116,7 +116,7 @@ public class OrderController {
 	 * @param modelMap
 	 * 
 	 */
-	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN') || hasRole('ROLE_EMPLOYEE')")
+	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN') || hasRole('ROLE_SALESMANAGER')")
 	@RequestMapping("/admin/stock")
 	public String stock(HttpSession session, ModelMap modelMap){
 
@@ -124,7 +124,7 @@ public class OrderController {
 		return "stock";
 	}
 	
-	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN') || hasRole('ROLE_EMPLOYEE')")
+	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN') || hasRole('ROLE_SALESMANAGER')")
 	@RequestMapping("/article/reorder")
 	public String makeAnOrder(@RequestParam("article") Article article, @LoggedIn Optional<UserAccount> userAccount){
 		
