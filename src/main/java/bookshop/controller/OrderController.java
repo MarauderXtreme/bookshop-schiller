@@ -85,6 +85,15 @@ public class OrderController {
 		return "/myorders";
 	}
 	
+	@PreAuthorize("hasRole('ROLE_CUSTOMER') || hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN') || hasRole('ROLE_SALESMANAGER')")
+	@RequestMapping(value="/order/detail")
+	public String getOrderDetails(ModelMap modelMap, @RequestParam("orderdetail") Order order){
+		
+		modelMap.addAttribute("detailorders", order.getOrderLines());
+		
+		return "/ordersdetail";
+	}
+	
 	/**
 	 * Cancel order
 	 * @param order

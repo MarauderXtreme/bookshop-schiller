@@ -28,18 +28,37 @@
 								</tr>
 							</thead>
 							<tbody>
+							<!--
 									<tr th:each="order : ${ordersOpen} ">
 										<td th:text="${order.dateCreated}" ></td>
 										<td th:text="${order.userAccount.identifier}"></td>
 										<td th:text="${order.totalPrice}"></td>
-										<td th:each="orderline : ${order.orderLines}">
+										<tr th:each="orderline : ${order.orderLines}">
 											<td th:text="${orderline.productName}" ></td>
 											<td th:text="${orderline.quantity}"></td>
-										</td>
+										</tr>
+									</tr>
+									<td>
+										<form class="salespoint" method="POST" action="/order/complete">
+										  <input type="hidden" name="orderComplete" value="0" th:value="${order.identifier}"/>
+											<input class="button" type="submit" value="Complete"/> 
+										</form>
+									</td>
+								</tr>  -->
+								<tr th:each="order : ${ordersOpen} ">
+										<td th:text="${order.orderStatus}"></td>
+										<td th:text="${order.dateCreated}"></td>
+										<td th:text="${order.totalPrice}"></td>
+											<td>
+												<form class="salespoint" method="POST" action="/order/complete">
+												  <input type="hidden" name="orderComplete" value="0" th:value="${order.identifier}"/>
+													<input class="button" type="submit" value="Complete"/> 
+												</form>
+											</td>											
 										<td>
-											<form class="salespoint" method="POST" action="/order/complete">
-											  <input type="hidden" name="orderComplete" value="0" th:value="${order.identifier}"/>
-												<input class="button" type="submit" value="Complete"/> 
+											<form class="salespoint" method="POST" action="/order/detail">
+											  <input type="hidden" name="orderdetail" value="0" th:value="${order.identifier}"/>
+												<input class="button" type="submit" value="Detail"/> 
 											</form>
 										</td>
 									</tr>
@@ -59,10 +78,12 @@
 										<td th:text="${order.dateCreated}" ></td>
 										<td th:text="${order.userAccount.identifier}"></td>
 										<td th:text="${order.totalPrice}"></td>
-										<td th:each="orderline : ${order.orderLines}">
-												<td th:text="${orderline.productName}" ></td>
-												<td th:text="${orderline.quantity}"></td>
-										</td>
+										<td>
+											<form class="salespoint" method="POST" action="/order/detail">
+											  <input type="hidden" name="orderdetail" value="0" th:value="${order.identifier}"/>
+												<input class="button" type="submit" value="Detail"/> 
+											</form>
+										</td>								
 									</tr>
 							</tbody>
 						</table>

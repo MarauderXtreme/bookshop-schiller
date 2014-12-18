@@ -32,14 +32,7 @@
 										<td th:text="${order.orderStatus}"></td>
 										<td th:text="${order.dateCreated}"></td>
 										<td th:text="${order.totalPrice}"></td>
-											<tr>
-												<th th:text="#{statistics.article}">Artikel</th>
-												<th th:text="#{orders.quantity}">Anzahl</th>
-											</tr>
-												<tr th:each="orderline : ${order.orderLines}">
-													<td th:text="${orderline.productName}" ></td>
-													<td th:text="${orderline.quantity}"></td>
-												</tr>
+	
 										<div th:if="${order.open}">
 											<td>
 												<form class="salespoint" method="POST" action="/order/cancel">
@@ -49,11 +42,17 @@
 											</td>											
 										</div>
 										<td>
-												<form class="salespoint" method="POST" action="/order/pdf">
-												  <input type="hidden" name="orderPDF" value="0" th:value="${order.identifier}"/>
-													<input class="button" type="submit" value="Rechnung"/> 
-												</form>
-											</td>
+											<form class="salespoint" method="POST" action="/order/pdf">
+											  <input type="hidden" name="orderPDF" value="0" th:value="${order.identifier}"/>
+												<input class="button" type="submit" value="Rechnung"/> 
+											</form>
+										</td>
+										<td>
+											<form class="salespoint" method="POST" action="/order/detail">
+											  <input type="hidden" name="orderdetail" value="0" th:value="${order.identifier}"/>
+												<input class="button" type="submit" value="Detail"/> 
+											</form>
+										</td>
 									</tr>
 							</tbody>
 						</table>
