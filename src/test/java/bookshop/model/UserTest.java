@@ -1,21 +1,34 @@
 package bookshop.model;
 
+import static org.junit.Assert.*;
+
 import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.salespointframework.useraccount.Role;
+import org.salespointframework.useraccount.UserAccount;
+import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import bookshop.AbstractIntegrationTests;
-import bookshop.BookShopSchiller;
 
 public class UserTest extends AbstractIntegrationTests {
 
-	@Autowired User user;
+	@Autowired UserAccountManager userAccountManager;
 	
 	@Test
-	public void testGetRoles() {
+	public void testUser() {
 		
+		final Role adminRole = new Role("ROLE_ADMIN");
+		final Role employeeRole = new Role("ROLE_EMPLOYEE");
+		UserAccount adminAccount = userAccountManager.create("admin", "123", employeeRole);
+		adminAccount.setFirstname("Christoph");
+		adminAccount.setLastname("Kepler");
+		adminAccount.setEmail("chris.kepler@schiller.de");
+		adminAccount.add(adminRole);
+		userAccountManager.save(adminAccount);
+		User admin = new User(adminAccount, new Address("Mommsenstraße", "13", "01187", "Dresden"));
+
+		assertTrue("Die Methode getRoles() der Klasse User liefert einen falschen String!", admin.getRoles().equals("ADMIN, EMPLOYEE") || admin.getRoles().equals("EMPLOYEE, ADMIN"));
+		assertTrue("Die Methode getState() der Klasse User liefert einen falschen String!", admin.getState().equals("ENABLED"));
 	}
 
 }
