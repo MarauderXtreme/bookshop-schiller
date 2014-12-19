@@ -16,16 +16,33 @@
 		        </div>
 		      </header>
 	        <div class="large-12">&nbsp;</div>
-	        <div class="large-12 medium-12 small-12 columns">
-	          <h2>Event hinzufuegen</h2>
-	          <form method="post" action="/admin/event/new">
-	            <input type="text" name="dated"/>
-	            <input type="text" name="datet"/>
-	            <input type="text" name="name"/>
-	            <select th:each="room : ${roomList}">
-	            	<option th:text="room.getName()"></option>
-	            </select>
-	            <input type="submit" name="add" value="Event hinzufügen"/>
+	        <div class="large-12 medium-12 small-12 row">
+	          <h2>Event hinzufügen</h2>
+	          <form method="post" action="/admin/event/new" data-abide="">
+	          	<div class="large-6 medium-6 small-12 columns">
+	          		<label>Datum:</label>
+	            	<input type="text" name="dated" required="" pattern="custom_date"/>
+								<small class="alert-box alert error">Datum muss Form dd.mm.yyyy entsprechen.</small>
+		          </div>
+		          <div class="large-6 medium-6 small-12 columns">
+		          	<label>Zeit:</label>
+		            <input type="text" name="datet" required="" pattern="custom_time"/>
+								<small class="alert-box alert error">Zeit muss Form hh:mm entsprechen.</small>
+		          </div>
+		          <div class="large-6 medium-6 small-12 columns">
+		          	<label>Veranstaltungsname:</label>
+		            <input type="text" name="name" required=""/>
+								<small class="alert-box alert error">Veranstaltungsname darf nicht leer sein.</small>
+		          </div>
+		          <div class="large-6 medium-6 small-12 columns">
+		          	<label>Raum:</label>
+		            <select required="">
+		            	<option th:each="room : ${roomList}" value="Empty" th:value="${room.getName()}" th:text="${room.getName()}">Empty</option>
+		            </select>
+		          </div>
+		          <div class="large-12 medium-12 small-12">
+	            	<input class="small round button" type="submit" name="add" value="Event hinzufügen"/>
+	            </div>
 		        </form>
 	        </div>
 	    	</div>

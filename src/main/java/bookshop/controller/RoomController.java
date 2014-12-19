@@ -22,11 +22,8 @@ public class RoomController {
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/room/add")
-	public String rooms(String roomNumber, String roomName,String chairs, Model model) {
+	public String rooms( Model model) {
 
-		model.addAttribute("roomname", roomName);
-		model.addAttribute("roomNumber", roomNumber);
-		model.addAttribute("chairNumber", chairs);
 		model.addAttribute("roomList" , RoomManagement.getInstance().getAllRooms());
 
 		return "addroom";
