@@ -27,7 +27,7 @@ public class Category {
 
 	public Category(String categoryName, ArticleId type) {
 		super();
-		setID(type, categoryName);
+		setId(type, categoryName);
 		this.categoryName = categoryName;
 		this.type = type;
 		//this.genre = genre;
@@ -41,11 +41,11 @@ public class Category {
 		return type;
 	}
 	
-	private void setID(ArticleId type, String categroryName) {
+	private void setId(ArticleId type, String categroryName) {
 		id = type.toString() + categroryName;
 	}
 	
-	public String getID() {
+	public String getId() {
 		return id;
 	}
 

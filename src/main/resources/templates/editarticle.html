@@ -66,7 +66,7 @@
 								<label for="newcategory">Neue Kategorie</label>
 								<select name="newcategory"  required="">
 									<option value="1">Keine</option>
-									<option th:each="category : ${categories}" th:text="${category.categoryName}" th:value="${category.categoryName}" value="1">category</option>
+									<option th:each="category : ${addable}" th:text="${category.categoryName}" th:value="${category.categoryName}" value="1">category</option>
 								</select>
 								<small class="alert-box alert error">Bitte neue Kategorie auswählen.</small>
 							</div>
@@ -74,7 +74,7 @@
 								<label for="categorytodelete">Zu löschende Kategorie</label>
 								<select name="categorytodelete" required="">
 									<option value="1">Keine</option>
-									<option th:each="category : ${categories}" th:text="${category.categoryName}" th:value="${category.categoryName}" value="2">category</option>
+									<option th:each="category : ${deleteable}" th:text="${category}" th:value="${category}" value="2">category</option>
 								</select>		
 								<small class="alert-box alert error">Bitte zu löschende Kategorie auswählen.</small>
 							</div>

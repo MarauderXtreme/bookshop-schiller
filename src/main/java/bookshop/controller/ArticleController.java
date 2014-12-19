@@ -173,6 +173,54 @@ public class ArticleController {
 
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
+	@RequestMapping(value="/editcategories/edit", method=RequestMethod.POST)
+	public String editCategory(ModelMap modelMap, @RequestParam("oldcategory") String oldcategory, @RequestParam("editcategory") String editcategory){
+		
+			if(categories.findById(oldcategory).get().getArticleId()==ArticleId.BOOK){
+				categories.delete(oldcategory);
+				categories.save(new Category(editcategory, ArticleId.BOOK));
+				
+				Iterable<Article> articles = articleCatalog.findByType(ArticleId.BOOK);
+				for(Article art : articles){
+					if(art.getCategoryList().contains(categories.findById(oldcategory).get().getCategoryName())){
+						art.removeCategory(categories.findById(oldcategory).get().getCategoryName());
+						art.addCategory(editcategory);
+					}
+				}
+			}
+			
+			if(categories.findById(oldcategory).get().getArticleId()==ArticleId.CD){
+				categories.delete(oldcategory);
+				categories.save(new Category(editcategory, ArticleId.CD));
+				
+				Iterable<Article> articles = articleCatalog.findByType(ArticleId.CD);
+				for(Article art : articles){
+					Iterable<String> cats = art.getCategories();
+					for(String cat : cats){
+						if(cat.equals(categories.findById(oldcategory).get().getCategoryName()))
+						art.removeCategory(categories.findById(oldcategory).get().getCategoryName());
+						art.addCategory(editcategory);
+					}
+				}
+			}
+			
+			if(categories.findById(oldcategory).get().getArticleId()==ArticleId.DVD){
+				categories.delete(oldcategory);
+				categories.save(new Category(editcategory, ArticleId.DVD));
+				
+				Iterable<Article> articles = articleCatalog.findByType(ArticleId.DVD);
+				for(Article art : articles){
+					if(art.getCategoryList().contains(categories.findById(oldcategory).get().getCategoryName())){
+						art.removeCategory(categories.findById(oldcategory).get().getCategoryName());
+						art.addCategory(editcategory);
+					}
+				}
+			}			
+		
+		return "redirect:/editcategories";
+
+	}
 	
 	
 	/**
@@ -606,12 +654,21 @@ public class ArticleController {
 		Quantity quantity = item.map(InventoryItem::getQuantity).orElse(Units.TEN);
 		
 		//List for categories of article - deleteCategories
+		List<Category> addable = new LinkedList<Category>();
 		
+		Iterable<Category> allCats = categories.findByType(article.getType());
 		
+		for(Category cat : allCats){
+			if(!(article.getCategoryList().contains(cat.getCategoryName()))){
+				addable.add(cat);
+			}
+		}
 		
 		model.addAttribute("article", article);
 		model.addAttribute("quantity", quantity);
 		model.addAttribute("orderable", quantity.isGreaterThan(Units.ZERO));
+		model.addAttribute("addable", addable);
+		model.addAttribute("deleteable", article.getCategories());
 		if(article.getType()==ArticleId.BOOK)
 			{model.addAttribute("categories", categories.findByType(ArticleId.BOOK));}
 		if(article.getType()==ArticleId.CD)
