@@ -675,7 +675,7 @@ public class ArticleController {
 			article.setName(articleForm.getName());
 		}		
 		
-		articleForm.setPublisher(articleForm.getPublisher());
+		article.setPublisher(articleForm.getPublisher());
 		
 		if(articleForm.getBeschreibung() != null){
 			article.setBeschreibung(articleForm.getBeschreibung());
