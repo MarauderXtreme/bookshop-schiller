@@ -71,7 +71,7 @@ public class OrderController {
 	}
 	
 	
-	@RequestMapping("/order/getPDF")
+	@RequestMapping("/user/downloadPDF")
 	public ModelAndView gedOrderPDF(){
 		//PDFBuilder pdf = null;
 		//pdf.setData(userAccount.get());
@@ -79,6 +79,10 @@ public class OrderController {
 		return new ModelAndView("pdfView", "orderspdf", orderPDF);
 	}
 	
+	@RequestMapping(value = "/order/PDF", method = RequestMethod.GET)
+	public String viewHome() {
+		return "home";
+	}
 	
 	/**
 	 * Get Orders from logged in User
@@ -102,6 +106,7 @@ public class OrderController {
 	public String getOrderDetails(ModelMap modelMap, @RequestParam("orderdetail") Order order){
 		
 		this.orderPDF = order;
+		modelMap.addAttribute("curDir", System.getProperty("user.dir"));
 		modelMap.addAttribute("detailordersID", order.getIdentifier().toString());
 		modelMap.addAttribute("detailorders", order.getOrderLines());
 		
@@ -170,7 +175,7 @@ public class OrderController {
 		orderManager.payOrder(order);
 		
 		orderManager.add(order);
-		return"/stock";
+		return"redirect:/admin/stock";
 	}
 	
 }
