@@ -28,9 +28,10 @@ public class CalendarController {
 	
 	@PreAuthorize("hasRole('ROLE_EVENTMANAGER') || hasRole('ROLE_ADMIN')")
 	@RequestMapping(value="/admin/event/new", method = RequestMethod.POST)
-	public String add(@RequestParam("name") String name, @RequestParam("dated") String dated , @RequestParam("datet") String datet)
+	public String add(Model model, @RequestParam("name") String name, @RequestParam("dated") String dated , @RequestParam("datet") String datet, @RequestParam("selectedRoom")String room)
 	{
-		CalendarManagement.getInstance().addEvent(name, new MyDate(dated,datet), new Room("Lesesaal","123",23));
+		CalendarManagement.getInstance().addEvent(name, new MyDate(dated,datet), new Room(RoomManagement.getInstance().getRoom(room).getName(),RoomManagement.getInstance().getRoom(room).getNumber(),Integer.parseInt(RoomManagement.getInstance().getRoom(room).getChairNum())));
+		model.addAttribute("allEvents", CalendarManagement.getInstance().getCalendar().getEventList());
 		return "/calendar";
 	}
 	
@@ -42,7 +43,7 @@ public class CalendarController {
 		model.addAttribute("event", event);
 		model.addAttribute("date", date);
 		model.addAttribute("eventList", CalendarManagement.getInstance().getCalendar().getFutureEvents());
-
+		model.addAttribute("allEvents", CalendarManagement.getInstance().getCalendar().getSortedEvents());
 		model.addAttribute("years", CalendarManagement.getInstance().getCalendar().generateYears());
 		model.addAttribute("months", CalendarManagement.getInstance().getCalendar().generateMonths());
 		model.addAttribute("days", CalendarManagement.getInstance().getCalendar().generateDays());

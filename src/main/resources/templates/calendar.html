@@ -18,7 +18,7 @@
 	        <div class="large-12">&nbsp;</div>
 		        <div class="large-12 medium-12 small-12 row">
 		          <h2>Kalender</h2>
-			        <table class="large-12 medium-12 small-12 calendar">
+			        <table class="large-12 medium-12 small-12 calendar" sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_SALESMANAGER', 'ROLE_USERMANAGER', 'ROLE_EVENTMANAGER', 'ROLE_ARTICLEMANAGER')" >
 			        	<thead class="panel">
 			          	<tr>
 			            	<th class="small-2">Datum</th>
@@ -30,6 +30,27 @@
 			          </thead>
 			          <tbody th:remove="all-but-first">
 			          	<tr th:each="event : ${eventList}">
+			            	<td th:text="${event.getDate().getEventDate()}"></td>
+			              <td th:text="${event.getDate().getEventTime()}">0000</td>
+			              <td th:text="${event.getName()}">Testtext</td>
+			              <td th:text="${event.getRoom().getNumber()}">Testtext</td>
+			              <td th:text="${event.getRoom().getName()}">Testtext</td>
+			            </tr>
+			          </tbody>
+			        </table>
+			        
+			        <table class="large-12 medium-12 small-12 calendar" sec:authorize="hasRole('ROLE_ADMIN') || hasRole('ROLE_BOSS') || hasRole('ROLE_EVENTMANAGER')" >
+			        	<thead class="panel">
+			          	<tr>
+			            	<th class="small-2">Datum</th>
+			              <th class="small-1">Zeit</th>
+			             	<th class="small-6">Event</th>
+			             	<th class="small-1">Raumnummer</th>
+			             	<th class="small-2">Raum</th>
+			            </tr>
+			          </thead>
+			          <tbody th:remove="all-but-first">
+			          	<tr th:each="event : ${allEvents}">
 			            	<td th:text="${event.getDate().getEventDate()}"></td>
 			              <td th:text="${event.getDate().getEventTime()}">0000</td>
 			              <td th:text="${event.getName()}">Testtext</td>
