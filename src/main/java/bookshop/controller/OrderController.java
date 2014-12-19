@@ -149,11 +149,11 @@ public class OrderController {
 	
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN') || hasRole('ROLE_SALESMANAGER')")
 	@RequestMapping("/article/reorder")
-	public String makeAnOrder(@RequestParam("article") Article article, @LoggedIn Optional<UserAccount> userAccount){
+	public String makeAnOrder(@RequestParam("number") int number, @RequestParam("article") Article article, @LoggedIn Optional<UserAccount> userAccount){
 		
 		Quantity quantity;		
 		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
-		quantity = new Quantity(10, item.get().getQuantity().getMetric(), item.get().getQuantity().getRoundingStrategy());
+		quantity = new Quantity(number, item.get().getQuantity().getMetric(), item.get().getQuantity().getRoundingStrategy());
 		
 		//quantity = item.get().getQuantity();
 		//quantity = quantity.divide(item.get().getQuantity());
