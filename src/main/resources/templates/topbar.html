@@ -66,6 +66,9 @@
     				<li>
     					<a th:href="@{/article/dvd/add}" href="adddvd.html">Neue DVD</a>
     				</li>
+    				<li>
+    					<a th:href="@{/editcategories}" href="editcategories.html">Kategorien bearbeiten</a>
+    				</li>
     			</ul>
     		</li>
     		<li sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_USERMANAGER')" class="divider"></li>
