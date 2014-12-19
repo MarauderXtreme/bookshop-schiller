@@ -1,6 +1,5 @@
 package bookshop.controller;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,7 +11,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import bookshop.model.Article;
-import bookshop.model.Article.ArticleId;
 import bookshop.model.ArticleManagement;
 
 @Controller
@@ -31,24 +29,26 @@ public class StaticController {
 	@RequestMapping({ "/", "/index" })
 	public String index(ModelMap modelMap) {
 		
-		int promoNum;
+		int promotion;
 		
 		Random rand = new Random();
 		
-		List<Article> list = new LinkedList<Article>();
+		List<Article> random = new LinkedList<Article>();
+		List<Article> promo = new LinkedList<Article>();
 		
 		Iterable<Article> articles = articleCatalog.findAll();
 		for(Article art : articles){
-			list.add(art);
+			random.add(art);
 		}
 		
-		Collections.shuffle(list);
+		Collections.shuffle(random);
 		
-		promoNum = rand.nextInt(list.size()-1);
+		promotion = rand.nextInt(random.size()-1);
+		promo.add(random.get(promotion));
+		random.remove(promotion);
 
-		modelMap.addAttribute("promo", list.get(promoNum));
-		list.remove(promoNum);
-		modelMap.addAttribute("random", list);
+		modelMap.addAttribute("promo", promo);
+		modelMap.addAttribute("random", random);
 				
 		return "index";
 	}
