@@ -26,14 +26,16 @@
 						<table class="large-12 medium-12 small-12">
 							<thead>
 								<tr>
-									<th class="large-3">RoomName</th>
-									<th class="large-3">RoomNumber</th>
+									<th class="large-3">Raumname</th>
+									<th class="large-3">Raumnummer</th>
+									<th class="large-3">Stuhlanzahl</th>
 								</tr>
 							</thead>
 							<tbody th:remove="all-but-first">
 								<tr th:each="room : ${roomList}">
 									<td th:text="${room.getName()}">0000</td>
 									<td th:text="${room.getNumber()}">Testtext</td>
+									<td th:text="${room.getChairNum()}">Stuhlanzalh</td>
 								</tr>
 							</tbody>
 						</table>
@@ -42,6 +44,7 @@
 						<form method="post" action="/admin/room/new">
 	            <input type="text" name="rName"/>
 	            <input type="text" name="rNum"/>
+	            <input type="number" name="rChairs"/>
 	            <input type="submit" name="add" value="Raum hinzufügen"/>
 				    </form>
 				</div>
