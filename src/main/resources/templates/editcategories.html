@@ -26,17 +26,18 @@
 								<ul th:each="category : ${categoriesbook}">
 									<li th:text="${category.categoryName}"></li>
 								</ul>
-								<br />
+								</div>
+							<div class="large-3 medium-3 small-6 columns">
 								<label>CD Kategorien</label>
 								<ul th:each="category : ${categoriescd}">
 									<li th:text="${category.categoryName}"></li>
 								</ul>
-								<br />
+								</div>
+							<div class="large-3 medium-3 small-6 columns">
 								<label>DVD Kategorien</label>
 								<ul th:each="category : ${categoriesdvd}">
 									<li th:text="${category.categoryName}"></li>
 								</ul>
-								<br />
 							</div>
 						<form method="POST" action="/editcategories/add" th:object="${categoriesform}" data-abide="">
 						
@@ -73,7 +74,7 @@
 							</div>
 								 <input class="small button" type="submit" value="Entfernen" />
 						</form>
-						<form method="POST" action="/editcategories/edit" data-abide="">
+						<!--<form method="POST" action="/editcategories/edit" data-abide="">
 							<div>
 								<label>Kategorie bearbeiten</label>
 								<select name="oldcategory" required="">
@@ -83,10 +84,9 @@
 								<label>Änderung</label>
 								<input type="text" name="editcategory" placeholder="Kategorie" required="" />
 								<small class="alert-box alert error">Bitte Namen eingeben.</small>
-								<!--<small class="alert-box alert" th:if="${#fields.hasErrors('category')}" th:errors="*{category}">Der Vorname darf nicht leer sein.</small> -->
 							</div>
 								 <input class="small button" type="submit" value="Ändern" />
-						</form>
+						</form>-->
 
 	        	
 	        </div>
