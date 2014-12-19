@@ -16,24 +16,8 @@
 		        </div>
 		      </header>
 	        <div class="large-12">&nbsp;</div>
-	        <div class="large-12 medium-12 small-12 columns">
-	          <h3>Bestellübersicht</h3>
-	          <table>
-							<caption th:text="#{orders.detail}"></caption>
-							<thead>
-								<tr>
-									<th th:text="#{statistics.article}">Artikel</th>
-									<th th:text="#{orders.quantity}">Anzahl</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr th:each="orderline : ${detailorders}">
-									<td th:text="${orderline.productName}" ></td>
-									<td th:text="${orderline.quantity}"></td>
-								</tr>
-							</tbody>
-						</table>
-						<a class="small button" target="_blank" href="/" th:href="@{'/resources/static/orders/' + ${order.identifier} + '.pdf'">PDF</a>
+	        <div class="large-12 medium-12 small-12 row">
+	        	
 	        </div>
 	    	</div>
 	    </div>
