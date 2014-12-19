@@ -18,33 +18,34 @@
 		      </header>
 	        <div class="large-12">&nbsp;</div>
 	        <div class="large-12 medium-12 small-12 columns">
-	        	<div th:include="profiletabs :: profiletabs"></div>
-						<div class="large-9 medium-9 small-9 columns">
-							<ul class="pricing-table">
-					      <li class="title">
-					      	<span th:text="${user.userAccount.identifier}">maxmuster</span>
-					      </li>
-					      <li class="bullet-item">
-					      	<label>Vorname:</label><span th:text="${user.userAccount.firstname}">Max</span>
-					      </li>
-					      <li class="bullet-item">
-					      	<label>Nachname:</label><span th:text="${user.userAccount.lastname}">Mustermann</span>
-					      </li>
-					      <li class="bullet-item">
-					      	<label>E-Mail-Adresse:</label><span th:text="${user.userAccount.email}">max.mustermann@e-mail.de</span>
-					      </li>
-					      <li class="bullet-item">
-					      	<label>Adresse:</label><span th:text="${user.address}">Musterstraße 1, 00000 Musterstadt</span>
-					      </li>
-					      <div class="salespoint" sec:authorize="hasRole('ROLE_ADMIN') || hasRole('ROLE_BOSS') || hasRole('ROLE_USERMANAGER')">
-					      	<li class="bullet-item">
-					      		<label>Rollen:</label><span th:text="${user.roles}">Musterrolle</span>
-					      	</li>
-					      	<li class="bullet-item">
-					      		<label>Status:</label><span th:text="${user.state}">Musterstatus</span>
-					      	</li>
-					      </div>
-					    </ul>
+	        	<div class="row" th:include="profiletabs :: profiletabs"></div>
+	          <div class="large-3 medium-3 hide-for-small columns">
+  						<img alt="cover" class="detail cover" src="/resources/img/user/trollface_avatar.png" />
+						</div>
+						<div class="large-9 medium-9 small-12 columns">
+							<h1 class="panel" th:text="${user.userAccount.identifier}">DUDE</h1>
+							<p>
+								<label>Name:</label>
+								<span th:text="${user.userAccount.firstname}"></span> <span th:text="${user.userAccount.lastname}"></span>
+							</p>
+							<p>
+								<label>Adresse:</label>
+								<span th:text="${user.address}"></span>
+							</p>
+							<p>
+								<label>E-Mail:</label>
+								<span th:text="${user.userAccount.email}"></span>
+							</p>
+							<div class="panel row full-width" sec:authorize="hasRole('ROLE_ADMIN') || hasRole('ROLE_BOSS') || hasRole('ROLE_USERMANAGER')">
+								<p class="large-6 medium-6 small-12 columns">
+									<label>Rollen:</label>
+									<span th:text="${user.roles}">Musterrolle</span>
+								</p>
+								<p class="large-6 medium-6 small-12 columns">
+									<label>Status:</label>
+									<span th:text="${user.state}">Musterstatus</span>
+								</p>
+							</div>
 					  </div>
 	        </div>
 	    	</div>

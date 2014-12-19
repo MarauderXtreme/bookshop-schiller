@@ -19,7 +19,8 @@ public class CalendarController {
 	
 	@PreAuthorize("hasRole('ROLE_EVENTMANAGER') || hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/event/add")
-	public String addEvent(Model model) {
+	public String addEvent(Model model) 
+	{
 		return "addevent";
 	}
 	
@@ -27,20 +28,21 @@ public class CalendarController {
 	@RequestMapping(value="/admin/event/new", method = RequestMethod.POST)
 	public String add(@RequestParam("name") String name, @RequestParam("dated") String dated , @RequestParam("datet") String datet)
 	{
-		CalendarManagement.getInstance().addEvent(name, new Date(dated,datet), new Room("Lesesaal","123"));
+		CalendarManagement.getInstance().addEvent(name, new Date(dated,datet), new Room("Lesesaal","123",23));
 		System.out.println("Anzahl Raeume: " + RoomManagement.getInstance().getAllRooms().size());
-		return "redirect:calendar";
+		return "/calendar";
 	}
 	
 	
 	@RequestMapping("/calendar")
-	public String calendar(Date date, Event event, Model model) {
+	public String calendar(Date date, Event event, Model model)
+	{
 
 		model.addAttribute("event", event);
 		model.addAttribute("date", date);
 		model.addAttribute("eventList", CalendarManagement.getInstance().getCalendar().getSortedEvents());
 		model.addAttribute("roomList", RoomManagement.getInstance().getAllRooms());
 
-		return "calendar";
+		return "/calendar";
 	}
 }

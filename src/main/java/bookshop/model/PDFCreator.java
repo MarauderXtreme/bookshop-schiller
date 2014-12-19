@@ -45,9 +45,14 @@ public class PDFCreator extends HttpServlet {
 		//String curDir = System.getProperty(")
 	    try {
 	        PdfWriter.getInstance(document,
+<<<<<<< HEAD
 	            new FileOutputStream(new File( order.getIdentifier().toString() + ".pdf")));
 	//("user.dir") + "/src/main/resources/static/orders/" + order.getIdentifier().toString() + ".pdf"
 	        
+=======
+	            new FileOutputStream(System.getProperty("user.dir") + "/src/main/resources/static/orders/" + order.getIdentifier().toString() + ".pdf"));
+	
+>>>>>>> origin/master
 	        document.open();
 	        document.add(new Paragraph("Bestellnummer:"));
 	        document.add(new Paragraph(order.getIdentifier().toString()));

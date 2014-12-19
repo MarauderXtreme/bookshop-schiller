@@ -14,19 +14,20 @@ public class RoomController {
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value="/admin/room/new", method = RequestMethod.POST)
-	public String add(@RequestParam("rName") String rName, @RequestParam("rNum") String rNum)
+	public String add(@RequestParam("rName") String rName, @RequestParam("rNum") String rNum, @RequestParam("rChairs") String chairs)
 	{
-		RoomManagement.getInstance().addRoom(rName, rNum);
+		RoomManagement.getInstance().addRoom(rName, rNum, chairs);
 		return "redirect:/admin/room/add";
 	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/room/add")
-	public String rooms(String roomNumber, String roomName, Model model) {
+	public String rooms(String roomNumber, String roomName,String chairs, Model model) {
 
 		System.out.println("Rooms aufgerufen");
 		model.addAttribute("roomname", roomName);
 		model.addAttribute("roomNumber", roomNumber);
+		model.addAttribute("chairNumber", chairs);
 		model.addAttribute("roomList" , RoomManagement.getInstance().getAllRooms());
 
 		return "addroom";
