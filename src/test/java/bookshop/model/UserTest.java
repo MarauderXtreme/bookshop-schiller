@@ -15,7 +15,7 @@ public class UserTest extends AbstractIntegrationTests {
 	@Autowired UserAccountManager userAccountManager;
 	
 	@Test
-	public void testUser() {
+	public void testStringGetters() {
 		
 		final Role adminRole = new Role("ROLE_ADMIN");
 		final Role employeeRole = new Role("ROLE_EMPLOYEE");
@@ -25,10 +25,13 @@ public class UserTest extends AbstractIntegrationTests {
 		adminAccount.setEmail("chris.kepler@schiller.de");
 		adminAccount.add(adminRole);
 		userAccountManager.save(adminAccount);
+		
+		Address adminAddress = new Address("Mommsenstraße", "13", "01187", "Dresden");
 		User admin = new User(adminAccount, new Address("Mommsenstraße", "13", "01187", "Dresden"));
 
-		assertTrue("Die Methode getRoles() der Klasse User liefert einen falschen String!", admin.getRoles().equals("ADMIN, EMPLOYEE") || admin.getRoles().equals("EMPLOYEE, ADMIN"));
-		assertTrue("Die Methode getState() der Klasse User liefert einen falschen String!", admin.getState().equals("ENABLED"));
+		assertTrue("Die Methode getRoles() der Klasse User liefert einen falschen String.", admin.getRoles().equals("ADMIN, EMPLOYEE") || admin.getRoles().equals("EMPLOYEE, ADMIN"));
+		assertTrue("Die Methode getState() der Klasse User liefert einen falschen String.", admin.getState().equals("ENABLED"));
+		assertTrue("Die Methode toString() der Klasse Address liefert einen falschen String.", adminAddress.toString().equals("Mommsenstraße 13, 01187 Dresden"));
 	}
 
 }
