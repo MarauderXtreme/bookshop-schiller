@@ -84,10 +84,10 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		
 		
 
-		RoomManagement.getInstance().addRoom("Computerraum","067");
-		RoomManagement.getInstance().addRoom("Ratssaal","1335");
-		RoomManagement.getInstance().addRoom("ASCII","0123");
-		RoomManagement.getInstance().addRoom("FSR-Buero","042");
+		RoomManagement.getInstance().addRoom("Computerraum","067","42");
+		RoomManagement.getInstance().addRoom("Ratssaal","1335","1337");
+		RoomManagement.getInstance().addRoom("ASCII","0123","21");
+		RoomManagement.getInstance().addRoom("FSR-Buero","042","21");
 		
 		Date testdate = new Date("17122014","1910");
 		testdate.getDay();
