@@ -47,7 +47,7 @@
 							<div>
 							<label>Kategorie hinzufügen</label>
 								<input th:field="*{category}" th:errorclass="fieldError" type="text" id="newcategory" name="newcategory" placeholder="Kategorie" required="" />
-								<small class="alert-box alert error">Bitte Namen eingeben.</small>
+								<small class="alert-box alert error">Bitte den Namen der Kategorie eingeben.</small>
 								<small class="alert-box alert" th:if="${#fields.hasErrors('category')}" th:errors="*{category}">Der Vorname darf nicht leer sein.</small>
 								
 								<select th:field="*{type}" th:errorclass="fieldError" id="type" name="type" required="">
@@ -56,7 +56,6 @@
 									<option value="DVD">DVD</option>
 								</select>								
 								
-								<small class="alert-box alert error">Bitte neue Kategorie auswählen.</small>
 								<small class="alert-box alert" th:if="${#fields.hasErrors('type')}" th:errors="*{type}">Der Vorname darf nicht leer sein.</small>
 							</div>
 							
