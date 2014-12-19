@@ -697,7 +697,7 @@ public class ArticleController {
 		
 		article.setStockPrice(Money.of(EUR, articleForm.getStockPrice()));
 		
-		if(newCategory != "1"){
+		if(!newCategory.equals("1")){
 			article.setCategory(newCategory);
 		}				
 		
