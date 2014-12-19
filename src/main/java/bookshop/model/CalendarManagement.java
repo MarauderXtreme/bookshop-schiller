@@ -67,7 +67,7 @@ public class CalendarManagement {
 		{
 			if(calendar.getEvent(new TupelKey<Room,MyDate>(room, date)) == null)
 			{
-				System.out.println("Event zum Kalender hinzugefuegt!");
+				//System.out.println("Event zum Kalender hinzugefuegt!");
 				return calendar.addEvent(new Event(name,date, room));
 			} else {
 				return false;
@@ -75,7 +75,7 @@ public class CalendarManagement {
 		}
 		else
 		{
-			System.out.println("Event belegt! Grund: ");
+			//System.out.println("Event belegt! Grund: ");
 			return false;
 		}
 	}	

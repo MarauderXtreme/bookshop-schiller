@@ -67,7 +67,7 @@ public class MyDate extends Object{
 	
 	public boolean equals(Object date) {
 		
-		System.out.println("Datum wird ueberprüft");
+		//System.out.println("Datum wird ueberprüft");
 	       if (!(date instanceof MyDate))
 	       {
 	    	   return false;
@@ -87,11 +87,11 @@ public class MyDate extends Object{
 	        
 	        if(this.date.equals(dateN.date) && this.time.equals(dateN.time))
 	        {
-	        	System.out.println("Datum ist gleich!");
+	        	//System.out.println("Datum ist gleich!");
 	        	return true;
 	        } else 
 	        {
-	        	System.out.println("Datum ist unterschiedlich!");
+	        	//System.out.println("Datum ist unterschiedlich!");
 	        	return false;
 	        }
 	    }
