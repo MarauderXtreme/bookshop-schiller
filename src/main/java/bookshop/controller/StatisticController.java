@@ -74,8 +74,6 @@ public class StatisticController {
 			}
 		}
 		
-		modelMap.addAttribute("statisticPriceSellAll", gesOrderSell.getTotalPrice());		
-		modelMap.addAttribute("statisticPriceBuyAll", gesOrderBuy.getTotalPrice());
 		
 		for(InventoryItem item : inventory.findAll()){
 
@@ -135,6 +133,9 @@ public class StatisticController {
 		modelMap.addAttribute("statisticPriceSell", statisticOrder.getTotalPrice());
 		modelMap.addAttribute("statisticbuy", sellOrder.getOrderLines());
 		modelMap.addAttribute("statisticPriceBuy", sellOrder.getTotalPrice());
+		
+		modelMap.addAttribute("statisticPriceSellAll", gesOrderBuy.getTotalPrice());		
+		modelMap.addAttribute("statisticPriceBuyAll", gesOrderSell.getTotalPrice());
 		
 		return "/statistics";
 	}

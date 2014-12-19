@@ -50,7 +50,7 @@ public class CartController {
 		this.orderManager = orderManager;
 	}
 	
-	
+	//@PreAuthorize("!hasRole('ROLE_BOSS') || !hasRole('ROLE_ADMIN') || !hasRole('ROLE_EMPLOYEE') || !hasRole('ROLE_SALESMANAGER') || !hasRole('ROLE_ARTICLEMANAGER') || !hasRole('ROLE_USERMANAGER') || !hasRole('ROLE_EVENTMANAGER')")
 	@RequestMapping(value="/cart")
 	public String cart(ModelMap modelMap, String name, HttpSession session){
 		Cart cart = getCart(session);
@@ -96,6 +96,7 @@ public class CartController {
 	 * @param session
 	 */
 	
+	//@PreAuthorize("!hasRole('ROLE_BOSS') || !hasRole('ROLE_ADMIN') || !hasRole('ROLE_EMPLOYEE') || !hasRole('ROLE_SALESMANAGER') || !hasRole('ROLE_ARTICLEMANAGER') || !hasRole('ROLE_USERMANAGER') || !hasRole('ROLE_EVENTMANAGER')")
 	@RequestMapping(value="/cart", method = RequestMethod.POST)
 	public String addArticleIntoCart(ModelMap modelMap, @RequestParam("number") int number, @RequestParam("article") Article article,
 		HttpSession session){
@@ -125,6 +126,7 @@ public class CartController {
 	 * Clears your entire card
 	 * @param session
 	 */
+	//@PreAuthorize("!hasRole('ROLE_BOSS') || !hasRole('ROLE_ADMIN') || !hasRole('ROLE_EMPLOYEE') || !hasRole('ROLE_SALESMANAGER') || !hasRole('ROLE_ARTICLEMANAGER') || !hasRole('ROLE_USERMANAGER') || !hasRole('ROLE_EVENTMANAGER')")
 	@RequestMapping(value = "/cart/clear")
 	public String clear (HttpSession session){
 		
@@ -138,6 +140,7 @@ public class CartController {
 	 * @param session
 	 * @param id
 	 */
+	//@PreAuthorize("!hasRole('ROLE_BOSS') || !hasRole('ROLE_ADMIN') || !hasRole('ROLE_EMPLOYEE') || !hasRole('ROLE_SALESMANAGER') || !hasRole('ROLE_ARTICLEMANAGER') || !hasRole('ROLE_USERMANAGER') || !hasRole('ROLE_EVENTMANAGER')")
 	@RequestMapping(value="/cart/delete", method = RequestMethod.POST)
 	public String delete(HttpSession session, @RequestParam("test") String id){
 		Cart cart = getCart(session);
@@ -149,6 +152,7 @@ public class CartController {
 	 * get the current state of your card
 	 * @param session
 	 */
+	//@PreAuthorize("!hasRole('ROLE_BOSS') || !hasRole('ROLE_ADMIN') || !hasRole('ROLE_EMPLOYEE') || !hasRole('ROLE_SALESMANAGER') || !hasRole('ROLE_ARTICLEMANAGER') || !hasRole('ROLE_USERMANAGER') || !hasRole('ROLE_EVENTMANAGER')")
 	@ModelAttribute("cart")
 	private Cart getCart(HttpSession session) {
 
