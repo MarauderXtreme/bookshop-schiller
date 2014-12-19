@@ -280,7 +280,7 @@ public class UserController {
 		user.setAddress(profileForm.getAddress());
 		userRepository.save(user);
 
-		return "profile";
+		return "redirect:/user/profile/" + userAccount.getIdentifier();
 	}
 
 	/**
@@ -358,7 +358,7 @@ public class UserController {
 		user.setAddress(profileForm.getAddress());
 		userRepository.save(user);
 
-		return "profile";
+		return "redirect:/user";
 	}
 
 	/**
@@ -433,7 +433,7 @@ public class UserController {
 		int numberAdmins = userManagement.getNumberOfAdmins();
 		modelMap.addAttribute("numberAdmins", numberAdmins);
 		
-		return "editaccountsettings";
+		return "redirect:/user/profile/" + userAccount.getIdentifier() + "/accountsettings";
 	}
 	
 	/**
@@ -462,7 +462,7 @@ public class UserController {
 		int numberAdmins = userManagement.getNumberOfAdmins();
 		modelMap.addAttribute("numberAdmins", numberAdmins);
 		
-		return "editaccountsettings";
+		return "redirect:/user/profile/" + userAccount.getIdentifier() + "/accountsettings";
 	}
 	
 	/**
@@ -492,7 +492,7 @@ public class UserController {
 		int numberAdmins = userManagement.getNumberOfAdmins();
 		modelMap.addAttribute("numberAdmins", numberAdmins);
 		
-		return "editaccountsettings";
+		return "redirect:/user/profile/" + userAccount.getIdentifier() + "/accountsettings";
 	}
 	
 	/**
@@ -522,7 +522,7 @@ public class UserController {
 		int numberAdmins = userManagement.getNumberOfAdmins();
 		modelMap.addAttribute("numberAdmins", numberAdmins);
 		
-		return "editaccountsettings";
+		return "redirect:/user/profile/" + userAccount.getIdentifier() + "/accountsettings";
 	}
 	
 }
