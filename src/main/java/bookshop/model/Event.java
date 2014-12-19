@@ -2,13 +2,13 @@ package bookshop.model;
 
 public class Event extends Object {
 	private String name;
-	private Date date;
+	private MyDate date;
 	private Room room;
 	
 	@Deprecated
 	protected Event() {}
 	
-	public Event(String name, Date date, Room room)
+	public Event(String name, MyDate date, Room room)
 	{
 		this.name = name;
 		this.date = date;
@@ -30,7 +30,7 @@ public class Event extends Object {
 		return date.getTime();
 	}
 	
-	public Date getDate()
+	public MyDate getDate()
 	{
 		return date;
 	}

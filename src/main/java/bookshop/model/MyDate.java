@@ -1,15 +1,15 @@
 package bookshop.model;
 
-public class Date extends Object{
+public class MyDate extends Object{
 	private String date;
 	private String time;
 	
 	@Deprecated
-	protected Date()
+	protected MyDate()
 	{	
 	}
 	
-	public Date(String d , String t)
+	public MyDate(String d , String t)
 	{
 		this.date = d;
 		this.time = t;
@@ -68,7 +68,7 @@ public class Date extends Object{
 	public boolean equals(Object date) {
 		
 		System.out.println("Datum wird ueberprüft");
-	       if (!(date instanceof Date))
+	       if (!(date instanceof MyDate))
 	       {
 	    	   return false;
 	       }
@@ -78,7 +78,7 @@ public class Date extends Object{
 	        	return true;
 	        }
 
-	        Date dateN = (Date) date;
+	        MyDate dateN = (MyDate) date;
 	        
 	        if((this.date==null&&dateN.date!=null) || (this.time==null&&dateN.time!=null) || (this.date != null&&dateN.date==null) || (this.time!=null&&dateN.time==null))
 	        {

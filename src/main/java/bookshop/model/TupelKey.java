@@ -1,19 +1,19 @@
 package bookshop.model;
 public class TupelKey<X , Y>{
 	public  Room x ;
-	public  Date y;
+	public  MyDate y;
 	
-	public TupelKey(Room r, Date d) {
+	public TupelKey(Room r, MyDate d) {
 		this.x=r;
 		this.y=d;
 	}
 	
 	public boolean equals(Object tk)
 	{
-		TupelKey<Room, Date> tuke = (TupelKey<Room, Date>)tk;
+		TupelKey<Room, MyDate> tuke = (TupelKey<Room, MyDate>)tk;
 		//System.out.println("Tupel equals wird geprueft");
 		Room ro = tuke.x;
-		Date da = tuke.y;
+		MyDate da = tuke.y;
 		
 		if (tuke ==this) {
 			System.out.println("Gleiche instanz von TupelKey!");
@@ -40,7 +40,7 @@ public class TupelKey<X , Y>{
 		return x;
 	}
 	
-	public Date getDate()
+	public MyDate getDate()
 	{
 		return y;
 	}

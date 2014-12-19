@@ -10,11 +10,11 @@ import java.util.Map;
 
 public class Calendar {
 	
-	private Map<TupelKey<Room,Date>, Event> eventMap;
+	private Map<TupelKey<Room,MyDate>, Event> eventMap;
 	private List<Event> sortedEventList;
 	public Calendar()
 	{
-		this.eventMap = new HashMap<TupelKey<Room,Date>, Event>();
+		this.eventMap = new HashMap<TupelKey<Room,MyDate>, Event>();
 	}
 	
 	public String viewEventInformation()
@@ -22,7 +22,7 @@ public class Calendar {
 		return null;
 	}
 	
-	public Event getEvent(TupelKey<Room,Date> tk)
+	public Event getEvent(TupelKey<Room,MyDate> tk)
 	{
 		if (eventMap.containsKey(tk))
 		{
@@ -41,10 +41,10 @@ public class Calendar {
 	
 	public boolean addEvent(Event event)
 	{
-		if (!eventMap.containsKey(new TupelKey<Room,Date>(event.getRoom(), event.getDate())))
+		if (!eventMap.containsKey(new TupelKey<Room,MyDate>(event.getRoom(), event.getDate())))
 		{
 			System.out.println("Termin ist Frei!");
-			eventMap.put(new TupelKey<Room,Date>(event.getRoom(), event.getDate()), event);
+			eventMap.put(new TupelKey<Room,MyDate>(event.getRoom(), event.getDate()), event);
 			return true;
 		} else {
 			System.out.println("Termin ist bereits belegt: " + event.getDate().getDate()+" " + event.getDate().getTime());
