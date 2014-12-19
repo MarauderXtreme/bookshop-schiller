@@ -55,9 +55,10 @@ public class StatisticController {
 		time = time.minusDays(7);		
 		
 		Money profit;
+		Money profittotal;
 		
 		Order statisticOrder = new Order(userAccount.get());
-		//Order gesOrderBuy = new Order(userAccount.get());
+		Order gesOrderBuy = new Order(userAccount.get());
 		Order gesOrderSell = new Order(userAccount.get());
 		Order sellOrder = new Order(userAccount.get());
 		
@@ -66,15 +67,15 @@ public class StatisticController {
 					gesOrderSell.add(orderLine);
 				}
 		}
-		/*
+		
 		for(Order order : orderManager.find(OrderStatus.PAID)){
 			for(OrderLine orderLine : order.getOrderLines()){
 				gesOrderBuy.add(orderLine);
 			}
 		}
-		*/
+		
 		modelMap.addAttribute("statisticPriceSellAll", gesOrderSell.getTotalPrice());		
-		//modelMap.addAttribute("statisticPriceBuyAll", gesOrderBuy.getTotalPrice());
+		modelMap.addAttribute("statisticPriceBuyAll", gesOrderBuy.getTotalPrice());
 		
 		for(InventoryItem item : inventory.findAll()){
 
@@ -125,8 +126,10 @@ public class StatisticController {
 			sellOrder.add(orderLine1);
 		}
 		profit = sellOrder.getTotalPrice().minus(statisticOrder.getTotalPrice());
+		profittotal = profit;
 		
 		modelMap.addAttribute("profit", profit);
+		modelMap.addAttribute("profittotal", profittotal);
 		
 		modelMap.addAttribute("statisticsell", statisticOrder.getOrderLines());
 		modelMap.addAttribute("statisticPriceSell", statisticOrder.getTotalPrice());
