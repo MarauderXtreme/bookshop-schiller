@@ -16,8 +16,12 @@ import org.salespointframework.order.Order;
 import org.salespointframework.order.OrderIdentifier;
 import org.salespointframework.order.OrderLine;
 import org.salespointframework.useraccount.UserAccount;
+import org.springframework.core.io.ClassPathResource;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -40,9 +44,9 @@ public class PDFCreator extends HttpServlet {
 		InventoryItem item;
 		//String curDir = System.getProperty(")
 	    try {
-	        PdfWriter.getInstance(document,
-	            new FileOutputStream(System.getProperty("user.dir") + "/src/main/resources/static/resources/orders/" + order.getIdentifier().toString() + ".pdf"));
-	
+	        PdfWriter.getInstance(	document,
+	        						new FileOutputStream(System.getProperty("user.dir") + "/src/main/resources/static/resources/orders/" + order.getIdentifier().toString() + ".pdf")
+	        						);
 	        document.open();
 	        document.add(new Paragraph("Bestellnummer:"));
 	        document.add(new Paragraph(order.getIdentifier().toString()));
@@ -136,8 +140,41 @@ public class PDFCreator extends HttpServlet {
 	    } catch (DocumentException e) {
 	    	throw new IOException(e.getMessage());
 	    }
+		/*
+		public void test() throws DocumentException, IOException {
+		    ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+		    templateResolver.setPrefix("META-INF/pdfTemplates/");
+		    templateResolver.setSuffix(".html");
+		    templateResolver.setTemplateMode("XHTML");
+		    templateResolver.setCharacterEncoding("UTF-8");
+
+		    TemplateEngine templateEngine = new TemplateEngine();
+		    templateEngine.setTemplateResolver(templateResolver);
+
+		    Context ctx = new Context();
+		    ctx.setVariable("message", "I don't want to live on this planet anymore");
+		    String htmlContent = templateEngine.process("messageTpl", ctx);
+
+		    ByteOutputStream os = new ByteOutputStream();
+		    ITextRenderer renderer = new ITextRenderer();
+		    ITextFontResolver fontResolver = renderer.getFontResolver();
+
+		    ClassPathResource regular = new ClassPathResource("/META-INF/fonts/LiberationSerif-Regular.ttf");
+		    fontResolver.addFont(regular.getURL().toString(), BaseFont.IDENTITY_H, true);
+
+		    renderer.setDocumentFromString(htmlContent);
+		    renderer.layout();
+		    renderer.createPDF(os);
+
+		    byte[] pdfAsBytes = os.getBytes();
+		    os.close();
+
+		    FileOutputStream fos = new FileOutputStream(new File("/tmp/message.pdf"));
+		    fos.write(pdfAsBytes);
+		    fos.close();
+		  }
+		*/
 		
-	
 	}	
 	
 	
