@@ -148,7 +148,6 @@ public class ArticleController {
 	public String addCategory(@ModelAttribute("categoriesform") @Valid CategoriesForm categoriesform, BindingResult result){
 		
 		if (result.hasErrors()) {
-			System.out.println("haserrors");
 			return "editcategories";
 		}
 		
@@ -381,9 +380,7 @@ public class ArticleController {
 	@RequestMapping(value="/article/book/new", method=RequestMethod.POST)
 	public String addBook(@ModelAttribute("articleForm") @Valid ArticleForm articleForm, BindingResult result, @RequestParam("newcategory") String category){
 		
-		System.out.println("start addbook");
 
-		System.out.println(articleForm.getStockPrice());
 		
 		if (articleForm.getPrice()<0) {
 			result.addError(new ObjectError("price", "Der Preis muss grosser als 0 sein"));
@@ -394,7 +391,6 @@ public class ArticleController {
 		}
 		
 		if (result.hasErrors()) {
-			System.out.println("haserrors");
 			return "addbook";
 		}
 
@@ -446,7 +442,6 @@ public class ArticleController {
 		}
 		
 		if (result.hasErrors()) {
-			System.out.println("haserrors");
 			return "addcd";
 		}
 
@@ -498,7 +493,6 @@ public class ArticleController {
 		}
 		
 		if (result.hasErrors()) {
-			System.out.println("haserrors");
 			return "adddvd";
 		}
 
@@ -667,7 +661,6 @@ public class ArticleController {
 		}
 				
 		if (result.hasErrors()) {
-			System.out.println("haserrors");
 			return "redirect:/article/" + article.getIdentifier() + "/edit";
 		}
 		
