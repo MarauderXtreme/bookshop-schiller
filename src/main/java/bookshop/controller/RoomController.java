@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.thoughtworks.xstream.mapper.SystemAttributeAliasingMapper;
+//import com.thoughtworks.xstream.mapper.SystemAttributeAliasingMapper;
 
 import bookshop.model.RoomManagement;
 
