@@ -102,6 +102,7 @@ public class OrderController {
 	public String getOrderDetails(ModelMap modelMap, @RequestParam("orderdetail") Order order){
 		
 		this.orderPDF = order;
+		modelMap.addAttribute("detailordersID", order.getIdentifier().toString());
 		modelMap.addAttribute("detailorders", order.getOrderLines());
 		
 		return "/ordersdetail";
