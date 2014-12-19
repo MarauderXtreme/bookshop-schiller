@@ -4,6 +4,8 @@ import static org.joda.money.CurrencyUnit.EUR;
 
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.joda.money.Money;
@@ -70,8 +72,17 @@ public class CartController {
 				orderManager.add(order);
 				cart.clear();
 				PDFCreator pdf = new PDFCreator();
-				pdf.pdfCreate(order, userAccount.get());
-				
+				HttpServletResponse response = null;
+				HttpServletRequest request = null;
+				//pdf.pdfCreate(order, userAccount.get());
+				/*
+				try {
+					pdf.pdfCreate2(order, userAccount.get(), request, response);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				*/
 				return "redirect:/";
 			}).orElse("redirect:/cart");
 	}
