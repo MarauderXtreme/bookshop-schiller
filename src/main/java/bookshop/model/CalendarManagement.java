@@ -61,11 +61,11 @@ public class CalendarManagement {
 	 * @param date
 	 * @param room
 	 */	
-	public boolean addEvent (String name, Date date, Room room)
+	public boolean addEvent (String name, MyDate date, Room room)
 	{
 		if(room != null)
 		{
-			if(calendar.getEvent(new TupelKey<Room,Date>(room, date)) == null)
+			if(calendar.getEvent(new TupelKey<Room,MyDate>(room, date)) == null)
 			{
 				System.out.println("Event zum Kalender hinzugefuegt!");
 				return calendar.addEvent(new Event(name,date, room));
