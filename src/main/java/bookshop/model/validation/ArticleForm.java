@@ -45,8 +45,30 @@ public class ArticleForm {
 	//@Pattern(regexp="([a-zA-Z]+)", message = "{ArticleForm.name.NotEmpty}")
 	//private String category;
 	
+	private double stockPrice;
+	
+	@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
+	@Pattern(regexp="([0-3][0-9]\\.[0-1][0-9]\\.[0-2][0-9][0-9][0-9])", message = "{ArticleForm.Date.Format}")
+	private String releaseDate;
+	
 	//Setter and Getter
 	
+	public double getStockPrice() {
+		return stockPrice;
+	}
+
+	public void setStockPrice(double stockPrice) {
+		this.stockPrice = stockPrice;
+	}
+
+	public String getReleaseDate() {
+		return releaseDate;
+	}
+
+	public void setReleaseDate(String releaseDate) {
+		this.releaseDate = releaseDate;
+	}
+
 	/**
 	 * @return the given article title from the article form
 	 */

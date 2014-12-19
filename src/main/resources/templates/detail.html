@@ -46,6 +46,14 @@
 						      <label>Auf Lager:</label>
 						      <span th:text="${quantity.amount}">0</span>
 					      </li>
+					      <li class="description large-6 medium-6 small-12 columns" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_ARTICLEMANAGER')">
+						      <label>Erscheinungsdatum:</label>
+						      <span th:text="${article.releaseDate}">9.99</span>
+					      </li>
+					      <li class="description large-6 medium-6 small-12 columns" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_ARTICLEMANAGER')">
+						      <label>Einkaufspreis:</label>
+						      <span th:text="${article.stockPrice}">9.99</span> <i class="fi-euro"></i>
+					      </li>
 					      <li class="price large-6 medium-6 small-12 columns">
 						      <label>Preis:</label>
 						      <span th:text="${article.price.amount}">9.99</span> <i class="fi-euro"></i>
@@ -68,7 +76,7 @@
 					  </div>
 						<div class="large-10 medium-10 large-offset-1 medium-offset-1 small-12">
 				      <h4>Beschreibung:</h4>
-				      <p th:text="${article.beschreibung}">Simon Travaglia</p>
+				     <p th:text="${article.beschreibung}">Simon Travaglia</p>
 						</div>
 	        </div>
 	    	</div>
