@@ -32,8 +32,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import bookshop.model.Article;
+import bookshop.model.PDFBuilder;
 import bookshop.model.PDFCreator;
 import bookshop.model.Statistic;
 
@@ -43,6 +45,7 @@ public class OrderController {
 	private final OrderManager<Order> orderManager;
 	private final Inventory<InventoryItem> inventory;
 	private final BusinessTime date;
+	private Order orderPDF;
 	
 	@Autowired
 	public OrderController(OrderManager<Order> orderManager, Inventory<InventoryItem> inventory, BusinessTime date){
@@ -68,6 +71,15 @@ public class OrderController {
 	}
 	
 	
+	@RequestMapping("/order/getPDF")
+	public ModelAndView gedOrderPDF(){
+		//PDFBuilder pdf = null;
+		//pdf.setData(userAccount.get());
+		
+		return new ModelAndView("pdfView", "orderspdf", orderPDF);
+	}
+	
+	
 	/**
 	 * Get Orders from logged in User
 	 * @param modelMap
@@ -89,6 +101,7 @@ public class OrderController {
 	@RequestMapping(value="/order/detail")
 	public String getOrderDetails(ModelMap modelMap, @RequestParam("orderdetail") Order order){
 		
+		this.orderPDF = order;
 		modelMap.addAttribute("detailorders", order.getOrderLines());
 		
 		return "/ordersdetail";

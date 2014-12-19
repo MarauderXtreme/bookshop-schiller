@@ -6,7 +6,9 @@ import java.io.*;
 
 import javax.persistence.Entity;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.salespointframework.inventory.InventoryItem;
@@ -39,7 +41,7 @@ public class PDFCreator extends HttpServlet {
 		//String curDir = System.getProperty(")
 	    try {
 	        PdfWriter.getInstance(document,
-	            new FileOutputStream(System.getProperty("user.dir") + "/src/main/resources/orders/" + order.getIdentifier().toString() + ".pdf"));
+	            new FileOutputStream(System.getProperty("user.dir") + "/src/main/resources/static/orders/" + order.getIdentifier().toString() + ".pdf"));
 	
 	        document.open();
 	        document.add(new Paragraph("Bestellnummer:"));
@@ -88,10 +90,11 @@ public class PDFCreator extends HttpServlet {
 	        e.printStackTrace();
 	    }
 	}
-	/*
 	
-	public void pdfCreate(Order order, UserAccount userAccount, HttpServletResponse response)throws ServletException, IOException{
 	
+	public void pdfCreate2(Order order, UserAccount userAccount, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException{
+		
 		Document document = new Document();
 		//orderId = orderId + ".pdf";
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -136,6 +139,6 @@ public class PDFCreator extends HttpServlet {
 		
 	
 	}	
-	*/
+	
 	
 }

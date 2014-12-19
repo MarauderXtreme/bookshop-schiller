@@ -1,5 +1,6 @@
 package bookshop.controller;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -10,7 +11,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import bookshop.model.Article;
-import bookshop.model.Article.ArticleId;
 import bookshop.model.ArticleManagement;
 
 @Controller
@@ -21,7 +21,26 @@ public class StaticController {
 	@Autowired
 	public StaticController(ArticleManagement articleCatalog) {
 		this.articleCatalog = articleCatalog;
-	}	
+	}
+	
+	
+	/**
+	 * 
+	 * <p>Gets all articles, puts them in a list and shuffles this list</p>
+	 * 
+	 * @param random List&lt;Articles&gt;
+	 * @return Randomized List
+	 */
+	private List<Article> getRandomizeArticles (List<Article> random) {
+		
+		Iterable<Article> articles = articleCatalog.findAll();
+		for(Article art : articles){
+			random.add(art);
+		}
+		
+		Collections.shuffle(random);
+		return random;
+	}
 	
 	/**
 	 * Maps the index page.
@@ -29,33 +48,33 @@ public class StaticController {
 	@RequestMapping({ "/", "/index" })
 	public String index(ModelMap modelMap) {
 		
-		
-		List<Article> list = new LinkedList<Article>();
-		List<Article> li = new LinkedList<Article>();
-		int promoNum;
-		int randomNum;
-		
-		Iterable<Article> articles = articleCatalog.findByType(ArticleId.BOOK);
-		for(Article art : articles){
-			li.add(art);
-		}
+		int promotion;
 		
 		Random rand = new Random();
-		for(int i=0; i<6; i++){
-			randomNum = rand.nextInt(li.size()-1);
-			list.add(li.get(randomNum));
+		
+		List<Article> random = new LinkedList<Article>();
+		Article promo;
+		
+		getRandomizeArticles(random);
+		
+		/**
+		 * Catch every exception as long we have not tested the List Truncate
+		 */
+		try {
+			if(random.size() > 20) {
+				random.subList(0, 18).clear();
+			}
+		} catch (Exception e) {
+			getRandomizeArticles(random);
 		}
+		
+		promotion = rand.nextInt(random.size()-1);
+		promo = random.get(promotion);
+		random.remove(promotion);
 
-		promoNum = rand.nextInt(li.size()-1);
-		
-
-		modelMap.addAttribute("promo", list.get(promoNum));
-		list.remove(promoNum);
-		modelMap.addAttribute("random", list);
-		
-		
-		//modelMap.addAttribute(null);
-		
+		modelMap.addAttribute("promo", promo);
+		modelMap.addAttribute("random", random);
+				
 		return "index";
 	}
 	
