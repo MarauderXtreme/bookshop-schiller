@@ -175,4 +175,35 @@ public class MyCalendar {
 		
 		return future;
 	}
+	
+	public List<String>generateDays()
+	{
+		List<String> days = new ArrayList<String>();
+		for(int i=0; i<31; i++)
+		{
+			days.add(""+i);
+		}
+		return days;
+	}
+	
+	public List<String>generateMonths()
+	{
+		List<String> months = new ArrayList<String>();
+		for(int i=0; i<12; i++)
+		{
+			months.add(""+i);
+		}
+		return months;
+	}
+	
+	public List<String>generateYears()
+	{
+		List<String> years = new ArrayList<String>();
+		for(int i=2000; i<2099; i++)
+		{
+			years.add(""+i);
+			System.out.println(""+i);
+		}
+		return years;
+	}
 }
