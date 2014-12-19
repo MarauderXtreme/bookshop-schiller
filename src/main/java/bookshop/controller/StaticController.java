@@ -1,5 +1,7 @@
 package bookshop.controller;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -29,33 +31,25 @@ public class StaticController {
 	@RequestMapping({ "/", "/index" })
 	public String index(ModelMap modelMap) {
 		
-		
-		List<Article> list = new LinkedList<Article>();
-		List<Article> li = new LinkedList<Article>();
 		int promoNum;
-		int randomNum;
-		
-		Iterable<Article> articles = articleCatalog.findByType(ArticleId.BOOK);
-		for(Article art : articles){
-			li.add(art);
-		}
 		
 		Random rand = new Random();
-		for(int i=0; i<6; i++){
-			randomNum = rand.nextInt(li.size()-1);
-			list.add(li.get(randomNum));
-		}
-
-		promoNum = rand.nextInt(li.size()-1);
 		
+		List<Article> list = new LinkedList<Article>();
+		
+		Iterable<Article> articles = articleCatalog.findAll();
+		for(Article art : articles){
+			list.add(art);
+		}
+		
+		Collections.shuffle(list);
+		
+		promoNum = rand.nextInt(list.size()-1);
 
 		modelMap.addAttribute("promo", list.get(promoNum));
 		list.remove(promoNum);
 		modelMap.addAttribute("random", list);
-		
-		
-		//modelMap.addAttribute(null);
-		
+				
 		return "index";
 	}
 	
