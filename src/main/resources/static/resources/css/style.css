@@ -62,6 +62,6 @@ body {
 	height: 400px;
 }
 
-.calendar tbody tr:nth-child(even) {
+table tbody tr:nth-child(even) {
 	background: #f2f2f2;
 }
