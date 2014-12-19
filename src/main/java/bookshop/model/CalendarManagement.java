@@ -9,6 +9,11 @@ public class CalendarManagement {
 		this.calendar = new Calendar();
 	}
 	
+	/**
+	 * Returns an instance of CalendarManagement, used for further operations regarding the calendar and events
+	 * @param userRepository
+	 * @param userAccountManager
+	 */
 	public static synchronized CalendarManagement getInstance()
 	{
 		if(instance == null)
@@ -18,12 +23,11 @@ public class CalendarManagement {
 		return CalendarManagement.instance;
 	}
 	
-	public String viewCalendar()
-	{
-		return calendar.toString();
-	}
-	
-	public String viewCalendarEvent(Event event)
+	/**
+	 * Returns the name of the given Event
+	 * @param event
+	 */
+	public String getEventName(Event event)
 	{
 		return event.getName();
 	}
@@ -33,16 +37,30 @@ public class CalendarManagement {
 		return false;
 	}
 	
+	/**
+	 *Removes an event event from the eventlist.
+	 * @param name
+	 */
 	public boolean removeEvent(String name)
 	{
 		return false;
 	}
 	
+	
+	/**
+	 * Gibt das Calendar-Ojekt zurueck, in welchem alle Events gespeichert werden
+	 */
 	public Calendar getCalendar()
 	{
 		return calendar;
 	}
 	
+	/**
+	 * Adds an event to the eventlist.
+	 * @param name
+	 * @param date
+	 * @param room
+	 */	
 	public boolean addEvent (String name, Date date, Room room)
 	{
 		if(room != null)
