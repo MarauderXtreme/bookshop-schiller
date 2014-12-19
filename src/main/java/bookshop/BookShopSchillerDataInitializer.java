@@ -2,10 +2,7 @@ package bookshop;
 
 import static org.joda.money.CurrencyUnit.*;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 
 import org.joda.money.Money;
 import org.salespointframework.core.DataInitializer;
@@ -27,10 +24,8 @@ import bookshop.model.Article.ArticleId;
 import bookshop.model.CalendarManagement;
 import bookshop.model.Category;
 import bookshop.model.CategoryManagement;
-//import bookshop.model.CategoryManagement;
 import bookshop.model.Date;
 import bookshop.model.RoomManagement;
-//import bookshop.model.Book;
 import bookshop.model.User;
 import bookshop.model.UserRepository;
 
@@ -81,10 +76,6 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 	}
 	
 	private void initializeCatalog(ArticleManagement articleCatalog, Inventory<InventoryItem> inventory) {
-
-		/*if (articleCatalog.getArticleList().iterator().hasNext()) {
-			return;
-		}*/
 		
 		
 		if(articleCatalog.findAll().iterator().hasNext()){
@@ -121,8 +112,6 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		CalendarManagement.getInstance().getCalendar().showList();		
 		
 		
-		
-		//Category cat = new Category("Book", ArticleId.BOOK, "Fiction");
 		Category unterhaltung = new Category("Unterhaltung", ArticleId.BOOK);
 		Category ratgeber = new Category("Ratgeber", ArticleId.BOOK);
 		Category fiktion = new Category("Fiktion", ArticleId.BOOK);

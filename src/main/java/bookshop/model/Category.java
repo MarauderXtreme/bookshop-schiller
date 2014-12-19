@@ -1,11 +1,7 @@
 package bookshop.model;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
-import org.salespointframework.useraccount.Role;
 
 import bookshop.model.Article.ArticleId;
 
@@ -16,9 +12,7 @@ public class Category {
 	@Id
 	private String id;
 	private String categoryName;
-	private ArticleId type;
-	//private String genre;
-	
+	private ArticleId type;	
 	
 	
 	public Category() {
@@ -30,7 +24,6 @@ public class Category {
 		setId(type, categoryName);
 		this.categoryName = categoryName;
 		this.type = type;
-		//this.genre = genre;
 	}
 
 	public String getCategoryName(){
@@ -57,18 +50,8 @@ public class Category {
 		this.type = type;
 	}
 
-	/*public String getGenre() {
-		return genre;
-	}
-
-	public void setGenre(String genre) {
-		this.genre = genre;
-	}*/
-
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
-	
-	
 	
 }

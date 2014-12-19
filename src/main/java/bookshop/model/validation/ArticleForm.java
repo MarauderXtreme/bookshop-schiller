@@ -1,27 +1,13 @@
 package bookshop.model.validation;
 
-import org.salespointframework.quantity.Quantity;
 
 import javax.validation.constraints.Pattern;
 
-import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
-import bookshop.model.Article.ArticleId;
 
 public class ArticleForm {
-	
-	//All variables must be not empty	
-	//Darf nur positive Zahl sein
-	//double price;
-	//Was für eine Nummer soll es sein?! Nur für Bücher oder Allg. ID
-	//String ISBN;	
-	//Symbole "." Sufix(jpg,png,...)
-	//String image;	
-	//Darf nicht negativ sein
-	//Resultierender Amount darf nicht negativ sein
-	//Quantity amount;
-	
+
 	
 	
 	@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
@@ -42,9 +28,6 @@ public class ArticleForm {
 	//@Pattern(regexp="([0-9]{3}\\-[0-9]{1}\\-[0-9]{3}\\-[0-9]{5}\\-[0-9]{1})|([0-9]{1}\\-[0-9]{6}\\-[0-9]{6})", message = "{ArticleForm.Id.Format}")
 	private String id;
 	
-	/*@NotEmpty(message = "{addArticeForm.name.NotEmpty}")
-	private ArticleId type;*/
-	
 	@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
 	@Pattern(regexp="([A-Za-z0-9]+\\.(jpg|png|gif))", message = "{ArticleForm.Image.Format}")
 	private String image;
@@ -58,15 +41,6 @@ public class ArticleForm {
 	@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
 	private String artist;
 	
-	/*@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
-	private String author;
-	*/
-	/*@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
-	private String interpret;
-	
-	@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
-	private String director;
-	*/
 	//@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
 	//@Pattern(regexp="([a-zA-Z]+)", message = "{ArticleForm.name.NotEmpty}")
 	//private String category;
@@ -126,16 +100,6 @@ public class ArticleForm {
 		this.publisher = publisher;
 	}
 	
-	/*
-	public ArticleId getType(){
-		return type;
-	}
-	
-	public void setType(ArticleId type){
-		this.type = type;
-	}
-	*/
-	
 	/**
 	 * @return the given Productnumber from the article form
 	 */
@@ -167,52 +131,7 @@ public class ArticleForm {
 	public void setArtist(String artist){
 		this.artist = artist;
 	}
-	
-	/**
-	 * @return the given author name from the article form
-	 */
-	//public String getAuthor(){
-	//	return author;
-	//}
-	
-	/**
-	 * Sets the author of the article form to the given value.
-	 * @param author
-	 */
-	//public void setAuthor(String author){
-	//	this.author = author;
-	//}
-	
-	/**
-	 * @return the given user interpret name the article form
-	 */
-	//public String getInterpret(){
-	//	return interpret;
-	//}
-	
-	/**
-	 * Sets the interpret of the article form to the given value.
-	 * @param interpret
-	 */
-	//public void setInterpret(String interpret){
-	//	this.interpret = interpret;
-	//}
-	
-	/**
-	 * @return the given director name from the article form
-	 */
-	//public String getDirector(){
-	//	return director;
-	//}
-	
-	/**
-	 * Sets the director of the article form to the given value.
-	 * @param director
-	 */
-	//public void setDirector(String director){
-	//	this.director = director;
-	//}
-	
+
 	/**
 	 * @return the given filename from the article form
 	 */

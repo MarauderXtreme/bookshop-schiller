@@ -1,10 +1,8 @@
 package bookshop.controller;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 import javax.validation.Valid;
 
@@ -38,8 +36,6 @@ import bookshop.model.CategoryManagement;
 import bookshop.model.validation.ArticleForm;
 import bookshop.model.validation.CategoriesForm;
 import bookshop.model.validation.EditArticleForm;
-//import bookshop.model.CategoryManagement;
-import bookshop.model.validation.RegistrationForm;
 
 @Controller
 public class ArticleController {
@@ -318,7 +314,6 @@ public class ArticleController {
 				}
 				}
 			}
-			//modelMap.addAttribute("catalog", articleCatalog.findByPublisher(input));
 		}
 		
 		if(typeInput == 3){
@@ -330,21 +325,13 @@ public class ArticleController {
 				else{
 				if(a.getId().contains(input)){
 					li.add(a);
-				}
+					}
 				}
 			}
-			//modelMap.addAttribute("catalog", articleCatalog.findById(input));
 		}
 		
 		if(typeInput == 4){
-			/*if(!(articleCatalog.findByAuthor(input)==null))
-				modelMap.addAttribute("catalog", articleCatalog.findByAuthor(input));
-			if(!(articleCatalog.findByInterpret(input)==null))
-				modelMap.addAttribute("catalog", articleCatalog.findByInterpret(input));
-			if(!(articleCatalog.findByDirector(input)==null))
-				modelMap.addAttribute("catalog", articleCatalog.findByDirector(input));*/
-			//modelMap.addAttribute("catalog", articleCatalog.findByArtist(input));
-			
+
 			for(Article a : articles){
 				if(input.length()<=3){
 					if(a.getArtist().startsWith(input))
@@ -358,39 +345,8 @@ public class ArticleController {
 			}
 			
 		}
-		/*
+
 		if(typeInput == 5){
-			modelMap.addAttribute("catalog", articleCatalog.findByInterpret(input));
-		}
-			
-		if(typeInput == 6){
-			modelMap.addAttribute("catalog", articleCatalog.findByDirector(input));
-		}
-		*/
-		if(typeInput == 5){
-			
-			/*Set<String> categoryList = new HashSet<String>();
-			List<String> arr = new ArrayList<String>();
-						
-			while(articleCatalog.findAll().iterator().hasNext()){
-				String[] bla = articleCatalog.findAll().iterator().next().getCategoryList().toString().split(", ");
-				if(bla.equals(input)){
-					
-				}
-					
-			}
-			
-			String[] bla = arr.toString().split(", ");
-			
-			for(int i=0; i<bla.length; i++){
-				categoryList.add(bla[i]);
-			}
-			
-			while(articleCatalog.findAll().iterator().hasNext()){
-				articleCatalog.findAll().iterator().next().getCategoryList();
-			}
-			
-			modelMap.addAllAttribute("catalog", categories);*/
 			
 			for(Article a : articles){
 				
@@ -399,8 +355,6 @@ public class ArticleController {
 			
 				}
 			}
-			
-			//modelMap.addAttribute("catalog", articleCatalog.findByCategory(input));
 		}
 			
 		modelMap.addAttribute("catalog", li);
@@ -450,25 +404,12 @@ public class ArticleController {
 										articleForm.getImage(),
 										"01.01.2015",
 										Money.of(EUR, 0.99)
-										);
-	
-		//article.setAuthor(author);
+										);		
 		
-		System.out.println("book added");
-			
-		articleCatalog.save(article);
-		
-		//System.out.println(article.getAuthor());
-		
+		articleCatalog.save(article);		
 		
 		InventoryItem item = new InventoryItem(article, Units.TEN);
 		inventory.save(item);
-		
-		//System.out.println("ITEM: " + item);
-		
-		//Quantity quantity = item.map(InventoryItem::getQuantity).orElse(Units.TEN);
-		
-	
 
 		return "redirect:/article/book";
 
@@ -681,6 +622,26 @@ public class ArticleController {
 	}
 	
 	
+	/**
+	 * 
+	 * Highly complex Article Edit Function
+	 * 
+	 * @param article
+	 * @param name takes the new Name
+	 * @param publisher takes the new publisher
+	 * @param beschreibung takes the new description
+	 * @param isbn takes the new isbn
+	 * @param price takes the new price
+	 * @param addcategory takes the category that should be added
+	 * @param image takes at this stage the name of the image
+	 * @param author takes the new author
+	 * @param interpret takes the new interpret
+	 * @param director takes the new director
+	 * @param increase takes the value of unit increase
+	 * @param decrease takes the value of decrease
+	 * @param delcategory takes the category that sould be delted
+	 * @return
+	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
 	@RequestMapping(value="/article/editinformation", method=RequestMethod.POST)
 	public String editArticle(@ModelAttribute("editArticleForm") @Valid EditArticleForm articleForm, BindingResult result, @RequestParam("article") Article article, @RequestParam("categorytodelete") String delcategory, @RequestParam("newcategory") String newCategory) {
@@ -727,19 +688,6 @@ public class ArticleController {
 		
 		article.setArtist(articleForm.getArtist());
 		
-		/*if(author==null){}
-		else
-		article.setAuthor(author);
-		
-		if(interpret==null){}
-		else
-		article.setInterpret(interpret);
-		
-		if(director==null){}
-		else
-		article.setDirector(director);
-		*/
-		
 		if(newCategory=="1"){}
 			else{
 				article.addCategory(newCategory);
@@ -759,369 +707,5 @@ public class ArticleController {
 		
 		return "redirect:/detail/" + article.getIdentifier();
 	}
-	
-	
-	/**
-	 * 
-	 * Highly complex Article Edit Function
-	 * 
-	 * @param article
-	 * @param name takes the new Name
-	 * @param publisher takes the new publisher
-	 * @param beschreibung takes the new description
-	 * @param isbn takes the new isbn
-	 * @param price takes the new price
-	 * @param addcategory takes the category that should be added
-	 * @param image takes at this stage the name of the image
-	 * @param author takes the new author
-	 * @param interpret takes the new interpret
-	 * @param director takes the new director
-	 * @param increase takes the value of unit increase
-	 * @param decrease takes the value of decrease
-	 * @param delcategory takes the category that sould be delted
-	 * @return
-	 */
-	/*@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
-	@RequestMapping(value="/article/editinformation", method=RequestMethod.POST)
-	public String editArticle(	@RequestParam("article") Article article,
-			 					@RequestParam("newname") String name,
-			 					@RequestParam("newpublisher") String publisher,
-			 					@RequestParam("descriptiontext") String beschreibung,
-			 					@RequestParam("newisbn") String isbn,
-			 					@RequestParam("newcategory") String addcategory,
-			 					@RequestParam("newimage") String image,
-			 					@RequestParam("newartist") String artist,
-			 					@RequestParam("addquan") long increase,
-			 					@RequestParam("removequan") long decrease,
-			 					@RequestParam("categorytodelete") String delcategory) {
-		
-		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
-		
-		if(name==null){}
-		else
-		article.setName(name);
-		
-		if(publisher==null){}
-		else
-		article.setPublisher(publisher);
-		
-		if(beschreibung==null){}
-		else
-		article.setBeschreibung(beschreibung);
-		
-		if(isbn==null){}
-		else
-		article.setId(isbn);
-		
-		//article.setPrice(Money.of(EUR, price));
-		
-		if(addcategory==null){}
-		else{
-			if(addcategory=="1"){}
-			else
-				article.addCategory(addcategory);
-		}
-		
-		if(image==null){}
-		else
-		article.setImage(image);
-		
-		if(artist==null){}
-		else
-			article.setArtist(artist);
-		
-		/*if(author==null){}
-		else
-		article.setAuthor(author);
-		
-		if(interpret==null){}
-		else
-		article.setInterpret(interpret);
-		
-		if(director==null){}
-		else
-		article.setDirector(director);
-		
-		if(delcategory==null){}
-		else{
-			if(delcategory=="1"){}
-			else
-				article.removeCategory(delcategory);
-		}
-		
-		if(increase==0){}
-		else
-		item.get().increaseQuantity(Units.of(increase));
-		
-		if(decrease==0){}
-		else
-		item.get().increaseQuantity(Units.of(decrease));
-		
-		
-		articleCatalog.save(article);
-		
-		return "redirect:/article/" + article.getIdentifier() + "/edit";
-	}*/
-
-	
-//	//Change Informations of an Article
-//	
-//	/**
-//	 * Sets a given title to a given article and saves this article to the catalog again.
-//	 * @param article
-//	 * @param name
-//	 * @return
-//	 */
-//	@RequestMapping(value="/article/set/title", method=RequestMethod.POST)
-//	public String setNewTitle(@RequestParam("article") Article article, @RequestParam("newname") String name){
-//			
-//			
-//			System.out.println("Title: " + article.getName());
-//			
-//			article.setName(name);
-//			
-//			articleCatalog.save(article);
-//			
-//			//return "redirect:article/" + article.getIdentifier() + "edit";
-//			return "redirect:/editarticle/" + article.getIdentifier();
-//	}
-//		
-//	/**
-//	 * Sets a given publisher to a given article and saves this article to the catalog again.
-//	 * @param article
-//	 * @param publisher
-//	 * @return
-//	 */
-//	@RequestMapping(value="/article/set/publisher", method=RequestMethod.POST)
-//	public String setNewPublisher(@RequestParam("article") Article article, @RequestParam("newpublisher") String publisher){
-//				
-//				
-//				System.out.println("Title: " + article.getName());
-//				
-//				article.setPublisher(publisher);
-//				
-//				articleCatalog.save(article);
-//				
-//				//return "redirect:article/" + article.getIdentifier() + "edit";
-//				return "redirect:/editarticle/" + article.getIdentifier();
-//			}
-//			
-//	/**
-//	 * Sets a given description to a given article and saves this article to the catalog again.
-//	 * @param article
-//	 * @param description
-//	 * @return
-//	 */
-//	@RequestMapping(value="/article/set/description", method=RequestMethod.POST)
-//	public String setNewDescription(@RequestParam("article") Article article, @RequestParam("descriptiontext") String beschreibung){
-//				
-//				article.setBeschreibung(beschreibung);
-//				
-//				articleCatalog.save(article);
-//				
-//				//return "redirect:article/" + article.getIdentifier() + "edit";
-//				return "redirect:/editarticle/" + article.getIdentifier();
-//			}
-//			
-//	/**
-//	 * Sets a given isbn to a given article and saves this article to the catalog again.
-//	 * @param isbn
-//	 * @param name
-//	 * @return
-//	 */
-//	@RequestMapping(value="/article/set/isbn", method=RequestMethod.POST)
-//	public String setNewIsbn(@RequestParam("article") Article article, @RequestParam("newisbn") String isbn, Model model){
-//				
-//				
-//				System.out.println("Title: " + article.getName());
-//				
-//				article.setId(isbn);
-//				
-//				articleCatalog.save(article);
-//				
-//				//return "redirect:article/" + article.getIdentifier() + "edit";
-//				return "redirect:/editarticle/" + article.getIdentifier();
-//			}
-//			
-//	/**
-//	 * Sets a given price to a given article and saves this article to the catalog again.
-//	 * @param article
-//	 * @param price
-//	 * @return
-//	 */
-//	@RequestMapping(value="/article/set/price", method=RequestMethod.POST)
-//	public String setNewPrice(@RequestParam("article") Article article, @RequestParam("newprice") double price){
-//				
-//				System.out.println("Title: " + article.getName());
-//				
-//				article.setPrice(Money.of(EUR, price));
-//				
-//				articleCatalog.save(article);
-//				
-//				//return "redirect:article/" + article.getIdentifier() + "edit";
-//				return "redirect:/editarticle/" + article.getIdentifier();
-//			}
-//		
-//	/**
-//	 * Adds a given category to the Categorylist of a given article and saves this article to the catalog again.
-//	 * @param article
-//	 * @param category
-//	 * @return
-//	 */
-//	@RequestMapping(value="/article/set/category", method=RequestMethod.POST)
-//	public String setNewCatgory(@RequestParam("article") Article article, @RequestParam("newcategory") String category){
-//				
-//				System.out.println("Title: " + article.getName());
-//				
-//				article.addCategory(category);
-//								
-//				articleCatalog.save(article);
-//				
-//				//return "redirect:article/" + article.getIdentifier() + "edit";
-//				return "redirect:/editarticle/" + article.getIdentifier();
-//			}
-//			
-//	/**
-//	 * Sets a given image to a given article and saves this article to the catalog again.
-//	 * @param article
-//	 * @param image
-//	 * @return
-//	 */
-//	@RequestMapping(value="/article/set/image", method=RequestMethod.POST)
-//	public String setNewImage(@RequestParam("article") Article article, @RequestParam("newimage") String image){
-//								
-//				article.setImage(image);
-//				
-//				articleCatalog.save(article);
-//				
-//				//return "redirect:article/" + article.getIdentifier() + "edit";
-//				return "redirect:/editarticle/" + article.getIdentifier();
-//			}
-//	
-//	
-//	//Set Specific Informations
-//	
-//	/**
-//	 * Sets a given author to a given article and saves this article to the catalog again.
-//	 * @param article
-//	 * @param author
-//	 * @return
-//	 */
-//	@RequestMapping(value="/article/set/author", method=RequestMethod.POST)
-//	public String setNewAutor(@RequestParam("article") Article article, @RequestParam("newauthor") String author){
-//
-//				System.out.println("Autor: " + article.getAuthor());
-//							
-//				article.setAuthor(author);
-//				
-//				System.out.println("Autor: " + article.getAuthor());
-//				
-//				articleCatalog.save(article);
-//				
-//				//return "redirect:article/" + article.getIdentifier() + "edit";
-//				return "redirect:/editarticle/" + article.getIdentifier();
-//	}
-//			
-//	/**
-//	 * Sets a given interpret to a given article and saves this article to the catalog again.
-//	 * @param article
-//	 * @param interpret
-//	 * @return
-//	 */
-//	@RequestMapping(value="/article/set/interpret", method=RequestMethod.POST)
-//	public String setNewInterpret(@RequestParam("article") Article article, @RequestParam("newInterpret") String interpret){
-//							
-//				article.setInterpret(interpret);
-//				
-//				articleCatalog.save(article);
-//				
-//				//return "redirect:article/" + article.getIdentifier() + "edit";
-//				return "redirect:/editarticle/" + article.getIdentifier();
-//	}
-//	
-//	/**
-//	 * Sets a given director to a given article and saves this article to the catalog again.
-//	 * @param article
-//	 * @param director
-//	 * @return
-//	 */	
-//	@RequestMapping(value="/article/set/director", method=RequestMethod.POST)
-//	public String setNewDirector(@RequestParam("article") Article article, @RequestParam("newdirector") String director){
-//							
-//				article.setDirector(director);
-//				
-//				articleCatalog.save(article);
-//				
-//				//return "redirect:article/" + article.getIdentifier() + "edit";
-//				return "redirect:/editarticle/" + article.getIdentifier();
-//	}
-//			
-//	/**
-//	 * Increases a given amount of a given article and saves this article to the catalog again.
-//	 * @param article
-//	 * @param amount
-//	 * @return
-//	 */
-//	@RequestMapping(value="/article/amount/increase", method=RequestMethod.POST)
-//	public String increaseUnits(@RequestParam("article") Article article, @RequestParam("addquan") long amount){
-//			
-//			Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
-//			
-//			item.get().increaseQuantity(Units.of(amount));
-//
-//			/*articleCatalog.findByName(article.getName());
-//			item.Units.add(Units.of(i));
-//			*/
-//			
-//			/*Quantity quantity = item.get().getQuantity();
-//			model.addAttribute("quantity", quantity);
-//			*/
-//			
-//			articleCatalog.save(article);
-//			
-//			//return "redirect:article/" + article.getIdentifier() + "edit";
-//			return "redirect:/editarticle/" + article.getIdentifier();
-//		}
-//		
-//	/**
-//	 * Decreases a given amount of a given article and saves this article to the catalog again.
-//	 * @param article
-//	 * @param amount
-//	 * @return
-//	 */
-//	@RequestMapping(value="/article/amount/decrease", method=RequestMethod.POST)
-//	public String decreaseUnits(@RequestParam("article") Article article, @RequestParam("removequan") long amount){
-//			
-//		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
-//		
-//		item.get().decreaseQuantity(Units.of(amount));
-//			
-//			articleCatalog.save(article);
-//			
-//			//return "redirect:article/" + article.getIdentifier() + "edit";
-//			return "redirect:/editarticle/" + article.getIdentifier();
-//		}
-//		
-//	
-//	//Delete Information (Categories) of an Article
-//	
-//	/**
-//	 * Deletes a given category from the categorylist of a given article and saves this article to the catalog again.
-//	 * @param article
-//	 * @param name
-//	 * @return
-//	 */
-//	@RequestMapping(value="/article/delete/category", method=RequestMethod.POST)
-//	public String deleteCategory(@RequestParam("article") Article article, @RequestParam("categorytodelete") String category){
-//			
-//			article.removeCategory(category);
-//			
-//			//article.removeCategory(CategoryManagement.getInstance().getCategory(article.getType(), category));
-//			
-//			articleCatalog.save(article);
-//			
-//			//return "redirect:article/" + article.getIdentifier() + "edit";
-//			return "redirect:/editarticle/" + article.getIdentifier();
-//		}
 		
 }
