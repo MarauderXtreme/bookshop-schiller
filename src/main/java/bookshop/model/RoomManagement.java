@@ -3,8 +3,8 @@ package bookshop.model;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 public class RoomManagement {
 	private static RoomManagement instance;
@@ -87,9 +87,17 @@ public class RoomManagement {
 		return null;
 	}
 	
-	public ArrayList<Room> getAllRooms()
+	public List<Room> getAllRooms()
 	{
-		return new ArrayList<Room>(rooms.values());
+		List<Room> allRooms = new ArrayList<Room>(rooms.values());
+		return allRooms;
+	}
+	
+	public List<String> getAllRoomNames()
+	{
+		List<String> allNames = new ArrayList<String>();
+		allNames.addAll(rooms.keySet());
+		return allNames;
 	}
 	
 

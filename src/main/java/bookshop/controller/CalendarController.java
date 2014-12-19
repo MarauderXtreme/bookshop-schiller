@@ -21,6 +21,8 @@ public class CalendarController {
 	@RequestMapping("/admin/event/add")
 	public String addEvent(Model model) 
 	{
+		model.addAttribute("roonNameList",RoomManagement.getInstance().getAllRoomNames());
+		model.addAttribute("roomList", RoomManagement.getInstance().getAllRooms());
 		return "addevent";
 	}
 	
@@ -40,7 +42,7 @@ public class CalendarController {
 		model.addAttribute("event", event);
 		model.addAttribute("date", date);
 		model.addAttribute("eventList", CalendarManagement.getInstance().getCalendar().getFutureEvents());
-		model.addAttribute("roomList", RoomManagement.getInstance().getAllRooms());
+
 		model.addAttribute("years", CalendarManagement.getInstance().getCalendar().generateYears());
 		model.addAttribute("months", CalendarManagement.getInstance().getCalendar().generateMonths());
 		model.addAttribute("days", CalendarManagement.getInstance().getCalendar().generateDays());
