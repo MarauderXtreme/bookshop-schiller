@@ -383,7 +383,13 @@ public class ArticleController {
 		
 		System.out.println("start addbook");
 
+		System.out.println(articleForm.getStockPrice());
+		
 		if (articleForm.getPrice()<0) {
+			result.addError(new ObjectError("price", "Der Preis muss grosser als 0 sein"));
+		}
+		
+		if (articleForm.getStockPrice()<0) {
 			result.addError(new ObjectError("price", "Der Preis muss grosser als 0 sein"));
 		}
 		
@@ -402,8 +408,8 @@ public class ArticleController {
 										category,
 										articleForm.getArtist(),
 										articleForm.getImage(),
-										"01.01.2015",
-										Money.of(EUR, 0.99)
+										articleForm.getReleaseDate(),
+										Money.of(EUR, articleForm.getStockPrice())
 										);		
 		
 		articleCatalog.save(article);		
@@ -435,6 +441,10 @@ public class ArticleController {
 			result.addError(new ObjectError("price", "Der Preis muss grosser als 0 sein"));
 		}
 		
+		if (articleForm.getStockPrice()<0) {
+			result.addError(new ObjectError("price", "Der Preis muss grosser als 0 sein"));
+		}
+		
 		if (result.hasErrors()) {
 			System.out.println("haserrors");
 			return "addcd";
@@ -450,8 +460,8 @@ public class ArticleController {
 										category,
 										articleForm.getArtist(),
 										articleForm.getImage(),
-										"01.01.2015",
-										Money.of(EUR, 0.99)
+										articleForm.getReleaseDate(),
+										Money.of(EUR, articleForm.getStockPrice())
 										);
 			
 		articleCatalog.save(article);
@@ -483,6 +493,10 @@ public class ArticleController {
 			result.addError(new ObjectError("price", "Der Preis muss grosser als 0 sein"));
 		}
 		
+		if (articleForm.getStockPrice()<0) {
+			result.addError(new ObjectError("price", "Der Preis muss grosser als 0 sein"));
+		}
+		
 		if (result.hasErrors()) {
 			System.out.println("haserrors");
 			return "adddvd";
@@ -498,8 +512,8 @@ public class ArticleController {
 										category,
 										articleForm.getArtist(),
 										articleForm.getImage(),
-										"01.01.2015",
-										Money.of(EUR, 0.99)
+										articleForm.getReleaseDate(),
+										Money.of(EUR, articleForm.getStockPrice())
 										);		
 			
 		articleCatalog.save(article);		
@@ -687,6 +701,10 @@ public class ArticleController {
 		article.setImage(articleForm.getImage());
 		
 		article.setArtist(articleForm.getArtist());
+		
+		article.setReleaseDate(articleForm.getReleaseDate());
+		
+		article.setStockPrice(Money.of(EUR, articleForm.getStockPrice()));
 		
 		if(newCategory=="1"){}
 			else{
