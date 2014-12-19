@@ -17,27 +17,27 @@
 		      </header>
 	        <div class="large-12">&nbsp;</div>
 	        <div class="large-12 medium-12 small-12 row">
-	        	<h3>Edit <span>Categories</span></h3>
-	        	<div sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')"></div>
-							
-		
-							<div class="large-3 medium-3 small-6 columns">
+	        	<h3>Edit Categories</h3>
+						<div class="small-12 row">
+							<div class="large-4 medium-4 small-12 columns">
 								<label>Buch Kategorien</label>
-								<ul th:each="category : ${categoriesbook}">
-									<li th:text="${category.categoryName}"></li>
+								<ul>
+									<li th:each="category : ${categoriesbook}" th:text="${category.categoryName}"></li>
 								</ul>
-								<br />
-								<label>CD Kategorien</label>
-								<ul th:each="category : ${categoriescd}">
-									<li th:text="${category.categoryName}"></li>
-								</ul>
-								<br />
-								<label>DVD Kategorien</label>
-								<ul th:each="category : ${categoriesdvd}">
-									<li th:text="${category.categoryName}"></li>
-								</ul>
-								<br />
 							</div>
+							<div class="large-4 medium-4 small-12 columns">
+								<label>CD Kategorien</label>
+								<ul>
+									<li th:each="category : ${categoriescd}" th:text="${category.categoryName}"></li>
+								</ul>
+							</div>
+							<div class="large-4 medium-4 small-12 columns">
+								<label>DVD Kategorien</label>
+								<ul>
+									<li th:each="category : ${categoriesdvd}" th:text="${category.categoryName}"></li>
+								</ul>
+							</div>
+						</div>
 						<form method="POST" action="/editcategories/add" th:object="${categoriesform}" data-abide="">
 						
 							<div th:if="${#fields.hasErrors('*')}">
@@ -61,7 +61,8 @@
 							
 							<input class="small button" type="submit" value="Speichern" />
 								 
-						</form>	 
+						</form>	
+						
 						<form method="POST" action="/editcategories/delete" data-abide="">				
 							<div>
 								<label>Entferne Kategorie</label>
@@ -87,8 +88,6 @@
 							</div>
 								 <input class="small button" type="submit" value="Ändern" />
 						</form>
-
-	        	
 	        </div>
 	    	</div>
 	    </div>
