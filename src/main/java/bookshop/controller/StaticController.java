@@ -21,7 +21,26 @@ public class StaticController {
 	@Autowired
 	public StaticController(ArticleManagement articleCatalog) {
 		this.articleCatalog = articleCatalog;
-	}	
+	}
+	
+	
+	/**
+	 * 
+	 * <p>Gets all articles, puts them in a list and shuffles this list</p>
+	 * 
+	 * @param random List&lt;Articles&gt;
+	 * @return Randomized List
+	 */
+	private List<Article> getRandomizeArticles (List<Article> random) {
+		
+		Iterable<Article> articles = articleCatalog.findAll();
+		for(Article art : articles){
+			random.add(art);
+		}
+		
+		Collections.shuffle(random);
+		return random;
+	}
 	
 	/**
 	 * Maps the index page.
@@ -34,17 +53,23 @@ public class StaticController {
 		Random rand = new Random();
 		
 		List<Article> random = new LinkedList<Article>();
-		List<Article> promo = new LinkedList<Article>();
+		Article promo;
 		
-		Iterable<Article> articles = articleCatalog.findAll();
-		for(Article art : articles){
-			random.add(art);
+		getRandomizeArticles(random);
+		
+		/**
+		 * Catch every exception as long we have not tested the List Truncate
+		 */
+		try {
+			if(random.size() > 20) {
+				random.subList(0, 18).clear();
+			}
+		} catch (Exception e) {
+			getRandomizeArticles(random);
 		}
 		
-		Collections.shuffle(random);
-		
 		promotion = rand.nextInt(random.size()-1);
-		promo.add(random.get(promotion));
+		promo = random.get(promotion);
 		random.remove(promotion);
 
 		modelMap.addAttribute("promo", promo);
