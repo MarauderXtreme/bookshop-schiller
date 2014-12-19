@@ -16,30 +16,36 @@
 		        </div>
 		      </header>
 	        <div class="large-12">&nbsp;</div>
-	        <div class="large-12 medium-12 small-12 columns">
+	        <div class="large-12 medium-12 small-12 row">
 	          <h3>Inventar</h3>
 	          <table>
-							<caption th:text="#{stock.title}">Bestand</caption>
 							<thead>
 								<tr>
-									<th th:text="#{shoppingBasket.articleTitle}">Titel</th>
-									<th th:text="#{shoppingBasket.count}">Anzahl</th>
+									<th class="small-3" th:text="#{shoppingBasket.articleTitle}">Titel</th>
+									<th class="small-3" th:text="#{shoppingBasket.count}">Anzahl</th>
+									<th class="small-6">Nachbestellen</th>
 								</tr>
 							</thead>
-							<tbody th:remove="all-but-first">
-									<tr th:each=" item : ${stock}">
-										<td th:text="${item.product.name}">Last Action Hero</td>
-										<td th:text="${item.quantity}">9000</td>
-										<td>
-										  <div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE')">
-												<form method="post" action="/article/reorder">
-													<input id="number" type="number" name="number" min="0" placeholder="Anzahl" />
-													<input type="hidden"  id="article" name="article" th:value="${item.product.identifier}" />
-													<input class="small button" type="submit" value="Nachbestellen" /> 
-												</form>
-											</div>
-							 	    </td>
-									</tr>																	
+							<tbody>
+								<tr th:each=" item : ${stock}">
+									<td th:text="${item.product.name}">Last Action Hero</td>
+									<td th:text="${item.quantity}">9000</td>
+									<td>
+									  <div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE')">
+											<form method="post" action="/article/reorder" data-abide="">
+												<input type="hidden"  id="article" name="article" th:value="${item.product.identifier}" />
+												<div class="row collapse">
+													<div class="small-4 columns">
+														<input id="number" type="number" name="number" min="1" placeholder="Anzahl" required="" />
+													</div>
+													<div class="small-8 columns">
+														<input class="small button" type="submit" value="Nachbestellen" /> 
+													</div>
+												</div>
+											</form>
+										</div>
+						 	    </td>
+								</tr>																	
 							</tbody>
 						</table>
 	        </div>
