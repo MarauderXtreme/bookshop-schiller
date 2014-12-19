@@ -1,11 +1,16 @@
 package bookshop.controller;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.thoughtworks.xstream.mapper.SystemAttributeAliasingMapper;
 
 import bookshop.model.RoomManagement;
 
@@ -24,7 +29,7 @@ public class RoomController {
 	@RequestMapping("/admin/room/add")
 	public String rooms(String roomNumber, String roomName,String chairs, Model model) {
 
-		System.out.println("Rooms aufgerufen");
+
 		model.addAttribute("roomname", roomName);
 		model.addAttribute("roomNumber", roomNumber);
 		model.addAttribute("chairNumber", chairs);

@@ -1,6 +1,8 @@
 package bookshop.model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -8,11 +10,11 @@ import java.util.Map;
 
 
 
-public class Calendar {
+public class MyCalendar {
 	
 	private Map<TupelKey<Room,MyDate>, Event> eventMap;
 	private List<Event> sortedEventList;
-	public Calendar()
+	public MyCalendar()
 	{
 		this.eventMap = new HashMap<TupelKey<Room,MyDate>, Event>();
 	}
@@ -132,5 +134,45 @@ public class Calendar {
 			}
 		}
 		return byMonth;
+	}
+	
+	public String getCurrentYear()
+	{
+		String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+		return date.substring(6, 10);
+	}
+	
+	public String getCurrentMonth()
+	{
+		String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+		return date.substring(3, 5);
+	}
+	
+	public String getCurrentDay()
+	{
+		String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+		return date.substring(0,2);
+	}
+	
+	public List<Event> getFutureEvents()
+	{
+		List<Event> all = getSortedEvents();
+		List<Event> future = new ArrayList<Event>();
+		for(int i=0; i<all.size();i++)
+		{
+			if(!( Integer.parseInt(all.get(i).getDate().getYear()) < Integer.parseInt(getCurrentYear())) )
+			{
+				if(Integer.parseInt(all.get(i).getDate().getYear()) == Integer.parseInt(getCurrentYear()))
+				{
+					if(!(Integer.parseInt(all.get(i).getDate().getMonth()) < Integer.parseInt(getCurrentMonth())) )
+					{
+						future.add(all.get(i));
+					}
+				}
+			}
+			
+		}
+		
+		return future;
 	}
 }

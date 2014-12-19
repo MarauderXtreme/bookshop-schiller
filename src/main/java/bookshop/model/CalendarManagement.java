@@ -2,11 +2,11 @@ package bookshop.model;
 
 public class CalendarManagement {
 	private static CalendarManagement instance ;
-	private Calendar calendar;
+	private MyCalendar calendar;
 	
 	private CalendarManagement()
 	{
-		this.calendar = new Calendar();
+		this.calendar = new MyCalendar();
 	}
 	
 	/**
@@ -50,7 +50,7 @@ public class CalendarManagement {
 	/**
 	 * Gibt das Calendar-Ojekt zurueck, in welchem alle Events gespeichert werden
 	 */
-	public Calendar getCalendar()
+	public MyCalendar getCalendar()
 	{
 		return calendar;
 	}
