@@ -9,8 +9,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import bookshop.AbstractIntegrationTests;
 import bookshop.BookShopSchiller;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = BookShopSchiller.class)
 public class UserControllerTest extends AbstractIntegrationTests {
 
 	@Autowired UserController userController;
