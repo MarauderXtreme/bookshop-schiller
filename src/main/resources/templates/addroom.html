@@ -21,8 +21,14 @@
 				<div class="large-12 medium-12 small-12 columns">
 
 					<div class="large-12 medium-12 small-12 columns">
-						<h2>R&auml;ume</h2>
+						<h2>Raum hinzufuegen</h2>
 
+						<form method="post" action="/admin/room/new">
+							<input type="text" name="rName" /> <input type="text" name="rNum" />
+							<input type="number" name="rChairs" /> <input type="submit"
+								name="add" value="Raum hinzufügen" />
+						</form>
+						<h2>R&auml;ume</h2>
 						<table class="large-12 medium-12 small-12">
 							<thead>
 								<tr>
@@ -40,13 +46,6 @@
 							</tbody>
 						</table>
 					</div>
-					<h2>Raum hinzufuegen</h2>
-						<form method="post" action="/admin/room/new">
-	            <input type="text" name="rName"/>
-	            <input type="text" name="rNum"/>
-	            <input type="number" name="rChairs"/>
-	            <input type="submit" name="add" value="Raum hinzufügen"/>
-				    </form>
 				</div>
 			</div>
 		</div>

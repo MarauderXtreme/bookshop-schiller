@@ -24,7 +24,7 @@ import bookshop.model.Article.ArticleId;
 import bookshop.model.CalendarManagement;
 import bookshop.model.Category;
 import bookshop.model.CategoryManagement;
-import bookshop.model.Date;
+import bookshop.model.MyDate;
 import bookshop.model.RoomManagement;
 import bookshop.model.User;
 import bookshop.model.UserRepository;
@@ -83,31 +83,30 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		}
 		
 		
-
 		RoomManagement.getInstance().addRoom("Computerraum","067","42");
 		RoomManagement.getInstance().addRoom("Ratssaal","1335","1337");
 		RoomManagement.getInstance().addRoom("ASCII","0123","21");
 		RoomManagement.getInstance().addRoom("FSR-Buero","042","21");
 		
-		Date testdate = new Date("17122014","1910");
+		MyDate testdate = new MyDate("17122014","1910");
 		testdate.getDay();
 		testdate.getMonth();
 		testdate.getYear();
 		testdate.getHours();
 		testdate.getMinutes();	
 		
-		CalendarManagement.getInstance().addEvent("Praesentation", new Date("26112014","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
-		CalendarManagement.getInstance().addEvent("FSR-Filmabend", new Date("27112014","1915"), RoomManagement.getInstance().getRoom("Ratssaal"));
-		CalendarManagement.getInstance().addEvent("Tutorenbesprechung", new Date("03122011","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
-		CalendarManagement.getInstance().addEvent("Tutorenbesprechung", new Date("10122014","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
-		CalendarManagement.getInstance().addEvent("Gluehweinverkoestigung", new Date("18122014","0905"), RoomManagement.getInstance().getRoom("ASCII"));
-		CalendarManagement.getInstance().addEvent("Weihnachtsfeier", new Date("22122014","1800"), RoomManagement.getInstance().getRoom("Ratssaal"));
-		CalendarManagement.getInstance().addEvent("Weihnachtsfeier", new Date("22122014","1830"), RoomManagement.getInstance().getRoom("ASCII"));
-		CalendarManagement.getInstance().addEvent("Praesentation", new Date("19011824","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
-		CalendarManagement.getInstance().addEvent("Lernen", new Date("23012015","1640"), RoomManagement.getInstance().getRoom("Computerraum"));
-		CalendarManagement.getInstance().addEvent("Fasching", new Date("10102015","0920"), RoomManagement.getInstance().getRoom("Computerraum"));
-		CalendarManagement.getInstance().addEvent("1. April", new Date("01042015","1111"), RoomManagement.getInstance().getRoom("FSR-Buero"));
-		CalendarManagement.getInstance().addEvent("TestVorAllenBitches", new Date("01042011","1111"), RoomManagement.getInstance().getRoom("FSR-Buero"));
+		CalendarManagement.getInstance().addEvent("Praesentation", new MyDate("26112014","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
+		CalendarManagement.getInstance().addEvent("FSR-Filmabend", new MyDate("27112014","1915"), RoomManagement.getInstance().getRoom("Ratssaal"));
+		CalendarManagement.getInstance().addEvent("Tutorenbesprechung", new MyDate("03122011","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
+		CalendarManagement.getInstance().addEvent("Tutorenbesprechung", new MyDate("10122014","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
+		CalendarManagement.getInstance().addEvent("Gluehweinverkoestigung", new MyDate("18122014","0905"), RoomManagement.getInstance().getRoom("ASCII"));
+		CalendarManagement.getInstance().addEvent("Weihnachtsfeier", new MyDate("22122014","1800"), RoomManagement.getInstance().getRoom("Ratssaal"));
+		CalendarManagement.getInstance().addEvent("Weihnachtsfeier", new MyDate("22122014","1830"), RoomManagement.getInstance().getRoom("ASCII"));
+		CalendarManagement.getInstance().addEvent("Praesentation", new MyDate("19011824","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
+		CalendarManagement.getInstance().addEvent("Lernen", new MyDate("23012015","1640"), RoomManagement.getInstance().getRoom("Computerraum"));
+		CalendarManagement.getInstance().addEvent("Fasching", new MyDate("10102015","0920"), RoomManagement.getInstance().getRoom("Computerraum"));
+		CalendarManagement.getInstance().addEvent("1. April", new MyDate("01042015","1111"), RoomManagement.getInstance().getRoom("FSR-Buero"));
+		CalendarManagement.getInstance().addEvent("TestVorAllenBitches", new MyDate("01042011","1111"), RoomManagement.getInstance().getRoom("FSR-Buero"));
 		CalendarManagement.getInstance().getCalendar().sortEvents();
 		CalendarManagement.getInstance().getCalendar().showList();		
 		
