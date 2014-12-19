@@ -45,8 +45,9 @@
 							</div>
 						
 							<div>
+							<label>Kategorie hinzufügen</label>
 								<input th:field="*{category}" th:errorclass="fieldError" type="text" id="newcategory" name="newcategory" placeholder="Kategorie" required="" />
-								<small class="alert-box alert error">Bitte Namen eingeben.</small>
+								<small class="alert-box alert error">Bitte den Namen der Kategorie eingeben.</small>
 								<small class="alert-box alert" th:if="${#fields.hasErrors('category')}" th:errors="*{category}">Der Vorname darf nicht leer sein.</small>
 								
 								<select th:field="*{type}" th:errorclass="fieldError" id="type" name="type" required="">
@@ -55,7 +56,6 @@
 									<option value="DVD">DVD</option>
 								</select>								
 								
-								<small class="alert-box alert error">Bitte neue Kategorie auswählen.</small>
 								<small class="alert-box alert" th:if="${#fields.hasErrors('type')}" th:errors="*{type}">Der Vorname darf nicht leer sein.</small>
 							</div>
 							
@@ -65,7 +65,7 @@
 						
 						<form method="POST" action="/editcategories/delete" data-abide="">				
 							<div>
-								<label>Entferne Kategorie</label>
+								<label>Kategorie entfernen</label>
 								<select name="categorytodelete" required="">
 									<option value="1">Keine</option>
 									<option th:each="category : ${categories}" th:text="${category.categoryName}" th:value="${category.categoryName}" value="2">category</option>
@@ -74,7 +74,7 @@
 							</div>
 								 <input class="small button" type="submit" value="Entfernen" />
 						</form>
-						<form method="POST" action="/editcategories/edit" data-abide="">
+						<!--<form method="POST" action="/editcategories/edit" data-abide="">
 							<div>
 								<label>Kategorie bearbeiten</label>
 								<select name="oldcategory" required="">
@@ -84,10 +84,9 @@
 								<label>Änderung</label>
 								<input type="text" name="editcategory" placeholder="Kategorie" required="" />
 								<small class="alert-box alert error">Bitte Namen eingeben.</small>
-								<!--<small class="alert-box alert" th:if="${#fields.hasErrors('category')}" th:errors="*{category}">Der Vorname darf nicht leer sein.</small> -->
 							</div>
 								 <input class="small button" type="submit" value="Ändern" />
-						</form>
+						</form>-->
 	        </div>
 	    	</div>
 	    </div>
