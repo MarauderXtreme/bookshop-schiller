@@ -61,3 +61,7 @@ body {
 .promo-box .cover {
 	height: 400px;
 }
+
+.calendar tbody tr:nth-child(even) {
+	background: #f2f2f2;
+}
