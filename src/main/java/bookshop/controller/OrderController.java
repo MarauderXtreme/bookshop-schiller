@@ -70,20 +70,8 @@ public class OrderController {
 		return "orders";
 	}
 	
-	@PreAuthorize("hasRole('ROLE_CUSTOMER')")
-	@RequestMapping("/user/getPDF")
-	public ModelAndView gedOrderPDF(){
-		//PDFBuilder pdf = null;
-		//pdf.setData(userAccount.get());
-		
-		return new ModelAndView("home", "orderspdf", orderPDF);
-	}
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "/test", method = RequestMethod.GET)
-	public String viewHome() {
-		return "home";
-	}
-	
+
+
 	/**
 	 * Get Orders from logged in User
 	 * @param modelMap
@@ -108,7 +96,7 @@ public class OrderController {
 		this.orderPDF = order;
 		String orderpath = order.getIdentifier().toString();
 		System.out.println(orderpath);
-		orderpath = orderpath + "_1.jpg";
+		orderpath = orderpath + ".pdf";
 		System.out.println(orderpath);
 		modelMap.addAttribute("detailordersID", orderpath);
 		modelMap.addAttribute("detailorders", order.getOrderLines());

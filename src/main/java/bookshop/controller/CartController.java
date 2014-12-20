@@ -76,7 +76,7 @@ public class CartController {
 				HttpServletResponse response = null;
 				HttpServletRequest request = null;
 				pdf.pdfCreate(order, userAccount.get());
-				pdf.pdfToImage(order);
+				//pdf.pdfToImage(order);
 				/*
 				try {
 					pdf.pdfCreate2(order, userAccount.get(), request, response);
