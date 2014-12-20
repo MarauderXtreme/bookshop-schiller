@@ -106,8 +106,11 @@ public class OrderController {
 	public String getOrderDetails(ModelMap modelMap, @RequestParam("orderdetail") Order order){
 		
 		this.orderPDF = order;
-		modelMap.addAttribute("curDir", System.getProperty("user.dir"));
-		modelMap.addAttribute("detailordersID", order.getIdentifier().toString());
+		String orderpath = order.getIdentifier().toString();
+		System.out.println(orderpath);
+		orderpath = orderpath + "_1.jpg";
+		System.out.println(orderpath);
+		modelMap.addAttribute("detailordersID", orderpath);
 		modelMap.addAttribute("detailorders", order.getOrderLines());
 		
 		return "/ordersdetail";

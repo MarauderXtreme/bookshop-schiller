@@ -180,7 +180,7 @@ public class PDFCreator extends HttpServlet {
     	
     	try {
             String sourceDir = System.getProperty("user.dir") + "/src/main/resources/static/resources/orders/" + order.getIdentifier().toString() + ".pdf"; // Pdf files are read from this folder
-            String destinationDir = System.getProperty("user.dir") + "/src/main/resources/static/resources/orders/" + order.getIdentifier().toString(); // converted images from pdf document are saved here
+            String destinationDir = System.getProperty("user.dir") + "/src/main/resources/static/resources/orders/"; // converted images from pdf document are saved here
 
             File sourceFile = new File(sourceDir);
             File destinationFile = new File(destinationDir);
