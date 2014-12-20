@@ -72,9 +72,11 @@ public class CartController {
 				orderManager.add(order);
 				cart.clear();
 				PDFCreator pdf = new PDFCreator();
+				
 				HttpServletResponse response = null;
 				HttpServletRequest request = null;
 				pdf.pdfCreate(order, userAccount.get());
+				pdf.pdfToImage(order);
 				/*
 				try {
 					pdf.pdfCreate2(order, userAccount.get(), request, response);

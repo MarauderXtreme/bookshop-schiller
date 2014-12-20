@@ -71,15 +71,15 @@ public class OrderController {
 	}
 	
 	@PreAuthorize("hasRole('ROLE_CUSTOMER')")
-	@RequestMapping("/user/downloadPDF")
+	@RequestMapping("/user/getPDF")
 	public ModelAndView gedOrderPDF(){
 		//PDFBuilder pdf = null;
 		//pdf.setData(userAccount.get());
 		
-		return new ModelAndView("pdfView", "orderspdf", orderPDF);
+		return new ModelAndView("home", "orderspdf", orderPDF);
 	}
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@RequestMapping(value = "/order/PDF", method = RequestMethod.GET)
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public String viewHome() {
 		return "home";
 	}
