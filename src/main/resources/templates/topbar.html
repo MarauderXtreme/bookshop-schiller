@@ -93,7 +93,7 @@
     				<li>
     					<a th:href="@{/admin/event/add}" href="addEvent.html">Neues Event</a>
     				</li>
-    				<li>
+    				<li sec:authorize="hasAnyRole('ROLE_ADMIN')">
     					<a th:href="@{/admin/room/add}" href="addRoom.html">Neuer Raum</a>
     				</li>
     			</ul>

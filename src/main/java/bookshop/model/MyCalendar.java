@@ -28,7 +28,6 @@ public class MyCalendar {
 	{
 		if (eventMap.containsKey(tk))
 		{
-			System.out.println("ALARM");
 			return eventMap.get(tk);
 		}
 		else {
@@ -45,22 +44,20 @@ public class MyCalendar {
 	{
 		if (!eventMap.containsKey(new TupelKey<Room,MyDate>(event.getRoom(), event.getDate())))
 		{
-			System.out.println("Termin ist Frei!");
 			eventMap.put(new TupelKey<Room,MyDate>(event.getRoom(), event.getDate()), event);
 			return true;
 		} else {
-			System.out.println("Termin ist bereits belegt: " + event.getDate().getDate()+" " + event.getDate().getTime());
 			return false;
 		}
 	}
 	
 	public List<Event> getSortedEvents()
 	{
-		System.out.println(eventMap.size());
+		//System.out.println(eventMap.size());
 		List<Event> eventList = getEventList();
 		List<Event> tempSortedEventList = new ArrayList<Event>();
-		tempSortedEventList.add(eventList.get(0));
 		Iterator<Event> itr = eventList.iterator();
+		tempSortedEventList.add(itr.next());
 		while(itr.hasNext())
 		{
 			Event tempev = (Event) itr.next();
@@ -70,7 +67,7 @@ public class MyCalendar {
 			int hour = Integer.parseInt(tempev.getDate().getHours());
 			int minute = Integer.parseInt(tempev.getDate().getMinutes());
 			
-			for (int i=0; i<=tempSortedEventList.size() /*&& tempSortedEventList.size() < eventList.size()*/; i++)
+			for (int i=0; i<tempSortedEventList.size(); i++)
 			{
 				int compYear = Integer.parseInt(tempSortedEventList.get(i).getDate().getYear());
 				int compMonth = Integer.parseInt(tempSortedEventList.get(i).getDate().getMonth());
@@ -80,12 +77,10 @@ public class MyCalendar {
 			
 				if((year < compYear) || (year == compYear && month < compMonth) || ((year == compYear && month == compMonth && day < compDay )) || (year == compYear && month == compMonth && day == compDay && hour < compHour) || (year == compYear && month == compMonth && day == compDay && hour == compHour && minute < compMinute))
 				{
-					System.out.println("Event wird eingefuegt!");
 					tempSortedEventList.add(i, tempev);
 					break;
 				} else if(i == tempSortedEventList.size()-1)
 				{
-					System.out.println("Event hinten ran geadded");
 					tempSortedEventList.add(tempev);
 					break;
 				} 
@@ -103,7 +98,7 @@ public class MyCalendar {
 	{
 		for(int i=0; i<sortedEventList.size(); i++)
 		{
-			System.out.println(sortedEventList.get(i).getName()+" Datum:"+" "+sortedEventList.get(i).getDateD());
+			//System.out.println(sortedEventList.get(i).getName()+" Datum:"+" "+sortedEventList.get(i).getDateD());
 		}
 	} 
 	
@@ -202,7 +197,7 @@ public class MyCalendar {
 		for(int i=2000; i<2099; i++)
 		{
 			years.add(""+i);
-			System.out.println(""+i);
+			//System.out.println(""+i);
 		}
 		return years;
 	}

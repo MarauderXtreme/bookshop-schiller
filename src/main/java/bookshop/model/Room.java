@@ -34,7 +34,7 @@ public class Room {
 	
 	public boolean equals(Room r) {
 		
-		System.out.println("Room equals wird geprueft");
+		//System.out.println("Room equals wird geprueft");
 		if(this.name.equals(r.getName())|| this.number.equals(r.getNumber())) {
 			return true;
 		} else {

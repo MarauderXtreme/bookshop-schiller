@@ -102,11 +102,10 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		CalendarManagement.getInstance().addEvent("Gluehweinverkoestigung", new MyDate("18122014","0905"), RoomManagement.getInstance().getRoom("ASCII"));
 		CalendarManagement.getInstance().addEvent("Weihnachtsfeier", new MyDate("22122014","1800"), RoomManagement.getInstance().getRoom("Ratssaal"));
 		CalendarManagement.getInstance().addEvent("Weihnachtsfeier", new MyDate("22122014","1830"), RoomManagement.getInstance().getRoom("ASCII"));
-		CalendarManagement.getInstance().addEvent("Praesentation", new MyDate("19011824","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
+		//CalendarManagement.getInstance().addEvent("Praesentation", new MyDate("19011824","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
 		CalendarManagement.getInstance().addEvent("Lernen", new MyDate("23012015","1640"), RoomManagement.getInstance().getRoom("Computerraum"));
 		CalendarManagement.getInstance().addEvent("Fasching", new MyDate("10102015","0920"), RoomManagement.getInstance().getRoom("Computerraum"));
 		CalendarManagement.getInstance().addEvent("1. April", new MyDate("01042015","1111"), RoomManagement.getInstance().getRoom("FSR-Buero"));
-		CalendarManagement.getInstance().addEvent("TestVorAllenBitches", new MyDate("01042011","1111"), RoomManagement.getInstance().getRoom("FSR-Buero"));
 		CalendarManagement.getInstance().getCalendar().sortEvents();
 		CalendarManagement.getInstance().getCalendar().showList();		
 		

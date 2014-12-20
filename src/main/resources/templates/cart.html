@@ -36,7 +36,7 @@
 											<td class="large-2 medium-2 small-2" th:text="${orderline.quantity.amount}">10</td>
 											<td class="large-2 medium-2 small-2" th:text="${orderline.price}">10 Euro</td>
 											<td class="large-2 medium-2 small-2"> 
-												<div class="salespoint" sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_SALESMANAGER', 'ROLE_USERMANAGER', 'ROLE_EVENTMANAGER', 'ROLE_ARTICLEMANAGER')">
+												<div class="salespoint" sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_SALESMANAGER','ROLE_USERMANAGER','ROLE_EVENTMANAGER','ROLE_ARTICLEMANAGER')">
 													<form class="salespoint" method="POST" action="/cart/delete" >
 													  <input type="hidden" name="test" value="0" th:value="${orderline.identifier}"/>
 														<input class="button" type="submit" value="lÃ¶schen"/> 
@@ -60,10 +60,8 @@
 								</div>
 							</div>
 						</div>
-						<p th:if="${cart.empty}" th:text="#{cart.empty}">Leer</p>
-					</div>
-					<div class="salespoint" sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_SALESMANAGER','ROLE_EMPLOYEE','ROLE_USERMANAGER','ROLE_ARTICLEMANAGER','ROLE_EVENTMANAGER')">
-						<p th:text="#{cart.troll}">Ätsch bätsch</p>
+						<p sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_SALESMANAGER','ROLE_USERMANAGER','ROLE_EVENTMANAGER','ROLE_ARTICLEMANAGER')" th:if="${cart.empty}" th:text="#{cart.empty}">Leer</p>
+						<p sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_SALESMANAGER','ROLE_USERMANAGER','ROLE_EVENTMANAGER','ROLE_ARTICLEMANAGER')" th:text="#{cart.troll}">Ätsch bätsch</p>
 					</div>
 	    	</div>
 	    </div>
