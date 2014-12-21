@@ -3,13 +3,11 @@ package bookshop.model;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.salespointframework.useraccount.UserAccountIdentifier;
 
 @Component
 public class UserManagement {
@@ -73,8 +71,7 @@ public class UserManagement {
 	public boolean disable(UserAccount userAccount) {
 		
 		if (userAccount.isEnabled()) {
-			User user = userRepository.findUserByUserAccount(userAccount);
-			userAccountManager.disable(user.getUserAccount().getIdentifier());
+			userAccountManager.disable(userAccount.getIdentifier());
 			return true;
 		}
 		return false;
@@ -88,8 +85,7 @@ public class UserManagement {
 	public boolean enable(UserAccount userAccount) {
 		
 		if (!userAccount.isEnabled()) {
-			User user = userRepository.findUserByUserAccount(userAccount);
-			userAccountManager.enable(user.getUserAccount().getIdentifier());
+			userAccountManager.enable(userAccount.getIdentifier());
 			return true;
 		}
 		return false;
@@ -111,7 +107,7 @@ public class UserManagement {
 	}
 	
 	/**
-	 * Removes the given role to the given userAccount.
+	 * Removes the given role from the given userAccount.
 	 * @param userAccount
 	 * @param role
 	 * @return true if role was removed and false if not

@@ -38,12 +38,14 @@
 												<input class="button" type="submit" value="Cancel"/> 
 											</form>
 										</td>
+										<!--
 										<td>
 											<form method="GET" action="/user/getPDF">
 											  <input type="hidden" name="orderPDF" value="0" th:value="${order.identifier}"/>	
 												<input class="button" type="submit" value="PDF generieren"/> 
 											</form>
 										</td>
+										-->
 										<td>
 											<form class="salespoint" method="POST" action="/order/detail">
 											  <input type="hidden" name="orderdetail" value="0" th:value="${order.identifier}"/>
@@ -51,11 +53,6 @@
 											</form>
 										</td>
 									</tr>
-									<a href="fcdf0bc6-0d66-4972-8ae1-5b238e817771.pdf">PDF</a>
-								<!--	<a href="./24074d38-7ff5-4a76-8c39-369f922eff3d.pdf" >Download the pdf</a>
-									<a href="file:///D:\SWT\Workspace\bookshop-schiller\src\main\resources\orders\24074d38-7ff5-4a76-8c39-369f922eff3d.pdf" target="_blank">Link 1</a>
-								-->	
-								<h3><a href="downloadPDF">Download PDF Document</a></h3>
 							</tbody>
 						</table>
 	        </div>

@@ -10,12 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import bookshop.AbstractIntegrationTests;
 
-public class UserTest extends AbstractIntegrationTests {
+public class UserRepositoryTest extends AbstractIntegrationTests {
 
+	@Autowired UserRepository userRepository;
 	@Autowired UserAccountManager userAccountManager;
 	
 	@Test
-	public void testStringGetters() {
+	public void testFindUserByUserAccount() {
 		
 		final Role adminRole = new Role("ROLE_ADMIN");
 		final Role employeeRole = new Role("ROLE_EMPLOYEE");
@@ -24,15 +25,9 @@ public class UserTest extends AbstractIntegrationTests {
 		adminAccount.setLastname("Kepler");
 		adminAccount.setEmail("chris.kepler@schiller.de");
 		adminAccount.add(adminRole);
-		userAccountManager.save(adminAccount);
 		
-		Address adminAddress = new Address("Mommsenstraße", "13", "01187", "Dresden");
-		User admin = new User(adminAccount, adminAddress);
-
-		assertTrue("Die Methode getRoles() in User liefert einen falschen String.", admin.getRoles().equals("ADMIN, EMPLOYEE") || admin.getRoles().equals("EMPLOYEE, ADMIN"));
-		assertEquals("Die Methode getState() in User liefert einen falschen String.", admin.getState(), "ENABLED");
-		assertEquals("Die Methode toString() in Address liefert einen falschen String.", adminAddress.toString(), "Mommsenstraße 13, 01187 Dresden");
-
+		assertEquals("Die Methode findByUserAccount() liefert einen User mit falschem UserAccount.", userRepository.findUserByUserAccount(adminAccount).getUserAccount(), adminAccount);
+		assertEquals("Die Methode findByUserAccount() liefert einen User mit falscher Adresse.", userRepository.findUserByUserAccount(adminAccount).getAddress().toString(), "Mommsenstraße 13, 01187 Dresden");
 	}
 
 }

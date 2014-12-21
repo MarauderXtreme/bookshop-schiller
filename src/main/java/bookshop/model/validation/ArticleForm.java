@@ -51,20 +51,35 @@ public class ArticleForm {
 	@Pattern(regexp="([0-3][0-9]\\.[0-1][0-9]\\.[0-2][0-9][0-9][0-9])", message = "{ArticleForm.Date.Format}")
 	private String releaseDate;
 	
+	
 	//Setter and Getter
 	
+	/**
+	 * @return the given stock price from the article form
+	 */
 	public double getStockPrice() {
 		return stockPrice;
 	}
 
+	/**
+	 * Sets the stock price of the article form to the given value.
+	 * @param stockPrice
+	 */
 	public void setStockPrice(double stockPrice) {
 		this.stockPrice = stockPrice;
 	}
 
+	/**
+	 * @return the given release date from the article form
+	 */
 	public String getReleaseDate() {
 		return releaseDate;
 	}
 
+	/**
+	 * Sets the release date of the article form to the given value.
+	 * @param releaseDate
+	 */
 	public void setReleaseDate(String releaseDate) {
 		this.releaseDate = releaseDate;
 	}
@@ -84,10 +99,17 @@ public class ArticleForm {
 		this.name = name;
 	}
 	
+	/**
+	 * @return the article price from the article form
+	 */
 	public double getPrice(){
 		return price;
 	}
 	
+	/**
+	 * Sets the price of the article form to the given value.
+	 * @param price
+	 */
 	public void setPrice(double price){
 		this.price = price;
 	}
@@ -168,28 +190,5 @@ public class ArticleForm {
 	public void setImage(String image){
 		this.image = image;
 	}
-	
-	/*public String getCategory(){
-		return category;
-	}
-	
-	public void setCategory(String category){
-		this.category = category;
-	}*/
-	
-	/**
-	 * @return the given amount of article units from the article form
-	 */
-	/*public int getAmount(){
-		return amount;
-	}*/
-	
-	/**
-	 * Sets the amount of the article form to the given value.
-	 * @param amount
-	 */
-	/*public void setAmount(int amount){
-		this.amount = amount;
-	}*/
 	
 }

@@ -7,16 +7,15 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import bookshop.AbstractIntegrationTests;
-import bookshop.AbstractWebIntegrationTests;
 import bookshop.BookShopSchiller;
 
-public class UserControllerTest extends AbstractWebIntegrationTests {
+public class ArticleControllerTest extends AbstractIntegrationTests {
 
-	@Autowired UserController userController;
+	@Autowired ArticleController articleController;
 	
 	@Test
-	public void test() {
-		
+	public void testArticleController() {
+		//Functionalities are tested in Article and Category Tests
 	}
 
 }

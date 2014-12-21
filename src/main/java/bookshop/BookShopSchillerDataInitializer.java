@@ -102,11 +102,10 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		CalendarManagement.getInstance().addEvent("Gluehweinverkoestigung", new MyDate("18122014","0905"), RoomManagement.getInstance().getRoom("ASCII"));
 		CalendarManagement.getInstance().addEvent("Weihnachtsfeier", new MyDate("22122014","1800"), RoomManagement.getInstance().getRoom("Ratssaal"));
 		CalendarManagement.getInstance().addEvent("Weihnachtsfeier", new MyDate("22122014","1830"), RoomManagement.getInstance().getRoom("ASCII"));
-		CalendarManagement.getInstance().addEvent("Praesentation", new MyDate("19011824","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
+		//CalendarManagement.getInstance().addEvent("Praesentation", new MyDate("19011824","1110"), RoomManagement.getInstance().getRoom("Computerraum"));
 		CalendarManagement.getInstance().addEvent("Lernen", new MyDate("23012015","1640"), RoomManagement.getInstance().getRoom("Computerraum"));
 		CalendarManagement.getInstance().addEvent("Fasching", new MyDate("10102015","0920"), RoomManagement.getInstance().getRoom("Computerraum"));
 		CalendarManagement.getInstance().addEvent("1. April", new MyDate("01042015","1111"), RoomManagement.getInstance().getRoom("FSR-Buero"));
-		CalendarManagement.getInstance().addEvent("TestVorAllenBitches", new MyDate("01042011","1111"), RoomManagement.getInstance().getRoom("FSR-Buero"));
 		CalendarManagement.getInstance().getCalendar().sortEvents();
 		CalendarManagement.getInstance().getCalendar().showList();		
 		
@@ -141,8 +140,6 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		categories.save(action);
 		categories.save(drama);
 		
-		System.out.println(categories.findById("BOOKFiktion").get().getCategoryName());
-		
 		Article v = new Article("Trost und Rat", Money.of(EUR, 9.99), "Ein Ratgeber der besonderen Art", "Flann O'Brien", "1234567890421", ArticleId.BOOK, categories.findById("BOOKFiktion").get().getCategoryName(), "Flann O'Brien", "trostundrat.jpg", "01.01.2015", Money.of(EUR, 0.99));		
 		articleCatalog.save(v);
 		articleCatalog.save(new Article("50 Schatten des Grauens", Money.of(EUR, 7.98), "Horrorpersiflage des Bestsellers", "Chris Ragman", "0000000000001", ArticleId.BOOK, categories.findById("BOOKRatgeber").get().getCategoryName(), "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99)));
@@ -153,8 +150,6 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		articleCatalog.save(new Article("Dummdumm", Money.of(EUR, 17.95), "Kurzbeschreibungen der Episoden der ersten Staffel", "Wolfgang Hohlbein", "0000000000006", ArticleId.BOOK, categories.findById("BOOKUnterhaltung").get().getCategoryName(), "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99)));
 		articleCatalog.save(new Article("Depedro", Money.of(EUR, 17.95), "Spanische Musik", "Spanish Records", "1263453rr", ArticleId.CD, categories.findById("CDPop").get().getCategoryName(), "Pedro", "01.01.2015", Money.of(EUR, 0.99)));
 		articleCatalog.save(new Article("Begotten", Money.of(EUR, 17.95), "Strange...", "Indie Records", "1263453rr", ArticleId.DVD, categories.findById("DVDHorror").get().getCategoryName(), "God", "01.01.2015", Money.of(EUR, 0.99)));
-		 
-		
 		
 		
 		for (Article article : articleCatalog.findAll()) {
@@ -184,13 +179,6 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		final Role eventManagerRole = new Role("ROLE_EVENTMANAGER");
 		final Role salesManagerRole = new Role("ROLE_SALESMANAGER");
 		final Role customerRole = new Role("ROLE_CUSTOMER");
-		
-		UserAccount shopAccount = userAccountManager.create("shop", "123", employeeRole);
-		shopAccount.setFirstname("Christoph");
-		shopAccount.setLastname("Kepler");
-		shopAccount.setEmail("chris.kepler@schiller.de");
-		shopAccount.add(adminRole);
-		userAccountManager.save(shopAccount);
 		
 		UserAccount adminAccount = userAccountManager.create("admin", "123", employeeRole);
 		adminAccount.setFirstname("Christoph");

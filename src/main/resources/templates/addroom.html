@@ -21,16 +21,15 @@
 				<div class="large-12 medium-12 small-12 columns">
 
 					<div class="large-12 medium-12 small-12 row">
-						<h2>Raum hinzufügen</h2>
-
+						<h3>Raum hinzufügen</h3>
 						<form class="row" method="post" action="/admin/room/new" data-abide="">
 							<div class="large-6 medium-6 small-12 columns">
-								<label>Name:</label>
+								<label>Name:*</label>
 								<input type="text" name="rName" required="" />
 								<small class="alert-box alert error">Name darf nicht leer sein.</small>
 							</div>
 							<div class="large-6 medium-6 small-12 columns">			
-								<label>Nummer:</label>				
+								<label>Nummer:*</label>				
 								<input type="text" name="rNum" required="" />
 								<small class="alert-box alert error">Nummer darf nicht leer sein.</small>
 							</div>
@@ -43,7 +42,9 @@
 								<input class="small round button" type="submit" value="Raum hinzufügen" />
 							</div>
 						</form>
-						<h2>Räume</h2>
+						<small>*ACHTUNG: Raumname und Raumnummer dürfen nicht doppelt vergeben werden!</small>
+						<br />
+						<h3>Aktuelle Räume</h3>
 						<table class="large-12 medium-12 small-12">
 							<thead>
 								<tr>

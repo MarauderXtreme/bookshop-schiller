@@ -14,6 +14,10 @@ public class MyCalendar {
 	
 	private Map<TupelKey<Room,MyDate>, Event> eventMap;
 	private List<Event> sortedEventList;
+	
+	/**
+	 * initializes a new MyCalendar-object
+	 */
 	public MyCalendar()
 	{
 		this.eventMap = new HashMap<TupelKey<Room,MyDate>, Event>();
@@ -24,11 +28,15 @@ public class MyCalendar {
 		return null;
 	}
 	
+	/**
+	 * 
+	 * @param tk tupelkey-object that is used as key for the wanted event
+	 * @return the event with the specified room and date or null when nothing found
+	 */
 	public Event getEvent(TupelKey<Room,MyDate> tk)
 	{
 		if (eventMap.containsKey(tk))
 		{
-			System.out.println("ALARM");
 			return eventMap.get(tk);
 		}
 		else {
@@ -36,31 +44,40 @@ public class MyCalendar {
 		}
 	}	
 	
+	/**
+	 * 
+	 * @return all values from the eventList
+	 */
 	public List<Event> getEventList()
 	{
 		return new ArrayList<Event>(eventMap.values());
 	}
-	
+	/**
+	 * Adds an event to the eventList
+	 * @param event event that is to be added
+	 * @return true wenn event can be added, false when there already is an event in the same room at the same time
+	 */
 	public boolean addEvent(Event event)
 	{
 		if (!eventMap.containsKey(new TupelKey<Room,MyDate>(event.getRoom(), event.getDate())))
 		{
-			System.out.println("Termin ist Frei!");
 			eventMap.put(new TupelKey<Room,MyDate>(event.getRoom(), event.getDate()), event);
 			return true;
 		} else {
-			System.out.println("Termin ist bereits belegt: " + event.getDate().getDate()+" " + event.getDate().getTime());
 			return false;
 		}
 	}
-	
+	/**
+	 * 
+	 * @return a sorted List of all elements
+	 */
 	public List<Event> getSortedEvents()
 	{
-		System.out.println(eventMap.size());
+		//System.out.println(eventMap.size());
 		List<Event> eventList = getEventList();
 		List<Event> tempSortedEventList = new ArrayList<Event>();
-		tempSortedEventList.add(eventList.get(0));
 		Iterator<Event> itr = eventList.iterator();
+		tempSortedEventList.add(itr.next());
 		while(itr.hasNext())
 		{
 			Event tempev = (Event) itr.next();
@@ -70,7 +87,7 @@ public class MyCalendar {
 			int hour = Integer.parseInt(tempev.getDate().getHours());
 			int minute = Integer.parseInt(tempev.getDate().getMinutes());
 			
-			for (int i=0; i<=tempSortedEventList.size() /*&& tempSortedEventList.size() < eventList.size()*/; i++)
+			for (int i=0; i<tempSortedEventList.size(); i++)
 			{
 				int compYear = Integer.parseInt(tempSortedEventList.get(i).getDate().getYear());
 				int compMonth = Integer.parseInt(tempSortedEventList.get(i).getDate().getMonth());
@@ -80,12 +97,10 @@ public class MyCalendar {
 			
 				if((year < compYear) || (year == compYear && month < compMonth) || ((year == compYear && month == compMonth && day < compDay )) || (year == compYear && month == compMonth && day == compDay && hour < compHour) || (year == compYear && month == compMonth && day == compDay && hour == compHour && minute < compMinute))
 				{
-					System.out.println("Event wird eingefuegt!");
 					tempSortedEventList.add(i, tempev);
 					break;
 				} else if(i == tempSortedEventList.size()-1)
 				{
-					System.out.println("Event hinten ran geadded");
 					tempSortedEventList.add(tempev);
 					break;
 				} 
@@ -94,6 +109,9 @@ public class MyCalendar {
 		return tempSortedEventList;
 	}
 	
+	/**
+	 * sorts the eventList so that the oldest elements are on top
+	 */
 	public void sortEvents()
 	{
 		this.sortedEventList = getSortedEvents();
@@ -103,11 +121,17 @@ public class MyCalendar {
 	{
 		for(int i=0; i<sortedEventList.size(); i++)
 		{
-			System.out.println(sortedEventList.get(i).getName()+" Datum:"+" "+sortedEventList.get(i).getDateD());
+			//System.out.println(sortedEventList.get(i).getName()+" Datum:"+" "+sortedEventList.get(i).getDateD());
 		}
 	} 
 	
 	//Gibt alle Events eines gewählten Jahres zurück
+	/**
+	 * Searches for all events from the list that happened in the specified year
+	 * @param year Specifies the year from which all elements shall be retrieved
+	 * @return
+	 */
+	
 	public List<Event> getEventsByYear(int year)
 	{
 		List<Event>byYear = new ArrayList<Event>();
@@ -123,6 +147,13 @@ public class MyCalendar {
 	}
 	
 	//Gibt für eine eingegebene Liste alle Events des angegebenen Monats zurück
+	
+	/**
+	 * Gives all elements of a specific months, to be used in combination with getEventsByYear
+	 * @param byYear List of Elements from a specific year
+	 * @param month month that is to be shown
+	 * @return a list with all elements that happen in the specified month
+	 */
 	public List<Event> getEventsByMonth(List<Event> byYear, int month)
 	{
 		List<Event>byMonth = new ArrayList<Event>();
@@ -136,24 +167,40 @@ public class MyCalendar {
 		return byMonth;
 	}
 	
+	/**
+	 * 
+	 * @return the current year
+	 */
 	public String getCurrentYear()
 	{
 		String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
 		return date.substring(6, 10);
 	}
 	
+	/**
+	 * 
+	 * @return the current month
+	 */
 	public String getCurrentMonth()
 	{
 		String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
 		return date.substring(3, 5);
 	}
 	
+	/**
+	 * 
+	 * @return the current day
+	 */
 	public String getCurrentDay()
 	{
 		String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
 		return date.substring(0,2);
 	}
 	
+	/**
+	 * 
+	 * @return a List of Recent and Future events
+	 */
 	public List<Event> getFutureEvents()
 	{
 		List<Event> all = getSortedEvents();
@@ -202,7 +249,7 @@ public class MyCalendar {
 		for(int i=2000; i<2099; i++)
 		{
 			years.add(""+i);
-			System.out.println(""+i);
+			//System.out.println(""+i);
 		}
 		return years;
 	}

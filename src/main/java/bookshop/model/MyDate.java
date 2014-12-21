@@ -9,23 +9,39 @@ public class MyDate extends Object{
 	{	
 	}
 	
+	/**
+	 * Initializes a new MyDatte object 
+	 * @param d represents the date
+	 * @param t represents the time
+	 */
 	public MyDate(String d , String t)
 	{
 		this.date = d;
 		this.time = t;
 	}
 	
-	
+	/**
+	 * 
+	 * @return the date-parameter of the MyDate.object as string
+	 */
 	public String getDate()
 	{
 		return date;
 	}
 	
+	/**
+	 * 
+	 * @return the time-parameter of the MyDate.object as string
+	 */
 	public String getTime()
 	{
 		return time;
 	}
 	
+	/**
+	 * extracts the day-value from the date-string
+	 * @return day of the MyDate.object as string
+	 */
 	public String getDay()
 	{
 		return date.substring(0, 2);
@@ -67,7 +83,7 @@ public class MyDate extends Object{
 	
 	public boolean equals(Object date) {
 		
-		System.out.println("Datum wird ueberprüft");
+		//System.out.println("Datum wird ueberprüft");
 	       if (!(date instanceof MyDate))
 	       {
 	    	   return false;
@@ -87,11 +103,11 @@ public class MyDate extends Object{
 	        
 	        if(this.date.equals(dateN.date) && this.time.equals(dateN.time))
 	        {
-	        	System.out.println("Datum ist gleich!");
+	        	//System.out.println("Datum ist gleich!");
 	        	return true;
 	        } else 
 	        {
-	        	System.out.println("Datum ist unterschiedlich!");
+	        	//System.out.println("Datum ist unterschiedlich!");
 	        	return false;
 	        }
 	    }

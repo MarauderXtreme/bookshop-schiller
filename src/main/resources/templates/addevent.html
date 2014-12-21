@@ -17,15 +17,15 @@
 		      </header>
 	        <div class="large-12">&nbsp;</div>
 	        <div class="large-12 medium-12 small-12 row">
-	          <h2>Event hinzufügen</h2>
+	          <h3>Event hinzufügen</h3>
 	          <form method="post" action="/admin/event/new" data-abide="">
 	          	<div class="large-6 medium-6 small-12 columns">
-	          		<label>Datum:</label>
+	          		<label>Datum:*</label>
 	            	<input type="text" name="dated" required="" pattern="custom_eventdate"/>
 								<small class="alert-box alert error">Datum muss Form ddmmyyyy entsprechen.</small>
 		          </div>
 		          <div class="large-6 medium-6 small-12 columns">
-		          	<label>Zeit:</label>
+		          	<label>Uhrzeit:*</label>
 		            <input type="text" name="datet" required="" pattern="custom_time"/>
 								<small class="alert-box alert error">Zeit muss Form hhmm entsprechen.</small>
 		          </div>
@@ -35,8 +35,8 @@
 								<small class="alert-box alert error">Veranstaltungsname darf nicht leer sein.</small>
 		          </div>
 		          <div class="large-6 medium-6 small-12 columns">
-		          	<label>Raum:</label>
-		            <select required="">
+		          	<label>Raum:*</label>
+		            <select required="" name="selectedRoom">
 		            	<option th:each="room : ${roomList}" value="Empty" th:value="${room.getName()}" th:text="${room.getName()}">Empty</option>
 		            </select>
 		          </div>
@@ -44,6 +44,7 @@
 	            	<input class="small round button" type="submit" name="add" value="Event hinzufügen"/>
 	            </div>
 		        </form>
+		        <small>*ACHTUNG: Es ist nur ein Event pro Raum und Zeit erlaubt!</small>
 	        </div>
 	    	</div>
 	    </div>

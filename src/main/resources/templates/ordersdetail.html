@@ -33,7 +33,12 @@
 								</tr>
 							</tbody>
 						</table>
-						<a class="small button" target="_blank" href="/" th:href="@{'../static/resources/orders/' + ${detailorderID} + '.pdf'}">PDF</a>
+						<!--
+	        	<div class="large-3 columns">
+  						<img alt="order" class="detail cover" th:src="@{'/resources/orders/' + ${detailordersID}}" />
+						</div>
+						-->
+					 <a class="small button" target="_blank" href="/" th:href="@{'/resources/orders/' + ${detailordersID}}">Rechnung</a>
 	        </div>
 	    	</div>
 	    </div>
