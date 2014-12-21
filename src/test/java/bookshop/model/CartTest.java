@@ -14,6 +14,7 @@ import org.salespointframework.order.Cart;
 import org.salespointframework.order.CartItem;
 import org.salespointframework.order.Order;
 import org.salespointframework.order.OrderLine;
+//import org.salespointframework.order.OrderLineIdentifier;
 import org.salespointframework.order.OrderManager;
 import org.salespointframework.quantity.Quantity;
 import org.salespointframework.quantity.Units;
@@ -29,9 +30,11 @@ public class CartTest extends AbstractIntegrationTests{
 
 	@Autowired Inventory<InventoryItem> inventory;
 	@Autowired UserAccountManager userAccountManager;
+	@Autowired OrderManager<Order> orderManager;
 	
 	@Test
-	public void testAddArticleToCart(){
+	public void testAddArticleToCartAndToOrder(){
+		
 		int number = 1;
 		Quantity quantity = Units.of(number);
 		Quantity quantity1 = null;
@@ -40,26 +43,51 @@ public class CartTest extends AbstractIntegrationTests{
 		UserAccountIdentifier userID = new UserAccountIdentifier("wurst");
 		Optional<UserAccount> userAccount = userAccountManager.get(userID);
 		Order order = new Order(userAccount.get());
-		
+		String order1 = order.getIdentifier().toString();
+		String order2 = null;
+		orderManager.add(order);
 		
 		cart.addOrUpdateItem(article, quantity);
-		cart.addItemsTo(order);
-		
+		cart.addItemsTo(order);		
 		ProductIdentifier article1 = article.getIdentifier();
 		ProductIdentifier article2 = null;
+		
 		
 		for(OrderLine orderLine : order.getOrderLines()){
 			article2 = orderLine.getProductIdentifier();
 			quantity1 = orderLine.getQuantity();
 		}
 		
-		System.out.println(article1.toString());
-		System.out.println(article2.toString());
+		for(Order test : orderManager.find(userAccount.get())){
+			order2 = test.getIdentifier().toString();
+		}
 		
 		assertEquals("Artikel wird in ordentlich in den Cart gelegt und in eine Order überführt", article1.toString(), article2.toString());
+		assertEquals("Die Order wurde im OrderManager gespeichert",order1,order2);
 	}
 	
+	@Test
 	public void testDeleteArticleFromCart(){
+		//Create Item
 		
+		int number = 1;
+		CartItem cartItem;
+		Quantity quantity = Units.of(number);
+		Quantity quantity1 = null;
+		Article article = new Article("Testbook", Money.of(EUR, 7.98), "Book for JUnit", "Philo", "0000000101010", ArticleId.DVD, "test", "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99));
+		Cart cart = new Cart();
+		UserAccountIdentifier userID = new UserAccountIdentifier("wurst");
+		Optional<UserAccount> userAccount = userAccountManager.get(userID);
+		Order order = new Order(userAccount.get());
+				
+		cartItem = cart.addOrUpdateItem(article, quantity);
+
+		// now Delete Item (tested cart.removeItem)
+		
+		cart.removeItem(cartItem.getIdentifier());		
+		
+		assertTrue("Der Artikel wurde aus dem Warenkorb gelöscht",cart.isEmpty());
 	}
+	
+	
 }
