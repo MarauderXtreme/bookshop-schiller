@@ -20,7 +20,7 @@ public class CategoryManagementTest extends AbstractIntegrationTests {
 
 	
 	@Test
-	public void testStringGetters() {
+	public void testCategories() {
 		
 		Category category = new Category("Jupidu", ArticleId.BOOK);
 		

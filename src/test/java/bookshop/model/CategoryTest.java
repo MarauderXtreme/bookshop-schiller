@@ -17,7 +17,7 @@ public class CategoryTest extends AbstractIntegrationTests {
 
 	
 	@Test
-	public void testStringGetters() {
+	public void testCategory() {
 		
 		Category category = new Category("Jupidu", ArticleId.BOOK);
 		//...

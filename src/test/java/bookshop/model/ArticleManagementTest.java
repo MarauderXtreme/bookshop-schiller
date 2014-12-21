@@ -22,7 +22,7 @@ public class ArticleManagementTest extends AbstractIntegrationTests {
 
 	
 	@Test
-	public void testStringGetters() {
+	public void testArticleCatalog() {
 		
 		Article article = new Article("Testbook", Money.of(EUR, 7.98), "Book for JUnit", "Philo", "0000000101010", ArticleId.BOOK, categories.findById("BOOKRatgeber").get().getCategoryName(), "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99));
 		Category category = new Category("Jupidu", ArticleId.BOOK);

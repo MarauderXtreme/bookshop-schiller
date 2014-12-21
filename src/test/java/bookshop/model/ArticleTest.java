@@ -20,7 +20,7 @@ public class ArticleTest extends AbstractIntegrationTests {
 
 	
 	@Test
-	public void testStringGetters() {
+	public void testArticle() {
 		
 		Article article = new Article("Testbook", Money.of(EUR, 7.98), "Book for JUnit", "Philo", "0000000101010", ArticleId.BOOK, categories.findById("BOOKRatgeber").get().getCategoryName(), "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99));
 		article.setArtist("Jambala");
