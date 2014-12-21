@@ -5,6 +5,10 @@ import static org.junit.Assert.*;
 
 import org.joda.money.Money;
 import org.junit.Test;
+import org.salespointframework.catalog.ProductIdentifier;
+import org.salespointframework.inventory.Inventory;
+import org.salespointframework.inventory.InventoryItem;
+import org.salespointframework.quantity.Units;
 import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManager;
@@ -19,17 +23,36 @@ public class ArticleManagementTest extends AbstractIntegrationTests {
 	ArticleManagement articleCatalog;
 	@Autowired
 	CategoryManagement categories;
+	@Autowired
+	Inventory<InventoryItem> inventory;
+
 
 	
 	@Test
-	public void testArticleCatalog() {
+	public void testArticleCatalogAdd() {
 		
-		Article article = new Article("Testbook", Money.of(EUR, 7.98), "Book for JUnit", "Philo", "0000000101010", ArticleId.BOOK, categories.findById("BOOKRatgeber").get().getCategoryName(), "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99));
+		Article article = new Article("Testbook", Money.of(EUR, 7.98), "Book for JUnit", "Philo", "0000000101010", ArticleId.CD, categories.findById("CDPop").get().getCategoryName(), "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99));
+		
+		assertFalse("Die Methode getType() des Objekts Article der Klasse ArticleManagement liefert einen falschen Wert der Enumeration ArticleId.", articleCatalog.exists(article.getIdentifier()));
 		
 		articleCatalog.save(article);
+		InventoryItem item = new InventoryItem(article, Units.TEN);
+		inventory.save(item);
+		
+		assertTrue("Die Methode getType() des Objekts Article der Klasse ArticleManagement liefert einen falschen Wert der Enumeration ArticleId.", articleCatalog.exists(article.getIdentifier()));
 
-		assertTrue("Die Methode getType() des Objekts Article der Klasse ArticleManagement liefert einen falschen Wert der Enumeration ArticleId.", articleCatalog.findOne(article.getIdentifier()).get().getType().equals(ArticleId.BOOK));
-		assertEquals("Die Methode getArtist() des Objekts Article der Klasse ArticleManagement liefert einen falschen String.", articleCatalog.findOne(article.getIdentifier()).get().getArtist(), "Flann O'Brien");
+	}
+	
+	@Test
+	public void testArticleCatalogDelete(){
+		
+		Article article = new Article("Testbook", Money.of(EUR, 7.98), "Book for JUnit", "Philo", "0000000101010", ArticleId.CD, categories.findById("CDPop").get().getCategoryName(), "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99));
+		
+		articleCatalog.save(article);
+		assertTrue("Die Methode getType() des Objekts Article der Klasse ArticleManagement liefert einen falschen Wert der Enumeration ArticleId.", articleCatalog.exists(article.getIdentifier()));
+		
+		articleCatalog.delete(articleCatalog.findOne(article.getIdentifier()).get().getIdentifier());
+		assertFalse("Die Methode getType() des Objekts Article der Klasse ArticleManagement liefert einen falschen Wert der Enumeration ArticleId.", articleCatalog.exists(article.getIdentifier()));
 
 	}
 
