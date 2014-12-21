@@ -14,6 +14,10 @@ public class MyCalendar {
 	
 	private Map<TupelKey<Room,MyDate>, Event> eventMap;
 	private List<Event> sortedEventList;
+	
+	/**
+	 * initializes a new MyCalendar-object
+	 */
 	public MyCalendar()
 	{
 		this.eventMap = new HashMap<TupelKey<Room,MyDate>, Event>();
@@ -24,6 +28,11 @@ public class MyCalendar {
 		return null;
 	}
 	
+	/**
+	 * 
+	 * @param tk tupelkey-object that is used as key for the wanted event
+	 * @return the event with the specified room and date or null when nothing found
+	 */
 	public Event getEvent(TupelKey<Room,MyDate> tk)
 	{
 		if (eventMap.containsKey(tk))
@@ -35,11 +44,19 @@ public class MyCalendar {
 		}
 	}	
 	
+	/**
+	 * 
+	 * @return all values from the eventList
+	 */
 	public List<Event> getEventList()
 	{
 		return new ArrayList<Event>(eventMap.values());
 	}
-	
+	/**
+	 * Adds an event to the eventList
+	 * @param event event that is to be added
+	 * @return true wenn event can be added, false when there already is an event in the same room at the same time
+	 */
 	public boolean addEvent(Event event)
 	{
 		if (!eventMap.containsKey(new TupelKey<Room,MyDate>(event.getRoom(), event.getDate())))
@@ -50,7 +67,10 @@ public class MyCalendar {
 			return false;
 		}
 	}
-	
+	/**
+	 * 
+	 * @return a sorted List of all elements
+	 */
 	public List<Event> getSortedEvents()
 	{
 		//System.out.println(eventMap.size());
@@ -89,6 +109,9 @@ public class MyCalendar {
 		return tempSortedEventList;
 	}
 	
+	/**
+	 * sorts the eventList so that the oldest elements are on top
+	 */
 	public void sortEvents()
 	{
 		this.sortedEventList = getSortedEvents();
@@ -103,6 +126,12 @@ public class MyCalendar {
 	} 
 	
 	//Gibt alle Events eines gewählten Jahres zurück
+	/**
+	 * Searches for all events from the list that happened in the specified year
+	 * @param year Specifies the year from which all elements shall be retrieved
+	 * @return
+	 */
+	
 	public List<Event> getEventsByYear(int year)
 	{
 		List<Event>byYear = new ArrayList<Event>();
@@ -118,6 +147,13 @@ public class MyCalendar {
 	}
 	
 	//Gibt für eine eingegebene Liste alle Events des angegebenen Monats zurück
+	
+	/**
+	 * Gives all elements of a specific months, to be used in combination with getEventsByYear
+	 * @param byYear List of Elements from a specific year
+	 * @param month month that is to be shown
+	 * @return a list with all elements that happen in the specified month
+	 */
 	public List<Event> getEventsByMonth(List<Event> byYear, int month)
 	{
 		List<Event>byMonth = new ArrayList<Event>();
@@ -131,24 +167,40 @@ public class MyCalendar {
 		return byMonth;
 	}
 	
+	/**
+	 * 
+	 * @return the current year
+	 */
 	public String getCurrentYear()
 	{
 		String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
 		return date.substring(6, 10);
 	}
 	
+	/**
+	 * 
+	 * @return the current month
+	 */
 	public String getCurrentMonth()
 	{
 		String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
 		return date.substring(3, 5);
 	}
 	
+	/**
+	 * 
+	 * @return the current day
+	 */
 	public String getCurrentDay()
 	{
 		String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
 		return date.substring(0,2);
 	}
 	
+	/**
+	 * 
+	 * @return a List of Recent and Future events
+	 */
 	public List<Event> getFutureEvents()
 	{
 		List<Event> all = getSortedEvents();
