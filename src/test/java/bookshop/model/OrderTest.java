@@ -1,58 +1,88 @@
 package bookshop.model;
 
-import static org.joda.money.CurrencyUnit.EUR;
+
 import static org.junit.Assert.*;
 
 import java.util.Optional;
 
-import org.joda.money.Money;
 import org.junit.Test;
-import org.salespointframework.catalog.Product;
+import org.salespointframework.catalog.ProductIdentifier;
 import org.salespointframework.inventory.Inventory;
 import org.salespointframework.inventory.InventoryItem;
 import org.salespointframework.order.Order;
 import org.salespointframework.order.OrderLine;
 import org.salespointframework.order.OrderManager;
-import org.salespointframework.quantity.Metric;
-import org.salespointframework.quantity.Quantity;
-import org.salespointframework.quantity.RoundingStrategy;
-import org.salespointframework.useraccount.Role;
+import org.salespointframework.order.OrderStatus;
+import org.salespointframework.payment.Cash;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountIdentifier;
 import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import bookshop.AbstractIntegrationTests;
-import bookshop.model.Article.ArticleId;
+
 
 public class OrderTest extends AbstractIntegrationTests{
 	
-	@Autowired OrderManager orderManager;
+	@Autowired OrderManager<Order> orderManager;
 	@Autowired UserAccountManager userAccountManager;
-	@Autowired Inventory<InventoryItem> inventory;
+	//@Autowired Inventory<InventoryItem> inventory;
 	
 	@Test
 	public void testMyOrders(){
-	final Role customerRole = new Role("ROLE_CUSTOMER");
-	UserAccount customerAccount = userAccountManager.create("admin", "123", customerRole);
-	boolean test = false;
-	Order order = new Order(customerAccount);
-	Metric metric = new Metric("test","test","test");
-	Quantity quantity;	
-	Category fiktion = new Category("Fiktion", ArticleId.BOOK);
-	Article v = new Article("Trost und Rat", Money.of(EUR, 9.99), "Ein Ratgeber der besonderen Art", "Flann O'Brien", "1234567890421", ArticleId.BOOK, "Fiktion", "Flann O'Brien", "trostundrat.jpg", "01.01.2015", Money.of(EUR, 0.99));		
-	Optional<InventoryItem> item = inventory.findByProductIdentifier(v.getIdentifier());
-	quantity = new Quantity(10, item.get().getQuantity().getMetric(), item.get().getQuantity().getRoundingStrategy());
-	OrderLine orderLine = new OrderLine(v,quantity);
-	order.add(orderLine);
-	
-	
-	
-	orderManager.add(order);
-	orderManager.find(customerAccount);
-	
-	
-
-	//assertTrue("Die Methode getMyOrders der Klasse OrderController liefert die falschen Orders.", test);
+		
+	UserAccountIdentifier userID = new UserAccountIdentifier("wurst");
+	UserAccountIdentifier userID2 = new UserAccountIdentifier("dextermorgan");
+	Optional<UserAccount> userAccount = userAccountManager.get(userID);	
+	Optional<UserAccount> userAccount2 = userAccountManager.get(userID2);	
+	Order order = new Order(userAccount.get());
+	Order order2 = new Order(userAccount.get());
+	Order order3 = new Order(userAccount2.get());
+	/*
+	for(InventoryItem item : inventory.findAll()){
+		OrderLine orderLine = new OrderLine(item.getProduct(),item.getQuantity());
+		order.add(orderLine);
+		order2.add(orderLine);
 	}
+	*/
+	orderManager.add(order);
+	orderManager.add(order3);
+	orderManager.add(order2);
+	
+	String orderString1 = "test" + order.getIdentifier().toString();
+	orderString1 += order2.getIdentifier().toString();
+	String orderString2 = "test";
+	
+	for(Order doof : orderManager.find(userAccount.get())){
+		orderString2 += doof.getIdentifier().toString();
+	}
+	
+	//System.out.println(orderString1);
+	//System.out.println(orderString2);
+	
+	
+			
+			
+	assertEquals("Die Methode getMyOrders der Klasse OrderController liefert die richtigen Orders.", orderString1 , orderString2);	
+	}
+	
+	@Test
+	public void testCancelOrder(){
+		UserAccountIdentifier userID = new UserAccountIdentifier("wurst");
+		Optional<UserAccount> userAccount = userAccountManager.get(userID);
+		Order order = new Order(userAccount.get(), Cash.CASH);
+		Order order2 = new Order(userAccount.get(), Cash.CASH);
+		
+		orderManager.cancelOrder(order);
+		orderManager.payOrder(order2);
+		orderManager.completeOrder(order2);
+		System.out.println(order2.getOrderStatus());
+		orderManager.cancelOrder(order2);
+		
+		System.out.println(order2.getOrderStatus());
+		
+		assertEquals("Die Methode cancelOrders funktioniert",OrderStatus.CANCELLED,order.getOrderStatus());	
+		assertFalse("Löschen einer versendeten Order", OrderStatus.CANCELLED.equals(order2.getOrderStatus()));
+	}
+		
 }

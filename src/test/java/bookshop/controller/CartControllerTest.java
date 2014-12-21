@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import bookshop.AbstractWebIntegrationTests;
 
-public class CartControllerText extends AbstractWebIntegrationTests{
+public class CartControllerTest extends AbstractWebIntegrationTests{
 
 	
 	@Test
