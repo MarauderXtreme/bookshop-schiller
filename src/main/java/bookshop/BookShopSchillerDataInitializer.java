@@ -140,8 +140,6 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		categories.save(action);
 		categories.save(drama);
 		
-		System.out.println(categories.findById("BOOKFiktion").get().getCategoryName());
-		
 		Article v = new Article("Trost und Rat", Money.of(EUR, 9.99), "Ein Ratgeber der besonderen Art", "Flann O'Brien", "1234567890421", ArticleId.BOOK, categories.findById("BOOKFiktion").get().getCategoryName(), "Flann O'Brien", "trostundrat.jpg", "01.01.2015", Money.of(EUR, 0.99));		
 		articleCatalog.save(v);
 		articleCatalog.save(new Article("50 Schatten des Grauens", Money.of(EUR, 7.98), "Horrorpersiflage des Bestsellers", "Chris Ragman", "0000000000001", ArticleId.BOOK, categories.findById("BOOKRatgeber").get().getCategoryName(), "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99)));
@@ -152,8 +150,6 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		articleCatalog.save(new Article("Dummdumm", Money.of(EUR, 17.95), "Kurzbeschreibungen der Episoden der ersten Staffel", "Wolfgang Hohlbein", "0000000000006", ArticleId.BOOK, categories.findById("BOOKUnterhaltung").get().getCategoryName(), "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99)));
 		articleCatalog.save(new Article("Depedro", Money.of(EUR, 17.95), "Spanische Musik", "Spanish Records", "1263453rr", ArticleId.CD, categories.findById("CDPop").get().getCategoryName(), "Pedro", "01.01.2015", Money.of(EUR, 0.99)));
 		articleCatalog.save(new Article("Begotten", Money.of(EUR, 17.95), "Strange...", "Indie Records", "1263453rr", ArticleId.DVD, categories.findById("DVDHorror").get().getCategoryName(), "God", "01.01.2015", Money.of(EUR, 0.99)));
-		 
-		
 		
 		
 		for (Article article : articleCatalog.findAll()) {

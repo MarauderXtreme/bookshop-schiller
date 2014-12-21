@@ -7,9 +7,10 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import bookshop.AbstractIntegrationTests;
+import bookshop.AbstractWebIntegrationTests;
 import bookshop.BookShopSchiller;
 
-public class UserControllerTest extends AbstractIntegrationTests {
+public class UserControllerTest extends AbstractWebIntegrationTests {
 
 	@Autowired UserController userController;
 	
