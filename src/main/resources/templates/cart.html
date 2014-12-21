@@ -38,7 +38,7 @@
 											<td class="large-2 medium-2 small-2"> 
 												<div class="salespoint" sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_SALESMANAGER','ROLE_USERMANAGER','ROLE_EVENTMANAGER','ROLE_ARTICLEMANAGER')">
 													<form class="salespoint" method="POST" action="/cart/delete" >
-													  <input type="hidden" name="test" value="0" th:value="${orderline.identifier}"/>
+													  <input type="hidden" name="delete" value="0" th:value="${orderline.identifier}"/>
 														<input class="button" type="submit" value="löschen"/> 
 													</form>
 												</div>	
