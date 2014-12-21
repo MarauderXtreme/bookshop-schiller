@@ -28,7 +28,7 @@ public class UserTest extends AbstractIntegrationTests {
 		
 		Address adminAddress = new Address("Mommsenstraße", "13", "01187", "Dresden");
 		User admin = new User(adminAccount, adminAddress);
-
+		
 		assertTrue("Die Methode getRoles() der Klasse User liefert einen falschen String.", admin.getRoles().equals("ADMIN, EMPLOYEE") || admin.getRoles().equals("EMPLOYEE, ADMIN"));
 		assertEquals("Die Methode getState() der Klasse User liefert einen falschen String.", admin.getState(), "ENABLED");
 		assertEquals("Die Methode toString() der Klasse Address liefert einen falschen String.", adminAddress.toString(), "Mommsenstraße 13, 01187 Dresden");

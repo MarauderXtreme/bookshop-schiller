@@ -6,6 +6,8 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 
 import org.salespointframework.catalog.Product;
+import org.salespointframework.inventory.Inventory;
+import org.salespointframework.inventory.InventoryItem;
 import org.salespointframework.order.Order;
 import org.salespointframework.order.OrderLine;
 import org.salespointframework.order.OrderManager;
@@ -21,7 +23,7 @@ import org.springframework.ui.ModelMap;
 public class OrderManagement extends OrderLine{
 
 	private final OrderManager oderManager;
-
+	private final Inventory<InventoryItem> inventory;
 	
 	/**
 	 * Constructor for the UserManagement.
@@ -29,9 +31,10 @@ public class OrderManagement extends OrderLine{
 	 * @param userAccountManager
 	 */
 	@Autowired
-	public OrderManagement(OrderManager oderManager) {
+	public OrderManagement(OrderManager oderManager, Inventory<InventoryItem> inventory) {
 
 		this.oderManager = oderManager;
+		this.inventory = inventory;
 	}
 	
 }
