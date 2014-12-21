@@ -30,6 +30,11 @@ public interface ArticleManagement extends Catalog<Article> {
 	 */
 	Iterable<Article> findById(String id);
 	
+	/**
+	 * Iterates a catalog of articles
+	 * @param artist
+	 * @return a List of all existing articles of a specific Artist
+	 */
 	Iterable<Article> findByArtist(String artist);
 	
 	/**

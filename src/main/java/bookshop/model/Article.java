@@ -27,7 +27,7 @@ public class Article extends Product{
 		protected Article() {}
 		
 		/**
-		 * Overloaded Constructor of Article.
+		 * Overloaded Constructor of Article, sets a default image, when no image path is given.
 		 * @param title
 		 * @param price
 		 * @param description
@@ -36,6 +36,8 @@ public class Article extends Product{
 		 * @param type
 		 * @param category
 		 * @param artist
+		 * @param releaseDate
+		 * @param stockPrice
 		 */
 		public Article(String title, Money price, String beschreibung, String publisher, String id, ArticleId type, String category, String artist, String releaseDate, Money stockPrice){
 			super(title, price, Units.METRIC);
@@ -61,7 +63,7 @@ public class Article extends Product{
 		}
 
 		/**
-		 * Overloaded Constructor of Article.
+		 * Overloaded Constructor of Article, sets also a given image path.
 		 * @param title
 		 * @param price
 		 * @param description
@@ -71,8 +73,11 @@ public class Article extends Product{
 		 * @param category
 		 * @param artist
 		 * @param image
+		 * @param releaseDate
+		 * @param stockPrice
 		 */
 		public Article(String title, Money price, String beschreibung, String publisher, String id, ArticleId type, String category, String artist, String image,String releaseDate, Money stockPrice){
+			
 			super(title, price, Units.METRIC);
 			super.addCategory(category);
 						
@@ -121,8 +126,10 @@ public class Article extends Product{
 			this.publisher = publisher;
 		}
 		
-		
-		
+		/**
+		 * Adds a new category to the article.
+		 * @param category
+		 */
 		public void setCategory(String category){
 			this.category = category;
 			super.addCategory(category);
@@ -165,10 +172,17 @@ public class Article extends Product{
 		
 		//Spezifische Variablen
 		
+		/**
+		 * @return the name of the artist of the article
+		 */
 		public String getArtist(){
 			return artist;
 		}
 		
+		/**
+		 * Sets the name of the artist of the article.
+		 * @param artist
+		 */
 		public void setArtist(String artist){
 			this.artist = artist;
 		}
@@ -198,22 +212,33 @@ public class Article extends Product{
 			this.image = image;
 		}
 
+		/**
+		 * @return the release date of the article
+		 */
 		public String getReleaseDate() {
 			return releaseDate;
 		}
 
+		/**
+		 * Sets the release date of the article.
+		 * @param releaseDate
+		 */
 		public void setReleaseDate(String releaseDate) {
 			this.releaseDate = releaseDate;
 		}
 
+		/**
+		 * @return the price, the bookshop has to pay for the article
+		 */
 		public Money getStockPrice() {
 			return stockPrice;
 		}
 
+		/**
+		 * Sets the price of the article the bookshop has to pay for one unit.
+		 * @param stockPrice
+		 */
 		public void setStockPrice(Money stockPrice) {
 			this.stockPrice = stockPrice;
 		}
-		
-		
-
-	}
+}

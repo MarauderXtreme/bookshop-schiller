@@ -117,6 +117,11 @@ public class ArticleController {
 		return "articles";
 	}
 	
+	/**
+	 * Maps lists of all articles of a specific type to modelMap.
+	 * @param modelMap
+	 * @return
+	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
 	@RequestMapping("/editcategories")
 	public String addCategories(ModelMap modelMap) {
@@ -130,6 +135,11 @@ public class ArticleController {
 		return "editcategories";
 	}
 	
+	/**
+	 * Deletes the category of a given category name.
+	 * @param category
+	 * @return
+	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
 	@RequestMapping(value="/editcategories/delete", method=RequestMethod.POST)
 	public String deleteCategory(ModelMap modelMap, @RequestParam("categorytodelete") String category){
@@ -139,10 +149,14 @@ public class ArticleController {
 			categories.delete(categories.findByCategoryName(category));
 		
 		return "redirect:/editcategories";
-
 	}
 	
-	
+	/**
+	 * Adds a new Category of a specific article type to the categories data structure, validated by the given Categoriesform.
+	 * @param categoriesform
+	 * @param result
+	 * @return
+	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
 	@RequestMapping(value="/editcategories/add", method=RequestMethod.POST)
 	public String addCategory(@ModelAttribute("categoriesform") @Valid CategoriesForm categoriesform, BindingResult result){
@@ -168,11 +182,17 @@ public class ArticleController {
 
 	}
 	
+	/**
+	 * Deletes the old categoryinformation and replace them with new information in data structure and all articles containing this category.
+	 * @param oldcategory
+	 * @param editcategory
+	 * @return
+	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
 	@RequestMapping(value="/editcategories/edit", method=RequestMethod.POST)
 	public String editCategory(ModelMap modelMap, @RequestParam("oldcategory") String oldcategory, @RequestParam("editcategory") String editcategory){
 		
-			if(categories.findById(oldcategory).get().getArticleId()==ArticleId.BOOK){
+			if(categories.findById(oldcategory).get().getType()==ArticleId.BOOK){
 				categories.delete(oldcategory);
 				categories.save(new Category(editcategory, ArticleId.BOOK));
 				
@@ -185,7 +205,7 @@ public class ArticleController {
 				}
 			}
 			
-			if(categories.findById(oldcategory).get().getArticleId()==ArticleId.CD){
+			if(categories.findById(oldcategory).get().getType()==ArticleId.CD){
 				categories.delete(oldcategory);
 				categories.save(new Category(editcategory, ArticleId.CD));
 				
@@ -200,7 +220,7 @@ public class ArticleController {
 				}
 			}
 			
-			if(categories.findById(oldcategory).get().getArticleId()==ArticleId.DVD){
+			if(categories.findById(oldcategory).get().getType()==ArticleId.DVD){
 				categories.delete(oldcategory);
 				categories.save(new Category(editcategory, ArticleId.DVD));
 				
@@ -219,7 +239,7 @@ public class ArticleController {
 	
 	
 	/**
-	 * Maps a list of all articles of type book to modelMap for the add book html.
+	 * Maps a list of all articles and categories of type book and articleForm for Validation to modelMap for the add book html.
 	 * @param modelMap
 	 * @return
 	 */
@@ -236,7 +256,7 @@ public class ArticleController {
 	}
 
 	/**
-	 * Maps a list of all articles of type cd to modelMap for the add cd html.
+	 * Maps a list of all articles and categories of type cd and articleForm for Validation to modelMap for the add cd html.
 	 * @param modelMap
 	 * @return
 	 */
@@ -253,7 +273,7 @@ public class ArticleController {
 	}
 	
 	/**
-	 * Maps a list of all articles of type dvd to modelMap for the add dvd html.
+	 * Maps a list of all articles and categories of type dvd and articleForm for Validation to modelMap for the add dvd html.
 	 * @param modelMap
 	 * @return
 	 */
@@ -366,7 +386,9 @@ public class ArticleController {
 	//Add Article
 	
 	/**
-	 * Adds a new article of type book with the given attributes to the catalog and the inventory.
+	 * Adds a new article of type book with the given attributes to the catalog and the inventory, validated by a article Form.
+	 * @param articleForm
+	 * @param result
 	 * @param title
 	 * @param description
 	 * @param price
@@ -419,7 +441,9 @@ public class ArticleController {
 	
 	
 	/**
-	 * Adds a new article of type cd with the given attributes to the catalog and the inventory.
+	 * Adds a new article of type cd with the given attributes to the catalog and the inventory, validated by a article Form.
+	 * @param articleForm
+	 * @param result
 	 * @param title
 	 * @param description
 	 * @param price
@@ -470,7 +494,9 @@ public class ArticleController {
 	}
 	
 	/**
-	 * Adds a new article of type dvd with the given attributes to the catalog and the inventory.
+	 * Adds a new article of type dvd with the given attributes to the catalog and the inventory, validated by a article Form.
+	 * @param articleForm
+	 * @param result
 	 * @param title
 	 * @param description
 	 * @param price
@@ -522,6 +548,12 @@ public class ArticleController {
 
 	//Delete Article
 	
+	/**
+	 * Maps a given article to model of confirmdelete html.
+	 * @param article
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/article/{pid}/delete/confirm")
 	public String confirmDelete(@PathVariable("pid") Article article, Model model) {
 		
@@ -632,7 +664,7 @@ public class ArticleController {
 	
 	/**
 	 * 
-	 * Highly complex Article Edit Function
+	 * Repleaces article information of a given article, validated by an edit article form
 	 * 
 	 * @param article
 	 * @param name takes the new Name
