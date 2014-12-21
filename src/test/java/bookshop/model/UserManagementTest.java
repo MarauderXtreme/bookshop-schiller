@@ -70,14 +70,6 @@ public class UserManagementTest extends AbstractIntegrationTests {
 		ua.setEmail("hans.wurst@web.de");
 		
 		assertTrue("Ein neuer UserAccount ist nicht standardmäßig aktiviert.", ua.isEnabled());
-		
-//		userManagement.disable(ua);
-//
-//		assertFalse("Die Methode disable() funtioniert nicht korrekt.", ua.isEnabled());
-//		
-//		userManagement.enable(ua);
-//		
-//		assertEquals("Die Methode enable() funtioniert nicht korrekt.", ua.isEnabled());
 	}
 	
 	@Test
@@ -142,10 +134,6 @@ public class UserManagementTest extends AbstractIntegrationTests {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		
 		assertTrue("Die Methode changePassword() funktioniert nicht korrekt.", encoder.matches("1234", ua.getPassword().toString()));
-
-//		userManagement.changeAddress(ua, new Address("Straße", "1", "12345", "Dresden"));
-//		
-//		assertEquals("Die Methode changeAddress() funktioniert nicht korrekt.", userRepository.findUserByUserAccount(ua).getAddress().toString(), "Straße 1, 12345, Dresden");
 	}
 	
 	@Test
