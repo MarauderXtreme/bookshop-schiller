@@ -66,23 +66,36 @@ public class OrderTest extends AbstractIntegrationTests{
 	assertEquals("Die Methode getMyOrders der Klasse OrderController liefert die richtigen Orders.", orderString1 , orderString2);	
 	}
 	
+	
 	@Test
 	public void testCancelOrder(){
 		UserAccountIdentifier userID = new UserAccountIdentifier("wurst");
 		Optional<UserAccount> userAccount = userAccountManager.get(userID);
 		Order order = new Order(userAccount.get(), Cash.CASH);
 		Order order2 = new Order(userAccount.get(), Cash.CASH);
+		//Order order3 = null;
 		
 		orderManager.cancelOrder(order);
 		orderManager.payOrder(order2);
 		orderManager.completeOrder(order2);
-		System.out.println(order2.getOrderStatus());
 		orderManager.cancelOrder(order2);
-		
-		System.out.println(order2.getOrderStatus());
+		//orderManager.cancelOrder(order3);
+		//System.out.println(order3.getOrderStatus());
 		
 		assertEquals("Die Methode cancelOrders funktioniert",OrderStatus.CANCELLED,order.getOrderStatus());	
 		assertFalse("Löschen einer versendeten Order", OrderStatus.CANCELLED.equals(order2.getOrderStatus()));
+		//assertFalse("Löschen einer nicht vorhandenen Order", OrderStatus.CANCELLED.equals(order3.getOrderStatus()));
+	}
+	
+	@Test
+	public void testShowPDF(){
+		
+		
+	}
+	
+	@Test
+	public void testStatistics(){
+		
 	}
 		
 }
