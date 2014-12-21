@@ -26,8 +26,8 @@ public class UserRepositoryTest extends AbstractIntegrationTests {
 		adminAccount.setEmail("chris.kepler@schiller.de");
 		adminAccount.add(adminRole);
 		
-		assertEquals("Die Methode findByUserAccount() der Klasse UserRepository liefert ein falsches Ergebnis. (UserAccount)", userRepository.findUserByUserAccount(adminAccount).getUserAccount(), adminAccount);
-		assertEquals("Die Methode findByUserAccount() der Klasse UserRepository liefert ein falsches Ergebnis. (Address)", userRepository.findUserByUserAccount(adminAccount).getAddress().toString(), "Mommsenstraße 13, 01187 Dresden");
+		assertEquals("Die Methode findByUserAccount() liefert einen User mit falschem UserAccount.", userRepository.findUserByUserAccount(adminAccount).getUserAccount(), adminAccount);
+		assertEquals("Die Methode findByUserAccount() liefert einen User mit falscher Adresse.", userRepository.findUserByUserAccount(adminAccount).getAddress().toString(), "Mommsenstraße 13, 01187 Dresden");
 	}
 
 }

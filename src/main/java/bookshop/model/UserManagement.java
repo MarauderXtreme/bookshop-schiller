@@ -3,13 +3,11 @@ package bookshop.model;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.salespointframework.useraccount.Password;
 import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.salespointframework.useraccount.UserAccountIdentifier;
 
 @Component
 public class UserManagement {
