@@ -95,9 +95,7 @@ public class OrderController {
 		
 		this.orderPDF = order;
 		String orderpath = order.getIdentifier().toString();
-		System.out.println(orderpath);
 		orderpath = orderpath + ".pdf";
-		System.out.println(orderpath);
 		modelMap.addAttribute("detailordersID", orderpath);
 		modelMap.addAttribute("detailorders", order.getOrderLines());
 		
