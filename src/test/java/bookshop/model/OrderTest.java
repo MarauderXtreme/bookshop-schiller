@@ -13,6 +13,7 @@ import org.salespointframework.order.Order;
 import org.salespointframework.order.OrderLine;
 import org.salespointframework.order.OrderManager;
 import org.salespointframework.order.OrderStatus;
+import org.salespointframework.payment.Cash;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountIdentifier;
 import org.salespointframework.useraccount.UserAccountManager;
@@ -56,8 +57,8 @@ public class OrderTest extends AbstractIntegrationTests{
 		orderString2 += doof.getIdentifier().toString();
 	}
 	
-	System.out.println(orderString1);
-	System.out.println(orderString2);
+	//System.out.println(orderString1);
+	//System.out.println(orderString2);
 	
 	
 			
@@ -69,11 +70,19 @@ public class OrderTest extends AbstractIntegrationTests{
 	public void testCancelOrder(){
 		UserAccountIdentifier userID = new UserAccountIdentifier("wurst");
 		Optional<UserAccount> userAccount = userAccountManager.get(userID);
-		Order order = new Order(userAccount.get());
+		Order order = new Order(userAccount.get(), Cash.CASH);
+		Order order2 = new Order(userAccount.get(), Cash.CASH);
+		
 		orderManager.cancelOrder(order);
+		orderManager.payOrder(order2);
+		orderManager.completeOrder(order2);
+		System.out.println(order2.getOrderStatus());
+		orderManager.cancelOrder(order2);
+		
+		System.out.println(order2.getOrderStatus());
+		
 		assertEquals("Die Methode cancelOrders funktioniert",OrderStatus.CANCELLED,order.getOrderStatus());	
+		assertFalse("Löschen einer versendeten Order", OrderStatus.CANCELLED.equals(order2.getOrderStatus()));
 	}
-	
-	
-	
+		
 }
