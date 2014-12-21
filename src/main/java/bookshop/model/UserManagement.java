@@ -71,8 +71,7 @@ public class UserManagement {
 	public boolean disable(UserAccount userAccount) {
 		
 		if (userAccount.isEnabled()) {
-			User user = userRepository.findUserByUserAccount(userAccount);
-			userAccountManager.disable(user.getUserAccount().getIdentifier());
+			userAccountManager.disable(userAccount.getIdentifier());
 			return true;
 		}
 		return false;
@@ -86,8 +85,7 @@ public class UserManagement {
 	public boolean enable(UserAccount userAccount) {
 		
 		if (!userAccount.isEnabled()) {
-			User user = userRepository.findUserByUserAccount(userAccount);
-			userAccountManager.enable(user.getUserAccount().getIdentifier());
+			userAccountManager.enable(userAccount.getIdentifier());
 			return true;
 		}
 		return false;
@@ -109,7 +107,7 @@ public class UserManagement {
 	}
 	
 	/**
-	 * Removes the given role to the given userAccount.
+	 * Removes the given role from the given userAccount.
 	 * @param userAccount
 	 * @param role
 	 * @return true if role was removed and false if not
