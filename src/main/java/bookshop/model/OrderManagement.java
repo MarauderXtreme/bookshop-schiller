@@ -30,6 +30,11 @@ public class OrderManagement extends OrderLine{
 	 * @param userRepository
 	 * @param userAccountManager
 	 */
+	/**
+	 * Constructor for OrderManagement
+	 * @param oderManager
+	 * @param inventory
+	 */
 	@Autowired
 	public OrderManagement(OrderManager oderManager, Inventory<InventoryItem> inventory) {
 

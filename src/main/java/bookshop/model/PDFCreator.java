@@ -38,6 +38,12 @@ public class PDFCreator extends HttpServlet {
 		this.orderId = orderId;
 	}
 	*/
+	
+	/**
+	 * Create a PDF file
+	 * @param order
+	 * @param userAccount
+	 */
 	public void pdfCreate(Order order, UserAccount userAccount){
 		Document document = new Document();
 		HttpServletResponse test;
@@ -95,7 +101,7 @@ public class PDFCreator extends HttpServlet {
 	    }
 	}
 	
-	
+	/*
     public void pdfToImage(Order order) {
     	
     	try {
@@ -132,6 +138,6 @@ public class PDFCreator extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    	  
-    }
+    	*/  
+    
 }

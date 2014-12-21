@@ -35,7 +35,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import bookshop.model.Article;
-import bookshop.model.PDFBuilder;
 import bookshop.model.PDFCreator;
 import bookshop.model.Statistic;
 
@@ -45,7 +44,6 @@ public class OrderController {
 	private final OrderManager<Order> orderManager;
 	private final Inventory<InventoryItem> inventory;
 	private final BusinessTime date;
-	private Order orderPDF;
 	
 	@Autowired
 	public OrderController(OrderManager<Order> orderManager, Inventory<InventoryItem> inventory, BusinessTime date){
@@ -89,11 +87,15 @@ public class OrderController {
 		return "/myorders";
 	}
 	
+	/**
+	 * Shows a detailed order page
+	 * @param modelMap
+	 * @param order
+	 */
 	@PreAuthorize("hasRole('ROLE_CUSTOMER') || hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN') || hasRole('ROLE_SALESMANAGER')")
 	@RequestMapping(value="/order/detail")
 	public String getOrderDetails(ModelMap modelMap, @RequestParam("orderdetail") Order order){
 		
-		this.orderPDF = order;
 		String orderpath = order.getIdentifier().toString();
 		orderpath = orderpath + ".pdf";
 		modelMap.addAttribute("detailordersID", orderpath);
@@ -149,8 +151,6 @@ public class OrderController {
 		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
 		quantity = new Quantity(number, item.get().getQuantity().getMetric(), item.get().getQuantity().getRoundingStrategy());
 		
-		//quantity = item.get().getQuantity();
-		//quantity = quantity.divide(item.get().getQuantity());
 		
 		item.get().increaseQuantity(quantity);
 		

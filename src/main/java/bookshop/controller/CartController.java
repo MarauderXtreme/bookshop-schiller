@@ -50,6 +50,13 @@ public class CartController {
 		this.orderManager = orderManager;
 	}
 	
+	/**
+	 * Shows current state of your cart
+	 * @param modelMap
+	 * @param name
+	 * @param session
+	 * @return
+	 */
 	//@PreAuthorize("!hasRole('ROLE_BOSS') || !hasRole('ROLE_ADMIN') || !hasRole('ROLE_EMPLOYEE') || !hasRole('ROLE_SALESMANAGER') || !hasRole('ROLE_ARTICLEMANAGER') || !hasRole('ROLE_USERMANAGER') || !hasRole('ROLE_EVENTMANAGER')")
 	@RequestMapping(value="/cart")
 	public String cart(ModelMap modelMap, String name, HttpSession session){
@@ -58,6 +65,11 @@ public class CartController {
 		return "cart";
 	}
 	
+	/**
+	 * Sets the current state of your cart to an order and create a pdf file
+	 * @param session
+	 * @param userAccount
+	 */
 	@PreAuthorize("hasRole('ROLE_CUSTOMER')")
 	@RequestMapping(value="/cart/checkout", method = RequestMethod.POST)
 	public String buy(HttpSession session, @LoggedIn Optional<UserAccount> userAccount){
@@ -76,15 +88,6 @@ public class CartController {
 				HttpServletResponse response = null;
 				HttpServletRequest request = null;
 				pdf.pdfCreate(order, userAccount.get());
-				//pdf.pdfToImage(order);
-				/*
-				try {
-					pdf.pdfCreate2(order, userAccount.get(), request, response);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				*/
 				return "redirect:/";
 			}).orElse("redirect:/cart");
 	}

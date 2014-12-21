@@ -41,7 +41,7 @@ public class StatisticController {
 	}
 	
 	/**
-	 * 
+	 * Shows actual statistics
 	 * @param session
 	 * @param modelMap
 	 * @param userAccount
