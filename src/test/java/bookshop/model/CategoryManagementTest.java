@@ -32,6 +32,10 @@ public class CategoryManagementTest extends AbstractIntegrationTests {
 		assertEquals("Die Methode getCategoryName des Objekts Category der Klasse CategoryManagement liefert einen falschen String.", categories.findOne("DVDFantasy").getCategoryName(), "Fantasy");
 		assertEquals("Die Methode getCategoryName des Objekts Category der Klasse CategoryManagement liefert einen falschen String.", categories.findOne("DVDHorror").getCategoryName(), "Horror");
 		assertFalse("Die Methode exists() der Klasse CategoryManagement liefert eine falsche Category.", categories.exists("CDPop"));
+		assertTrue("Die Methode exists() der Klasse CategoryManagement liefert eine falsche Category.", categories.exists("DVDFantasy"));
+
 	}
+	
+	
 
 }

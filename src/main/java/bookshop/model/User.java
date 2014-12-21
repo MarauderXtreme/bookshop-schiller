@@ -44,7 +44,7 @@ public class User {
 	}
 
 	/**
-	 * Sets the address of the User.
+	 * Sets the address of the user to the given value.
 	 * @param address
 	 */
 	public void setAddress(Address address) {
@@ -66,7 +66,7 @@ public class User {
 	}
 	
 	/**
-	 * @return a String including all roles of the User
+	 * @return a string including all roles of the user
 	 */
 	public String getRoles() {
 		String roles = "";

@@ -17,10 +17,9 @@ public class ArticleTest extends AbstractIntegrationTests {
 
 	@Autowired
 	CategoryManagement categories;
-
 	
 	@Test
-	public void testArticle() {
+	public void testArticleEdit() {
 		
 		Article article = new Article("Testbook", Money.of(EUR, 7.98), "Book for JUnit", "Philo", "0000000101010", ArticleId.DVD, categories.findById("DVDHorror").get().getCategoryName(), "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99));
 		article.setArtist("Paul Nizon");
@@ -33,15 +32,24 @@ public class ArticleTest extends AbstractIntegrationTests {
 		article.setPublisher("Verlag!");
 		article.setReleaseDate("19.08.1969");
 		article.setStockPrice(Money.of(EUR, 2));
+		
 		Category category = new Category("Geschwafel", ArticleId.BOOK);
 		article.addCategory(category.getCategoryName());
 		article.removeCategory(categories.findById("DVDHorror").get().getCategoryName());
-		
 		
 		assertTrue("Die Methode getType() der Klasse Article liefert einen falschen Wert der Enumeration ArticleId.", article.getType().equals(ArticleId.BOOK));
 		assertFalse("Die Methode getName() der Klasse Article liefert einen falschen String.", article.getName().equals("Testbook"));
 		assertFalse("Die Methode getReleaseDate() der Klasse Article liefert einen falschen String.", article.getReleaseDate().equals("19081969"));
 		assertEquals("Die Methode getType() der Klasse Article liefert einen falschen Wert der Enumeration ArticleId.", article.getType(), category.getType());
+		assertEquals("Die Methode getCategoriesList der Klasse Article liefert einen falschen String.", article.getCategoryList(), "[Geschwafel]");
+		
+		article.addCategory(categories.findOne("BOOKFiktion").getCategoryName());
+		
+		assertEquals("Die Methode getCategoriesList der Klasse Article liefert einen falschen String.", article.getCategoryList(), "[Fiktion, Geschwafel]");
+
+		article.removeCategory(categories.findOne("BOOKFiktion").getCategoryName());
+		
+		assertFalse("Die Methode getCategoriesList der Klasse Article liefert einen falschen String.", article.getCategoryList().equals("[Fiktion, Geschwafel]"));
 		assertEquals("Die Methode getCategoriesList der Klasse Article liefert einen falschen String.", article.getCategoryList(), "[Geschwafel]");
 		
 	}

@@ -14,8 +14,8 @@ public class ArticleControllerTest extends AbstractIntegrationTests {
 	@Autowired ArticleController articleController;
 	
 	@Test
-	public void testGetRoles() {
-		
+	public void testArticleController() {
+		//Functionalities are tested in Article and Category Tests
 	}
 
 }
