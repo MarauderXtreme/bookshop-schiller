@@ -3,6 +3,7 @@ package bookshop.model;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import javax.persistence.Entity;
 import javax.servlet.http.HttpSession;
 
 import org.joda.money.Money;
@@ -17,7 +18,10 @@ import org.salespointframework.quantity.Quantity;
 import org.salespointframework.time.BusinessTime;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+
 
 public class StatisticsManagement {
 	
@@ -61,8 +65,7 @@ public class StatisticsManagement {
 		Quantity quantity1 = quantity;
 		
 		for(Order order : orderManager.find(time, date.getTime())){
-			
-			
+
 			if(order.isPaid()==true){
 			
 			

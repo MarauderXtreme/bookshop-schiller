@@ -84,10 +84,8 @@ public class CartController {
 				orderManager.add(order);
 				cart.clear();
 				PDFCreator pdf = new PDFCreator();
-				
-				HttpServletResponse response = null;
-				HttpServletRequest request = null;
 				pdf.pdfCreate(order, userAccount.get());
+				
 				return "redirect:/";
 			}).orElse("redirect:/cart");
 	}

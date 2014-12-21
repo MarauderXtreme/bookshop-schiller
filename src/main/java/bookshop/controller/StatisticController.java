@@ -69,49 +69,7 @@ public class StatisticController {
 
 		gesOrderBuy = sm.getGesOrdersBuy(userAccount.get());
 		
-		for(InventoryItem item : inventory.findAll()){
-			
-			/*
-			Quantity quantity = item.getQuantity();
-			quantity = quantity.subtract(item.getQuantity());
-			Quantity quantity1 = quantity;
-			
-			for(Order order : orderManager.find(time, date.getTime())){
-				
-				
-				if(order.isPaid()==true){
-				
-				
-					for(OrderLine orderLine : order.getOrderLines()){
-						
-						ProductIdentifier name1 = item.getProduct().getIdentifier();
-						ProductIdentifier name2 = orderLine.getProductIdentifier();
-						
-						
-						if(name1.equals(name2)== true){
-								quantity = quantity.add(orderLine.getQuantity());
-						}
-							
-					}	
-				
-				}else{
-					if(order.isCompleted() == true){
-						for(OrderLine orderLine : order.getOrderLines()){
-							
-							ProductIdentifier name1 = item.getProduct().getIdentifier();
-							ProductIdentifier name2 = orderLine.getProductIdentifier();
-							
-							
-							if(name1.equals(name2)== true){
-									quantity1 = quantity1.add(orderLine.getQuantity());
-								
-							}
-								
-						}	
-					}
-				}
-			}
-			*/
+		for(InventoryItem item : inventory.findAll()){			
 			
 			OrderLine orderLine = sm.getStatistic(true, item);
 			OrderLine orderLine1 = sm.getStatistic(false, item);
