@@ -19,12 +19,16 @@ public class CategoryTest extends AbstractIntegrationTests {
 	@Test
 	public void testCategory() {
 		
-		Category category = new Category("Jupidu", ArticleId.BOOK);
-		//...
+		Category category = new Category("Abenteuer", ArticleId.BOOK);
+		category.setCategoryName("Horror");
+		category.setType(ArticleId.DVD);
 		
 		
-		assertTrue("Die Methode getType() der Klasse Article liefert einen falschen Wert der Enumeration ArticleId.", category.getType().equals(ArticleId.BOOK));
-		assertEquals("Die Methode getCategoriesList der Klasse Address liefert einen falschen String.", category.getCategoryName(), "Jupidu");
+		assertFalse("Die Methode getType() der Klasse Category liefert einen falschen Wert der Enumeration ArticleId.", category.getType().equals(ArticleId.BOOK));
+		assertTrue("Die Methode getType() der Klasse Category liefert einen falschen Wert der Enumeration ArticleId.", category.getType().equals(ArticleId.DVD));
+		assertFalse("Die Methode getId() der Klasse Category liefert einen falschen String.", category.getId().equals("BOOKAbenteuer"));
+		assertEquals("Die Methode getId() der Klasse Category liefert einen falschen String.", category.getId(), "DVDHorror");
+		assertEquals("Die Methode getCategoryName() der Klasse Category liefert einen falschen String.", category.getCategoryName(), "Horror");
 	}
 
 }

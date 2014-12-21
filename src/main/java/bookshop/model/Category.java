@@ -69,6 +69,7 @@ public class Category {
 	 */
 	public void setType(ArticleId type) {
 		this.type = type;
+		setId(type, categoryName);
 	}
 
 	/**
@@ -77,6 +78,7 @@ public class Category {
 	 */
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
+		setId(type, categoryName);
 	}
 	
 }

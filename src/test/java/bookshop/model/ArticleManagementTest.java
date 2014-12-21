@@ -25,15 +25,12 @@ public class ArticleManagementTest extends AbstractIntegrationTests {
 	public void testArticleCatalog() {
 		
 		Article article = new Article("Testbook", Money.of(EUR, 7.98), "Book for JUnit", "Philo", "0000000101010", ArticleId.BOOK, categories.findById("BOOKRatgeber").get().getCategoryName(), "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99));
-		Category category = new Category("Jupidu", ArticleId.BOOK);
-		article.addCategory(category.getCategoryName());
-		article.removeCategory(categories.findById("BOOKRatgeber").get().getCategoryName());
-		articleCatalog.save(article);
 		
-		//...
+		articleCatalog.save(article);
 
-		assertTrue("Die Methode getType() der Klasse Article liefert einen falschen Wert der Enumeration ArticleId.", articleCatalog.findOne(article.getIdentifier()).get().getType().equals(ArticleId.BOOK));
-		assertEquals("Die Methode getCategoriesList der Klasse Address liefert einen falschen String.", articleCatalog.findOne(article.getIdentifier()).get().getArtist(), "Flann O'Brien");
+		assertTrue("Die Methode getType() des Objekts Article der Klasse ArticleManagement liefert einen falschen Wert der Enumeration ArticleId.", articleCatalog.findOne(article.getIdentifier()).get().getType().equals(ArticleId.BOOK));
+		assertEquals("Die Methode getArtist() des Objekts Article der Klasse ArticleManagement liefert einen falschen String.", articleCatalog.findOne(article.getIdentifier()).get().getArtist(), "Flann O'Brien");
+
 	}
 
 }

@@ -554,6 +554,7 @@ public class ArticleController {
 	 * @param model
 	 * @return
 	 */
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
 	@RequestMapping("/article/{pid}/delete/confirm")
 	public String confirmDelete(@PathVariable("pid") Article article, Model model) {
 		

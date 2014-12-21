@@ -21,14 +21,17 @@ public class CategoryManagementTest extends AbstractIntegrationTests {
 	
 	@Test
 	public void testCategories() {
-		
-		Category category = new Category("Jupidu", ArticleId.BOOK);
-		
-		categories.save(category);
-		//...
 
-		assertTrue("Die Methode getType() der Klasse Article liefert einen falschen Wert der Enumeration ArticleId.", categories.findOne(category.getId()).getType().equals(ArticleId.BOOK));
-		assertEquals("Die Methode getCategoriesList der Klasse Address liefert einen falschen String.", categories.findOne(category.getId()).getCategoryName(), "Jupidu");
+		Category category = new Category("Fantasy", ArticleId.DVD);
+
+		categories.save(category);
+		
+		categories.delete(categories.findOne("CDPop"));
+		
+		assertFalse("Die Methode getType() des Objekts Category der Klasse CategoryManagement liefert einen falschen Wert der Enumeration ArticleId.", categories.findOne(category.getId()).getType().equals(ArticleId.BOOK) || categories.findOne(category.getId()).getType().equals(ArticleId.CD));
+		assertEquals("Die Methode getCategoryName des Objekts Category der Klasse CategoryManagement liefert einen falschen String.", categories.findOne("DVDFantasy").getCategoryName(), "Fantasy");
+		assertEquals("Die Methode getCategoryName des Objekts Category der Klasse CategoryManagement liefert einen falschen String.", categories.findOne("DVDHorror").getCategoryName(), "Horror");
+		assertFalse("Die Methode exists() der Klasse CategoryManagement liefert eine falsche Category.", categories.exists("CDPop"));
 	}
 
 }
