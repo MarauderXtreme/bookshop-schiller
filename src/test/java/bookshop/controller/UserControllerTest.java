@@ -14,5 +14,9 @@ public class UserControllerTest extends AbstractWebIntegrationTests {
 
 	@Autowired UserController userController;
 	
+	@Test
+	public void test() {
+		
+	}
 
 }
