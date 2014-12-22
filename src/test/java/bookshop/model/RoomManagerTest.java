@@ -12,8 +12,8 @@ public class RoomManagerTest extends AbstractIntegrationTests {
 	public void testRoomManager()
 	{		
 		assertEquals("Ein Raum wird dem RoomManagement hinzugefuegt",true, RoomManagement.getInstance().addRoom("Raum0001", "1010101", "40"));
-		assertEquals("Ein Raum wird dem RoomManagement hinzugefuegt",false, RoomManagement.getInstance().addRoom("Raum0010","112","234"));
-		assertEquals("Ein Raum wird dem RoomManagement hinzugefuegt",false,RoomManagement.getInstance().addRoom("Raum0011","111","234"));
+		assertEquals("Ein Raum wird dem RoomManagement hinzugefuegt",false, RoomManagement.getInstance().addRoom("Raum0001","112","234"));
+		assertEquals("Ein Raum wird dem RoomManagement hinzugefuegt",false,RoomManagement.getInstance().addRoom("Raum0011","1010101","234"));
 		assertEquals("Ein Raum wird dem RoomManagement hinzugefuegt",true,RoomManagement.getInstance().addRoom("Raum0100","114","24"));
 		
 		assertTrue("Ein Raum kann nicht entfernt werden",RoomManagement.getInstance().removeRoom("Testraum1"));
