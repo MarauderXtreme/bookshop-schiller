@@ -16,16 +16,16 @@ public class TupelKey<X , Y>{
 		MyDate da = tuke.y;
 		
 		if (tuke ==this) {
-			System.out.println("Gleiche instanz von TupelKey!");
+			//System.out.println("Gleiche instanz von TupelKey!");
 			return true;
 		}
 		
 		
 		if(this.x.equals(ro) && this.y.equals(da)) {
-			System.out.println("TupelKey ist gleich dem anderen");
+			//System.out.println("TupelKey ist gleich dem anderen");
 			return true;
 		} else {
-			System.out.println("Neuer TupelKey");
+			//System.out.println("Neuer TupelKey");
 		return false;
 		}
 	}
