@@ -38,7 +38,7 @@ public class OrderTest extends AbstractIntegrationTests{
 	@Test
 	public void testMyOrders(){
 		
-	UserAccountIdentifier userID = new UserAccountIdentifier("wurst");
+	UserAccountIdentifier userID = new UserAccountIdentifier("dextermorgan");
 	Optional<UserAccount> userAccount = userAccountManager.get(userID);	
 	Order order = new Order(userAccount.get(), Cash.CASH);
 	Order order2 = new Order(userAccount.get(), Cash.CASH);
