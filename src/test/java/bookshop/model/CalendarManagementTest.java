@@ -35,6 +35,9 @@ public class CalendarManagementTest extends AbstractIntegrationTests {
 		assertEquals("die Methode addEvent() des Calendar-objekts added ein event doppelt, nimmt es aber dennoch an", false, CalendarManagement.getInstance().getCalendar().addEvent(testevent2));
 		assertEquals("die Methode addEvent() des Calendar-objekts added ein event an einem belegten Datum", false, CalendarManagement.getInstance().getCalendar().addEvent(testevent3));
 		assertEquals("die Methode addEvent() des Calendar-objekts added ein ungueltiges event", false, CalendarManagement.getInstance().getCalendar().addEvent(testevent3));
+		
+		assertEquals("die Methode removeEvent() des Calendar-Objekts kann ein Objekt nicht removen",true,CalendarManagement.getInstance().getCalendar().removeEvent(new TupelKey<Room,MyDate>(testevent1.getRoom(), testevent1.getDate())));
+		assertEquals("die Methode removeEvent() des Calendar-Objekts entfernt ein Objekt das nicht existiert",false,CalendarManagement.getInstance().getCalendar().removeEvent(new TupelKey<Room,MyDate>(testevent1.getRoom(), testevent1.getDate())));
 	}
 
 

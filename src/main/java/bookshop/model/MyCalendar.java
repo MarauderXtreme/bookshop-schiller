@@ -44,6 +44,23 @@ public class MyCalendar {
 		}
 	}	
 	
+	public boolean removeEvent(TupelKey<Room,MyDate>tk)
+	{
+		System.out.println(""+tk.getRoom().getName());
+		if (eventMap.containsKey(tk))
+		{
+			System.out.println(eventMap.size());
+			eventMap.put(tk, null);
+			eventMap.remove(tk);
+			sortEvents();
+			System.out.println("Event entfernt: "+tk.x.getName());
+			System.out.println(eventMap.size());
+			return true;
+		}
+		System.out.println("Event nicht entfernt");
+		return false;
+	}
+	
 	/**
 	 * 
 	 * @return all values from the eventList
@@ -107,6 +124,22 @@ public class MyCalendar {
 			}
 		}
 		return tempSortedEventList;
+	}
+	
+	public Event getEventByName(String name)
+	{
+		List<Event> eventList = getEventList();
+		Iterator<Event> ite = eventList.iterator();
+		Event event = new Event("Hallo",new MyDate("11111111","1111"),new Room("Hey","123123",12));
+		while(ite.hasNext())
+		{
+			event= ite.next();
+			if(ite.next().getName().equals(name))
+			{
+				break;
+			}
+		}
+		return event;
 	}
 	
 	/**

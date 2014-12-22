@@ -61,6 +61,14 @@
 								</tr>
 							</tbody>
 						</table>
+						<form class="row" method="post" action="/admin/room/remove" data-abide="">
+						<select required="" name="deleteRoom">
+						<option th:each="room : ${roomList}" value="Empty" th:value="${room.getName()}" th:text="${room.getName()}">Empty</option>
+						</select>
+						<div class="large-6 medium-6 small-12 columns">							
+						<input class="small round button" type="submit" value="Raum entfernen" />
+						</div>
+		            </form>
 					</div>
 				</div>
 			</div>

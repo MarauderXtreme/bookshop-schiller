@@ -16,27 +16,28 @@ public class RoomController {
 
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value="/admin/room/new", method = RequestMethod.POST)
-	public String add(@RequestParam("rName") String rName, @RequestParam("rNum") String rNum, @RequestParam("rChairs") String chairs, BindingResult result)
+	public String add(@RequestParam("rName") String rName, @RequestParam("rNum") String rNum, @RequestParam("rChairs") String chairs)
 	{
-		if(!RoomManagement.getInstance().addRoom(rName, rNum, chairs))
-		{
-			result.addError(new ObjectError("Room", "Der eingegebene Raumname oder die eingegebene Raumnummer ist bereits vergeben"));
-		}
-		
-		if(result.hasErrors())
-		{
-			
-		}
+		RoomManagement.getInstance().addRoom(rName, rNum, chairs);
 		return "redirect:/admin/room/add";
 	}
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/room/add")
-	public String rooms( Model model) {
+	public String rooms(Model model) {
 
 		model.addAttribute("roomList" , RoomManagement.getInstance().getAllRooms());
 
 		return "addroom";
+	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(value= "/admin/room/remove", method=RequestMethod.POST)
+	public String removeRoom(Model model, @RequestParam("deleteRoom")String rName)
+	{
+		RoomManagement.getInstance().removeRoom(rName);
+		model.addAttribute("roomList" , RoomManagement.getInstance().getAllRooms());
+		return"redirect:/admin/room/add";
 	}
 	
 }

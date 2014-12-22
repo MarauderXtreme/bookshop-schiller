@@ -23,6 +23,7 @@ public class RoomManagement {
 		}
 		return RoomManagement.instance;
 	}
+
 	
 	public boolean addRoom(String name , String number, String chairNum)
 	{
@@ -56,8 +57,10 @@ public class RoomManagement {
 		if(rooms.containsKey(name))
 		{
 			rooms.remove(name);
+			System.out.println("Raum entfernt");
 			return true;
 		}
+		System.out.println("Raum nicht entfernt");
 		return false;
 	}
 	

@@ -41,9 +41,9 @@ public class CalendarManagement {
 	 *Removes an event event from the eventlist.
 	 * @param name
 	 */
-	public boolean removeEvent(String name)
+	public boolean removeEvent(TupelKey<Room,MyDate>tk)
 	{
-		return false;
+		return getCalendar().removeEvent(tk);
 	}
 	
 	
