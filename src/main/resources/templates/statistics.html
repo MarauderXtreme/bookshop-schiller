@@ -1,62 +1,75 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-	<head th:include="head :: head"></head>
-	<body>
-		<div class="off-canvas-wrap" data-offcanvas="">
-			<div class="fixed" th:include="topbar :: topbar"></div>
-	    <div class="inner-wrap">
-	    	<aside class="left-off-canvas-menu" aria-hidden="true">
-	    		<nav th:include="navigation :: navigation"></nav>
-	    	</aside>
-	    	<div class="main-content">
-		    	<header class="large-12 medium-12 show-for-landscape show-for-medium-up">
-		        <div class="panel">
-		          <div class="header-slider row" th:include="slider :: slider"></div>
-		        </div>
-		      </header>
-	        <div class="large-12">&nbsp;</div>
-	        <div class="large-12 medium-12 small-12 row">
-	          <h3>Verkaufsbilanz</h3>
-						<table class="large-6 medium-6 small-12 columns">
-							<thead>
-								<tr>
-									<th class="small-4" th:text="#{statistics.article}">Titel</th>
-									<th class="small-4" th:text="#{statistics.sell}">Verkauft</th>
-									<th class="small-4" th:text="#{statistics.income}"> Einnahmen</th>
-								</tr>
-							</thead>
-							<tbody>
-									<tr th:each=" orderline : ${statisticbuy}">
-										<td th:text="${orderline.productName}">Last Action Hero</td>
-										<td th:text="${orderline.quantity.amount}">9000</td>
-										<td th:text="${orderline.price}">10</td>
-									</tr>																
-							</tbody>
-						</table>
-						<table class="large-6 medium-6 small-12 columns">
-							<thead>
-								<tr>
-									<th class="small-4" th:text="#{statistics.article}">Titel</th>
-									<th class="small-4" th:text="#{statistics.buy}">Gekauft</th>
-									<th class="small-4" th:text="#{statistics.outcome}">Ausgaben</th>
-								</tr>
-							</thead>
-							<tbody>	
-									<tr th:each=" orderline : ${statisticsell}">
-										<td th:text="${orderline.productName}">Last Action Hero</td>
-										<td th:text="${orderline.quantity.amount}">9000</td>
-										<td th:text="${orderline.price}">10</td>
-									</tr>															
-							</tbody>
-						</table>						
-						<p th:text="#{statistics.totalweeksell} + ': ' + ${statisticPriceSell}">Summe: 100 Euro</p>
-						<p th:text="#{statistics.totalsell} + ': ' + ${statisticPriceSellAll}">Summe: 100 Euro</p>	
-						<p th:text="#{statistics.totalweekbuy} + ': ' + ${statisticPriceBuy}">Summe: 100 Euro</p>
-					  <p th:text="#{statistics.totalbuy} + ': ' + ${statisticPriceBuyAll}">Summe: 100 Euro</p>
-						<p th:text="#{statistics.profit} + ': ' + ${profit}">Summe: 100 Euro</p>
-						<p th:text="#{statistics.profittotal} + ': ' + ${profittotal}">Summe: 100 Euro</p>
-				<!--	</div>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:include="head :: head"></head>
+<body>
+	<div class="off-canvas-wrap" data-offcanvas="">
+		<div class="fixed" th:include="topbar :: topbar"></div>
+		<div class="inner-wrap">
+			<aside class="left-off-canvas-menu" aria-hidden="true">
+				<nav th:include="navigation :: navigation"></nav>
+			</aside>
+			<div class="main-content">
+				<header
+					class="large-12 medium-12 show-for-landscape show-for-medium-up">
+					<div class="panel">
+						<div class="header-slider row" th:include="slider :: slider"></div>
+					</div>
+				</header>
+				<div class="large-12">&nbsp;</div>
+				<div class="large-12 medium-12 small-12 row">
+					<h3>Verkaufsbilanz</h3>
+					<table class="large-6 medium-6 small-12 columns">
+						<thead>
+							<tr>
+								<th class="small-4" th:text="#{statistics.article}">Titel</th>
+								<th class="small-4" th:text="#{statistics.sell}">Verkauft</th>
+								<th class="small-4" th:text="#{statistics.income}">
+									Einnahmen</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each=" orderline : ${statisticbuy}">
+								<td th:text="${orderline.productName}">Last Action Hero</td>
+								<td th:text="${orderline.quantity.amount}">9000</td>
+								<td th:text="${orderline.price}">10</td>
+							</tr>
+						</tbody>
+					</table>
+					<table class="large-6 medium-6 small-12 columns">
+						<thead>
+							<tr>
+								<th class="small-4" th:text="#{statistics.article}">Titel</th>
+								<th class="small-4" th:text="#{statistics.buy}">Gekauft</th>
+								<th class="small-4" th:text="#{statistics.outcome}">Ausgaben</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each=" orderline : ${statisticsell}">
+								<td th:text="${orderline.productName}">Last Action Hero</td>
+								<td th:text="${orderline.quantity.amount}">9000</td>
+								<td th:text="${orderline.price}">10</td>
+							</tr>
+						</tbody>
+					</table>
+					<p
+						th:text="#{statistics.totalweeksell} + ': ' + ${statisticPriceSell}">Summe:
+						100 Euro</p>
+					<p
+						th:text="#{statistics.totalsell} + ': ' + ${statisticPriceSellAll}">Summe:
+						100 Euro</p>
+					<p
+						th:text="#{statistics.totalweekbuy} + ': ' + ${statisticPriceBuy}">Summe:
+						100 Euro</p>
+					<p
+						th:text="#{statistics.totalbuy} + ': ' + ${statisticPriceBuyAll}">Summe:
+						100 Euro</p>
+					<p th:text="#{statistics.profit} + ': ' + ${profit}">Summe: 100
+						Euro</p>
+					<p th:text="#{statistics.profittotal} + ': ' + ${profittotal}">Summe:
+						100 Euro</p>
+					<!--	</div>
 	        <div class="large-12 medium-12 small-12 row">
 						<p>
 							<label th:text="#{statistics.totalweeksell}"></label>
@@ -71,9 +84,9 @@
 							<span th:text="${profit}"></span>
 						</p>
 						-->
-	        </div>
-	    	</div>
-	    </div>
+				</div>
+			</div>
 		</div>
-	</body>
+	</div>
+</body>
 </html>
