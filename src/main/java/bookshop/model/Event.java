@@ -4,6 +4,7 @@ public class Event extends Object {
 	private String name;
 	private MyDate date;
 	private Room room;
+	private int takenSeats;
 	
 	@Deprecated
 	protected Event() {}
@@ -19,6 +20,7 @@ public class Event extends Object {
 		this.name = name;
 		this.date = date;
 		this.room = room;
+		this.takenSeats = 0;
 	}
 	
 	/**
@@ -64,5 +66,20 @@ public class Event extends Object {
 	public Room getRoom()
 	{
 		return room;
+	}
+	
+	public int getTakenSeats()
+	{
+		return takenSeats;
+	}
+	
+	public boolean increaseTakenSeats()
+	{
+		if(Integer.parseInt(getRoom().getChairNum())>takenSeats)
+		{
+			takenSeats++;
+			return true;
+		}
+		return false;
 	}
 }

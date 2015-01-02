@@ -22,10 +22,12 @@
 			        	<thead class="panel">
 			          	<tr>
 			            	<th class="small-2">Datum</th>
-			              <th class="small-1">Zeit</th>
+			              	<th class="small-1">Zeit</th>
 			             	<th class="small-6">Event</th>
 			             	<th class="small-1">Raumnummer</th>
 			             	<th class="small-2">Raum</th>
+			             	<th class="small-6">Belegte Sitze</th>
+			             	<th></th>
 			            </tr>
 			          </thead>
 			          <tbody th:remove="all-but-first">
@@ -35,6 +37,15 @@
 			              <td th:text="${event.getName()}">Testtext</td>
 			              <td th:text="${event.getRoom().getNumber()}">Testtext</td>
 			              <td th:text="${event.getRoom().getName()}">Testtext</td>
+			              <td th:text="${event.getTakenSeats()} +'/'+${event.getRoom().getChairNum()}"></td>
+			              <td>
+			              <form action="/calendar/bookSeat" method="post">
+			             <input type="hidden" name="eventRoomName" th:value="${event.getRoom().getName()}"/>
+			             <input type="hidden" name="dateD" th:value="${event.getDateD()}"/>
+			             <input type="hidden" name="dateT" th:value="${event.getDateT()}"/>
+			             <input type="submit" value="Buchen" />
+			              </form>
+			              </td>
 			            </tr>
 			          </tbody>
 			        </table>
