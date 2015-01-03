@@ -39,12 +39,18 @@
 			              <td th:text="${event.getRoom().getName()}">Testtext</td>
 			              <td th:text="${event.getTakenSeats()} +'/'+${event.getRoom().getChairNum()}"></td>
 			              <td>
-			              <form action="/calendar/bookSeat" method="post">
-			             <input type="hidden" name="eventRoomName" th:value="${event.getRoom().getName()}"/>
-			             <input type="hidden" name="dateD" th:value="${event.getDateD()}"/>
-			             <input type="hidden" name="dateT" th:value="${event.getDateT()}"/>
-			             <input type="submit" value="Buchen" />
-			              </form>
+			             	 <form action="/calendar/bookSeat" method="post">
+			             		<input type="hidden" name="eventRoomName" th:value="${event.getRoom().getName()}"/>
+			            		 <input type="hidden" name="dateD" th:value="${event.getDateD()}"/>
+			            		 <input type="hidden" name="dateT" th:value="${event.getDateT()}"/>
+			            		 <input type="submit" value="Buchen" />
+			            	  </form>
+			              </td>
+			              <td>
+			             	 <form action="/calendar/reservations" method="post">
+			             		<input type="hidden" name="eventRoomName" th:value="${event.getRoom().getName()}"/>
+			            		 <input type="submit" value="Reservierungen" />
+			            	  </form>
 			              </td>
 			            </tr>
 			          </tbody>

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import bookshop.model.CalendarManagement;
 import bookshop.model.MyDate;
 import bookshop.model.Event;
+import bookshop.model.OrderManagement;
 import bookshop.model.Room;
 import bookshop.model.RoomManagement;
 import bookshop.model.TupelKey;
@@ -52,7 +53,7 @@ public class CalendarController {
 
 		return "/calendar";
 	}
-	
+	/*
 	@RequestMapping(value="/calendar/bookSeat", method=RequestMethod.POST)
 	public String bookSeat(@RequestParam("eventRoomName")String roomName,@RequestParam("dateD")String date,@RequestParam("dateT")String time)
 	{
@@ -62,9 +63,12 @@ public class CalendarController {
 			System.out.println("true");
 			}
 		System.out.println("false");
+		
+		//OrderManagement management = new OrderManagement(null, null);
+		
 		return "redirect:/calendar";
 	}
-	
+	*/
 	@PreAuthorize("hasRole('ROLE_EVENTMANAGER') || hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/event/remove", method = RequestMethod.POST)
 	public String deleteEvent(Model model, @RequestParam("name")String eventName)

@@ -71,6 +71,7 @@ public class StatisticController {
 		
 		for(InventoryItem item : inventory.findAll()){			
 			
+			
 			OrderLine orderLine = sm.getStatistic(true, item);
 			OrderLine orderLine1 = sm.getStatistic(false, item);
 			

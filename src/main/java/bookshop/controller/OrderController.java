@@ -1,5 +1,7 @@
 package bookshop.controller;
 
+import static org.joda.money.CurrencyUnit.EUR;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ import org.salespointframework.order.OrderManager;
 import org.salespointframework.order.OrderStatus;
 import org.salespointframework.payment.Cash;
 import org.salespointframework.quantity.Quantity;
+import org.salespointframework.quantity.Units;
 import org.salespointframework.time.BusinessTime;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManager;
@@ -35,8 +38,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import bookshop.model.Article;
+import bookshop.model.CalendarManagement;
+import bookshop.model.MyDate;
+import bookshop.model.OrderManagement;
 import bookshop.model.PDFCreator;
+import bookshop.model.Room;
+import bookshop.model.RoomManagement;
 import bookshop.model.Statistic;
+import bookshop.model.TupelKey;
 
 
 @Controller
@@ -161,10 +170,47 @@ public class OrderController {
 		Order order = new Order(userAccount.get(), Cash.CASH);
 		order.add(orderLine);
 		
-		orderManager.payOrder(order);
-		
+		orderManager.payOrder(order);	
 		orderManager.add(order);
+		
 		return"redirect:/admin/stock";
 	}
 	
+	@RequestMapping("/calendar/reservations")
+	public String showReservations(ModelMap modelMap){
+		
+		OrderManagement management = new OrderManagement(orderManager, inventory);
+		modelMap.addAttribute("reservation", management.orders("Fasching"));
+		return "reservations";
+	}
+	
+	@RequestMapping(value="/calendar/bookSeat", method=RequestMethod.POST)
+	public String bookSeat(@LoggedIn Optional<UserAccount> userAccount, @RequestParam("eventRoomName")String roomName,@RequestParam("dateD")String date,@RequestParam("dateT")String time)
+	{
+		MyDate tempdate = new MyDate(date, time);
+		if(CalendarManagement.getInstance().getCalendar().getEvent(new TupelKey<Room, MyDate>(RoomManagement.getInstance().getRoom(roomName), tempdate)).increaseTakenSeats())
+			{
+			//System.out.println("true");
+			}
+		//System.out.println("false");
+		
+		//OrderManagement management = new OrderManagement(orderManager, inventory);
+		Quantity quantity = Units.of(1);
+		Product product = new Product(roomName, Money.of(EUR, 0.00), Units.METRIC);
+		OrderLine orderLine = new OrderLine(product, quantity);
+		Order order = new Order(userAccount.get(), Cash.CASH);
+		order.add(orderLine);
+		orderManager.payOrder(order);
+		orderManager.add(order);
+		System.out.println(order.getOrderStatus());
+		for(Order test : orderManager.find(OrderStatus.PAID)){
+			System.out.println(test);
+			for(OrderLine test2 : test.getOrderLines()){
+				System.out.println(test2.getProductName());
+			}
+		}
+		//management.reservation(roomName, userAccount);
+		
+		return "redirect:/calendar";
+	}
 }
