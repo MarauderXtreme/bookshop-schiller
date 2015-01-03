@@ -183,6 +183,7 @@ public class OrderController {
 		return"redirect:/admin/stock";
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_EVENTMANAGER')")
 	@RequestMapping("/calendar/reservations")
 	public String showReservations(ModelMap modelMap, @RequestParam("eventID") String event){
 		
@@ -192,6 +193,7 @@ public class OrderController {
 		return "reservations";
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_EVENTMANAGER')")
 	@RequestMapping(value="/calendar/bookSeat", method=RequestMethod.POST)
 	public String bookSeat(@LoggedIn Optional<UserAccount> userAccount, @RequestParam("eventRoomName")String roomName,@RequestParam("dateD")String date,@RequestParam("dateT")String time,@RequestParam("eventID")String event)
 	{
@@ -205,7 +207,6 @@ public class OrderController {
 		//System.out.println("false");
 		
 		OrderManagement management = new OrderManagement(orderManager, inventory);
-		// Für roomName bitte eine String ID einfügen
 		management.reservation(event, userAccount);
 		
 		return "redirect:/calendar";
