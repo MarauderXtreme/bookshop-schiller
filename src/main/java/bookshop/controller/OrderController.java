@@ -184,16 +184,19 @@ public class OrderController {
 	}
 	
 	@RequestMapping("/calendar/reservations")
-	public String showReservations(ModelMap modelMap){
+	public String showReservations(ModelMap modelMap, String event){
+		
 		
 		OrderManagement management = new OrderManagement(orderManager, inventory);
-		modelMap.addAttribute("reservation", management.orders("Fasching"));
+		modelMap.addAttribute("reservation", management.orders(event));
 		return "reservations";
 	}
 	
 	@RequestMapping(value="/calendar/bookSeat", method=RequestMethod.POST)
-	public String bookSeat(@LoggedIn Optional<UserAccount> userAccount, @RequestParam("eventRoomName")String roomName,@RequestParam("dateD")String date,@RequestParam("dateT")String time)
+	public String bookSeat(@LoggedIn Optional<UserAccount> userAccount, @RequestParam("eventRoomName")String roomName,@RequestParam("dateD")String date,@RequestParam("dateT")String time,@RequestParam("eventID")String event)
 	{
+		
+		// 
 		MyDate tempdate = new MyDate(date, time);
 		if(CalendarManagement.getInstance().getCalendar().getEvent(new TupelKey<Room, MyDate>(RoomManagement.getInstance().getRoom(roomName), tempdate)).increaseTakenSeats())
 			{
@@ -201,22 +204,9 @@ public class OrderController {
 			}
 		//System.out.println("false");
 		
-		//OrderManagement management = new OrderManagement(orderManager, inventory);
-		Quantity quantity = Units.of(1);
-		Product product = new Product(roomName, Money.of(EUR, 0.00), Units.METRIC);
-		OrderLine orderLine = new OrderLine(product, quantity);
-		Order order = new Order(userAccount.get(), Cash.CASH);
-		order.add(orderLine);
-		orderManager.payOrder(order);
-		orderManager.add(order);
-		System.out.println(order.getOrderStatus());
-		for(Order test : orderManager.find(OrderStatus.PAID)){
-			System.out.println(test);
-			for(OrderLine test2 : test.getOrderLines()){
-				System.out.println(test2.getProductName());
-			}
-		}
-		//management.reservation(roomName, userAccount);
+		OrderManagement management = new OrderManagement(orderManager, inventory);
+		// Für roomName bitte eine String ID einfügen
+		management.reservation(event, userAccount);
 		
 		return "redirect:/calendar";
 	}
