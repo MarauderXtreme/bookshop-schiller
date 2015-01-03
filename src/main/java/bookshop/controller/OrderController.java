@@ -184,7 +184,7 @@ public class OrderController {
 	}
 	
 	@RequestMapping("/calendar/reservations")
-	public String showReservations(ModelMap modelMap, String event){
+	public String showReservations(ModelMap modelMap, @RequestParam("eventID") String event){
 		
 		
 		OrderManagement management = new OrderManagement(orderManager, inventory);

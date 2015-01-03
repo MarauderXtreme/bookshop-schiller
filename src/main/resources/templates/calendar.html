@@ -43,13 +43,19 @@
 			             		<input type="hidden" name="eventRoomName" th:value="${event.getRoom().getName()}"/>
 			            		 <input type="hidden" name="dateD" th:value="${event.getDateD()}"/>
 			            		 <input type="hidden" name="dateT" th:value="${event.getDateT()}"/>
+			            		<!-- Bitte die th:value anpassen
+			            		 <input type="hidden" name="eventID" th:value="${event.getDateT()}"/>
+			            		--> 
 			            		 <input type="submit" value="Buchen" />
 			            	  </form>
 			              </td>
 			              <td>
 			             	 <form action="/calendar/reservations" method="post">
-			             		<input type="hidden" name="eventRoomName" th:value="${event.getRoom().getName()}"/>
-			            		 <input type="submit" value="Reservierungen" />
+			             			<input type="hidden" name="eventRoomName" th:value="${event.getRoom().getName()}"/>
+			             			<!-- Bitte die th:value anpassen
+			            		  <input type="hidden" name="eventID" th:value="${event.getDateT()}"/>
+			            			--> 
+			            		  <input type="submit" value="Reservierungen" />
 			            	  </form>
 			              </td>
 			            </tr>
