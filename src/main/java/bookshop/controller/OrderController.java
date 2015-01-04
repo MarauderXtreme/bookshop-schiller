@@ -102,7 +102,7 @@ public class OrderController {
 	 * @param order
 	 */
 	@PreAuthorize("hasRole('ROLE_CUSTOMER') || hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN') || hasRole('ROLE_SALESMANAGER')")
-	@RequestMapping(value="/order/detailreservation")
+	@RequestMapping(value="/order/detail")
 	public String getOrderDetails(ModelMap modelMap, @RequestParam("orderdetail") Order order){
 		
 		String orderpath = order.getIdentifier().toString();
@@ -113,7 +113,7 @@ public class OrderController {
 		return "/ordersdetail";
 	}
 	@PreAuthorize("hasRole('ROLE_CUSTOMER') || hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN') || hasRole('ROLE_SALESMANAGER')")
-	@RequestMapping(value="/order/detail")
+	@RequestMapping(value="/order/detailreservation")
 	public String getReservationDetails(ModelMap modelMap, @RequestParam("orderdetail") Order order){
 
 		modelMap.addAttribute("detailorders", order.getOrderLines());
