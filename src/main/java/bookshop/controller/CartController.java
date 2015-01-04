@@ -86,6 +86,8 @@ public class CartController {
 				PDFCreator pdf = new PDFCreator();
 				pdf.pdfCreate(order, userAccount.get());
 				
+				
+				
 				return "redirect:/";
 			}).orElse("redirect:/cart");
 	}
