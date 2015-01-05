@@ -193,9 +193,9 @@ public class OrderController {
 		return "reservations";
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_EVENTMANAGER')")
+	@PreAuthorize("hasRole('ROLE_CUSTOMER')")
 	@RequestMapping(value="/calendar/bookSeat", method=RequestMethod.POST)
-	public String bookSeat(@LoggedIn Optional<UserAccount> userAccount, @RequestParam("eventRoomName")String roomName,@RequestParam("dateD")String date,@RequestParam("dateT")String time,@RequestParam("eventID")String event)
+	public String bookSeat(@LoggedIn Optional<UserAccount> userAccount, @RequestParam("eventRoomName")String roomName,@RequestParam("dateD")String date,@RequestParam("dateT")String time, @RequestParam("eventID") String event)
 	{
 		MyDate tempdate = new MyDate(date, time);
 		if(CalendarManagement.getInstance().getCalendar().getEvent(new TupelKey<Room, MyDate>(RoomManagement.getInstance().getRoom(roomName), tempdate)).increaseTakenSeats())
