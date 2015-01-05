@@ -88,28 +88,6 @@
 										<small class="alert-box alert" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Die E-Mail-Adresse darf nicht leer sein.</small>
 									</div>
 									
-									<div>
-										<label th:text="#{editprofile.oldPassword}" for="oldPassword">Passwort</label>
-										<input id="oldPassword" th:field="*{oldPassword}" th:errorclass="fieldError" type="password" name="oldPassword" required="" />
-										<small class="alert-box alert error">Das alte Passwort darf nicht leer sein.</small>
-									</div>
-									
-									<div>
-										<label th:text="#{editprofile.password}" for="password">Passwort</label>
-										<input id="password" th:field="*{password}" th:errorclass="fieldError" type="password" name="password" th:value="${user.userAccount.password}" pattern="custom_password" />
-										<small class="alert-box alert error">Das neue Passwort muss zwischen 8 und 32 Zeichen lang sein und mindestens einen Großbuchstaben, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen enthalten.</small>
-										<small class="alert-box alert" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Das neue Passwort darf nicht leer sein.</small>
-									</div>
-									
-									<div>
-										<label th:text="#{editprofile.passwordRepeat}" for="passwordRepeat">Passwort</label>
-										<input id="passwordRepeat" th:field="*{passwordRepeat}" th:errorclass="fieldError" type="password" name="passwordRepeat" th:value="${user.userAccount.password}" data-equalto="password" />
-										<small class="alert-box alert error">Passwörter nicht identisch.</small>
-										<small class="alert-box alert" th:if="${#fields.hasErrors('passwordRepeat')}" th:errors="*{passwordRepeat}">Passwörter nicht identisch.</small>
-									</div>
-									
-									<small>*ACHTUNG: Wenn Sie Ihr Passwort nicht ändern wollen, dann geben sie bitte dreimal Ihr altes Passwort ein!</small>
-								
 								</fieldset>
 								<input class="button round large-offset-1 medium-offset-1" type="submit" value="Neue Profildaten speichern" /> 
 							</form>
