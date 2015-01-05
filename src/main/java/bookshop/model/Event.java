@@ -5,6 +5,7 @@ public class Event extends Object {
 	private MyDate date;
 	private Room room;
 	private int takenSeats;
+	private String eventID;
 	
 	@Deprecated
 	protected Event() {}
@@ -21,6 +22,7 @@ public class Event extends Object {
 		this.date = date;
 		this.room = room;
 		this.takenSeats = 0;
+		this.eventID = (name+" "+date.getDate()+date.getTime()+" "+room.getName()+room.getNumber());
 	}
 	
 	/**
@@ -68,11 +70,28 @@ public class Event extends Object {
 		return room;
 	}
 	
+	/**
+	 * 
+	 * @return the number of seats that have ben reserved
+	 */
 	public int getTakenSeats()
 	{
 		return takenSeats;
 	}
 	
+	/**
+	 * 
+	 * @return the event specific ID, constructed from the Eventname, Date and Room
+	 */
+	public String getID()
+	{
+		return eventID;
+	}
+	
+	/**
+	 * Increases the amount of reserved seats for this event
+	 * @return false if all seats are taken, true if not
+	 */
 	public boolean increaseTakenSeats()
 	{
 		if(Integer.parseInt(getRoom().getChairNum())>takenSeats)
