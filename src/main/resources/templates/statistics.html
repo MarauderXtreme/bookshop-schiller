@@ -49,13 +49,13 @@
 										<td th:text="${orderline.price}">10</td>
 									</tr>															
 							</tbody>
-						</table>						
+						</table>	
+						<p th:text="#{statistics.totalweekbuy} + ': ' + ${statisticPriceBuy}">Summe: 100 Euro</p>					
 						<p th:text="#{statistics.totalweeksell} + ': ' + ${statisticPriceSell}">Summe: 100 Euro</p>
-						<p th:text="#{statistics.totalsell} + ': ' + ${statisticPriceSellAll}">Summe: 100 Euro</p>	
-						<p th:text="#{statistics.totalweekbuy} + ': ' + ${statisticPriceBuy}">Summe: 100 Euro</p>
-					  <p th:text="#{statistics.totalbuy} + ': ' + ${statisticPriceBuyAll}">Summe: 100 Euro</p>
 						<p th:text="#{statistics.profit} + ': ' + ${profit}">Summe: 100 Euro</p>
-						<p th:text="#{statistics.profittotal} + ': ' + ${profittotal}">Summe: 100 Euro</p>
+						<p style="font-weight: bold;" th:text="#{statistics.totalsell} + ': ' + ${statisticPriceSellAll}">Summe: 100 Euro</p>
+					  <p style="font-weight: bold;" th:text="#{statistics.totalbuy} + ': ' + ${statisticPriceBuyAll}">Summe: 100 Euro</p>
+						<p style="font-weight: bold;" th:text="#{statistics.profittotal} + ': ' + ${profittotal}">Summe: 100 Euro</p>
 				<!--	</div>
 	        <div class="large-12 medium-12 small-12 row">
 						<p>
