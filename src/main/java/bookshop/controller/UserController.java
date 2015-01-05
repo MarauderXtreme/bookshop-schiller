@@ -220,7 +220,7 @@ public class UserController {
 		
 		User user = userRepository.findUserByUserAccount(userAccount.get());
 		modelMap.addAttribute("user", user);
-		return "profile";
+		return "ownprofile";
 	}
 	
 	/**
@@ -231,7 +231,7 @@ public class UserController {
 	 * @param modelMap
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN')|| hasRole('ROLE_USERMANAGER')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
 	@RequestMapping("/user/profile/{pid}/change/edit")
 	public String changeProfileEdit(@PathVariable("pid") UserAccount userAccount, @ModelAttribute("profileForm") @Valid ProfileForm profileForm,
 			BindingResult result, ModelMap modelMap) {
@@ -280,7 +280,7 @@ public class UserController {
 	 * @param modelMap
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER') || hasRole('ROLE_BOSS')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
 	@RequestMapping("/user/profile/{pid}/change")
 	public String changeProfile(@PathVariable("pid") UserAccount userAccount, @LoggedIn Optional<UserAccount> currentUserAccount, ModelMap modelMap) {
 		
@@ -293,7 +293,7 @@ public class UserController {
 			return "profile";
 		}
 		
-		if (!userAccount.hasRole(new Role("ROLE_BOSS")) && !currentUserAccount.get().hasRole(new Role("ROLE_ADMIN")) && !currentUserAccount.get().hasRole(new Role("ROLE_USERMANAGER"))) {
+		if ((userAccount.hasRole(new Role("ROLE_ADMIN")) || userAccount.hasRole(new Role("ROLE_USERMANAGER"))) && !currentUserAccount.get().hasRole(new Role("ROLE_ADMIN"))) {
 			return "profile";
 		}
 		
@@ -330,14 +330,16 @@ public class UserController {
 		
 		Iterable<User> users = userRepository.findAll();	
 		
+		
+		
 		for (User u : users) {
-			if (u.getUserAccount().getEmail().equals(profileForm.getEmail()) && !(u.getUserAccount().equals(userAccount))) {
+			if (u.getUserAccount().getEmail().equals(profileForm.getEmail()) && !(u.getUserAccount().equals(userAccount.get()))) {
 				result.addError(new ObjectError("email.isUsed", "Die eingegebene E-Mail-Adresse ist bereits vergeben!"));
 			}
 		}
 		
 		if (result.hasErrors()) {
-			return "editprofile";
+			return "editownprofile";
 		}
 		
 		userAccount.get().setFirstname(profileForm.getFirstname());
@@ -365,7 +367,7 @@ public class UserController {
 		User user = userRepository.findUserByUserAccount(userAccount.get());
 		modelMap.addAttribute("user", user);
 		modelMap.addAttribute("profileForm", new ProfileForm());
-		return "editprofile";
+		return "editownprofile";
 	}
 	
 	/**

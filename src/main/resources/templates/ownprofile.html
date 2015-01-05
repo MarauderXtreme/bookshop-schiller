@@ -18,8 +18,8 @@
 		      </header>
 	        <div class="large-12">&nbsp;</div>
 	        <div class="large-12 medium-12 small-12 columns">
-	        	<h3 th:text="@{'Profil von ' + ${user.userAccount.firstname} + ' ' + ${user.userAccount.lastname} + ':'}">Profil von Nutzer</h3>
-	        	<div class="row" th:include="profiletabs :: profiletabs"></div>
+	        	<h3>Mein Profil:</h3>
+	        	<div class="row" th:include="ownprofiletabs :: ownprofiletabs"></div>
 	          <div class="large-3 medium-3 hide-for-small columns">
   						<img alt="cover" class="detail cover" src="/resources/img/user/trollface_avatar.png" />
 						</div>
