@@ -22,7 +22,7 @@ public class Event extends Object {
 		this.date = date;
 		this.room = room;
 		this.takenSeats = 0;
-		this.eventID = (name+" "+date.getDate()+date.getTime()+" "+room.getName()+room.getNumber());
+		this.eventID = (name+"("+date.getWholeDate()+","+room.getName()+room.getNumber()+")");
 	}
 	
 	/**
