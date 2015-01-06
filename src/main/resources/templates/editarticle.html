@@ -28,43 +28,43 @@
 								</div>
 								
 								<div class="large-6 medium-6 small-12 columns">
-									<label for="name">Titel</label>
+									<label for="name">Titel:</label>
 									<input th:errorclass="fieldError" type="text" id="newame" name="name" th:value="${article.name}" required="" />
 									<small class="alert-box alert error">Bitte Titel eingeben.</small>
 									<small class="alert-box alert" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Bitte Titel eingeben.</small>
 								</div>
 								<div class="large-6 medium-6 small-12 columns">
-									<label for="artist">Autor</label>
+									<label for="artist">Künstler:</label>
 									<input th:errorclass="fieldError" type="text" id="newauthor" name="artist" th:value="${article.artist}" required="" />
 									<small class="alert-box alert error">Bitte Künstler eingeben.</small>
 									<small class="alert-box alert" th:if="${#fields.hasErrors('artist')}" th:errors="*{artist}">Bitte Künstler eingeben.</small>
 								</div>
 								<div class="large-6 medium-6 small-12 columns">
-									<label for="publisher">Verlag</label>
+									<label for="publisher">Verlag:</label>
 									<input th:errorclass="fieldError" type="text" id="newpublisher" name="publisher" th:value="${article.publisher}" required="" />
 									<small class="alert-box alert error">Bitte Verlag eingeben.</small>
 									<small class="alert-box alert" th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}">Bitte Verlag eingeben.</small>
 								</div>
 								<div class="large-6 medium-6 small-12 columns">
-									<label for="id">ISBN</label>
+									<label for="id">ISBN/EAN:</label>
 									<input th:errorclass="fieldError" type="text" id="newisbn" name="id" th:value="${article.id}" required="" pattern="isbn13" />
 									<small class="alert-box alert error">Bitte ISBN 13 ohne Trennstriche eingeben.</small>
 									<small class="alert-box alert" th:if="${#fields.hasErrors('id')}" th:errors="*{id}">Bitte ISBN 13 ohne Trennstriche eingeben.</small>
 								</div>
 								<div class="large-6 medium-6 small-12 columns">					
-									<label for="image">Bild</label>
+									<label for="image">Bild:</label>
 									<input th:errorclass="fieldError" type="text" id="newimage" name="image" th:value="${article.image}" required="" />
 									<small class="alert-box alert error">Bitte Dateinamen eingeben.</small>
 									<small class="alert-box alert" th:if="${#fields.hasErrors('image')}" th:errors="*{image}">Bitte Dateinamen eingeben.</small>
 								</div>
 								<div class="large-6 medium-6 small-12 columns">
-									<label for="price">Preis</label>
+									<label for="price">Preis:</label>
 									<input th:errorclass="fieldError" type="text" id="newprice" name="price" th:value="${article.price.amount}" required="" />
 									<small class="alert-box alert error">Bitte neuen Preis eingeben.</small>
 									<small class="alert-box alert" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Bitte neuen Preis eingeben.</small>
 								</div>
 								<div class="large-6 medium-6 small-12 columns">
-									<label for="price">Einkaufspreis</label>
+									<label for="price">Einkaufspreis:</label>
 									<input th:errorclass="fieldError" type="text" name="stockPrice" th:value="${article.stockPrice.amount}" required="" />
 									<small class="alert-box alert error">Bitte neuen Preis im Format xx.xx eingeben.</small>
 									<small class="alert-box alert" th:if="${#fields.hasErrors('stockPrice')}" th:errors="*{stockPrice}">Bitte neuen Preis im Format xx.xx eingeben.</small>
@@ -76,7 +76,7 @@
 									<small class="alert-box alert" th:if="${#fields.hasErrors('releaseDate')}" th:errors="*{releaseDate}">Datum muss Form dd.mm.yyyy entsprechen.</small>
 								</div>
 								<div class="large-3 medium-3 small-6 columns">
-									<label for="newcategory">Neue Kategorie</label>
+									<label for="newcategory">Kategorie:</label>
 									<select name="newcategory"  required="">
 										<option value="1">Keine</option>
 										<option th:each="category : ${addable}" th:text="${category.categoryName}" th:value="${category.categoryName}" value="1">category</option>

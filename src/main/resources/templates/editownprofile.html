@@ -17,7 +17,7 @@
 		      </header>
 	        <div class="large-12">&nbsp;</div>
 	        <div class="large-12 medium-12 small-12 columns">
-	        	<h3>Mein Profil:</h3>
+	        	<h3>Mein Profil</h3>
 	          <div class="row">
 	        	<div th:include="ownprofiletabs :: ownprofiletabs"></div>
 	          	<form method="post" th:action="@{'/user/profile/change/edit'}" th:object="${profileForm}" data-abide="">
@@ -111,7 +111,7 @@
 									<small>*ACHTUNG: Wenn Sie Ihr Passwort nicht ändern wollen, dann geben sie bitte dreimal Ihr altes Passwort ein!</small>
 								
 								</fieldset>
-								<input class="button round large-offset-1 medium-offset-1" type="submit" value="Neue Profildaten speichern" /> 
+								<input class="small button round large-offset-1 medium-offset-1" type="submit" value="Neue Profildaten speichern" /> 
 							</form>
 	          </div>
 	        </div>

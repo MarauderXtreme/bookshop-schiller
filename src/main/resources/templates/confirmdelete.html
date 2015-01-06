@@ -21,8 +21,8 @@
 	        	<div sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')" th:include="articletabs :: articletabs"></div>
 	          <form method="post" action="/article/delete">
 							<input type="hidden" name="article" value="0" th:value="${article.identifier}" />
-							<label for="delete">Sind Sie sich sicher. Diese Aktion kann nicht rückgängig gemacht werden.</label>
-							<input id="delete" class="button" type="submit" value="Delete Article"/>
+							<label for="delete">Sind Sie sich sicher? Diese Aktion kann nicht rückgängig gemacht werden.</label>
+							<input id="delete" class="button" type="submit" value="Lösche Artikel"/>
 						</form>
 	        </div>
 	    	</div>
