@@ -25,7 +25,8 @@
 									<th class="small-3" th:text="#{orders.date}">Datum</th>
 									<th class="small-3" th:text="#{orders.customer}">Kunde</th>
 									<th class="small-3" th:text="#{orders.payed}">Bezahlt</th>
-									<th class="small-3">Quicklinks</th>
+									<th>Quicklinks</th>
+									<th> </th>	
 								</tr>
 							</thead>
 							<tbody>
@@ -36,13 +37,13 @@
 										<td>
 											<form class="salespoint" method="POST" action="/order/complete">
 											  <input type="hidden" name="orderComplete" value="0" th:value="${order.identifier}"/>
-												<input class="button" type="submit" value="Complete"/> 
+												<input class="small button" type="submit" value="Complete"/> 
 											</form>
 										</td>											
 									<td>
 										<form method="POST" action="/order/detail">
 										  <input type="hidden" name="orderdetail" value="0" th:value="${order.identifier}"/>
-											<input class="button" type="submit" value="Detail"/> 
+											<input class="small button" type="submit" value="Detail"/> 
 										</form>
 									</td>
 								</tr>
@@ -55,7 +56,7 @@
 									<th class="small-3" th:text="#{orders.date}">Datum</th>
 									<th class="small-3" th:text="#{orders.customer}">Kunde</th>
 									<th class="small-3" th:text="#{orders.payed}">Bezahlt</th>
-									<th class="small-3">Quicklinks</th>
+									<th>Quicklinks</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -66,7 +67,7 @@
 									<td>
 										<form method="POST" action="/order/detail">
 										  <input type="hidden" name="orderdetail" value="0" th:value="${order.identifier}"/>
-											<input class="button" type="submit" value="Detail"/> 
+											<input class="small button" type="submit" value="Detail"/> 
 										</form>
 									</td>								
 								</tr>

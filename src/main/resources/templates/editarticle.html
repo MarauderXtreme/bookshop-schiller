@@ -46,7 +46,7 @@
 									<small class="alert-box alert" th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}">Bitte Verlag eingeben.</small>
 								</div>
 								<div class="large-6 medium-6 small-12 columns">
-									<label for="id">Artikel-Nr.:</label>
+									<label for="id">ISBN/EAN:</label>
 									<input th:errorclass="fieldError" type="text" id="newisbn" name="id" th:value="${article.id}" required="" pattern="isbn13" />
 									<small class="alert-box alert error">Bitte ISBN 13 ohne Trennstriche eingeben.</small>
 									<small class="alert-box alert" th:if="${#fields.hasErrors('id')}" th:errors="*{id}">Bitte ISBN 13 ohne Trennstriche eingeben.</small>
