@@ -1,6 +1,6 @@
 package bookshop.model;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -11,10 +11,13 @@ public class RoomManagerTest extends AbstractIntegrationTests {
 	@Test
 	public void testRoomManager()
 	{		
-		assertEquals("Ein Raum wird dem RoomManagement hinzugefuegt",true, RoomManagement.getInstance().addRoom("Testraum1", "111", "40"));
-		assertEquals("Ein Raum wird dem RoomManagement hinzugefuegt",false, RoomManagement.getInstance().addRoom("Testraum1","112","234"));
-		assertEquals("Ein Raum wird dem RoomManagement hinzugefuegt",false,RoomManagement.getInstance().addRoom("Testraum3","111","234"));
-		assertEquals("Ein Raum wird dem RoomManagement hinzugefuegt",true,RoomManagement.getInstance().addRoom("Testraum4","114","24"));
+		assertEquals("Ein Raum wird dem RoomManagement hinzugefuegt",true, RoomManagement.getInstance().addRoom("Raum0001", "1010101", "40"));
+		assertEquals("Ein Raum wird dem RoomManagement hinzugefuegt",false, RoomManagement.getInstance().addRoom("Raum0001","112","234"));
+		assertEquals("Ein Raum wird dem RoomManagement hinzugefuegt",false,RoomManagement.getInstance().addRoom("Raum0011","1010101","234"));
+		assertEquals("Ein Raum wird dem RoomManagement hinzugefuegt",true,RoomManagement.getInstance().addRoom("Raum0100","0110110","24"));
+		
+		assertTrue("Ein Raum kann nicht entfernt werden",RoomManagement.getInstance().removeRoom("Raum0001"));
+		assertEquals("Ein Raum wird entfernt,obwohl es ihn nicht gibt",false,RoomManagement.getInstance().removeRoom("Raum0001"));
 		
 		
 		

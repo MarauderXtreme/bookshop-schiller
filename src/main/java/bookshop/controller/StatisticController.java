@@ -25,6 +25,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import bookshop.model.OrderManagement;
+import bookshop.model.StatisticsManagement;
 
 @Controller
 public class StatisticController {
@@ -62,67 +63,21 @@ public class StatisticController {
 		Order gesOrderSell = new Order(userAccount.get());
 		Order sellOrder = new Order(userAccount.get());
 		
-		for(Order order : orderManager.find(OrderStatus.COMPLETED)){
-				for(OrderLine orderLine : order.getOrderLines()){
-					gesOrderSell.add(orderLine);
-				}
-		}
+		StatisticsManagement sm = new StatisticsManagement(orderManager, inventory, date);
 		
-		for(Order order : orderManager.find(OrderStatus.PAID)){
-			for(OrderLine orderLine : order.getOrderLines()){
-				gesOrderBuy.add(orderLine);
-			}
-		}
-		
-		
-		for(InventoryItem item : inventory.findAll()){
+		gesOrderSell = sm.getGesOrdersSell(userAccount.get());
 
-			Quantity quantity = item.getQuantity();
-			quantity = quantity.subtract(item.getQuantity());
-			Quantity quantity1 = quantity;
+		gesOrderBuy = sm.getGesOrdersBuy(userAccount.get());
+		
+		for(InventoryItem item : inventory.findAll()){			
 			
-			for(Order order : orderManager.find(time, date.getTime())){
-				
-				
-				if(order.isPaid()==true){
-				
-				
-					for(OrderLine orderLine : order.getOrderLines()){
-						
-						ProductIdentifier name1 = item.getProduct().getIdentifier();
-						ProductIdentifier name2 = orderLine.getProductIdentifier();
-						
-						
-						if(name1.equals(name2)== true){
-								quantity = quantity.add(orderLine.getQuantity());
-						}
-							
-					}	
-				
-				}else{
-					if(order.isCompleted() == true){
-						for(OrderLine orderLine : order.getOrderLines()){
-							
-							ProductIdentifier name1 = item.getProduct().getIdentifier();
-							ProductIdentifier name2 = orderLine.getProductIdentifier();
-							
-							
-							if(name1.equals(name2)== true){
-									quantity1 = quantity1.add(orderLine.getQuantity());
-								
-							}
-								
-						}	
-					}
-				}
-			}
+			OrderLine orderLine = sm.getStatistic(true, item);
+			OrderLine orderLine1 = sm.getStatistic(false, item);
 			
-			
-			OrderLine orderLine = new OrderLine(item.getProduct(), quantity);
-			OrderLine orderLine1 = new OrderLine(item.getProduct(), quantity1);
 			statisticOrder.add(orderLine);
 			sellOrder.add(orderLine1);
 		}
+		
 		profit = sellOrder.getTotalPrice().minus(statisticOrder.getTotalPrice());
 		profittotal = profit;
 		
@@ -139,6 +94,5 @@ public class StatisticController {
 		
 		return "/statistics";
 	}
-	
-	
+		
 }

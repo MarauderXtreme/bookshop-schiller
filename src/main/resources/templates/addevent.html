@@ -45,6 +45,34 @@
 	            </div>
 		        </form>
 		        <small>*ACHTUNG: Es ist nur ein Event pro Raum und Zeit erlaubt!</small>
+		        
+		        <table class="large-12 medium-12 small-12 calendar" >
+			        	<thead class="panel">
+			          	<tr>
+			            	<th class="small-2">Datum</th>
+			              <th class="small-1">Zeit</th>
+			             	<th class="small-6">Event</th>
+			             	<th class="small-1">Raumnummer</th>
+			             	<th class="small-2">Raum</th>
+			             	<th class="small-3">Loeschen</th>
+			            </tr>
+			          </thead>
+			          <tbody th:remove="all-but-first">
+			          	<tr th:each="event : ${allEvents}">
+			            	<td th:text="${event.getDate().getEventDate()}"></td>
+			            	<td th:text="${event.getDate().getEventTime()}">0000</td>
+			              	<td th:text="${event.getName()}">Testtext</td>
+			              	<td th:text="${event.getRoom().getNumber()}">Testtext</td>
+			              	<td th:text="${event.getRoom().getName()}">Testtext</td>
+			              	<td>
+				              <form action="/admin/event/remove" method="post">
+				              <input type="hidden" name="name" th:value="${event.getName()}"/>
+				              <input type="submit"  value="Loeschen" />
+				              </form>
+			              </td>
+			            </tr>
+			          </tbody>
+			        </table>
 	        </div>
 	    	</div>
 	    </div>

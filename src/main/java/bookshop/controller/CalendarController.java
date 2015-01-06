@@ -13,6 +13,7 @@ import bookshop.model.MyDate;
 import bookshop.model.Event;
 import bookshop.model.Room;
 import bookshop.model.RoomManagement;
+import bookshop.model.TupelKey;
 
 @Controller
 public class CalendarController {
@@ -23,6 +24,7 @@ public class CalendarController {
 	{
 		model.addAttribute("roonNameList",RoomManagement.getInstance().getAllRoomNames());
 		model.addAttribute("roomList", RoomManagement.getInstance().getAllRooms());
+		model.addAttribute("allEvents", CalendarManagement.getInstance().getCalendar().getSortedEvents());
 		return "addevent";
 	}
 	
@@ -32,7 +34,7 @@ public class CalendarController {
 	{
 		CalendarManagement.getInstance().addEvent(name, new MyDate(dated,datet), new Room(RoomManagement.getInstance().getRoom(room).getName(),RoomManagement.getInstance().getRoom(room).getNumber(),Integer.parseInt(RoomManagement.getInstance().getRoom(room).getChairNum())));
 		model.addAttribute("allEvents", CalendarManagement.getInstance().getCalendar().getEventList());
-		return "/calendar";
+		return "/addevent";
 	}
 	
 	
@@ -49,5 +51,14 @@ public class CalendarController {
 		model.addAttribute("days", CalendarManagement.getInstance().getCalendar().generateDays());
 
 		return "/calendar";
+	}
+	@PreAuthorize("hasRole('ROLE_EVENTMANAGER') || hasRole('ROLE_ADMIN')")
+	@RequestMapping(value = "/admin/event/remove", method = RequestMethod.POST)
+	public String deleteEvent(Model model, @RequestParam("name")String eventName)
+	{		
+		Event temp = CalendarManagement.getInstance().getCalendar().getEventByName(eventName);
+		System.out.println("test");
+		CalendarManagement.getInstance().removeEvent(new TupelKey<Room,MyDate>(temp.getRoom(),temp.getDate()));
+		return"redirect:/admin/event/add";
 	}
 }

@@ -84,10 +84,8 @@ public class CartController {
 				orderManager.add(order);
 				cart.clear();
 				PDFCreator pdf = new PDFCreator();
-				
-				HttpServletResponse response = null;
-				HttpServletRequest request = null;
 				pdf.pdfCreate(order, userAccount.get());
+				
 				return "redirect:/";
 			}).orElse("redirect:/cart");
 	}
@@ -110,10 +108,6 @@ public class CartController {
 		}
 		Quantity quantity = Units.of(number);
 		Cart cart = getCart(session);
-		OrderLine orderline = new OrderLine(article,quantity);
-		/*if(quantity > article.){
-			return "redirect:/cart";
-		}*/
 		
 		cart.addOrUpdateItem(article, quantity);	
 		switch (article.getType()) {
@@ -147,7 +141,7 @@ public class CartController {
 	 */
 	//@PreAuthorize("!hasRole('ROLE_BOSS') || !hasRole('ROLE_ADMIN') || !hasRole('ROLE_EMPLOYEE') || !hasRole('ROLE_SALESMANAGER') || !hasRole('ROLE_ARTICLEMANAGER') || !hasRole('ROLE_USERMANAGER') || !hasRole('ROLE_EVENTMANAGER')")
 	@RequestMapping(value="/cart/delete", method = RequestMethod.POST)
-	public String delete(HttpSession session, @RequestParam("test") String id){
+	public String delete(HttpSession session, @RequestParam("delete") String id){
 		Cart cart = getCart(session);
 		cart.removeItem(id);
 		return "redirect:/cart";
