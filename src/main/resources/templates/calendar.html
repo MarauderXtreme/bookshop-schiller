@@ -72,7 +72,7 @@
 			              <td th:text="${event.getRoom().getName()}">Testtext</td>
 			              <td th:text="${event.getTakenSeats()} +'/'+${event.getRoom().getChairNum()}"></td>
 			              <td>
-			             	 <form action="/calendar/reservations" method="post" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EVENTMANAGER')">
+			             	 <form action="/calendar/reservations" method="post">
 			             			<input type="hidden" name="eventRoomName" th:value="${event.getRoom().getName()}"/>
 			             			<input type="hidden" name="eventID" th:value="${event.getID()}"/>
 			            		  <input class="tiny button" type="submit" value="Reservierungen" />
