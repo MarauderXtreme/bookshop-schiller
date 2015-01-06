@@ -18,7 +18,7 @@
 	        <div class="large-12">&nbsp;</div>
 		        <div class="large-12 medium-12 small-12 row">
 		          <h2>Kalender</h2>
-			        <table class="large-12 medium-12 small-12 calendar" sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_SALESMANAGER', 'ROLE_USERMANAGER', 'ROLE_EVENTMANAGER', 'ROLE_ARTICLEMANAGER')" >
+			        <table class="large-12 medium-12 small-12 calendar" sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EVENTMANAGER')" >
 			        	<thead class="panel">
 			          	<tr>
 			            	<th class="small-2">Datum</th>
@@ -51,7 +51,7 @@
 			          </tbody>
 			        </table>
 			        
-			        <table class="large-12 medium-12 small-12 calendar" sec:authorize="hasRole('ROLE_ADMIN') || hasRole('ROLE_BOSS') || hasRole('ROLE_EVENTMANAGER')" >
+			        <table class="large-12 medium-12 small-12 calendar" sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EVENTMANAGER')" >
 			        	<thead class="panel">
 			          	<tr>
 			            	<th class="small-2">Datum</th>
@@ -72,7 +72,7 @@
 			              <td th:text="${event.getRoom().getName()}">Testtext</td>
 			              <td th:text="${event.getTakenSeats()} +'/'+${event.getRoom().getChairNum()}"></td>
 			              <td>
-			             	 <form action="/calendar/reservations" method="post">
+			             	 <form action="/calendar/reservations" method="post" sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_EVENTMANAGER')">
 			             			<input type="hidden" name="eventRoomName" th:value="${event.getRoom().getName()}"/>
 			             			<input type="hidden" name="eventID" th:value="${event.getID()}"/>
 			            		  <input class="tiny button" type="submit" value="Reservierungen" />
