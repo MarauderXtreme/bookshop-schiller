@@ -71,7 +71,7 @@
 								</div>
 								<div class="large-6 medium-6 small-12 columns">
 									<label for="releaseDate">Erscheinungsdatum</label>
-									<input th:errorclass="fieldError" type="text" name="releaseDate" th:value="${article.releaseDate}" required="" pattern="custom_date" />
+									<input th:errorclass="fieldError" type="text" name="releaseDate" th:value="${article.releaseDate}" required="" pattern="custom_date" id="datepicker" />
 									<small class="alert-box alert error">Datum muss Form dd.mm.yyyy entsprechen.</small>
 									<small class="alert-box alert" th:if="${#fields.hasErrors('releaseDate')}" th:errors="*{releaseDate}">Datum muss Form dd.mm.yyyy entsprechen.</small>
 								</div>

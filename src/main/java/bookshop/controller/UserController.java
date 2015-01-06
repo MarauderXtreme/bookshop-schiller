@@ -22,7 +22,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import bookshop.model.validation.ProfileForm;
+import bookshop.model.validation.EditOwnProfileForm;
+import bookshop.model.validation.EditProfileForm;
 import bookshop.model.validation.RegistrationForm;
 import bookshop.model.User;
 import bookshop.model.UserManagement;
@@ -220,7 +221,7 @@ public class UserController {
 		
 		User user = userRepository.findUserByUserAccount(userAccount.get());
 		modelMap.addAttribute("user", user);
-		return "profile";
+		return "ownprofile";
 	}
 	
 	/**
@@ -231,25 +232,15 @@ public class UserController {
 	 * @param modelMap
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN')|| hasRole('ROLE_USERMANAGER')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
 	@RequestMapping("/user/profile/{pid}/change/edit")
-	public String changeProfileEdit(@PathVariable("pid") UserAccount userAccount, @ModelAttribute("profileForm") @Valid ProfileForm profileForm,
+	public String changeProfileEdit(@PathVariable("pid") UserAccount userAccount, @ModelAttribute("profileForm") @Valid EditProfileForm profileForm,
 			BindingResult result, ModelMap modelMap) {
 
 		User user = userRepository.findUserByUserAccount(userAccount);
 		modelMap.addAttribute("user", user);
 		modelMap.addAttribute("userAccount", userAccount);
-		
-		if (!profileForm.getPasswordRepeat().equals(profileForm.getPassword())) {
-			result.addError(new ObjectError("password.noMatch", "Die eingegebenen Passwörter stimmen nicht überein!"));
-		}
-		
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-		if (!encoder.matches(profileForm.getOldPassword(), userAccount.getPassword().toString())) {
-			result.addError(new ObjectError("password.old.error", "Das eingegebene alte Passwort ist nicht korrekt!"));
-		}
-		
 		Iterable<User> users = userRepository.findAll();	
 		
 		for (User u : users) {
@@ -259,13 +250,13 @@ public class UserController {
 		}
 		
 		if (result.hasErrors()) {
+			System.out.println(result.getAllErrors());
 			return "editprofile";
 		}
 		
 		userAccount.setFirstname(profileForm.getFirstname());
 		userAccount.setLastname(profileForm.getLastname());
 		userAccount.setEmail(profileForm.getEmail());
-		userAccountManager.changePassword(userAccount, profileForm.getPassword());
 		userAccountManager.save(userAccount);
 
 		user.setAddress(profileForm.getAddress());
@@ -280,7 +271,7 @@ public class UserController {
 	 * @param modelMap
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER') || hasRole('ROLE_BOSS')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
 	@RequestMapping("/user/profile/{pid}/change")
 	public String changeProfile(@PathVariable("pid") UserAccount userAccount, @LoggedIn Optional<UserAccount> currentUserAccount, ModelMap modelMap) {
 		
@@ -293,11 +284,11 @@ public class UserController {
 			return "profile";
 		}
 		
-		if (!userAccount.hasRole(new Role("ROLE_BOSS")) && !currentUserAccount.get().hasRole(new Role("ROLE_ADMIN")) && !currentUserAccount.get().hasRole(new Role("ROLE_USERMANAGER"))) {
+		if ((userAccount.hasRole(new Role("ROLE_ADMIN")) || userAccount.hasRole(new Role("ROLE_USERMANAGER"))) && !currentUserAccount.get().hasRole(new Role("ROLE_ADMIN"))) {
 			return "profile";
 		}
 		
-		modelMap.addAttribute("profileForm", new ProfileForm());
+		modelMap.addAttribute("profileForm", new EditProfileForm());
 		return "editprofile";
 	}
 	
@@ -311,7 +302,7 @@ public class UserController {
 	 */
 	@PreAuthorize("hasRole('ROLE_CUSTOMER') || hasRole('ROLE_EMPLOYEE')")
 	@RequestMapping("/user/profile/change/edit")
-	public String changeProfileEditOfMe(@LoggedIn Optional<UserAccount> userAccount, @ModelAttribute("profileForm") @Valid ProfileForm profileForm,
+	public String changeProfileEditOfMe(@LoggedIn Optional<UserAccount> userAccount, @ModelAttribute("profileForm") @Valid EditOwnProfileForm profileForm,
 			BindingResult result, ModelMap modelMap) {
 
 		User user = userRepository.findUserByUserAccount(userAccount.get());
@@ -331,13 +322,13 @@ public class UserController {
 		Iterable<User> users = userRepository.findAll();	
 		
 		for (User u : users) {
-			if (u.getUserAccount().getEmail().equals(profileForm.getEmail()) && !(u.getUserAccount().equals(userAccount))) {
+			if (u.getUserAccount().getEmail().equals(profileForm.getEmail()) && !(u.getUserAccount().equals(userAccount.get()))) {
 				result.addError(new ObjectError("email.isUsed", "Die eingegebene E-Mail-Adresse ist bereits vergeben!"));
 			}
 		}
 		
 		if (result.hasErrors()) {
-			return "editprofile";
+			return "editownprofile";
 		}
 		
 		userAccount.get().setFirstname(profileForm.getFirstname());
@@ -364,8 +355,8 @@ public class UserController {
 		
 		User user = userRepository.findUserByUserAccount(userAccount.get());
 		modelMap.addAttribute("user", user);
-		modelMap.addAttribute("profileForm", new ProfileForm());
-		return "editprofile";
+		modelMap.addAttribute("profileForm", new EditOwnProfileForm());
+		return "editownprofile";
 	}
 	
 	/**

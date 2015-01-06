@@ -22,36 +22,47 @@
 							<caption th:text="#{orders.myorders}"></caption>
 							<thead>
 								<tr>
-									<th th:text="#{orders.status}">Datum</th>
+									<th th:text="#{orders.status}">Status</th>
 									<th th:text="#{orders.date}">Datum</th>
 									<th th:text="#{orders.payed}">Bezahlt</th>								
 								</tr>
 							</thead>
 							<tbody>
-									<tr th:each="order : ${myOrders} ">
-										<td th:text="${order.orderStatus}"></td>
-										<td th:text="${order.dateCreated}"></td>
-										<td th:text="${order.totalPrice}"></td>
-										<td th:if="${order.open}">
-											<form class="salespoint" method="POST" action="/order/cancel">
-											  <input type="hidden" name="orderDelete" value="0" th:value="${order.identifier}"/>
-												<input class="button" type="submit" value="Cancel"/> 
-											</form>
-										</td>
-										<!--
-										<td>
-											<form method="GET" action="/user/getPDF">
-											  <input type="hidden" name="orderPDF" value="0" th:value="${order.identifier}"/>	
-												<input class="button" type="submit" value="PDF generieren"/> 
-											</form>
-										</td>
-										-->
-										<td>
-											<form class="salespoint" method="POST" action="/order/detail">
-											  <input type="hidden" name="orderdetail" value="0" th:value="${order.identifier}"/>
-												<input class="button" type="submit" value="Detail"/> 
-											</form>
-										</td>
+									<tr th:each="order : ${myOrders}">
+											<td th:unless="${order.paid}" th:text="${order.orderStatus}"></td>
+											<td th:unless="${order.paid}" th:text="${order.dateCreated}"></td>
+											<td th:unless="${order.paid}" th:text="${order.totalPrice}"></td>
+											<td th:if="${order.open}">
+												<form class="salespoint" method="POST" action="/order/cancel">
+												  <input type="hidden" name="orderDelete" value="0" th:value="${order.identifier}"/>
+													<input class="button" type="submit" value="Cancel"/> 
+												</form>
+											</td>
+											<td th:unless="${order.paid}">
+												<form class="salespoint" method="POST" action="/order/detail">
+												  <input type="hidden" name="orderdetail" value="0" th:value="${order.identifier}"/>
+													<input class="button" type="submit" value="Detail"/> 
+												</form>
+											</td>	
+									</tr>
+							</tbody>
+						</table>
+						<table>
+							<caption th:text="#{orders.myreservations}"></caption>
+							<thead>
+								<tr>
+									<th th:text="#{orders.date}">Datum</th>								
+								</tr>
+							</thead>
+							<tbody>
+									<tr th:each="order : ${myOrders}">
+											<td th:if="${order.paid}" th:text="${order.dateCreated}"></td>			
+											<td th:if="${order.paid}">
+												<form class="salespoint" method="POST" action="/order/detailreservation">
+												  <input type="hidden" name="orderdetail" value="0" th:value="${order.identifier}"/>
+													<input class="button" type="submit" value="Detail"/> 
+												</form>
+											</td>
 									</tr>
 							</tbody>
 						</table>

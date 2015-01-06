@@ -1,5 +1,7 @@
 package bookshop.controller;
 
+import static org.joda.money.CurrencyUnit.EUR;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ import org.salespointframework.order.OrderManager;
 import org.salespointframework.order.OrderStatus;
 import org.salespointframework.payment.Cash;
 import org.salespointframework.quantity.Quantity;
+import org.salespointframework.quantity.Units;
 import org.salespointframework.time.BusinessTime;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.UserAccountManager;
@@ -35,8 +38,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import bookshop.model.Article;
+import bookshop.model.CalendarManagement;
+import bookshop.model.MyDate;
+import bookshop.model.OrderManagement;
 import bookshop.model.PDFCreator;
+import bookshop.model.Room;
+import bookshop.model.RoomManagement;
 import bookshop.model.Statistic;
+import bookshop.model.TupelKey;
 
 
 @Controller
@@ -103,7 +112,14 @@ public class OrderController {
 		
 		return "/ordersdetail";
 	}
-	
+	@PreAuthorize("hasRole('ROLE_CUSTOMER') || hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN') || hasRole('ROLE_SALESMANAGER')")
+	@RequestMapping(value="/order/detailreservation")
+	public String getReservationDetails(ModelMap modelMap, @RequestParam("orderdetail") Order order){
+
+		modelMap.addAttribute("detailorders", order.getOrderLines());
+		
+		return "/reservationdetail";
+	}
 	/**
 	 * Cancel order
 	 * @param order
@@ -161,10 +177,36 @@ public class OrderController {
 		Order order = new Order(userAccount.get(), Cash.CASH);
 		order.add(orderLine);
 		
-		orderManager.payOrder(order);
-		
+		orderManager.payOrder(order);	
 		orderManager.add(order);
+		
 		return"redirect:/admin/stock";
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_EVENTMANAGER')")
+	@RequestMapping("/calendar/reservations")
+	public String showReservations(ModelMap modelMap, @RequestParam("eventID") String event){
+		
+		
+		OrderManagement management = new OrderManagement(orderManager, inventory);
+		modelMap.addAttribute("reservation", management.orders(event));
+		return "reservations";
+	}
+	
+	@PreAuthorize("hasRole('ROLE_CUSTOMER')")
+	@RequestMapping(value="/calendar/bookSeat", method=RequestMethod.POST)
+	public String bookSeat(@LoggedIn Optional<UserAccount> userAccount, @RequestParam("eventRoomName")String roomName,@RequestParam("dateD")String date,@RequestParam("dateT")String time, @RequestParam("eventID") String event)
+	{
+		MyDate tempdate = new MyDate(date, time);
+		if(CalendarManagement.getInstance().getCalendar().getEvent(new TupelKey<Room, MyDate>(RoomManagement.getInstance().getRoom(roomName), tempdate)).increaseTakenSeats())
+			{
+			//System.out.println("true");
+			}
+		//System.out.println("false");
+		
+		OrderManagement management = new OrderManagement(orderManager, inventory);
+		management.reservation(event, userAccount);
+		
+		return "redirect:/calendar";
+	}
 }

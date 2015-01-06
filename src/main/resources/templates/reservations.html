@@ -16,24 +16,21 @@
 		        </div>
 		      </header>
 	        <div class="large-12">&nbsp;</div>
-	        <div class="large-12 medium-12 small-12 columns">
-	          <h3>Bestellübersicht</h3>
-	          <table>
-							<caption th:text="#{orders.detail}"></caption>
+	        <div class="large-12 medium-12 small-12 row">
+	          <h3>Reservierungen</h3>
+						<table class="large-6 medium-6 small-12 columns">
 							<thead>
 								<tr>
-									<th th:text="#{statistics.article}">Artikel</th>
-									<th th:text="#{orders.quantity}">Anzahl</th>
+									<th class="small-4" th:text="#{statistics.article}">Name</th>
+									<th class="small-4" th:text="#{statistics.sell}">Anzahl</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="orderline : ${detailorders}">
-									<td th:text="${orderline.productName}" ></td>
-									<td th:text="${orderline.quantity}"></td>
-								</tr>
+									<tr th:each=" order : ${reservation}">
+										<td th:text="${order.userAccount.identifier}">Last Action Hero</td>
+									</tr>																
 							</tbody>
-						</table>
-					 <a class="small button" target="_blank" href="/" th:href="@{'/resources/orders/' + ${detailordersID}}">Rechnung</a>
+						</table>					
 	        </div>
 	    	</div>
 	    </div>

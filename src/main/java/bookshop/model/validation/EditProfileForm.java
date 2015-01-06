@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import bookshop.model.Address;
 
-public class ProfileForm {
+public class EditProfileForm {
 	
 	@NotEmpty(message = "{RegistrationForm.firstname.NotEmpty}")
 	@Length(max = 32, message = "{RegistrationForm.firstname.Length}")
@@ -23,16 +23,6 @@ public class ProfileForm {
 	@Length(max = 64, message = "{RegistrationForm.email.Length}")
 	@Pattern(regexp="([A-Za-z0-9\\.\\_\\-]+@{1}[A-Za-z0-9\\.\\-]+[\\.]{1}[A-Za-z]{2,24}){0,1}", message = "{RegistrationForm.email.Format}")
 	private String email;
-	
-	@NotEmpty(message = "{RegistrationForm.oldPassword.NotEmpty}")
-	private String oldPassword;
-	
-	@Length(min = 8, max = 32, message = "{RegistrationForm.password.Length}")
-	@Pattern(regexp="((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[_\\W]).{8,32})", message = "{RegistrationForm.password.Format}")
-	private String password;
-	
-	@NotEmpty(message = "{RegistrationForm.passwordRepeat.NotEmpty}")
-	private String passwordRepeat = " ";
 	
 	@NotEmpty(message = "{RegistrationForm.street.NotEmpty}")
 	@Length(max = 32, message = "{RegistrationForm.street.Length}")
@@ -96,38 +86,7 @@ public class ProfileForm {
 	 */
 	public void setEmail(String email) {
 		this.email = email;
-	}
-	
-	/**
-	 * @return the given password name from the profile form
-	 */
-	public String getPassword() {
-		return password;
-	}
-	
-	/**
-	 * Sets the password of the profile form to the given value.
-	 * @param username
-	 */
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	/**
-	 * @return the given repeated password name from the profile form
-	 */
-	public String getPasswordRepeat() {
-		return passwordRepeat;
-	}
-	
-	/**
-	 * Sets the repeated password of the profile form to the given value.
-	 * @param username
-	 */
-	public void setPasswordRepeat(String passwordRepeat) {
-		this.passwordRepeat = passwordRepeat;
-	}
-	
+	}	
 
 	/**
 	 * @return the given address from the profile form
@@ -196,18 +155,4 @@ public class ProfileForm {
 		this.city = city;
 	}
 
-	/**
-	 * @return the old password from the profile form
-	 */
-	public String getOldPassword() {
-		return oldPassword;
-	}
-
-	/**
-	 * Sets the old password of the profile form to the given value
-	 * @param oldPassword
-	 */
-	public void setOldPassword(String oldPassword) {
-		this.oldPassword = oldPassword;
-	}
 }

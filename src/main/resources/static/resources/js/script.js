@@ -13,6 +13,7 @@ $(document).ready(function(){
 			}
 		}
 	});
+	
 	$('.header-slider').slick({
 		dots: true,
 		infinite: true,
@@ -22,8 +23,14 @@ $(document).ready(function(){
 		autoplay: true,
 		autoplaySpeed: 10000,
 	});
+
+	$('#datepicker').fdatepicker({
+		format: 'dd.mm.yyyy',
+		language: 'de'
+	})
+	
 	/**
-	 * Spring escapes 
+	 * Spring HTML escapes 
 	 */
 	//CKEDITOR.replace( 'descriptiontext' );
 });

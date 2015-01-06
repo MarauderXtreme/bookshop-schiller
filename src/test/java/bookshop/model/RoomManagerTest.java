@@ -19,8 +19,6 @@ public class RoomManagerTest extends AbstractIntegrationTests {
 		assertTrue("Ein Raum kann nicht entfernt werden",RoomManagement.getInstance().removeRoom("Raum0001"));
 		assertEquals("Ein Raum wird entfernt,obwohl es ihn nicht gibt",false,RoomManagement.getInstance().removeRoom("Raum0001"));
 		
-		
-		
 	}
 
 }

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head>
+	</head>
+	<body>
+		<div th:fragment="ownprofiletabs">
+	  	<a class="tiny button" th:href="@{'/user'}" href="profile.html">Profilansicht</a>
+	 		<a class="tiny button" th:href="@{'/user/profile/change'}" href="editprofile.html">Profildaten ändern</a>
+		</div>
+	</body>
+</html>

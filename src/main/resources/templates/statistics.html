@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 
+<!-- <<<<<<< HEAD -->
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:include="head :: head"></head>
@@ -20,7 +21,7 @@
 				<div class="large-12">&nbsp;</div>
 				<div class="large-12 medium-12 small-12 row">
 					<h3>Verkaufsbilanz</h3>
-					<table class="large-6 medium-6 small-12 columns">
+					<table class="medium-4 medium-offset-1 small-12 columns">
 						<thead>
 							<tr>
 								<th class="small-4" th:text="#{statistics.article}">Titel</th>
@@ -37,7 +38,7 @@
 							</tr>
 						</tbody>
 					</table>
-					<table class="large-6 medium-6 small-12 columns">
+					<table class="medium-4 medium-offset-1 small-12 columns">
 						<thead>
 							<tr>
 								<th class="small-4" th:text="#{statistics.article}">Titel</th>
@@ -53,37 +54,27 @@
 							</tr>
 						</tbody>
 					</table>
-					<p
-						th:text="#{statistics.totalweeksell} + ': ' + ${statisticPriceSell}">Summe:
-						100 Euro</p>
-					<p
-						th:text="#{statistics.totalsell} + ': ' + ${statisticPriceSellAll}">Summe:
-						100 Euro</p>
-					<p
-						th:text="#{statistics.totalweekbuy} + ': ' + ${statisticPriceBuy}">Summe:
-						100 Euro</p>
-					<p
-						th:text="#{statistics.totalbuy} + ': ' + ${statisticPriceBuyAll}">Summe:
-						100 Euro</p>
-					<p th:text="#{statistics.profit} + ': ' + ${profit}">Summe: 100
-						Euro</p>
-					<p th:text="#{statistics.profittotal} + ': ' + ${profittotal}">Summe:
-						100 Euro</p>
-					<!--	</div>
-	        <div class="large-12 medium-12 small-12 row">
-						<p>
-							<label th:text="#{statistics.totalweeksell}"></label>
-							<span th:text="${statisticPriceSell}"></span>
+					<canvas id="statistics" class="small-12" height="200"></canvas>
+					<div class="small-12 row">
+						<p th:text="#{statistics.totalweeksell} + ': ' + ${statisticPriceSell}">
+							Summe: 100 Euro
 						</p>
-						<p>
-							<label th:text="#{statistics.totalweekbuy}"></label>
-							<span th:text="${statisticPriceBuy}"></span>
+						<p th:text="#{statistics.totalsell} + ': ' + ${statisticPriceSellAll}">
+							Summe: 100 Euro
 						</p>
-						<p>
-							<label th:text="#{statistics.profit}"></label>
-							<span th:text="${profit}"></span>
+						<p th:text="#{statistics.totalweekbuy} + ': ' + ${statisticPriceBuy}">
+							Summe: 100 Euro
 						</p>
-						-->
+						<p th:text="#{statistics.totalbuy} + ': ' + ${statisticPriceBuyAll}">
+							Summe: 100 Euro
+						</p>
+						<p th:text="#{statistics.profit} + ': ' + ${profit}">
+							Summe: 100 Euro
+						</p>
+						<p th:text="#{statistics.profittotal} + ': ' + ${profittotal}">
+							Summe: 100 Euro
+						</p>
+					</div>
 				</div>
 			</div>
 		</div>
