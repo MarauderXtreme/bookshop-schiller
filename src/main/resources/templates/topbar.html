@@ -46,10 +46,10 @@
     					<a th:href="@{/admin/statictics}" href="statistics.html">Statistiken</a>
     				</li>
     				<li>
-    					<a th:href="@{/admin/orders}" href="order.html">Bestellungen</a>
+    					<a th:href="@{/admin/orders}" href="order.html">Bestellungsübersicht</a>
     				</li>
     				<li>
-    					<a th:href="@{/admin/stock}" href="stock.html">Lager</a>
+    					<a th:href="@{/admin/stock}" href="stock.html">Lagerübersicht</a>
     				</li>
     			</ul>
     		</li>
@@ -58,13 +58,13 @@
     			<a>Artikel Management</a>
     			<ul class="dropdown">
     				<li>
-    					<a th:href="@{/article/book/add}" href="addbook.html">Neues Buch</a>
+    					<a th:href="@{/article/book/add}" href="addbook.html">Buch anlegen</a>
     				</li>
     				<li>
-    					<a th:href="@{/article/cd/add}" href="addcd.html">Neue CD</a>
+    					<a th:href="@{/article/cd/add}" href="addcd.html">CD anlegen</a>
     				</li>
     				<li>
-    					<a th:href="@{/article/dvd/add}" href="adddvd.html">Neue DVD</a>
+    					<a th:href="@{/article/dvd/add}" href="adddvd.html">DVD anlegen</a>
     				</li>
     				<li>
     					<a th:href="@{/editcategories}" href="editcategories.html">Kategorien bearbeiten</a>
@@ -76,13 +76,13 @@
     			<a>Nutzer Management</a>
     			<ul class="dropdown">
     				<li>
-    					<a th:href="@{/admin/customers}" href="customers.html">Kunden</a>
+    					<a th:href="@{/admin/customers}" href="customers.html">Kundenübersicht</a>
     				</li>
     				<li>
-    					<a th:href="@{/admin/employees}" href="employees.html">Angestellte</a>
+    					<a th:href="@{/admin/employees}" href="employees.html">Angestelltenübersicht</a>
     				</li>
     				<li sec:authorize="hasAnyRole('ROLE_ADMIN','ROLE_USERMANAGER')">
-    					<a th:href="@{/admin/user/add}" href="registeruser.html">Neuer Nutzer</a>
+    					<a th:href="@{/admin/user/add}" href="registeruser.html">Nutzer erstellen</a>
     				</li>
     			</ul>
     		</li>
@@ -91,10 +91,10 @@
     			<a>Event Management</a>
     			<ul class="dropdown">
     				<li>
-    					<a th:href="@{/admin/event/add}" href="addEvent.html">Neues Event</a>
+    					<a th:href="@{/admin/event/add}" href="addEvent.html">Events bearbeiten</a>
     				</li>
     				<li sec:authorize="hasAnyRole('ROLE_ADMIN')">
-    					<a th:href="@{/admin/room/add}" href="addRoom.html">Neuer Raum</a>
+    					<a th:href="@{/admin/room/add}" href="addRoom.html">Räume bearbeiten</a>
     				</li>
     			</ul>
     		</li>
