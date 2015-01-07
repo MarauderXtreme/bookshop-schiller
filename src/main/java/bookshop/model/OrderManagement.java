@@ -31,24 +31,20 @@ import org.springframework.ui.ModelMap;
 public class OrderManagement extends OrderLine{
 
 	private final OrderManager<Order> orderManager;
-	private final Inventory<InventoryItem> inventory;
-	
 	/**
 	 * Constructor for OrderManagement
 	 * @param oderManager
-	 * @param inventory
-	 */
-	@Autowired
-	public OrderManagement(OrderManager<Order> orderManager, Inventory<InventoryItem> inventory) {
+	 * 	 */
 
+	@Autowired
+	public OrderManagement(OrderManager<Order> orderManager) {
 		this.orderManager = orderManager;
-		this.inventory = inventory;
 	}
 	
-	public void reservation(String title, Optional<UserAccount> userAccount){
-		
-		Quantity quantity = Units.of(1);
-		Product product = new Product(title, Money.of(EUR, 0.00), Units.METRIC);
+	public void reservation(String title, Optional<UserAccount> userAccount, int number){
+		System.out.println(number);
+		Quantity quantity = Units.of(number);
+		Product product = new Product(title, Money.of(EUR, 5.00), Units.METRIC);
 		OrderLine orderLine = new OrderLine(product, quantity);
 		Order order = new Order(userAccount.get(), Cash.CASH);
 		order.add(orderLine);
@@ -58,15 +54,12 @@ public class OrderManagement extends OrderLine{
 	}
 	public ArrayList<Order> orders(String event){
 		ArrayList<Order> list = new ArrayList<Order>();
-		System.out.println(event);
 		
 		for(Order order : orderManager.find(OrderStatus.PAID)){
 			
 			for(OrderLine orderLine : order.getOrderLines()){
-				System.out.println(orderLine.getProductName());
 				if(orderLine.getProductName().equals(event)){
 					list.add(order);
-					System.out.println(order);
 				}
 			}
 		}

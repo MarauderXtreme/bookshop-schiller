@@ -183,14 +183,14 @@ public class OrderController {
 	public String showReservations(ModelMap modelMap, @RequestParam("eventID") String event){
 		
 		
-		OrderManagement management = new OrderManagement(orderManager, inventory);
+		OrderManagement management = new OrderManagement(orderManager);
 		modelMap.addAttribute("reservation", management.orders(event));
 		return "reservations";
 	}
 	
 	@PreAuthorize("hasRole('ROLE_CUSTOMER')")
 	@RequestMapping(value="/calendar/bookSeat", method=RequestMethod.POST)
-	public String bookSeat(@LoggedIn Optional<UserAccount> userAccount, @RequestParam("eventRoomName")String roomName,@RequestParam("dateD")String date,@RequestParam("dateT")String time, @RequestParam("eventID") String event)
+	public String bookSeat(@LoggedIn Optional<UserAccount> userAccount, @RequestParam("eventRoomName")String roomName,@RequestParam("dateD")String date,@RequestParam("dateT")String time, @RequestParam("eventID") String event, @RequestParam("number") int number)
 	{
 		MyDate tempdate = new MyDate(date, time);
 		if(CalendarManagement.getInstance().getCalendar().getEvent(new TupelKey<Room, MyDate>(RoomManagement.getInstance().getRoom(roomName), tempdate)).increaseTakenSeats())
@@ -198,9 +198,8 @@ public class OrderController {
 			//System.out.println("true");
 			}
 		//System.out.println("false");
-		
-		OrderManagement management = new OrderManagement(orderManager, inventory);
-		management.reservation(event, userAccount);
+		OrderManagement management = new OrderManagement(orderManager);
+		management.reservation(event, userAccount, number);
 		
 		return "redirect:/calendar";
 	}
