@@ -193,7 +193,7 @@ public class OrderController {
 	public String bookSeat(@LoggedIn Optional<UserAccount> userAccount, @RequestParam("eventRoomName")String roomName,@RequestParam("dateD")String date,@RequestParam("dateT")String time, @RequestParam("eventID") String event, @RequestParam("number") int number)
 	{
 		MyDate tempdate = new MyDate(date, time);
-		if(CalendarManagement.getInstance().getCalendar().getEvent(new TupelKey<Room, MyDate>(RoomManagement.getInstance().getRoom(roomName), tempdate)).increaseTakenSeats())
+		if(CalendarManagement.getInstance().getCalendar().getEvent(new TupelKey<Room, MyDate>(RoomManagement.getInstance().getRoom(roomName), tempdate)).increaseTakenSeats(number))
 			{
 			//System.out.println("true");
 			}

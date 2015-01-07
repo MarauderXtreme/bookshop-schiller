@@ -92,7 +92,7 @@ public class Event extends Object {
 	 * Increases the amount of reserved seats for this event
 	 * @return false if all seats are taken, true if not
 	 */
-	public boolean increaseTakenSeats()
+	public boolean increaseTakenSeats(int number)
 	{
 		if(Integer.parseInt(getRoom().getChairNum())>takenSeats)
 		{
