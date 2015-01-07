@@ -163,8 +163,7 @@ public class OrderController {
 		Quantity quantity;		
 		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
 		quantity = new Quantity(number, item.get().getQuantity().getMetric(), item.get().getQuantity().getRoundingStrategy());
-		
-		
+			
 		item.get().increaseQuantity(quantity);
 		
 		OrderLine orderLine = new OrderLine(article, quantity);		

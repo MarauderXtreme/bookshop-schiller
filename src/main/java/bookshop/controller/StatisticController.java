@@ -62,6 +62,7 @@ public class StatisticController {
 		Order gesOrderBuy = new Order(userAccount.get());
 		Order gesOrderSell = new Order(userAccount.get());
 		Order sellOrder = new Order(userAccount.get());
+		Order reservations = new Order(userAccount.get());
 		
 		StatisticsManagement sm = new StatisticsManagement(orderManager, inventory, date);
 		
@@ -79,6 +80,21 @@ public class StatisticController {
 			sellOrder.add(orderLine1);
 		}
 		
+		// PROTOTYP FÜR KUNDENWUNSCH
+		/*
+		String[] test = new String[2];
+		test[0] = "";
+		test[1] = "";
+		String event = "";
+		
+		for(String test1 : test){
+			
+			OrderLine orderLine = sm.statisticOfReservation(event);
+			reservations.add(orderLine);
+		}
+		*/
+		// ENDE
+		
 		profit = sellOrder.getTotalPrice().minus(statisticOrder.getTotalPrice());
 		profittotal = profit;
 		
@@ -93,6 +109,7 @@ public class StatisticController {
 		modelMap.addAttribute("statisticPriceSellAll", gesOrderBuy.getTotalPrice());		
 		modelMap.addAttribute("statisticPriceBuyAll", gesOrderSell.getTotalPrice());
 		
+		modelMap.addAttribute("statisticsReservation", reservations.getOrderLines());
 		return "/statistics";
 	}
 		

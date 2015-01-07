@@ -15,6 +15,7 @@ import org.salespointframework.order.OrderLine;
 import org.salespointframework.order.OrderManager;
 import org.salespointframework.order.OrderStatus;
 import org.salespointframework.quantity.Quantity;
+import org.salespointframework.quantity.Units;
 import org.salespointframework.time.BusinessTime;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
@@ -110,4 +111,31 @@ public class StatisticsManagement {
 	}
 	}
 	
+	public OrderLine statisticOfReservation(String event){
+		LocalDateTime time = date.getTime();
+		time = time.minusDays(7);
+		Quantity quantity = Units.of(0);
+		
+		for(Order order : orderManager.find(time, date.getTime())){
+
+			if(order.isPaid()==true){
+			
+			
+				for(OrderLine orderLine : order.getOrderLines()){
+					
+					String event2 = orderLine.getProductName();
+					
+					
+					if(event.equals(event2)== true){
+							quantity = quantity.add(orderLine.getQuantity());
+					}
+						
+				}	
+			
+			}
+		}
+		
+		
+		return null;	
+	}
 }
