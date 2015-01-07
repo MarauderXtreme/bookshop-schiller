@@ -1,7 +1,5 @@
 package bookshop.controller;
 
-import static org.joda.money.CurrencyUnit.EUR;
-
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
@@ -124,13 +122,14 @@ public class CartController {
 		HttpSession session){
 		Quantity quantity1 = Units.of(number);
 		if(number < 1  || quantity1.isGreaterThan(inventory.findByProductIdentifier(article.getIdentifier()).get().getQuantity())){
-			number = 0;
+			//number = 0;
 
+		}else{
+			Quantity quantity = Units.of(number);
+			Cart cart = getCart(session);		
+			cart.addOrUpdateItem(article, quantity);	
 		}
-		Quantity quantity = Units.of(number);
-		Cart cart = getCart(session);
 		
-		cart.addOrUpdateItem(article, quantity);	
 		switch (article.getType()) {
 		case DVD:
 			return "redirect:/article/dvd";
