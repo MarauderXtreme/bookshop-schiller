@@ -1,9 +1,12 @@
 package bookshop.model;
 
 import java.io.*;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
 
+import org.salespointframework.inventory.Inventory;
+import org.salespointframework.inventory.InventoryItem;
 import org.salespointframework.order.Order;
 import org.salespointframework.order.OrderLine;
 import org.salespointframework.useraccount.UserAccount;
@@ -15,6 +18,13 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 
 public class PDFCreator extends HttpServlet {
+	
+	private final Inventory<InventoryItem> inventory;
+	
+	public PDFCreator(Inventory<InventoryItem> inventory){
+		this.inventory = inventory;
+	}
+	
 	
 	/**
 	 * Create a PDF file
@@ -52,7 +62,7 @@ public class PDFCreator extends HttpServlet {
 	        for(OrderLine orderLine : order.getOrderLines()){
 	        	table.addCell(orderLine.getQuantity().toString());
 	        	table.addCell(orderLine.getProductName());
-	        	table.addCell("test");
+	        	table.addCell(inventory.findByProductIdentifier(orderLine.getProductIdentifier()).get().getProduct().getPrice().toString());
 	        	table.addCell(orderLine.getPrice().toString());
 	        }
 	        	        

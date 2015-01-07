@@ -77,7 +77,7 @@ public class CartController {
 		
 		orderManager.add(order);
 		cart.clear();
-		PDFCreator pdf = new PDFCreator();
+		PDFCreator pdf = new PDFCreator(inventory);
 		pdf.pdfCreate(order, userAccount.get());
 		
 		/*
