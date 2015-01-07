@@ -1,0 +1,112 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[english,german]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\setlength{\parindent}{0pt}
+
+\author{Protokollführer: Till Köhler}
+\title{Sitzungsprotokoll Tutorentreffen 2015-01-07}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\subsection*{Anwesenheit}
+\medskip
+\begin{itemize}
+\item Christoph Biering (Kunde, Tutor)
+\item Philipp Waack (Chefprogrammierer) (ca. 10 Minuten später, entschuldigt)
+\item Philipp Jäschke (Assistent) (ca. 10 Minuten später, entschuldigt)
+\item Christoph Kepler (Operator)
+\item Till Köhler (Sekretär)
+\end{itemize}
+
+\subsection*{Dauer des Treffens}
+\medskip
+\begin{itemize}
+\item Beginn: 11:10 Uhr
+\item Ende: 12:25 Uhr
+\end{itemize}
+
+\noindent\rule{\textwidth}{1pt}
+
+\subsection*{Tagespunkte}
+\medskip
+
+\subsubsection*{Abwesenheit von Max}
+\begin{itemize}
+\item entschuldigt wegen Krankheit
+\end{itemize}
+
+\subsubsection*{Allgemeine organisatorische Absprachen}
+\begin{itemize}
+\item zu tun sind noch:
+\begin{itemize}
+\item Einschreibung für die Prüfungsleistung im jExam
+\item Ergänzen der jeweiligen Gesamtarbeitszeiten pro Gruppenmitglied im Public Repository
+\item Exportieren der JavaDoc
+\end{itemize}
+\item nächste Woche: letztes Tutorentreffen (Vorstellung des Gesamtprojektes, Tipps zur Endpräsentation)
+\end{itemize}
+
+\subsubsection*{Auswertung der angefangenen Entwicklerdokumentation}
+(von Chris erstellt)
+\begin{itemize}
+\item Feedback: bisher super
+\item Entfernen der letzten beiden Spalten aus dem Stakeholder
+\item Ergänzung der Versionsnummern in den Technischen Randbedingungen
+\item Klärung der Bedeutung einiger Punkte durch Tutor notwendig (z.B. Verteilungskontext, Bausteinsicht, Persistenz, Transaktionsbehandlung, Sessionbehandlung, ...)
+\item Verweis auf die Spring Security Seite in der Rubrik
+\item Christoph B. schaut sich die Entwicklerdokumentation nochmal in Ruhe an und schickt eine E-Mail mit genaueren Anforderungen
+\end{itemize}
+
+\subsubsection*{Auswertung der angefangenen Anwenderdokumentation}
+(von Till erstellt)
+\begin{itemize}
+\item Feedback: bisher super
+\item Einfügen von Bildern zur Anschaulichkeit
+\end{itemize}
+
+\subsubsection*{Auswertung der Implementierung des Kundenwunsches}
+(von Max und Philipp J. erstellt)
+\begin{itemize}
+\item Feedback: fehlender Preis (s. unten), sonst super
+\item Hinzufügen eines festen Preises von 5 Euro für alle Sitzplatzreservierungen
+\item Einrechnung der Sitzplatzreservierungen in die Statistik
+\end{itemize}
+
+\subsubsection*{Auswertung der JUnit-Tests}
+\begin{itemize}
+\item JUnit-Tests sind alle lauffähig (außer die abstrakten Tests AbstractIntegrationTest und AbstractWebIntegrationTest) 
+\item Christoph B. schaut sich alle Tests nochmal in Ruhe an und schickt sein Feedback per E-Mail
+\end{itemize}
+
+\subsubsection*{Auswertung des Testberichtes für Gruppe 16}
+\begin{itemize}
+\item Feedback: sehr gut und umfangreich
+\end{itemize}
+
+\subsubsection*{Auswertung der Fixes zum eigenen Testbericht}
+\begin{itemize}
+\item noch ausstehende Fixes:
+\begin{itemize}
+\item Hinzufügen von Start- und Endzeitpunkten für Events
+\item Fehlermeldungen beim Hinzufügen von bereits belegten Events
+\end{itemize}
+\end{itemize}
+
+\subsection*{Aufgaben bis zur nächsten Woche}
+\medskip
+\begin{itemize}
+\item Alle: letzte Fixes der Anwendung; letzte Überarbeitungen der GUI; Exportieren der JavaDoc
+\item Chris: Fertigstellung der Entwicklerdokumentation
+\item Till: Fertigstellung der Anwenderdokumentation
+\end{itemize}
+
+\end{document}
