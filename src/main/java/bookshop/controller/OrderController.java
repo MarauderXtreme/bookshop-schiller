@@ -131,7 +131,6 @@ public class OrderController {
 	@RequestMapping(value="/order/complete")
 	public String compledOrder(@RequestParam("orderComplete") Order order){
 		for(OrderLine orderLine : order.getOrderLines()){
-			System.out.println(inventory.findByProductIdentifier(orderLine.getProductIdentifier()).get().getQuantity());
 			inventory.findByProductIdentifier(orderLine.getProductIdentifier()).get().increaseQuantity(orderLine.getQuantity());
 		}
 		orderManager.payOrder(order);

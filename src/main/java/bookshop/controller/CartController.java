@@ -74,9 +74,7 @@ public class CartController {
 		Cart cart = getCart(session);
 		cart.addItemsTo(order);
 		for(OrderLine orderLine : order.getOrderLines()){
-			System.out.println(inventory.findByProductIdentifier(orderLine.getProductIdentifier()).get().getQuantity());
 			inventory.findByProductIdentifier(orderLine.getProductIdentifier()).get().decreaseQuantity(orderLine.getQuantity());
-			System.out.println(inventory.findByProductIdentifier(orderLine.getProductIdentifier()).get().getQuantity());
 		}
 		
 		orderManager.add(order);

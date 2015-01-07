@@ -23,15 +23,11 @@ public class PDFCreator extends HttpServlet {
 	 */
 	public void pdfCreate(Order order, UserAccount userAccount){
 		Document document = new Document();
-		//InventoryItem item;
-		//String curDir = System.getProperty(")
-		System.out.println(order.getIdentifier().toString());
+
 	    try {
 	        PdfWriter.getInstance(document,
 	        		new FileOutputStream(System.getProperty("user.dir") + "/src/main/resources/static/resources/orders/" + order.getIdentifier().toString() + ".pdf"));
-	    	//PdfWriter.getInstance(document,
-	    	//new FileOutputStream(System.getProperty(("user.dir") + "/src/main/resources/static/orders/" + order.getIdentifier().toString() + ".pdf"));
-	        
+
 	        document.open();
 	        document.add(new Paragraph("Bestellnummer:"));
 	        document.add(new Paragraph(order.getIdentifier().toString()));
@@ -40,7 +36,6 @@ public class PDFCreator extends HttpServlet {
 	        document.add(new Paragraph("Kunde:"));
 	        document.add(new Paragraph(userAccount.getFirstname()));
 	        document.add(new Paragraph(userAccount.getLastname()));
-	        //document.add(new Paragraph("Artikel:"));
 	        
 	        PdfPTable table = new PdfPTable(4);
 	        PdfPCell cell1 = new PdfPCell(new Paragraph("Menge"));
