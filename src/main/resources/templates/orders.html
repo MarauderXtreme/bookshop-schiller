@@ -22,28 +22,25 @@
 							<caption th:text="#{orders.open}"></caption>
 							<thead>
 								<tr>
-									<th class="small-3" th:text="#{orders.date}">Datum</th>
-									<th class="small-3" th:text="#{orders.customer}">Kunde</th>
-									<th class="small-3" th:text="#{orders.payed}">Bezahlt</th>
-									<th>Quicklinks</th>
-									<th> </th>	
+									<th class="small-6" th:text="#{orders.customerBill}">Kunde</th>
+									<th class="small-2" th:text="#{orders.payed}">Bezahlt</th>
+									<th class="small-3">Quicklinks</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr th:each="order : ${ordersOpen} ">
-									<td th:text="${order.orderStatus}"></td>
-									<td th:text="${order.dateCreated}"></td>
+									<td th:text="${order.Identifier}"></td>
 									<td th:text="${order.totalPrice}"></td>
 										<td>
 											<form class="salespoint" method="POST" action="/order/complete">
 											  <input type="hidden" name="orderComplete" value="0" th:value="${order.identifier}"/>
-												<input class="small button" type="submit" value="Complete"/> 
+												<input class="small button" type="submit" value="Versenden"/> 
 											</form>
 										</td>											
 									<td>
 										<form method="POST" action="/order/detail">
 										  <input type="hidden" name="orderdetail" value="0" th:value="${order.identifier}"/>
-											<input class="small button" type="submit" value="Detail"/> 
+											<input class="small button" type="submit" value="Detailansicht"/> 
 										</form>
 									</td>
 								</tr>
@@ -53,21 +50,19 @@
 							<caption th:text="#{orders.completed}"></caption>
 							<thead>
 								<tr>
-									<th class="small-3" th:text="#{orders.date}">Datum</th>
-									<th class="small-3" th:text="#{orders.customer}">Kunde</th>
-									<th class="small-3" th:text="#{orders.payed}">Bezahlt</th>
-									<th>Quicklinks</th>
+									<th class="small-6" th:text="#{orders.customerBill}">Kunde</th>
+									<th class="small-2" th:text="#{orders.payed}">Bezahlt</th>
+									<th class="small-4">Quicklinks</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr th:each="order : ${ordersCompleted} ">
-									<td th:text="${order.dateCreated}" ></td>
-									<td th:text="${order.userAccount.identifier}"></td>
+									<td th:text="${order.identifier}"></td>
 									<td th:text="${order.totalPrice}"></td>
 									<td>
 										<form method="POST" action="/order/detail">
 										  <input type="hidden" name="orderdetail" value="0" th:value="${order.identifier}"/>
-											<input class="small button" type="submit" value="Detail"/> 
+											<input class="small button" type="submit" value="Detailansicht"/> 
 										</form>
 									</td>								
 								</tr>

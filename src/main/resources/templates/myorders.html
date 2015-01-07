@@ -37,13 +37,14 @@
 											<td th:if="${order.open}">
 												<form class="salespoint" method="POST" action="/order/cancel">
 												  <input type="hidden" name="orderDelete" value="0" th:value="${order.identifier}"/>
+													<input class="small button" type="submit" value="Stornieren"/> 
 													<input class="small button" type="submit" value="Cancel"/> 
 												</form>
 											</td>
 											<td th:unless="${order.paid}">
 												<form class="salespoint" method="POST" action="/order/detail">
 												  <input type="hidden" name="orderdetail" value="0" th:value="${order.identifier}"/>
-													<input class="small button" type="submit" value="Detail"/> 
+													<input class="small button" type="submit" value="Detailansicht"/> 
 												</form>
 											</td>	
 									</tr>
@@ -63,7 +64,7 @@
 											<td th:if="${order.paid}">
 												<form class="salespoint" method="POST" action="/order/detailreservation">
 												  <input type="hidden" name="orderdetail" value="0" th:value="${order.identifier}"/>
-													<input class="small button" type="submit" value="Detail"/> 
+													<input class="small button" type="submit" value="Detailansicht"/> 
 												</form>
 											</td>
 									</tr>
