@@ -389,12 +389,6 @@ public class ArticleController {
 	 * Adds a new article of type book with the given attributes to the catalog and the inventory, validated by a article Form.
 	 * @param articleForm
 	 * @param result
-	 * @param title
-	 * @param description
-	 * @param price
-	 * @param isbn
-	 * @param publisher
-	 * @param author
 	 * @param category
 	 * @return
 	 */
@@ -444,12 +438,6 @@ public class ArticleController {
 	 * Adds a new article of type cd with the given attributes to the catalog and the inventory, validated by a article Form.
 	 * @param articleForm
 	 * @param result
-	 * @param title
-	 * @param description
-	 * @param price
-	 * @param isbn
-	 * @param publisher
-	 * @param interpret
 	 * @param category
 	 * @return
 	 */
@@ -497,12 +485,6 @@ public class ArticleController {
 	 * Adds a new article of type dvd with the given attributes to the catalog and the inventory, validated by a article Form.
 	 * @param articleForm
 	 * @param result
-	 * @param title
-	 * @param description
-	 * @param price
-	 * @param isbn
-	 * @param publisher
-	 * @param director
 	 * @param category
 	 * @return
 	 */
@@ -667,27 +649,15 @@ public class ArticleController {
 	 * 
 	 * Repleaces article information of a given article, validated by an edit article form
 	 * 
-	 * @param article
-	 * @param name takes the new Name
-	 * @param publisher takes the new publisher
-	 * @param beschreibung takes the new description
-	 * @param isbn takes the new isbn
-	 * @param price takes the new price
-	 * @param addcategory takes the category that should be added
-	 * @param image takes at this stage the name of the image
-	 * @param author takes the new author
-	 * @param interpret takes the new interpret
-	 * @param director takes the new director
-	 * @param increase takes the value of unit increase
-	 * @param decrease takes the value of decrease
-	 * @param delcategory takes the category that sould be delted
+	 * @param articleForm
+	 * @param result
 	 * @return
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
 	@RequestMapping(value="/article/editinformation", method=RequestMethod.POST)
 	public String editArticle(@ModelAttribute("editArticleForm") @Valid EditArticleForm articleForm, BindingResult result, @RequestParam("article") Article article, @RequestParam("newcategory") String newCategory) {
 		
-		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
+		//Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
 		
 		if (articleForm.getPrice()<0) {
 			result.addError(new ObjectError("price", "Der Preis muss grosser als 0 sein"));
