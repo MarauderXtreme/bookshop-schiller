@@ -8,11 +8,12 @@ $(document).ready(function(){
 				isbn13: /^[0-9]{13}$/,
 				caps_start: /^[A-Z](1).*/,
 				custom_date: /^(0[1-9]|[12]\d|3[0-1])\.(0[1-9]|1[0-2])\.\d{4}$/,
-				custom_eventdate: /^(0[1-9]|[12]\d|3[0-1])(0[1-9]|1[0-2])\d{4}$/,
-				custom_time: /^(0[1-9]|1\d|2[0-3])([0-5]\d)$/
+				custom_eventdate: /^(0[1-9]|[12]\d|3[0-1])\.(0[1-9]|1[0-2])\.\d{4}$/,
+				custom_time: /^(0[1-9]|1\d|2[0-3]):([0-5]\d)$/
 			}
 		}
 	});
+	
 	$('.header-slider').slick({
 		dots: true,
 		infinite: true,
@@ -22,8 +23,14 @@ $(document).ready(function(){
 		autoplay: true,
 		autoplaySpeed: 10000,
 	});
+
+	$('#datepicker').fdatepicker({
+		format: 'dd.mm.yyyy',
+		language: 'de'
+	})
+	
 	/**
-	 * Spring escapes 
+	 * Spring HTML escapes 
 	 */
 	//CKEDITOR.replace( 'descriptiontext' );
 });

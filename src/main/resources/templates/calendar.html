@@ -18,7 +18,7 @@
 	        <div class="large-12">&nbsp;</div>
 		        <div class="large-12 medium-12 small-12 row">
 		          <h2>Kalender</h2>
-			        <table class="large-12 medium-12 small-12 calendar" sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_SALESMANAGER', 'ROLE_USERMANAGER', 'ROLE_EVENTMANAGER', 'ROLE_ARTICLEMANAGER')" >
+			        <table class="large-12 medium-12 small-12 calendar" sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EVENTMANAGER')" >
 			        	<thead class="panel">
 			          	<tr>
 			            	<th class="small-2">Datum</th>
@@ -44,14 +44,14 @@
 			            		 <input type="hidden" name="dateD" th:value="${event.getDateD()}"/>
 			            		 <input type="hidden" name="dateT" th:value="${event.getDateT()}"/>
 			            		 <input type="hidden" name="eventID" th:value="${event.getID()}"/> 
-			            		 <input type="submit" value="Buchen" />
+			            		 <input class="small button" type="submit" value="Buchen" />
 			            	  </form>
 			              </td>
 			            </tr>
 			          </tbody>
 			        </table>
 			        
-			        <table class="large-12 medium-12 small-12 calendar" sec:authorize="hasRole('ROLE_ADMIN') || hasRole('ROLE_BOSS') || hasRole('ROLE_EVENTMANAGER')" >
+			        <table class="large-12 medium-12 small-12 calendar" sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EVENTMANAGER')" >
 			        	<thead class="panel">
 			          	<tr>
 			            	<th class="small-2">Datum</th>

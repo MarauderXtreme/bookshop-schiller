@@ -181,7 +181,7 @@ public class OrderController {
 		return"redirect:/admin/stock";
 	}
 	
-	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_EVENTMANAGER')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_BOSS') || hasRole('ROLE_EVENTMANAGER')")
 	@RequestMapping("/calendar/reservations")
 	public String showReservations(ModelMap modelMap, @RequestParam("eventID") String event){
 		

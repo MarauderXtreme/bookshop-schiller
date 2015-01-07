@@ -1,25 +1,10 @@
 package bookshop.model;
 
-
-
-import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.List;
-
-import javax.imageio.ImageIO;
-import javax.persistence.Entity;
-import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.util.PDFImageWriter;
-import org.salespointframework.inventory.InventoryItem;
 import org.salespointframework.order.Order;
-import org.salespointframework.order.OrderIdentifier;
 import org.salespointframework.order.OrderLine;
 import org.salespointframework.useraccount.UserAccount;
 

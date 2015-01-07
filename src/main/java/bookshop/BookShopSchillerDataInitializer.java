@@ -123,8 +123,6 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		Category action = new Category("Action", ArticleId.DVD);
 		Category horror = new Category("Horror", ArticleId.DVD);
 		Category drama = new Category("Drama", ArticleId.DVD);
-
-
 		
 		categories.save(unterhaltung);
 		categories.save(ratgeber);
@@ -140,14 +138,136 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		categories.save(action);
 		categories.save(drama);
 		
-		Article v = new Article("Trost und Rat", Money.of(EUR, 9.99), "Ein Ratgeber der besonderen Art", "Flann O'Brien", "1234567890421", ArticleId.BOOK, categories.findById("BOOKFiktion").get().getCategoryName(), "Flann O'Brien", "trostundrat.jpg", "01.01.2015", Money.of(EUR, 0.99));		
-		articleCatalog.save(v);
-		articleCatalog.save(new Article("50 Schatten des Grauens", Money.of(EUR, 7.98), "Horrorpersiflage des Bestsellers", "Chris Ragman", "0000000000001", ArticleId.BOOK, categories.findById("BOOKRatgeber").get().getCategoryName(), "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99)));
-		articleCatalog.save(new Article("Der Doktor und seine Gefährten", Money.of(EUR, 14.99), "Das Begleitbuch zur Serie", "Sir Doctor from Tardis", "0000000000002", ArticleId.BOOK, "Fiktion", "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99)));
-		articleCatalog.save(new Article("Stargate - Kommando SG-1", Money.of(EUR, 17.95), "Kurzbeschreibungen der Episoden der ersten Staffel", "Wolfgang Hohlbein", "0000000000003", ArticleId.BOOK, categories.findById("BOOKUnterhaltung").get().getCategoryName(), "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99)));
-		articleCatalog.save(new Article("Unterschiedlich!", Money.of(EUR, 17.95), "Kurzbeschreibungen der Episoden der ersten Staffel", "Wolfgang Hohlbein", "0000000000004", ArticleId.BOOK, categories.findById("BOOKUnterhaltung").get().getCategoryName(), "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99)));
-		articleCatalog.save(new Article("Ladida", Money.of(EUR, 17.95), "Kurzbeschreibungen der Episoden der ersten Staffel", "Wolfgang Hohlbein", "0000000000005", ArticleId.BOOK, categories.findById("BOOKUnterhaltung").get().getCategoryName(), "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99)));
-		articleCatalog.save(new Article("Dummdumm", Money.of(EUR, 17.95), "Kurzbeschreibungen der Episoden der ersten Staffel", "Wolfgang Hohlbein", "0000000000006", ArticleId.BOOK, categories.findById("BOOKUnterhaltung").get().getCategoryName(), "Flann O'Brien", "01.01.2015", Money.of(EUR, 0.99)));
+		articleCatalog.save(new Article("Trost und Rat",
+										Money.of(EUR, 9.99),
+										"Ein Ratgeber der besonderen Art",
+										"Diana",
+										"1234567890421",
+										ArticleId.BOOK,
+										categories.findById("BOOKRatgeber").get().getCategoryName(),
+										"Flann O'Brien",
+										"trostundrat.jpg",
+										"01.01.2015",
+										Money.of(EUR, 0.99))	
+		);
+		
+		articleCatalog.save(new Article("50 Schatten des Grauens",
+										Money.of(EUR, 9.99),
+										"Horrorpersiflage des Bestsellers",
+										"Heyne",
+										"0000000000001",
+										ArticleId.BOOK,
+										categories.findById("BOOKRatgeber").get().getCategoryName(),
+										"H.P. Lovecraft",
+										"Flying_Polyp.jpg",
+										"01.01.2015",
+										Money.of(EUR, 0.99))
+		);
+		
+		articleCatalog.save(new Article("Der Doktor und seine Gefährten",
+										Money.of(EUR, 14.99),
+										"Das Begleitbuch zur Serie",
+										"Sir Doctor from Tardis",
+										"0000000000002",
+										ArticleId.BOOK,
+										categories.findById("BOOKFiktion").get().getCategoryName(),
+										"Sir Doctor from Tardis",
+										"Dr_Who_(316350537).jpg",
+										"01.01.2015",
+										Money.of(EUR, 0.99))
+		);
+		
+		articleCatalog.save(new Article("Stargate - Kommando SG-1",
+										Money.of(EUR, 17.95),
+										"Kurzbeschreibungen der Episoden der ersten Staffel",
+										"Ullstein",
+										"0000000000003",
+										ArticleId.BOOK,
+										categories.findById("BOOKUnterhaltung").get().getCategoryName(),
+										"Wolfgang Hohlbein",
+										"Stargate-color.png",
+										"01.01.2015",
+										Money.of(EUR, 0.99))
+		);
+		
+		articleCatalog.save(new Article("Bastard Operator from Hell Volume 1",
+										Money.of(EUR, 13.37),
+										"Haben Sie jemals im Helpdesk gearbeitet und sin verzweifelt. Hier kommt der ultimative Ratgeber. Lesen Sie, sie Sie am Besten mit Nutzern umgehen.",
+										"Bastard International Inc.",
+										"0000000001337",
+										ArticleId.BOOK,
+										categories.findById("BOOKRatgeber").get().getCategoryName(),
+										"Simon Travaglia",
+										"19504216_2b65c99b30_z.jpg",
+										"01.01.2015",
+										Money.of(EUR, 0.99))
+		);
+		
+		articleCatalog.save(new Article("The Hitchhiker's Guide to the Galaxy",
+										Money.of(EUR, 42.42),
+										"Don't panic",
+										"Galaxy Readings",
+										"0000000000042",
+										ArticleId.BOOK,
+										categories.findById("BOOKFiktion").get().getCategoryName(),
+										"Douglas Adams",
+										"256px-The_Hitchhiker's_Guide_to_the_Galaxy,_english.svg.png",
+										"01.01.2015",
+										Money.of(EUR, 0.99))
+		);
+		
+		articleCatalog.save(new Article("Tarzan",
+										Money.of(EUR, 5.59),
+										"Die Abenteuer um den Jungen der von Affen großgezogen wurde.",
+										"Heyne",
+										"0000452978267",
+										ArticleId.BOOK,
+										categories.findById("BOOKUnterhaltung").get().getCategoryName(),
+										"Edgar Rice Burroughs",
+										"Jungle_tales_of_tarzan.jpg",
+										"01.01.2015",
+										Money.of(EUR, 0.99))
+		);
+		
+		articleCatalog.save(new Article("Warum Männer nicht zuhören und Frauen schlecht einparken",
+										Money.of(EUR, 14.95),
+										"Der ultimative Geschlechterleitfaden.",
+										"Ullstein",
+										"0000000230785",
+										ArticleId.BOOK,
+										categories.findById("BOOKSachbuch").get().getCategoryName(),
+										"Allan & Barbara Pease",
+										"index.jpeg",
+										"01.01.2015",
+										Money.of(EUR, 0.99))
+		);
+		
+		articleCatalog.save(new Article("Necronomicon",
+										Money.of(EUR, 14.95),
+										"Wenn Sie es lesen werden sie überrascht sein",
+										"Hell Systems",
+										"0000000000666",
+										ArticleId.BOOK,
+										categories.findById("BOOKFiktion").get().getCategoryName(),
+										"Abdul Alhazred",
+										"Necronomicon_prop.jpg",
+										"01.01.2015",
+										Money.of(EUR, 0.99))
+		);
+		
+		articleCatalog.save(new Article("Der Bro-Code",
+										Money.of(EUR, 14.95),
+										"Wie verhält sich ein Bro. Hier finden Sie die Antwort.",
+										"Touchstone",
+										"9781439110003",
+										ArticleId.BOOK,
+										categories.findById("BOOKSachbuch").get().getCategoryName(),
+										"Barney Stinson",
+										"3067456215_8eb021fd2e_o.jpg",
+										"01.01.2015",
+										Money.of(EUR, 0.99))
+		);
+		
 		articleCatalog.save(new Article("Depedro", Money.of(EUR, 17.95), "Spanische Musik", "Spanish Records", "1263453rr", ArticleId.CD, categories.findById("CDPop").get().getCategoryName(), "Pedro", "01.01.2015", Money.of(EUR, 0.99)));
 		articleCatalog.save(new Article("Begotten", Money.of(EUR, 17.95), "Strange...", "Indie Records", "1263453rr", ArticleId.DVD, categories.findById("DVDHorror").get().getCategoryName(), "God", "01.01.2015", Money.of(EUR, 0.99)));
 		

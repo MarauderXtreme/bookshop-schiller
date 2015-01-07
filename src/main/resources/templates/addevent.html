@@ -21,13 +21,13 @@
 	          <form method="post" action="/admin/event/new" data-abide="">
 	          	<div class="large-6 medium-6 small-12 columns">
 	          		<label>Datum:*</label>
-	            	<input type="text" name="dated" required="" pattern="custom_eventdate"/>
-								<small class="alert-box alert error">Datum muss Form ddmmyyyy entsprechen.</small>
+	            	<input type="text" name="dated" required="" pattern="custom_eventdate" id="datepicker"/>
+								<small class="alert-box alert error">Datum muss Form dd.mm.yyyy entsprechen.</small>
 		          </div>
 		          <div class="large-6 medium-6 small-12 columns">
 		          	<label>Uhrzeit:*</label>
 		            <input type="text" name="datet" required="" pattern="custom_time"/>
-								<small class="alert-box alert error">Zeit muss Form hhmm entsprechen.</small>
+								<small class="alert-box alert error">Zeit muss Form hh:mm entsprechen.</small>
 		          </div>
 		          <div class="large-6 medium-6 small-12 columns">
 		          	<label>Veranstaltungsname:</label>
@@ -67,7 +67,7 @@
 			              	<td>
 				              <form action="/admin/event/remove" method="post">
 				              <input type="hidden" name="name" th:value="${event.getName()}"/>
-				              <input type="submit"  value="Loeschen" />
+				              <input class="small button" type="submit"  value="Löschen" />
 				              </form>
 			              </td>
 			            </tr>

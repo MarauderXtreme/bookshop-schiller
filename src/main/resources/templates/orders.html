@@ -34,13 +34,13 @@
 										<td>
 											<form class="salespoint" method="POST" action="/order/complete">
 											  <input type="hidden" name="orderComplete" value="0" th:value="${order.identifier}"/>
-												<input class="button" type="submit" value="Versenden"/> 
+												<input class="small button" type="submit" value="Versenden"/> 
 											</form>
 										</td>											
 									<td>
 										<form method="POST" action="/order/detail">
 										  <input type="hidden" name="orderdetail" value="0" th:value="${order.identifier}"/>
-											<input class="button" type="submit" value="Detailansicht"/> 
+											<input class="small button" type="submit" value="Detailansicht"/> 
 										</form>
 									</td>
 								</tr>
@@ -62,7 +62,7 @@
 									<td>
 										<form method="POST" action="/order/detail">
 										  <input type="hidden" name="orderdetail" value="0" th:value="${order.identifier}"/>
-											<input class="button" type="submit" value="Detailansicht"/> 
+											<input class="small button" type="submit" value="Detailansicht"/> 
 										</form>
 									</td>								
 								</tr>
