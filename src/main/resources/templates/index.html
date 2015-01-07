@@ -48,7 +48,7 @@
 		          			<br />
 		          			<small th:text="${book.artist}">Simon Travaglia</small>
 		          		</h6>
-		          		<img alt="cover" class="cover" th:src="@{'/resources/img/' + ${book.image}}" src="/resources/img/notAvaliableBook.jpg" />
+		          		<img alt="cover" class="cover" th:src="@{'/resources/img/' + ${book.image}}" src="/resources/img/no-cover.jpg" />
 			          	<form action="/cart" method="POST">
 										<input type="hidden" name="article" value="0" th:value="${book.identifier}" />
 										<label>Preis: <span th:text="${book.price.amount}"> </span><i class="fi-euro"></i></label>

@@ -50,16 +50,7 @@ public class Article extends Product{
 			this.releaseDate = releaseDate;
 			
 			this.artist = artist;
-			
-			if(type==ArticleId.BOOK){
-				this.image = "notAvaliableBook.jpg";
-			}
-			if(type==ArticleId.CD){
-				this.image = "notAvaliableCd.jpg";
-			}
-			if(type==ArticleId.DVD){
-				this.image = "notAvaliableDvd.png";
-			}
+			this.image = "no-cover.jpg";
 		}
 
 		/**

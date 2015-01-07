@@ -39,11 +39,11 @@ body {
 }
 
 .article-box {
-	height: 300px;
+	height: 330px;
 }
 
 .article-box .cover {
-	height: 120px;
+	height: 140px;
 }
 
 .article-head {
@@ -64,4 +64,12 @@ body {
 
 table tbody tr:nth-child(even) {
 	background: #f2f2f2;
+}
+
+.slider-element {
+	postition: relative;
+}
+
+.slider-picture {
+	max-height: 200px;
 }
