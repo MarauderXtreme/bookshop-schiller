@@ -157,6 +157,10 @@ public class OrderController {
 	@RequestMapping("/article/reorder")
 	public String makeAnOrder(@RequestParam("number") int number, @RequestParam("article") Article article, @LoggedIn Optional<UserAccount> userAccount){
 		
+		if(number < 0){
+			number = 0;
+		}
+		
 		Quantity quantity;		
 		Optional<InventoryItem> item = inventory.findByProductIdentifier(article.getIdentifier());
 		quantity = new Quantity(number, item.get().getQuantity().getMetric(), item.get().getQuantity().getRoundingStrategy());
