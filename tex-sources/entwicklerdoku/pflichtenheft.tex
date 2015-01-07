@@ -1,0 +1,563 @@
+% Version 0.2
+\documentclass[a4paper]{article}
+ 
+\usepackage[english,german]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{ae}
+\usepackage{comment}
+\usepackage[bookmarks,bookmarksnumbered]{hyperref}
+\usepackage{enumerate}
+\usepackage{datetime}
+\usepackage[table,xcdraw]{xcolor}
+\usepackage{graphicx}
+\usepackage{longtable}
+
+\DeclareGraphicsExtensions{.pdf,.png,.jpg,.jpeg,.gif}
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\author{Gruppe 17}
+
+\date{}
+
+\title{
+	\normalfont
+	\normalsize 
+	\huge{Entwicklerdokumentation Buchhandlung Schiller}
+	\horrule{0.5pt}
+	\paragraph{Version: 1.0}
+	\paragraph{Status: Fertig}
+	\paragraph{Stand: 19. November 2014}
+	\horrule{2pt}
+}
+
+\begin{document}
+
+\maketitle
+
+\newpage
+ 
+\section*{Historie}
+
+\begin{comment}
+
+|l|l|l|l|l|
+
+\end{comment}
+
+\begin{tabular}{|r|r|c|l|c|}
+	\hline
+	\rowcolor[HTML]{C0C0C0} 
+	Version & Status    & Datum      & Bearbeiter       & Erläuterung    	\\ \hline
+	0.1     & In Arbeit & 04.01.2015 & Christoph Kepler & Initial Commit 	\\ \hline
+\end{tabular}
+
+\newpage
+
+% Platzierung des Inhaltsverzeichnisses
+
+\tableofcontents
+
+\newpage
+
+\section{Einführung und Ziele}
+
+\subsection{Aufgabenstellung}
+
+\paragraph{Die Buchhandlung SCHILLER benötigt eine Verkaufsanwendung. Hauptsächlich ist eine Verkaufsanwendung für die Bücher zu implementieren. Jedoch hat der Geschäftsführer noch einige eigene Ideen. 
+Die Anwendung benötigt, neben einer Artikelverwaltung auch eine Benutzerverwaltung. Zu jedem Buch muss mindestens der Autor, Verlag, die ISBN und eine kurze Inhaltsbeschreibung gespeichert werden. Eine Abbildung des Buchbundes anzuzeigen, würde die Attraktivität des Verkaufsprogrammes deutlich steigern. Die Bücher der Buchhandlung SCHILLER sind nach Genre in die Kategorien Fiktion, Sachbuch, Unterhaltung, Ratgeber unterteilt. Eine Möglichkeit zu Erweiterung und nachträglichem Hinzufügen weiterer Genres ist wünschenswert. Der Geschäftsinhaber denkt auch über ein Angebot von CDs und DVDs nach. Die Benutzerverwaltung soll einige wichtige Angaben zum Kunden liefern (Name, Kundennummer, Lieferadresse, etc.). 
+Als zusätzliches Feature wünscht der Buchhandel SCHILLER sich einen Kalender auf der Homepage, welcher die wöchentlichen Lesungen aufführt, die in den Räumen der Buchhandlung stattfinden. Die Bezahlung der gekauften Bücher erfolgt über Rechnungsversand.}
+
+\subsection{Qualitätsziele}
+
+\paragraph{Die Entwickler der Gruppe 17 arbeiten auf eine vollkommen funktionsfähige, intuitiv bedienbare und den heutigen Webstandards angepasste Anwendung hin. Diese wird den höchsten Qualitätsstandards entsprechen. Um die Sicherheit der Applikation zu gewährleisten werden diverse Tests und Sicherheitsparameter implementiert.}
+
+\subsection{Stakeholder}
+
+\begin{longtable}{|l|p{75px}|p{75px}|l|p{75px}|}
+	\hline
+	\rowcolor[HTML]{C0C0C0}
+	Rolle	& Beschreibung	& Ziel/Intention		& Kontakt	& Bemerkung	\\ \hline
+	Admin	& Administrativer Benutzer der Anwendung	& Administrieren der Anwendung	& N.A.	&	Keine Kontaktdaten da paranoid und menschenscheu	\\ \hline
+	Boss	& Account des CEOs	& Einsehen von Statistiken	& N.A.	& Kontaktdaten auf der Website	\\ \hline
+	Article Manager	& Account des Article Mangers	& Verwaltung der Artikel	& N.A.	& Keine Kontaktdaten. Hat Angst vor der NSA	\\ \hline
+	Event Manager	& Account des Event Mangers	& Verwaltung der Events	& N.A.	& Keine Kontaktdaten. Hat Angst vorm Schwarzen Mann	\\ \hline
+	User Manager	& Account des User Mangers	& Verwaltung von Nutzern	& N.A.	& Keine Kontaktdaten. Hat Angst vor seiner Nutzerschaft	\\ \hline
+	Employee	& Accounts der Angestellten	& generelle Aufgaben	& N.A.	& Keine Kontaktdaten da zu viele	\\ \hline
+	Customer	& Accounts der Kunden	& Für bestellen	& N.A.	& Keine Kontaktdaten da zu viele	\\ \hline
+	Guest	& anonymer Websitebesucher	& surfen	& N.A.	& Keine Kontaktdaten da anonym	\\ \hline
+	
+\end{longtable}
+
+\section{Randbedingungen}
+
+\subsection{Technische Randbedingungen}
+
+\begin{longtable}{|l|l|}
+	\hline
+	\rowcolor[HTML]{C0C0C0}
+	\multicolumn{2}{|l|}{Hardwarevorgaben}	\\ \hline
+	& min. 1024 MB RAM	\\ \hline
+	& min. 2 GHz Single Core CPU	\\ \hline
+	& min. 50 GB HDD Kapazität	\\ \hline
+	& Breitband Internet Anbindung	\\ \hline
+	\rowcolor[HTML]{C0C0C0}
+	\multicolumn{2}{|l|}{Softwarevorgaben}	\\ \hline
+	& Java 8 kompatibles OS	\\ \hline
+	& Java 8	\\ \hline
+	& Tomcat 8.0 oder höher	\\ \hline
+	& Maven 3.0 oder höher	\\ \hline
+	& konfigurierter Webserver/Proxy	\\ \hline
+	& konfigurierte Domain	\\ \hline
+	\rowcolor[HTML]{C0C0C0}
+	\multicolumn{2}{|l|}{Vorgaben des Systembetriebs}	\\ \hline
+	& CSS und JS Framework ZURB Foundation	\\ \hline
+	& Foundation Date Picker	\\ \hline
+	& Slick Image Slider	\\ \hline
+	& Spring Framework	\\ \hline
+	& Salespoint Framework	\\ \hline
+	& itext PDF	\\ \hline
+	& CK Editor	\\ \hline
+	& Thymeleaf	\\ \hline
+	\rowcolor[HTML]{C0C0C0}
+	\multicolumn{2}{|l|}{Programmiervorgaben}	\\ \hline
+	& Java 8	\\ \hline
+	& HTML 5	\\ \hline
+	& CSS 3	\\ \hline
+	& JavaScript	\\ \hline
+\end{longtable}
+
+\subsection{Konventionen}
+
+\textbf{Programmierrichtlinien}
+\begin{itemize}
+	\item 2 space tab intendation
+	\item MVC Pattern
+\end{itemize}
+\textbf{Dokumentationsrichtlinien}
+\begin{itemize}
+	\item JavaDoc
+	\item Wiki des Repository
+	\item Kommentare im Quellcode
+	\item Anwenderdoku
+	\item Entwicklerdoku
+\end{itemize}
+\textbf{Richtlinien für das Versions- und Konfigurationsmangement}
+\begin{itemize}
+	\item Versionsmangement: Git (Github)
+	\item Continous Integration: Tavis CI (Direktanbindung zu Github)
+	\item Konfigurationsmangement: Maven mit pom.xml
+\end{itemize}
+\textbf{Namenskonventionen}
+\begin{itemize}
+	\item Namensraum bookshop-schiller
+\end{itemize}
+
+\section{Kontextabgrenzung}
+
+\subsection{Fachlicher Kontext}
+
+\subsubsection{Kontextdiagramm}
+
+\includegraphics[width=350px]{kontextmodell.jpg}
+
+\subsubsection{Top-Level-Architektur}
+
+\includegraphics[width=350px]{top-level-architektur.jpg}
+
+\subsection{Verteilungskontext}
+
+\paragraph{I have no f-ing idea what I have to write here.}
+
+\subsection{Externe Schnittstellen}
+
+\subsubsection{Anwendungsfälle}
+
+\includegraphics[width=350px]{use-case-diagramm-part1.jpg}
+
+\includegraphics[width=350px]{use-case-diagramm-part2.jpg}
+
+\includegraphics[width=350px]{use-case-diagramm-part3.jpg}
+
+\begin{longtable}{|p{100px}|p{250px}|}
+	\hline
+	\rowcolor[HTML]{C0C0C0}
+	Use-Case ID & Beschreibung \\ \hline
+	\multicolumn{2}{|l|}{UserManagement:}  \\ \hline
+	UC01 & LogIn/LogOut  \\ \hline
+	UC02 & als Nutzer registrieren  \\ \hline
+	UC03 & Rollen ändern \\ \hline
+	UC04 & Nutzerdaten ändern  \\ \hline
+	UC05 & eigene Nutzerdaten ansehen  \\ \hline
+	UC06 & Nutzerdaten eines Kunden ansehen \\ \hline
+	UC07 & Passwort zurücksetzen  \\ \hline
+	UC08 & Nutzerprofil löschen \\ \hline
+	UC09 & Nutzerprofil sperren \\ \hline
+	\multicolumn{2}{|l|}{ArticleManagement:}  \\ \hline
+	UC10 & Artikel ansehen (Buch, CD, DVD)  \\ \hline
+	UC11 & Artikel hinzufügen  \\ \hline
+	UC12 & Artikel entfernen  \\ \hline
+	UC13 & Artikel nach verschiedenen Kriterien durchsuchen  \\ \hline
+	UC14 & Artikeldaten ändern  \\ \hline
+	UC15 & Kategorie bearbeiten  \\ \hline
+	UC16 & Kategorie hinzufügen  \\ \hline
+	UC17 & Kategorie entfernen  \\ \hline
+	UC18 & Artikel zu Kategorie hinzufügen \\ \hline
+	UC19 & Artikel aus Kategorie entfernen \\ \hline
+	\multicolumn{2}{|l|}{CartManagement (SaleManagement):}  \\ \hline
+	UC20 & Warenkorb ansehen  \\ \hline
+	UC21 & Warenkorb füllen \\ \hline
+	UC22 & Warenkorb leeren \\ \hline
+	UC23 & zur Kasse gehen  \\ \hline
+	\multicolumn{2}{|l|}{OrderManagement (SaleManagement):}  \\ \hline
+	UC24 & Bestellung ansehen  \\ \hline
+	UC25 & Bestellung abbrechen  \\ \hline
+	UC26 & Retourenschein ausgeben  \\ \hline
+	\multicolumn{2}{|l|}{BillManagement (SaleManagement):}  \\ \hline
+	UC27 & Rechnung ansehen \\ \hline
+	UC28 & Statistik ansehen \\ \hline
+	\multicolumn{2}{|l|}{ReadingManagement:} \\ \hline
+	UC29 & Kalender ansehen \\ \hline
+	UC30 & Lesung hinzufügen \\ \hline
+	UC31 & Lesung bearbeiten \\ \hline
+	UC32 & Lesung entfernen \\ \hline
+	UC33 & Raum hinzufügen \\ \hline
+	UC34 & Raum bearbeiten \\ \hline
+	UC35 & Raum entfernen \\ \hline
+\end{longtable}
+
+\section{Lösungsstrategien und Entwurfsenscheidungen}
+
+\paragraph{Um die Aufgabenstellung zu realisieren wird das Java Framework Spring verwendet. Um die Verkaufsaspekte abzudecken, wird zusätzlich das Java Framework Salespoint eingesetzt. Diese beiden Frameworks sollen durch Wiederverwendung den Programmieraufwand so gering wie möglich halten. Die im SWT-Modul gelernten Design-Patterns sollen genutzt werden, um größtmögliche Modularisierung, einfache Erweiterbarkeit und unkomplizierte Wartung zu gewährleisten.}
+
+\paragraph{Die zu erstellende Web Applikation stellt eine Verkaufsanwendung für die Buchandlung SCHILLER dar. Über diese Anwendung sollen Artikel in verschiedenen Kategorien zum Verkauf angeboten werden. Dazu müssen sich die Gäste an dem System mit ihrer korrekten E-Mail-Adresse registrieren. Es werden Rollen auf die einzelnen Nutzer verteilt, welche dadurch spezielle Berechtigungen auf das System erben. Für die verschiedenen Rollen ist es dann möglich ihrer Tätigkeit nach zu gehen. So kann zum Beispiel der Reading Manager die Lesungen in den dafür bereitgestellten Kalender und die Ressource Raum eintragen, solange nicht schon eine Lesung dort vorhanden ist. Der Rechnungsversand erfolgt automatisch als pdf via E-Mail an den Kunden.}
+
+\section{Bausteinsicht}
+
+\paragraph{Something. Something. Blumenkohl.}
+
+\section{Laufzeitsicht}
+
+\subsection{ArticleManagement}
+
+\includegraphics[width=350px]{sd-articlemanagement.jpg}
+
+\subsection{ProfileManagement}
+
+\includegraphics[width=350px]{sd-profilemanagement.jpg}
+
+\subsection{Purchase}
+
+\includegraphics[width=350px]{sd-purchase.jpg}
+
+\subsection{Registration}
+
+\includegraphics[width=350px]{sd-registration.jpg}
+
+\section{Konzepte}
+
+\paragraph{I can Spring.}
+
+\subsection{Fachliche Strukturen und Modelle}
+
+\subsubsection{Überblick: Klassendiagramm}
+
+\includegraphics[width=350px]{analyse-klassendiagramm.jpg}
+
+\subsubsection{Klassen und Enumerationen}
+
+\begin{longtable}{|p{100px}|p{250px}|}
+	\hline
+	\rowcolor[HTML]{C0C0C0} 
+	Klasse/Enumeration & Beschreibung \\ \hline
+	BookShopSchiller & Hauptklasse, die alle Funktionen zusammenführt. \\ \hline
+	Guest & Klasse für einen  uneingeloggten Benutzer, kann den Einkaufswagen nutzen, sich über das Benutzermanagement einloggen oder kann sich registrieren, kann außerdem die Suchfunktion nutzen. \\ \hline
+	Costumer & Klasse für einen eingeloggten Benutzer als Kunde, erbt von dem Guest und kann des weiteren auf sein Konto zugreifen. \\ \hline
+	Employee & Klasse für einen Angestellten, erbt ebenfalls von Guest.  \\ \hline
+	UserManager & Klasse erbt von Employee und kann außerdem auf die Verwaltung der Profile zugreifen. \\ \hline
+	ReadingManager & Klasse erbt von Employee und kann außerdem auf die Verwaltung der Veranstaltungen zugreifen \\ \hline
+	SaleManager & Klasse erbt von Employee und kann außerdem auf die Verwaltung der Bestellungen zugreifen. \\ \hline
+	ArticleManager & Klasse erbt von Employee und kann außerdem auf die Verwaltung der Artikel zugreifen. \\ \hline
+	Admin & Klasse erbt von den „Manager“-Klassen, um Gewalt über alle Funktionalitäten zu haben. \\ \hline
+	Chef & Klasse erbt von Employee und kann außerdem Einsicht in die finanziellen Bilanzen bekommen. \\ \hline
+	Lieferadresse & Enumeration gehört zu jedem Costumer. Sie enthält die Daten eines Kunden(Hausnummer, Straße, Etage) \\ \hline
+	SaleManagement & Ist die Oberklasse zur Verwaltung/Funktionalität des Verkaufs. Sie regelt daher den Verkauf an Kunden. Der SaleManager benutzt die Funktionalitäten dieser Klasse. \\ \hline
+	CartManagement & Klasse kümmert sich um die Verwaltung des Einkaufswagen durch einen Costumer. \\ \hline
+	OrderManagement & Klasse verwaltet und bietet die Funktionalitäten einer jeden Bestellung. \\ \hline
+	BalanceSheet & Klasse bietet Funktionalitäten zum Einsehen der Ein- und Ausgaben. Enthält Werte für Einkommen und Ausgaben und die Berechnung einer Bilanz. \\ \hline
+	Cart & Klasse stellt die Umsetzung eines Einkaufswagens dar. \\ \hline
+	Order & Klasse stellt die Umsetzung einer Bestellung dar. \\ \hline
+	BillViewer & Klasse liefert die Funktionalitäten des Einsehens einer Rechnung für den Kunden \\ \hline
+	Bill & Klasse stellt die Umsetzung einer Rechnung dar. \\ \hline
+	Account	 & Klasse stellt die Umsetzung eines Personenkontos dar. \\ \hline
+	UserManagement  & Ist die Oberklasse zur Verwaltung/Funktionalität des Profils/Kontos. Sie regelt also das Interagieren mit dem Account für den Kunden. Der UserManager benutzt die Funktionalitäten dieser Klasse \\ \hline
+	ProfileManagement & Klasse verwaltet die Profile und bietet Funktionalitäten für jeden Nutzer. \\ \hline
+	RegisterManagement & Klasse bietet Funktionalitäten zum Registrieren eines jeden Nutzers. \\ \hline
+	ProfileViewer & Klasse liefert Funktionalitäten des Einsehens eines Profils für den Benutzer. \\ \hline
+	LogInOut & Klasse kümmert sich um die Funktionen des Ein- und Ausloggens. \\ \hline
+	ArticleManagement & Die Oberklasse bietet Funktionalitäten zur Verwaltung sämtlicher Artikel. Diese bietet Funktionalitäten zum Durchsuchen der Artikelbestände, sowie zum verwalten dieser. Sie wird vom ArticleManager benutzt. \\ \hline
+	CategoryManagement & Klasse kümmert sich um die Kategorisierungs-/Verwaltungsfunktionalitäten jeglicher Artikel. \\ \hline
+	BookManagement & Klasse erbt von ArticleManagement und  bietet  Kategorisierungs-/Verwaltungsfunktionalitäten von Büchern \\ \hline
+	DVDManagement & Klasse erbt von ArticleManagement und  bietet  Kategorisierungs-/Verwaltungsfunktionalitäten von DVDs \\ \hline
+	CDManagement & Klasse erbt von ArticleManagement und  bietet  Kategorisierungs-/Verwaltungsfunktionalitäten von CDs \\ \hline
+	Storage & Klasse stellt Umsetzung eines Lagers dar. \\ \hline
+	ArticleViewer & Klasse liefert Funktionalitäten zum Anzeigen eines jeden Artikels. \\ \hline
+	BookViewer & Klasse erbt von ArticleViewer und liefert Funktionalitäten zum Anzeigen eines Buches. \\ \hline
+	DVDViewer & Klasse erbt von ArticleViewer und liefert Funktionalitäten zum Anzeigen einer DVD. \\ \hline
+	CDViewer & Klasse erbt von ArticleViewer und liefert Funktionalitäten zum Anzeigen einer CD. \\ \hline
+	Article & Klasse stellt die Umsetzung eines Artikels dar. Enthält Werte für den Titel, Cover und eine Beschreibung. \\ \hline
+	Category & Klasse stellt die Umsetzung einer Kategorie dar. \\ \hline
+	Book & Klasse erbt von Article und stellt die Umsetzung eines Buches dar. Enthält Werte für den Autor, Verlag und die ISBN-Nummer. \\ \hline
+	DVD & Klasse erbt von Article und stellt die Umsetzung einer DVD dar. Enthält Werte für Regisseur \\ \hline
+	CD & Klasse erbt von Article und stellt die Umsetzung einer CD dar. Enthält Werte für Interpret. \\ \hline
+	Genre <Enumeration> & Enumeration ist Teil einer Kategorienklasse und listet alle Genres auf. Enthält die Werte Fiktion, Sachbuch, Unterhaltung, Ratgeber. \\ \hline
+	ReadingManagement & Oberklasse bietet Funktionalitäten zur Verwaltung und Einsicht von Veranstaltungen. \\ \hline
+	RoomManagement & Klasse kümmert sich um die Verwaltung von Räumlichkeiten. \\ \hline
+	CalenderManagement & Klasse verwaltet die Organisation von Veranstaltungen in einem Kalender. \\ \hline
+	CalenderViewer & Klasse liefert Einsicht in den Kalender für alle Nutzer \\ \hline
+	Room & Klasse stellt die Umsetzung eines Raumes dar. Enthält Werte für Namen und Nummer des Raumes. \\ \hline
+	Calender & Klasse stellt die Umsetzung eines Kalenders dar. \\ \hline
+	Event & Klasse stellt die Umsetzung einer Veranstaltung dar. Enthält Werte für Namen der Veranstaltung und dessen Datum. \\ \hline
+\end{longtable}
+
+\subsection{Persistenz}
+
+\paragraph{Resitance}
+
+\subsection{Benutzeroberfläche}
+
+\subsubsection{Überblick: Dialoglandkarte}
+
+\paragraph{Dieser Entwurf zeigt den Anfangsbildschirm eines Nutzers. Von dieser Maske aus kann der Nutzer zu jeder wichtigen Funktionalität der Anwendung gelangen. Daher ist diese Maske am besten geeignet, einen Überblick über die Oberfläche der Anwendung zu schaffen.\\
+Auf der linken Seite ist die Sortierung der Artikel zu beeinflussen, am oberen Teil kann die Sortierung durch eine spezielle Suche noch weiter eingegrenzt werden. Außerdem kann ein Nutzer von dieser Seite aus zu dem Kalender gelangen, welchen man auf dem rechten oberen Bildschirmteil auswählen kann. Links daneben befindet sich das Avatarsymbol durch das man ein Drop-Down Menu öffnet, welches die nötigen Optionen zur Verwaltung des Profils bietet. Hier kann man zum Bildschirm für das Ein- und Ausloggen, bzw. auf den Bildschirm für das Registieren gelangen. Außerdem kann man direkt zu seinem Einkaufswagen oder den getätigten Bestellungen gelangen. \\
+Unter der Suche befindet sich der Pfad zur Orientierung, um zu Wissen über welchen Weg man zu der aktuellen Seite gelangt ist.
+Am unteren Bildschirmrand befindet sich eine Fusszeile, die einen direkten Weg bietet, eine bestimmte Seite der Anwendung zu erreichen.
+Der mittige Teil der Oberfläche, welcher in diesem Fall die kategorisierte Bücheraufzählung in einer Tabelle darstellt, wird auf jeder Maske der Anwendung den inhaltlichen Teil darstellen(Artikelsuche, Profildarstellung, Kaufverwaltung, Kalenderdarstellung und das Ein- und Ausloggen, sowie das Registrieren.)\\ \\}
+\includegraphics[width=350px]{1Home_Costumer.png}
+
+
+\subsubsection{Dialogbeschreibung}
+
+\paragraph{Dieser, für die Dialogübersicht bereits verwendete Dialog ist Startseite eines jeden Nutzer, sowie Artikelübersicht mit Kauffunktion.\\ \\}
+\includegraphics[width=350px]{1Home_Costumer.png}
+
+\paragraph{Die Maske zeigt das Einloggen eines Nutzers. Es enthält auch die Option zur Registrierung eines noch nicht registrierten Nutzers.\\ \\}
+\includegraphics[width=350px]{2Login.png}
+
+\paragraph{Ein Nicht-registrierter Nutzer kann sich über dieses Formular mit einem Klick auf den Knopf Register registrieren, soweit alle Textfelder valide ausgefüllt wurden.\\ \\}
+\includegraphics[width=350px]{3Register.png}
+
+\paragraph{Diese Ansicht zeigt die Profilseite eines eingeloggten Kunden. Dieser kann seine angegebenen Daten einsehen und bei Bedarf ändern. Außerdem kann er Rechnungen seiner getätigten Bestellungen einsehen.\\ \\}
+\includegraphics[width=350px]{4ProfileView.png}
+
+\paragraph{Das Layout einer Informationsseite für einen Artikel ist ähnlich der eines Nutzerprofils aufgebaut und zeigt die Attribute eines Artikels. Hier kann man sich auch für den Kauf dieses Artikels entscheiden.\\ \\}
+\includegraphics[width=350px]{5ArticleView.png}
+
+\paragraph{Diese Maske bietet die Ansicht des Kalenders. Hier können Veranstaltungstermine eingetragen sein, welche der Kunde einsehen kann.\\ \\}
+\includegraphics[width=350px]{6CalenderView.png}
+
+\paragraph{Diese Seite zeigt die Artikelsortierung nach dem Artikel Buch spezialisiert, welche durch einen Klick auf die linke Navigationsleiste sortiert wurde. Hier ist es möglich die Bücher in der rechten Tabellenspalte mit einem Klick auf die runden Knöpfe zu selektieren und durch den Knopf kaufen zu der Einkaufswagenansicht mit der Auswahl an Artiken zu wechseln.\\ \\}
+\includegraphics[width=350px]{7bookSearch.png}
+
+\paragraph{Dies ist die Einkaufswagenansicht. Hier kann sich der Kunde über die Auswahl seiner Artikel, welche er im Begriff ist zu kaufen vergewissern. Er kann Artikel nach belieben wieder aus dem Einkaufswagen entfernen, nach dem gleichen Layout, wie er auch Artikel selektieren konnte. Mit einem Klick auf den Checkout Knopf gelangt der Kunde zum Kaufsbildschirm.\\ \\}
+\includegraphics[width=350px]{8CartView.png}
+
+\paragraph{Hier wird eine Übersicht der Informationen angezeigt, die für die Bestellung eines Artikels von nöten sind. Es werden die selektierten Artikel, sowie die Benutzerinformationen angezeigt, an dessen Adresse der Artikel geschickt werden soll. Wenn alles zur Zufriedenheit des Kunden eingetragen ist, kann dieser auf den Buy Knopf klicken, um die Bestellung abzuschließen.\\ \\}
+\includegraphics[width=350px]{9CheckOut.png}
+
+\paragraph{Dieser Bildschirm stellt die Bestätigung einer vom Kunden getätigten Bestellung dar. Von diesem Bild aus kann er wieder auf die Bestellungen zugreifen.\\ \\}
+\includegraphics[width=350px]{10SuccessfullyOrdered.png}
+
+\paragraph{Die Einsicht der getätigten Bestellung stellt diese Ansicht dar. Hier kann der Kunde direkt eine Rechnung einsehen und auch die Bestellung wieder stornieren.\\ \\}
+\includegraphics[width=350px]{11OrderView.png}
+
+\paragraph{Diese Maske zeigt die Einsicht einer Rechnung. Der Kunde kann eine Rechnung auch als Dokument anfordern.\\ \\}
+\includegraphics[width=350px]{12BillView.png}
+
+\paragraph{Bei einer Stornierung der Bestellung wird ein letztes zu bestätigendes Bild angezeigt, um eine Bestellung rückgängig zu machen.\\ \\}
+\includegraphics[width=350px]{13Cancelation.png}
+
+\paragraph{Diese Ansicht stellt den üblichen Startbildschirm eines Angestellten dar. Diese unterscheidet sich nur aufgrund der rechten Navigationsleiste grundlegend von der des Kunden bzw. allgemeinen Nutzers. Diese Navigation zeigt die Verwaltungsoptionen, die ein Angestellter angepasst auf seine Rolle bzw. Befugnis ausführen kann.\\
+In diesem Beispiel handelt es sich um den Bildschirm eines Artikelverwalters, da auf dieser Seite bereits die Verwaltung der Artikel angedeutet ist.\\ \\}
+\includegraphics[width=350px]{14Home_Employee.png}
+
+\paragraph{Diese Maske zeigt die Ansicht eines Benutzerverwalters, der nach Profilen suchen, sowie diese verwalten kann.\\ \\}
+\includegraphics[width=350px]{15ChangeUser.png}
+
+\paragraph{Hier wird die Option eines Artikelverwalters angezeigt, die Genres zu verwalten, die einem Artikel angehören können.\\ \\}
+\includegraphics[width=350px]{16ChangeGenre.png}
+
+\paragraph{Das Verwalten eines speziellen Artikels zeigt diese Maske, wieder aus der Sicht eines Artikelverwalters.\\ \\}
+\includegraphics[width=350px]{17ChangeArticle.png}
+
+\paragraph{Der Veranstaltungsverwalter kann in dieser Ansicht Kalender, sowie Veranstaltungen und Räume verwalten.\\ \\}
+\includegraphics[width=350px]{18ChangeCalender.png}
+
+\paragraph{Zur Raumverwaltung kommt der Veranstaltungsverwalter über die Kalenderverwaltungsansicht. Hier können Räume für Veranstaltungen, sowie für die Buchhandlung im allgemeinen verwaltet werden.\\ \\}
+\includegraphics[width=350px]{19ChangeRoom.png}
+
+\subsection{Ergonomie}
+
+\begin{itemize}
+	\item Crosstesting: Gruppe 16
+	\item Oma-Tests: Mitbewohner, Eltern
+\end{itemize}
+
+\subsection{Transaktionsbehandlung}
+
+\begin{itemize}
+	\item 42
+\end{itemize}
+
+\subsection{Sessionbehandlung}
+
+\begin{itemize}
+	\item unverschlüsselt
+\end{itemize}
+
+\subsection{Sicherheit}
+
+\begin{itemize}
+	\item Spring Security wurde umfassend und erschöpfend implemnetiert
+\end{itemize}
+
+\subsection{Kommunikation und Integration mit anderen IT-Systemen}
+
+\begin{itemize}
+	\item Ein Apache lässt sich mit ProxyPassReverse als vorgeschaltete Instanz zum Web betreiben
+\end{itemize}
+
+\subsection{Verteilung}
+
+\begin{itemize}
+	\item hmm
+\end{itemize}
+
+\subsection{Plausibilisierung und Validierung}
+
+\begin{itemize}
+	\item Jegliche Benutzereingaben werden sowohl durch Javascript als auch durch das Java-Backend validiert.
+\end{itemize}
+
+\subsection{Ausnahme-/Fehlerbehandlung}
+
+\begin{itemize}
+	\item Es wurde eine Standardfehlerseite implementiert
+	\item Eine weitere Asuwertung ist zumindest für den Websitebesucher nicht sinnvoll
+	\item Admins haben das Serverlog
+\end{itemize}
+
+\subsection{Logging, Protokollierung, Tracing}
+
+\begin{itemize}
+	\item Das Serverlog
+\end{itemize}
+
+\subsection{Konfigurierbarkeit}
+
+\begin{itemize}
+	\item Es können neue Nodes hinzuigefügt, geändert und gelöscht werden.
+	\item im Datainitializer werden Grundkonfigurationen vorgenommen.
+\end{itemize}
+
+\subsection{Internationalisierung}
+
+\begin{itemize}
+	\item Konfigurierbar durch die in-de.xml
+\end{itemize}
+
+\subsection{Testbarkeit}
+
+\begin{longtable}{|p{50px}|p{200px}|p{100px}|}
+	\hline
+	\rowcolor[HTML]{C0C0C0} 
+	Test Case ID & Beschreibung & Ergebnis \\ \hline
+	TC00000 & Versuche etwas zu tun ohne die notwendigen Nutzerrechte zu besitzen & Fehlermeldung \\ \hline
+	TCUC011 & Eingabe des korrekten Nutzernamens und Passwortes & Login und Startseite \\ \hline
+	TCUC012 & Eingabe des falschen Nutzernamens & Login-Fehler und erneute Eingabe \\ \hline
+	TCUC013 & Eingabe des falschen Passwortes & Login-Fehler und erneute Eingabe \\ \hline
+	TCUC021 & Eingabe von korrekten und nicht vergebenen Registrierungsdaten & Registrierung als Nutzer \\ \hline
+	TCUC022 & Eingabe eines bereits verwendeten Benutzernamens & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC023 & Eingabe eines falschen Adressformates (E-Mail oder Lieferadresse) & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC031 & Änderung der Rolle eines Nutzers & neue Zugriffsrechte des Nutzers \\ \hline
+	TCUC041 & Eingabe von korrekten Nutzerdaten & Nutzerdaten geändert \\ \hline
+	TCUC042 & Eingabe eines falschen Adressformates (E-Mail oder Lieferadresse) & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC051 & Öffnen der Profilansicht & korrekte Nutzerdaten \\ \hline
+	TCUC061 & Öffnen der Profilansicht & korrekte Nutzerdaten \\ \hline
+	TCUC071 & korrektes Zurücksetzen des Passwortes & neues Passwortes versandt \\ \hline
+	TCUC071 & Eingabe eines nichtexistenten Nutzernamens & Fehlermeldung \\ \hline
+	TCUC081 & korrektes Löschen des Nutzerprofils & Profil gelöscht \\ \hline
+	TCUC082 & Löschen des letzten Administrators & Fehlermeldung \\ \hline
+	TCUC083 & Löschen eines nichtexistenten Nutzers & Fehlermeldung \\ \hline
+	TCUC091 & korrektes Sperren des Nutzerprofils & Profil gesperrt \\ \hline
+	TCUC092 & Sperren eines Administrators & Fehlermeldung \\ \hline
+	TCUC093 & Sperren eines nichtexistenten Nutzers & Fehlermeldung \\ \hline
+	TCUC101 & Öffnen der Artikelansicht & korrekte Artikeldaten \\ \hline
+	TCUC111 & Eingabe von korrekten Artikeldaten & Artikel hinzugefügt \\ \hline
+	TCUC112 & Eingabe eines falschen Formates & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC113 & Eingabe von bereits existierenden Artikeldaten & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC121 & korrektes Entfernen des Artikels & Artikel entfernt \\ \hline
+	TCUC122 & Entfernen eines nicht vorhandenen Artikels & Fehlermeldung \\ \hline
+	TCUC131 & korrektes Durchsuchen der Artikel nach Kriterien & Anzeige der Artikelliste \\ \hline
+	TCUC132 & Eingabe von Artikeldaten zu denen kein Artikel existiert & leere Artikelliste \\ \hline
+	TCUC141 & Eingabe von korrekten Artikeldaten & Artikeldaten geändert \\ \hline
+	TCUC142 & Eingabe eines falschen Formates & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC143 & Eingabe von bereits existierenden Artikeldaten & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC151 & Eingabe von korrekten und nicht vergebenen Daten & Kategorie geändert \\ \hline
+	TCUC152 & Eingabe eines falschen Formates & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC161 & Eingabe von korrekten und nicht vergebenen Daten & Kategorie hinzugefügt \\ \hline
+	TCUC162 & Eingabe eines falschen Formates & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC171 & korrektes Entfernen der Kategorie & Kategorie entfernt und Artikel aus ihr entfernt \\ \hline
+	TCUC172 & Entfernen einer nicht vorhandenen Kategorie & Fehlermeldung \\ \hline
+	TCUC181 & korrektes Hinzufügen des Artikel zur Kategorie & Artikel gehört zur Kategorie \\ \hline
+	TCUC182 & Hinzufügen eines nicht vorhandenen Artikels & Fehlermeldung \\ \hline
+	TCUC183 & Hinzufügen zu einer nicht vorhandenen Kategorie & Fehlermeldung \\ \hline
+	TCUC191 & korrektes Entfernen des Artikel von der Kategorie & Artikel aus Kategorie entfernt \\ \hline
+	TCUC192 & Entfernen eines nicht vorhandenen Artikels & Fehlermeldung \\ \hline
+	TCUC193 & Entfernen aus Kategorie, obwohl Artikel nicht zur Kategorie gehört & Fehlermeldung \\ \hline
+	TCUC201 & Öffnen der Warenkorbansicht & korrekter Warenkorbinhalt \\ \hline
+	TCUC211 & korrektes Hinzufügen des Artikels zum Warenkorb & Artikel im Warenkorb \\ \hline
+	TCUC212 & Hinzufügen eines nicht vorhandenen Artikels zum Warenkorb & Fehlermeldung \\ \hline
+	TCUC221 & korrektes Entfernen des Artikels vom Warenkorb & Artikel aus dem Warenkorb entfernt \\ \hline
+	TCUC222 & Entfernen eines nicht nicht im Warenkorb liegenden Artikels vom Warenkorb & Fehlermeldung \\ \hline
+	TCUC223 & Entfernen eines nicht vorhandenen Artikels vom Warenkorb & Fehlermeldung \\ \hline
+	TCUC231 & korrektes Kaufen der Artikel & Bestellung hinzugefügt, Rechnung erstellt und versandt \\ \hline
+	TCUC232 & Kaufen eines nicht vorhandenen Artikels & Fehlermeldung \\ \hline
+	TCUC233 & Kaufen als nicht eingeloggter Gast & Fehlermeldung und LogIn-Seite \\ \hline
+	TCUC241 & Öffnen der Bestellungsansicht & Liste aller Bestellungen \\ \hline
+	TCUC251 & korrektes Abbrechen der Bestellung & Bestellung abgebrochen \\ \hline
+	TCUC252 & Abbrechen einer nicht vorhandenen Bestellung & Fehlermeldung \\ \hline	
+	TCUC253 & Abbrechen einer bereits versandten Bestellung & Fehlermeldung \\ \hline
+	TCUC261 & korrektes Ausgeben des Retourenscheins  & Retourenschein versandt \\ \hline
+	TCUC271 & Öffnen der Rechnungsansicht & Anzeige der Rechnung \\ \hline	
+	TCUC281 & Öffnen der Ansicht der Statistiken mit Admin- oder Chef-Rechten & Anzeige der Statistiken \\ \hline
+	TCUC291 & Öffnen der Kalenderansicht & Anzeige des Kalenders \\ \hline
+	TCUC301 & Eingabe von korrekten und nicht vergebenen Daten & Lesung hinzugefügt \\ \hline
+	TCUC302 & Eingabe eines falschen Formates & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC303 & Eingabe von vergebenem Raum und vergebener Zeit & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC311 & Eingabe von korrekten und nicht vergebenen Daten & Lesung geändert \\ \hline
+	TCUC312 & Eingabe eines falschen Formates & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC313 & Eingabe von vergebenem Raum und vergebener Zeit & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC321 & korrektes Entfernen der Lesung & Lesung entfernt \\ \hline
+	TCUC322 & Entfernen einer nicht vorhandenen Lesung & Fehlermeldung \\ \hline	
+	TCUC331 & Eingabe von korrekten und nicht vergebenen Daten & Raum hinzugefügt \\ \hline
+	TCUC332 & Eingabe eines falschen Formates & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC333 & Eingabe von vergebenem Raumnamen & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC341 & Eingabe von korrekten und nicht vergebenen Daten & Raum geändert \\ \hline
+	TCUC342 & Eingabe eines falschen Formates & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC343 & Eingabe von vergebenem Raumnamen & Fehlermeldung und erneute Eingabe \\ \hline
+	TCUC351 & korrektes Entfernen des Raumes & Raum entfernt \\ \hline
+	TCUC352 & Entfernen eines nicht vorhandenen Raumes & Fehlermeldung \\ \hline
+	TCUC353 & Entfernen eines Raumes mit zukünftigen Lesungen & Fehlermeldung \\ \hline
+\end{longtable}
+
+\subsection{Buildmanagement}
+
+\begin{itemize}
+	\item Git bookshop-schiller beinhaltet die komplette Applikation
+	\item die pom.xml liegt im Root-Verzeichnis
+	\item Maven kümmert sich um die Dependencies aus der pom.xml
+	\item Travis CI buildet jeden Commit und gibt Warnungen oder Fehlermeldungen aus
+\end{itemize}
+
+\end{document}
