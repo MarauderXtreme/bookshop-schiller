@@ -37,8 +37,7 @@
 											<td th:if="${order.open}">
 												<form class="salespoint" method="POST" action="/order/cancel">
 												  <input type="hidden" name="orderDelete" value="0" th:value="${order.identifier}"/>
-													<input class="small button" type="submit" value="Stornieren"/> 
-													<input class="small button" type="submit" value="Cancel"/> 
+													<input class="small button" type="submit" value="Stornieren"/>  
 												</form>
 											</td>
 											<td th:unless="${order.paid}">

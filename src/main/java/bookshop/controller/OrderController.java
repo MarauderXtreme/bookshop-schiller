@@ -3,48 +3,35 @@ package bookshop.controller;
 import static org.joda.money.CurrencyUnit.EUR;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
-import org.joda.money.Money;
-import org.salespointframework.catalog.Product;
-import org.salespointframework.catalog.ProductIdentifier;
 import org.salespointframework.inventory.Inventory;
 import org.salespointframework.inventory.InventoryItem;
 import org.salespointframework.order.Order;
-import org.salespointframework.order.OrderIdentifier;
 import org.salespointframework.order.OrderLine;
 import org.salespointframework.order.OrderManager;
 import org.salespointframework.order.OrderStatus;
 import org.salespointframework.payment.Cash;
 import org.salespointframework.quantity.Quantity;
-import org.salespointframework.quantity.Units;
 import org.salespointframework.time.BusinessTime;
 import org.salespointframework.useraccount.UserAccount;
-import org.salespointframework.useraccount.UserAccountManager;
 import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
 import bookshop.model.Article;
 import bookshop.model.CalendarManagement;
 import bookshop.model.MyDate;
 import bookshop.model.OrderManagement;
-import bookshop.model.PDFCreator;
 import bookshop.model.Room;
 import bookshop.model.RoomManagement;
-import bookshop.model.Statistic;
 import bookshop.model.TupelKey;
 
 
@@ -128,6 +115,9 @@ public class OrderController {
 	@PreAuthorize("hasRole('ROLE_CUSTOMER')")
 	@RequestMapping(value="/order/cancel")
 	public String cancelOrder(@RequestParam("orderDelete") Order order){
+		for(OrderLine orderLine : order.getOrderLines()){
+			inventory.findByProductIdentifier(orderLine.getProductIdentifier()).get().increaseQuantity(orderLine.getQuantity());
+		}
 		orderManager.cancelOrder(order);
 		return "redirect:/user/order";
 	}
@@ -140,6 +130,10 @@ public class OrderController {
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN')")
 	@RequestMapping(value="/order/complete")
 	public String compledOrder(@RequestParam("orderComplete") Order order){
+		for(OrderLine orderLine : order.getOrderLines()){
+			System.out.println(inventory.findByProductIdentifier(orderLine.getProductIdentifier()).get().getQuantity());
+			inventory.findByProductIdentifier(orderLine.getProductIdentifier()).get().increaseQuantity(orderLine.getQuantity());
+		}
 		orderManager.payOrder(order);
 		orderManager.completeOrder(order);
 		return "redirect:/admin/orders";
