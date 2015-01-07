@@ -4,12 +4,10 @@ import static org.joda.money.CurrencyUnit.EUR;
 
 import java.util.Optional;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.joda.money.Money;
-import org.salespointframework.catalog.Product;
+import org.salespointframework.inventory.Inventory;
+import org.salespointframework.inventory.InventoryItem;
 import org.salespointframework.order.Cart;
 import org.salespointframework.order.Order;
 import org.salespointframework.order.OrderLine;
@@ -24,7 +22,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.Assert;
-//import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,8 +29,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import bookshop.model.Article;
 import bookshop.model.PDFCreator;
-import bookshop.model.Article.ArticleId;
-import bookshop.model.OrderManagement;
 
 
 
@@ -41,13 +36,14 @@ import bookshop.model.OrderManagement;
 public class CartController {
 
 	private final OrderManager<Order> orderManager;
-
+	private final Inventory<InventoryItem> inventory;
 	
 	@Autowired
-	public CartController(OrderManager<Order> orderManager) {
+	public CartController(OrderManager<Order> orderManager, Inventory<InventoryItem> inventory) {
 		
 		Assert.notNull(orderManager, "OrderManager must not be null!");
 		this.orderManager = orderManager;
+		this.inventory = inventory;
 	}
 	
 	/**
@@ -74,6 +70,19 @@ public class CartController {
 	@RequestMapping(value="/cart/checkout", method = RequestMethod.POST)
 	public String buy(HttpSession session, @LoggedIn Optional<UserAccount> userAccount){
 
+		Order order = new Order(userAccount.get(), Cash.CASH);
+		Cart cart = getCart(session);
+		cart.addItemsTo(order);
+		for(OrderLine orderLine : order.getOrderLines()){
+			inventory.findByProductIdentifier(orderLine.getProductIdentifier()).get().decreaseQuantity(orderLine.getQuantity());
+		}
+		
+		orderManager.add(order);
+		cart.clear();
+		PDFCreator pdf = new PDFCreator();
+		pdf.pdfCreate(order, userAccount.get());
+		
+		/*
 		return userAccount.map(account -> {
 			
 				Order order = new Order(account, Cash.CASH);
@@ -86,10 +95,18 @@ public class CartController {
 				PDFCreator pdf = new PDFCreator();
 				pdf.pdfCreate(order, userAccount.get());
 				
+				for(OrderLine orderLine : order.getOrderLines()){
+					System.out.println(inventory.findByProductIdentifier(orderLine.getProductIdentifier()).get().getQuantity());
+					inventory.findByProductIdentifier(orderLine.getProductIdentifier()).get().decreaseQuantity(orderLine.getQuantity());
+					System.out.println(inventory.findByProductIdentifier(orderLine.getProductIdentifier()).get().getQuantity());
+				}
+				
 				
 				
 				return "redirect:/";
 			}).orElse("redirect:/cart");
+		*/
+		return "redirect:/";
 	}
 	
 	
@@ -105,8 +122,10 @@ public class CartController {
 	@RequestMapping(value="/cart", method = RequestMethod.POST)
 	public String addArticleIntoCart(ModelMap modelMap, @RequestParam("number") int number, @RequestParam("article") Article article,
 		HttpSession session){
-		if(number <= 1 || number > 10){
-			number = 1;
+		Quantity quantity1 = Units.of(number);
+		if(number < 1  || quantity1.isGreaterThan(inventory.findByProductIdentifier(article.getIdentifier()).get().getQuantity())){
+			number = 0;
+
 		}
 		Quantity quantity = Units.of(number);
 		Cart cart = getCart(session);
