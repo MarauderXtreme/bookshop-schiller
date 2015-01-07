@@ -44,6 +44,11 @@ public class MyCalendar {
 		}
 	}	
 	
+	/**
+	 * 
+	 * @param tk TupelKey of the Event that shall be removed
+	 * @return true when the event is successfully removed, false otherwhise
+	 */
 	public boolean removeEvent(TupelKey<Room,MyDate>tk)
 	{
 		System.out.println(""+tk.getRoom().getName());
@@ -84,6 +89,27 @@ public class MyCalendar {
 			return false;
 		}
 	}
+	
+	/**
+	 * 
+	 * @return a list of all eventIDs
+	 */
+	public List<String>getAllEventIDs()
+	{
+		List<String>result = new ArrayList<String>();
+		List<Event> events = getSortedEvents();
+		
+		Iterator<Event> eventIte = events.iterator();
+		
+		while(eventIte.hasNext())
+		{
+			result.add(eventIte.next().getID());
+		}
+		
+		return result;
+	}
+	
+	
 	/**
 	 * 
 	 * @return a sorted List of all elements
@@ -126,6 +152,11 @@ public class MyCalendar {
 		return tempSortedEventList;
 	}
 	
+	/**
+	 * 
+	 * @param name name of the event(only works when there are no two events with the same name)
+	 * @return Event with the given name
+	 */
 	public Event getEventByName(String name)
 	{
 		List<Event> eventList = getEventList();

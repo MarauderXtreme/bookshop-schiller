@@ -47,35 +47,63 @@ public class MyDate extends Object{
 		return date.substring(0, 2);
 	}
 	
+	/**
+	 * 
+	 * @return the month the event is happening
+	 */
 	public String getMonth()
 	{
 		return date.substring(3, 5);
 	}
 	
+	/**
+	 * 
+	 * @return the year the event is happening in
+	 */
 	public String getYear()
 	{
 		return date.substring(4, 8);
 	}
 	
+	/**
+	 * 
+	 * @return the hours at which the event starts
+	 */
 	public String getHours()
 	{
 		return time.substring(0, 2);
 	}
 	
+	/**
+	 * 
+	 * @return the minutes at which the event does start
+	 */
 	public String getMinutes()
 	{
 		return time.substring(2	, 4);
 	}
 	
+	/**
+	 * 
+	 * @return the time the event is happening
+	 */
 	public String getEventTime() {
 		return (getWholeDate().split(" ")[1]);
 	}
 	
+	/**
+	 * 
+	 * @return the whole date and time in the format dd.mm.yyyy HH:MM
+	 */
 	public String getWholeDate()
 	{
 		return (""+getDate().charAt(0) + getDate().charAt(1) + "."+getDate().charAt(2) + getDate().charAt(3) + "."+getDate().charAt(4)+getDate().charAt(5)+getDate().charAt(6)+getDate().charAt(7)+" "+getTime().charAt(0)+getTime().charAt(1)+":"+getTime().charAt(2)+getTime().charAt(3));
 	}
 	
+	/**
+	 * 
+	 * @return the Date at which the event is happening
+	 */
 	public String getEventDate()
 	{
 		return getWholeDate().split(" ")[0];
@@ -111,7 +139,7 @@ public class MyDate extends Object{
 	        	return false;
 	        }
 	    }
-	
+
 	public int hashCode()
 	{
 		String da = getDate().toString();

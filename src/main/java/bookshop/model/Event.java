@@ -94,7 +94,7 @@ public class Event extends Object {
 	 */
 	public boolean increaseTakenSeats(int number)
 	{
-		if(Integer.parseInt(getRoom().getChairNum())>takenSeats)
+		if(Integer.parseInt(getRoom().getChairNum())>=takenSeats+number)
 		{
 			takenSeats += number;
 			return true;
