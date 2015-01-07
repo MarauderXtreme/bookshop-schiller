@@ -170,9 +170,7 @@ public class OrderController {
 		
 		item.get().increaseQuantity(quantity);
 		
-		OrderLine orderLine = new OrderLine(article, quantity);
-		System.out.println(userAccount.get().getIdentifier());
-		
+		OrderLine orderLine = new OrderLine(article, quantity);		
 		
 		Order order = new Order(userAccount.get(), Cash.CASH);
 		order.add(orderLine);
