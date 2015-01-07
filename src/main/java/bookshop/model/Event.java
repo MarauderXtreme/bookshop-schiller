@@ -96,7 +96,7 @@ public class Event extends Object {
 	{
 		if(Integer.parseInt(getRoom().getChairNum())>takenSeats)
 		{
-			takenSeats++;
+			takenSeats += number;
 			return true;
 		}
 		return false;
