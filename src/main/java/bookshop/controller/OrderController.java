@@ -1,7 +1,5 @@
 package bookshop.controller;
 
-import static org.joda.money.CurrencyUnit.EUR;
-
 import java.io.IOException;
 import java.util.Optional;
 

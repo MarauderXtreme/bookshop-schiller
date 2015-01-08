@@ -2,16 +2,11 @@ package bookshop.model;
 
 import static org.joda.money.CurrencyUnit.EUR;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import javax.servlet.http.HttpSession;
-
 import org.joda.money.Money;
 import org.salespointframework.catalog.Product;
-import org.salespointframework.inventory.Inventory;
-import org.salespointframework.inventory.InventoryItem;
 import org.salespointframework.order.Order;
 import org.salespointframework.order.OrderLine;
 import org.salespointframework.order.OrderManager;
@@ -19,13 +14,9 @@ import org.salespointframework.order.OrderStatus;
 import org.salespointframework.payment.Cash;
 import org.salespointframework.quantity.Quantity;
 import org.salespointframework.quantity.Units;
-import org.salespointframework.time.BusinessTime;
 import org.salespointframework.useraccount.UserAccount;
-import org.salespointframework.useraccount.UserAccountManager;
-import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.ui.ModelMap;
 
 @Component
 public class OrderManagement extends OrderLine{
