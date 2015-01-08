@@ -1,6 +1,7 @@
 package bookshop.model.validation;
 
 
+import javax.persistence.Column;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -17,6 +18,7 @@ public class ArticleForm {
 	//@Pattern(regexp="([0-9]+\\.{0,1}[0-9]*)", message = "{ArticleForm.Price.Format}")
 	private double price;
 	
+	@Column(length=1000)
 	@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
 	private String beschreibung;
 	

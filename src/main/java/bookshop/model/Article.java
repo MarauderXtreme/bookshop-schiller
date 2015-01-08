@@ -1,6 +1,8 @@
 package bookshop.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.validation.constraints.Size;
 
 import org.joda.money.Money;
 import org.salespointframework.catalog.Product;
@@ -11,6 +13,7 @@ public class Article extends Product{
 		
 		public static enum ArticleId {BOOK, DVD, CD};
 		
+		@Column(length=1000)
 		private String beschreibung;
 		private String publisher;
 		private String id;
