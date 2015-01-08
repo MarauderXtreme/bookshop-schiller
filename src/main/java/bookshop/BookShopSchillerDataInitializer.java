@@ -143,14 +143,14 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		
 		articleCatalog.save(new Article("Trost und Rat",
 										Money.of(EUR, 9.99),
-										"Ein Ratgeber der besonderen Art.		nter dem Pseudonym Myles na gCopaleen spendet Flann O'Brien den Lesern seine Kolumne für die Irish Times Trost und Rat in vielen wesentlichen Fragen des Lebens. Ausgewählt und kongenial übersetzt wurden die Texte von Harry Rowohlt. «Flann O'Brien bringt sich voll ein - mit Kopf, Herz und Bauch - und nutzt jede komische Chance.»",
+										"Ein Ratgeber der besonderen Art.		Unter dem Pseudonym Myles na gCopaleen spendet Flann O'Brien den Lesern seine Kolumne für die Irish Times Trost und Rat in vielen wesentlichen Fragen des Lebens. Ausgewählt und kongenial übersetzt wurden die Texte von Harry Rowohlt. «Flann O'Brien bringt sich voll ein - mit Kopf, Herz und Bauch - und nutzt jede komische Chance.»",
 										"Diana",
 										"1234567890421",
 										ArticleId.BOOK,
 										categories.findById("BOOKRatgeber").get().getCategoryName(),
 										"Flann O'Brien",
 										"trostundrat.jpg",
-										"01.01.2015",
+										"04.09.1998",
 										Money.of(EUR, 0.99))	
 		);
 		
@@ -163,7 +163,7 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 										categories.findById("BOOKRatgeber").get().getCategoryName(),
 										"H.P. Lovecraft",
 										"Flying_Polyp.jpg",
-										"01.01.2015",
+										"11.01.2010",
 										Money.of(EUR, 0.99))
 		);
 		
@@ -176,7 +176,7 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 										categories.findById("BOOKFiktion").get().getCategoryName(),
 										"Sir Doctor from Tardis",
 										"Dr_Who_(316350537).jpg",
-										"01.01.2015",
+										"05.11.2011",
 										Money.of(EUR, 0.99))
 		);
 		
@@ -189,7 +189,7 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 										categories.findById("BOOKUnterhaltung").get().getCategoryName(),
 										"Wolfgang Hohlbein",
 										"Stargate-color.png",
-										"01.01.2015",
+										"07.10.2010",
 										Money.of(EUR, 0.99))
 		);
 		
@@ -202,7 +202,7 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 										categories.findById("BOOKRatgeber").get().getCategoryName(),
 										"Simon Travaglia",
 										"19504216_2b65c99b30_z.jpg",
-										"01.01.2015",
+										"22.04.2014",
 										Money.of(EUR, 0.99))
 		);
 		
@@ -215,7 +215,7 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 										categories.findById("BOOKFiktion").get().getCategoryName(),
 										"Douglas Adams",
 										"256px-The_Hitchhiker's_Guide_to_the_Galaxy,_english.svg.png",
-										"01.01.2015",
+										"21.12.2005",
 										Money.of(EUR, 0.99))
 		);
 		
@@ -228,7 +228,7 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 										categories.findById("BOOKUnterhaltung").get().getCategoryName(),
 										"Edgar Rice Burroughs",
 										"Jungle_tales_of_tarzan.jpg",
-										"01.01.2015",
+										"14.07.1987",
 										Money.of(EUR, 0.99))
 		);
 		
@@ -241,7 +241,7 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 										categories.findById("BOOKSachbuch").get().getCategoryName(),
 										"Allan & Barbara Pease",
 										"index.jpeg",
-										"01.01.2015",
+										"04.09.2009",
 										Money.of(EUR, 0.99))
 		);
 		
@@ -254,7 +254,7 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 										categories.findById("BOOKFiktion").get().getCategoryName(),
 										"Abdul Alhazred",
 										"Necronomicon_prop.jpg",
-										"01.01.2015",
+										"02.05.1630",
 										Money.of(EUR, 0.99))
 		);
 		
@@ -267,7 +267,7 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 										categories.findById("BOOKSachbuch").get().getCategoryName(),
 										"Barney Stinson",
 										"3067456215_8eb021fd2e_o.jpg",
-										"01.01.2015",
+										"26.03.2012",
 										Money.of(EUR, 0.99))
 		);
 		
