@@ -40,6 +40,11 @@ public class StatisticsManagement {
 		this.date = date;
 	}
 	
+	/**
+	 * Return an Order of all articles sold and reservations booked
+	 * @param userAccount
+	 * @return Order
+	 */
 	public Order getGesOrdersSell(UserAccount userAccount){
 		Order order1 = new Order(userAccount);
 		Role role = new Role("ROLE_CUSTOMER");
@@ -59,6 +64,11 @@ public class StatisticsManagement {
 		return order1;
 	}
 	
+	/**
+	 * Return an Order of all restock orders
+	 * @param userAccount
+	 * @return Order
+	 */
 	public Order getGesOrdersBuy(UserAccount userAccount){
 		Order order1 = new Order(userAccount);
 		Role role = new Role("ROLE_CUSTOMER");
@@ -74,6 +84,14 @@ public class StatisticsManagement {
 		return order1;
 	}
 	
+	/**
+	 * Return an OrderLine, which collect all orders of a given item.
+	 * If type = true, you get all orders of restock an article 
+	 * If type = false, you get all orders of sell an article 
+	 * @param type
+	 * @param item
+	 * @return OrderLine
+	 */
 	public OrderLine getStatistic(boolean type, InventoryItem item){
 		LocalDateTime time = date.getTime();
 		time = time.minusDays(7);
@@ -127,6 +145,11 @@ public class StatisticsManagement {
 	}
 	}
 	
+	/**
+	 * Return an OrderLine, which collect all reservations of a given event. (last Week)
+	 * @param event
+	 * @return OrderLine
+	 */
 	public OrderLine statisticOfReservation(String event){
 		LocalDateTime time = date.getTime();
 		time = time.minusDays(7);
@@ -154,6 +177,11 @@ public class StatisticsManagement {
 		return orderLine;	
 	}
 	
+	/**
+	 * Return an OrderLine, which collect all reservations of a given event. (All time)
+	 * @param event
+	 * @return OrderLine
+	 */
 	public OrderLine gesStatisticsOfReservations(String event){
 		LocalDateTime time = date.getTime();
 		time = time.minusDays(7);
@@ -181,7 +209,12 @@ public class StatisticsManagement {
 		OrderLine orderLine = new OrderLine(product ,quantity);		
 		return orderLine;	
 	}
-
+	
+	/**
+	 * Return your profit (all time)
+	 * @param order
+	 * @return Money
+	 */
 	public Money getPrice(Order order){
 		Money result = Money.of(EUR, 0.00);
 		Optional<InventoryItem> item;
