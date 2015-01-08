@@ -24,7 +24,9 @@
 	          			<br />
 	          			<small th:text="${article.artist}">Simon Travaglia</small>
 	          		</h6>
-	          		<img alt="cover" class="cover" th:src="@{'/resources/img/' + ${article.image}}" src="/resources/img/notAvaliableBook.jpg" />
+	          		<a th:href="@{'/detail/' + ${article.identifier}}" href="detail.html">
+	          			<img alt="cover" class="cover" th:src="@{'/resources/img/' + ${article.image}}" src="/resources/img/notAvaliableBook.jpg" />
+	          		</a>
 		          	<form action="/cart" method="POST">
 									<input type="hidden" name="article" value="0" th:value="${article.identifier}" />
 									<label>Preis: <span th:text="${article.price.amount}"> </span><i class="fi-euro"></i></label>
