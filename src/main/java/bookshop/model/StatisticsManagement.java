@@ -20,6 +20,7 @@ import org.salespointframework.order.OrderStatus;
 import org.salespointframework.quantity.Quantity;
 import org.salespointframework.quantity.Units;
 import org.salespointframework.time.BusinessTime;
+import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.stereotype.Component;
@@ -41,10 +42,18 @@ public class StatisticsManagement {
 	
 	public Order getGesOrdersSell(UserAccount userAccount){
 		Order order1 = new Order(userAccount);
+		Role role = new Role("ROLE_CUSTOMER");
 		
 		for(Order order : orderManager.find(OrderStatus.COMPLETED)){
 			for(OrderLine orderLine : order.getOrderLines()){
 				order1.add(orderLine);
+			}
+		}
+		for(Order order : orderManager.find(OrderStatus.PAID)){
+			if(order.getUserAccount().hasRole(role) == true){
+				for(OrderLine orderLine : order.getOrderLines()){				
+						order1.add(orderLine);	
+				}
 			}
 		}
 		return order1;
@@ -52,12 +61,16 @@ public class StatisticsManagement {
 	
 	public Order getGesOrdersBuy(UserAccount userAccount){
 		Order order1 = new Order(userAccount);
+		Role role = new Role("ROLE_CUSTOMER");
 		
 		for(Order order : orderManager.find(OrderStatus.PAID)){
-			for(OrderLine orderLine : order.getOrderLines()){
-				order1.add(orderLine);
+
+			if(order.getUserAccount().hasRole(role) == false){
+				for(OrderLine orderLine : order.getOrderLines()){				
+						order1.add(orderLine);	
+				}
 			}
-		}
+		}	
 		return order1;
 	}
 	
@@ -123,6 +136,34 @@ public class StatisticsManagement {
 		for(Order order : orderManager.find(time, date.getTime())){
 
 			if(order.isPaid()==true){
+			
+			
+				for(OrderLine orderLine : order.getOrderLines()){
+					String event2 = orderLine.getProductName();
+					
+					
+					if(event.equals(event2)== true){
+							quantity = quantity.add(orderLine.getQuantity());
+					}
+						
+				}	
+			}
+		}
+		
+		OrderLine orderLine = new OrderLine(product ,quantity);		
+		return orderLine;	
+	}
+	
+	public OrderLine gesStatisticsOfReservations(String event){
+		LocalDateTime time = date.getTime();
+		time = time.minusDays(7);
+		Quantity quantity = Units.of(0);
+		Product product = new Product(event, Money.of(EUR, 5.00), Units.METRIC);
+		Role role = new Role("ROLE_CUSTOMER");
+		
+		for(Order order : orderManager.find(OrderStatus.PAID)){
+
+			if(order.getUserAccount().hasRole(role) == true){
 			
 			
 				for(OrderLine orderLine : order.getOrderLines()){
