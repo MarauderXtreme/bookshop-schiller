@@ -280,7 +280,8 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 										"1263453rr", 
 										ArticleId.CD, 
 										categories.findById("CDPop").get().getCategoryName(), 
-										"Depedro", 
+										"Depedro",
+										"depedro.jpg",
 										"22.11.2010", 
 										Money.of(EUR, 0.99))
 		);
@@ -292,19 +293,21 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 										"1263453rr", 
 										ArticleId.CD, 
 										categories.findById("CDElectronic").get().getCategoryName(), 
-										"Trentemoller", 
+										"Trentemoller",
+										"theLastResort.jpg",
 										"01.01.2015", 
 										Money.of(EUR, 0.99))
 		);
 		
-		articleCatalog.save(new Article("Conquest", 
+		articleCatalog.save(new Article("Icky Thump", 
 										Money.of(EUR, 17.95), 
 										"Spanische Musik", 
 										"Spanish Records", 
 										"1263453rr", 
 										ArticleId.CD, 
 										categories.findById("CDRock").get().getCategoryName(), 
-										"The White Stripes", 
+										"The White Stripes",
+										"ickyThumb.jpg",
 										"01.01.2015", 
 										Money.of(EUR, 0.99))
 		);
@@ -316,7 +319,8 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 										"1263453rr", 
 										ArticleId.CD, 
 										categories.findById("CDHip Hop").get().getCategoryName(), 
-										"Odd Future", 
+										"Odd Future",
+										"radical.png",
 										"01.01.2015", 
 										Money.of(EUR, 0.99))
 		);
@@ -328,7 +332,8 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 										"1263453rr", 
 										ArticleId.CD, 
 										categories.findById("CDPop").get().getCategoryName(), 
-										"Roberto Blanco", 
+										"Roberto Blanco",
+										"puppenspielerVonMexiko.jpg",
 										"01.01.2015", 
 										Money.of(EUR, 0.99))
 		);
@@ -342,7 +347,8 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 										"1263453rr", 
 										ArticleId.DVD, 
 										categories.findById("DVDHorror").get().getCategoryName(), 
-										"God", 
+										"God",
+										"begotten.jpg",
 										"01.01.2015", 
 										Money.of(EUR, 0.99))
 		);
@@ -354,7 +360,8 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 										"1263453rr", 
 										ArticleId.DVD, 
 										categories.findById("DVDAction").get().getCategoryName(), 
-										"Edgar Wright", 
+										"Edgar Wright",
+										"hotFuzz.jpg",
 										"01.01.2015", 
 										Money.of(EUR, 0.99))
 		);
@@ -366,7 +373,8 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 										"1263453rr", 
 										ArticleId.DVD, 
 										categories.findById("DVDHorror").get().getCategoryName(), 
-										"God", 
+										"God",
+										"jeepersCreepers.jpg",
 										"01.01.2015", 
 										Money.of(EUR, 0.99))
 		);
@@ -378,7 +386,8 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 										"1263453rr", 
 										ArticleId.DVD, 
 										categories.findById("DVDDrama").get().getCategoryName(), 
-										"God", 
+										"God",
+										"requiemForADream.jpg",
 										"01.01.2015", 
 										Money.of(EUR, 0.99))
 		);
@@ -390,7 +399,8 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 										"1263453rr", 
 										ArticleId.DVD, 
 										categories.findById("DVDHorror").get().getCategoryName(), 
-										"God", 
+										"God",
+										"werewolfInLondon.jpg",
 										"01.01.2015", 
 										Money.of(EUR, 0.99))
 		);
