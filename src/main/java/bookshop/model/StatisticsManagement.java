@@ -81,7 +81,7 @@ public class StatisticsManagement {
 		quantity = quantity.subtract(item.getQuantity());
 		Quantity quantity1 = quantity;
 		Article article = (Article) item.getProduct();
-		Product product = new Product(item.getProduct().getName(), article.getPrice(), Units.METRIC);		
+		Product product = new Product(item.getProduct().getName(), item.getProduct().getPrice(), Units.METRIC);		
 		for(Order order : orderManager.find(time, date.getTime())){
 
 			if(order.isPaid()==true){
@@ -117,7 +117,7 @@ public class StatisticsManagement {
 			}
 		}	
 	
-		OrderLine returnOrderLineBuy = new OrderLine(item.getProduct(),quantity);
+		OrderLine returnOrderLineBuy = new OrderLine(product,quantity);
 		OrderLine returnOrderLineSell = new OrderLine(item.getProduct(),quantity1);
 
 	if(type == true){
@@ -194,7 +194,6 @@ public class StatisticsManagement {
 				while(quantity.isLessThan(orderLine.getQuantity())){
 					result = result.plus(article.getStockPrice());
 					quantity = quantity.add(add);
-					System.out.println(quantity);
 				}	
 		}
 		return result;

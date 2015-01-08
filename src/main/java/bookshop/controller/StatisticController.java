@@ -96,7 +96,7 @@ public class StatisticController {
 		
 		sellWeek = sellOrder.getTotalPrice().plus(reservations.getTotalPrice());
 		sellAll = gesOrderSell.getTotalPrice();
-		buyWeek = sm.getPrice(statisticOrder);
+		buyWeek = statisticOrder.getTotalPrice();
 		buyAll = sm.getPrice(gesOrderBuy);
 		
 		profit = sellOrder.getTotalPrice().minus(buyWeek).plus(reservations.getTotalPrice());
