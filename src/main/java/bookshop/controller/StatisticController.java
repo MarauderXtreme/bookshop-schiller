@@ -14,6 +14,7 @@ import org.salespointframework.order.Order;
 import org.salespointframework.order.OrderLine;
 import org.salespointframework.order.OrderManager;
 import org.salespointframework.order.OrderStatus;
+import org.salespointframework.payment.Cash;
 import org.salespointframework.quantity.Quantity;
 import org.salespointframework.time.BusinessTime;
 import org.salespointframework.useraccount.UserAccount;
@@ -60,10 +61,10 @@ public class StatisticController {
 		Money profittotal;
 		Money sellWeek,sellAll,buyWeek,buyAll;
 		
-		Order statisticOrder = new Order(userAccount.get());
+		Order statisticOrder = new Order(userAccount.get(), Cash.CASH);
 		Order gesOrderBuy = new Order(userAccount.get());
 		Order gesOrderSell = new Order(userAccount.get());
-		Order sellOrder = new Order(userAccount.get());
+		Order sellOrder = new Order(userAccount.get(), Cash.CASH);
 		Order reservations = new Order(userAccount.get());
 		Order gesReservations = new Order(userAccount.get());
 		
@@ -82,7 +83,6 @@ public class StatisticController {
 			sellOrder.add(orderLine1);
 		}
 		
-		// PROTOTYP FÜR KUNDENWUNSCH
 		
 		for(String event : CalendarManagement.getInstance().getCalendar().getAllEventIDs()){
 			
@@ -93,15 +93,14 @@ public class StatisticController {
 			gesReservations.add(orderLine1);
 		}
 		
-		// ENDE
 		
 		sellWeek = sellOrder.getTotalPrice().plus(reservations.getTotalPrice());
 		sellAll = gesOrderSell.getTotalPrice();
-		buyWeek = statisticOrder.getTotalPrice();
-		buyAll = gesOrderBuy.getTotalPrice();
+		buyWeek = sm.getPrice(statisticOrder);
+		buyAll = sm.getPrice(gesOrderBuy);
 		
-		profit = sellOrder.getTotalPrice().minus(statisticOrder.getTotalPrice()).plus(reservations.getTotalPrice());
-		profittotal = gesOrderSell.getTotalPrice().minus(gesOrderBuy.getTotalPrice());
+		profit = sellOrder.getTotalPrice().minus(buyWeek).plus(reservations.getTotalPrice());
+		profittotal = gesOrderSell.getTotalPrice().minus(buyAll);
 		
 		modelMap.addAttribute("profit", profit);
 		modelMap.addAttribute("profittotal", profittotal);

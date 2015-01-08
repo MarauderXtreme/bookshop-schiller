@@ -80,7 +80,8 @@ public class StatisticsManagement {
 		Quantity quantity = item.getQuantity();
 		quantity = quantity.subtract(item.getQuantity());
 		Quantity quantity1 = quantity;
-		
+		Article article = (Article) item.getProduct();
+		Product product = new Product(item.getProduct().getName(), article.getPrice(), Units.METRIC);		
 		for(Order order : orderManager.find(time, date.getTime())){
 
 			if(order.isPaid()==true){
@@ -91,9 +92,9 @@ public class StatisticsManagement {
 					ProductIdentifier name1 = item.getProduct().getIdentifier();
 					ProductIdentifier name2 = orderLine.getProductIdentifier();
 					
-					
 					if(name1.equals(name2)== true){
-							quantity = quantity.add(orderLine.getQuantity());
+							quantity = quantity.add(orderLine.getQuantity());							
+							product.setPrice(article.getStockPrice());
 					}
 						
 				}	
@@ -118,8 +119,7 @@ public class StatisticsManagement {
 	
 		OrderLine returnOrderLineBuy = new OrderLine(item.getProduct(),quantity);
 		OrderLine returnOrderLineSell = new OrderLine(item.getProduct(),quantity1);
-		
-		
+
 	if(type == true){
 		return returnOrderLineBuy;
 	}else{
@@ -181,4 +181,23 @@ public class StatisticsManagement {
 		OrderLine orderLine = new OrderLine(product ,quantity);		
 		return orderLine;	
 	}
+
+	public Money getPrice(Order order){
+		Money result = Money.of(EUR, 0.00);
+		Optional<InventoryItem> item;
+		Article article;
+		for(OrderLine orderLine : order.getOrderLines()){
+			Quantity quantity = Units.of(0);
+			Quantity add = Units.of(1);
+			item = inventory.findByProductIdentifier(orderLine.getProductIdentifier());
+			article = (Article) item.get().getProduct();	
+				while(quantity.isLessThan(orderLine.getQuantity())){
+					result = result.plus(article.getStockPrice());
+					quantity = quantity.add(add);
+					System.out.println(quantity);
+				}	
+		}
+		return result;
+	}
+
 }
