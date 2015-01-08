@@ -109,6 +109,7 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		CalendarManagement.getInstance().getCalendar().sortEvents();
 		CalendarManagement.getInstance().getCalendar().showList();		
 		
+		//Categories
 		
 		Category unterhaltung = new Category("Unterhaltung", ArticleId.BOOK);
 		Category ratgeber = new Category("Ratgeber", ArticleId.BOOK);
@@ -137,6 +138,8 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		categories.save(horror);
 		categories.save(action);
 		categories.save(drama);
+		
+		//Books
 		
 		articleCatalog.save(new Article("Trost und Rat",
 										Money.of(EUR, 9.99),
@@ -268,8 +271,129 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 										Money.of(EUR, 0.99))
 		);
 		
-		articleCatalog.save(new Article("Depedro", Money.of(EUR, 17.95), "Spanische Musik", "Spanish Records", "1263453rr", ArticleId.CD, categories.findById("CDPop").get().getCategoryName(), "Pedro", "01.01.2015", Money.of(EUR, 0.99)));
-		articleCatalog.save(new Article("Begotten", Money.of(EUR, 17.95), "Strange...", "Indie Records", "1263453rr", ArticleId.DVD, categories.findById("DVDHorror").get().getCategoryName(), "God", "01.01.2015", Money.of(EUR, 0.99)));
+		//CDs
+		
+		articleCatalog.save(new Article("Depedro", 
+										Money.of(EUR, 13.30), 
+										"Spanische Musik", 
+										"Labels P Pias Recordings", 
+										"1263453rr", 
+										ArticleId.CD, 
+										categories.findById("CDPop").get().getCategoryName(), 
+										"Depedro", 
+										"22.11.2010", 
+										Money.of(EUR, 0.99))
+		);
+		
+		articleCatalog.save(new Article("The Last Resort", 
+										Money.of(EUR, 17.95), 
+										"Spanische Musik", 
+										"Spanish Records", 
+										"1263453rr", 
+										ArticleId.CD, 
+										categories.findById("CDElectronic").get().getCategoryName(), 
+										"Trentemoller", 
+										"01.01.2015", 
+										Money.of(EUR, 0.99))
+		);
+		
+		articleCatalog.save(new Article("Conquest", 
+										Money.of(EUR, 17.95), 
+										"Spanische Musik", 
+										"Spanish Records", 
+										"1263453rr", 
+										ArticleId.CD, 
+										categories.findById("CDRock").get().getCategoryName(), 
+										"The White Stripes", 
+										"01.01.2015", 
+										Money.of(EUR, 0.99))
+		);
+		
+		articleCatalog.save(new Article("Radical", 
+										Money.of(EUR, 17.95), 
+										"Spanische Musik", 
+										"Spanish Records", 
+										"1263453rr", 
+										ArticleId.CD, 
+										categories.findById("CDHip Hop").get().getCategoryName(), 
+										"Odd Future", 
+										"01.01.2015", 
+										Money.of(EUR, 0.99))
+		);
+		
+		articleCatalog.save(new Article("Der Puppenspieler von Mexiko", 
+										Money.of(EUR, 17.95), 
+										"Spanische Musik", 
+										"Spanish Records", 
+										"1263453rr", 
+										ArticleId.CD, 
+										categories.findById("CDPop").get().getCategoryName(), 
+										"Roberto Blanco", 
+										"01.01.2015", 
+										Money.of(EUR, 0.99))
+		);
+		
+		//DVDs
+		
+		articleCatalog.save(new Article("Begotten", 
+										Money.of(EUR, 17.95), 
+										"Strange...", 
+										"Indie Records", 
+										"1263453rr", 
+										ArticleId.DVD, 
+										categories.findById("DVDHorror").get().getCategoryName(), 
+										"God", 
+										"01.01.2015", 
+										Money.of(EUR, 0.99))
+		);
+		
+		articleCatalog.save(new Article("Hot Fuzz", 
+										Money.of(EUR, 17.95), 
+										"Strange...", 
+										"Indie Records", 
+										"1263453rr", 
+										ArticleId.DVD, 
+										categories.findById("DVDAction").get().getCategoryName(), 
+										"Edgar Wright", 
+										"01.01.2015", 
+										Money.of(EUR, 0.99))
+		);
+		
+		articleCatalog.save(new Article("Jeepers Creepers", 
+										Money.of(EUR, 17.95), 
+										"Strange...", 
+										"Indie Records", 
+										"1263453rr", 
+										ArticleId.DVD, 
+										categories.findById("DVDHorror").get().getCategoryName(), 
+										"God", 
+										"01.01.2015", 
+										Money.of(EUR, 0.99))
+		);
+		
+		articleCatalog.save(new Article("Requiem for a Dream", 
+										Money.of(EUR, 17.95), 
+										"Strange...", 
+										"Indie Records", 
+										"1263453rr", 
+										ArticleId.DVD, 
+										categories.findById("DVDDrama").get().getCategoryName(), 
+										"God", 
+										"01.01.2015", 
+										Money.of(EUR, 0.99))
+		);
+		
+		articleCatalog.save(new Article("American Werewolf in London", 
+										Money.of(EUR, 17.95), 
+										"Strange...", 
+										"Indie Records", 
+										"1263453rr", 
+										ArticleId.DVD, 
+										categories.findById("DVDHorror").get().getCategoryName(), 
+										"God", 
+										"01.01.2015", 
+										Money.of(EUR, 0.99))
+		);
 		
 		
 		for (Article article : articleCatalog.findAll()) {
