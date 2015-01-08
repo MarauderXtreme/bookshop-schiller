@@ -50,6 +50,8 @@ public class StaticController {
 		
 		int promotion;
 		
+		String promodescription;
+		
 		Random rand = new Random();
 		
 		List<Article> random = new LinkedList<Article>();
@@ -61,8 +63,8 @@ public class StaticController {
 		 * Catch every exception as long we have not tested the List Truncate
 		 */
 		try {
-			if(random.size() > 20) {
-				random.subList(0, 18).clear();
+			if(random.size() > 19) {
+				random = random.subList(0, 19);
 			}
 		} catch (Exception e) {
 			getRandomizeArticles(random);
@@ -71,6 +73,11 @@ public class StaticController {
 		promotion = rand.nextInt(random.size()-1);
 		promo = random.get(promotion);
 		random.remove(promotion);
+		
+		promodescription = promo.getBeschreibung();
+		promodescription = promodescription.substring(0, Math.min(promodescription.length(), 300));
+		promodescription = promodescription + "...";
+		promo.setBeschreibung(promodescription);
 
 		modelMap.addAttribute("promo", promo);
 		modelMap.addAttribute("random", random);

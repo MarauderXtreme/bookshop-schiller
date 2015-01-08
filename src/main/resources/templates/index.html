@@ -28,7 +28,9 @@
 	          			<small th:text="${promo.artist}">Simon Travaglia</small>
 	          		</h3>
 	          		<div class="large-6 medium-6 small-12 columns">
-		          		<img alt="cover" class="cover" th:src="@{'/resources/img/' + ${promo.image}}" src="/resources/img/notAvaliableBook.jpg" />
+	          			<a th:href="@{'/detail/' + ${promo.identifier}}" href="detail.html">
+		          			<img alt="cover" class="cover" th:src="@{'/resources/img/' + ${promo.image}}" src="/resources/img/notAvaliableBook.jpg" />
+		          		</a>
 			          	<form action="/cart" method="POST">
 										<input type="hidden" name="article" value="0" th:value="${promo.identifier}" />
 										<label>Preis: <span th:text="${promo.price.amount}"> </span><i class="fi-euro"></i></label>
@@ -41,17 +43,19 @@
 									<p th:text="${promo.beschreibung}"></p>
 								</fieldset>
 	          	</fieldset>
-	          	<div th:each="book : ${random}" class="large-2 medium-4 small-12 columns article-box">
+	          	<div th:each="article : ${random}" class="large-2 medium-4 small-12 columns article-box">
 	          		<div class="large-centered">
 		          		<h6 class="article-head">
-		          			<a th:text="${book.name}" th:href="@{'/detail/' + ${book.identifier}}" href="detail.html">Bastard Operator from Hell</a>
+		          			<a th:text="${article.name}" th:href="@{'/detail/' + ${article.identifier}}" href="detail.html">Bastard Operator from Hell</a>
 		          			<br />
-		          			<small th:text="${book.artist}">Simon Travaglia</small>
+		          			<small th:text="${article.artist}">Simon Travaglia</small>
 		          		</h6>
-		          		<img alt="cover" class="cover" th:src="@{'/resources/img/' + ${book.image}}" src="/resources/img/no-cover.jpg" />
+	          			<a th:href="@{'/detail/' + ${article.identifier}}" href="detail.html">
+		          			<img alt="cover" class="cover" th:src="@{'/resources/img/' + ${article.image}}" src="/resources/img/no-cover.jpg" />
+		          		</a>
 			          	<form action="/cart" method="POST">
-										<input type="hidden" name="article" value="0" th:value="${book.identifier}" />
-										<label>Preis: <span th:text="${book.price.amount}"> </span><i class="fi-euro"></i></label>
+										<input type="hidden" name="article" value="0" th:value="${article.identifier}" />
+										<label>Preis: <span th:text="${article.price.amount}"> </span><i class="fi-euro"></i></label>
 										<input id="number" type="hidden" name="number" th:value="1" />
 										<input class="button tiny round" type="submit" value="In den Warenkorb"/>
 									</form>
