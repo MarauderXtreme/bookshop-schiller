@@ -1,5 +1,7 @@
 package bookshop.model;
 
+import static org.joda.money.CurrencyUnit.EUR;
+
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -7,6 +9,7 @@ import javax.persistence.Entity;
 import javax.servlet.http.HttpSession;
 
 import org.joda.money.Money;
+import org.salespointframework.catalog.Product;
 import org.salespointframework.catalog.ProductIdentifier;
 import org.salespointframework.inventory.Inventory;
 import org.salespointframework.inventory.InventoryItem;
@@ -115,6 +118,7 @@ public class StatisticsManagement {
 		LocalDateTime time = date.getTime();
 		time = time.minusDays(7);
 		Quantity quantity = Units.of(0);
+		Product product = new Product(event, Money.of(EUR, 5.00), Units.METRIC);
 		
 		for(Order order : orderManager.find(time, date.getTime())){
 
@@ -122,7 +126,6 @@ public class StatisticsManagement {
 			
 			
 				for(OrderLine orderLine : order.getOrderLines()){
-					
 					String event2 = orderLine.getProductName();
 					
 					
@@ -131,11 +134,10 @@ public class StatisticsManagement {
 					}
 						
 				}	
-			
 			}
 		}
 		
-		
-		return null;	
+		OrderLine orderLine = new OrderLine(product ,quantity);		
+		return orderLine;	
 	}
 }

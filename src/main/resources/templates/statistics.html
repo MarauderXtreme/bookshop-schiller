@@ -26,8 +26,7 @@
 							<tr>
 								<th class="small-4" th:text="#{statistics.article}">Titel</th>
 								<th class="small-4" th:text="#{statistics.sell}">Verkauft</th>
-								<th class="small-4" th:text="#{statistics.income}">
-									Einnahmen</th>
+								<th class="small-4" th:text="#{statistics.income}">Einnahmen</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -48,6 +47,22 @@
 						</thead>
 						<tbody>
 							<tr th:each=" orderline : ${statisticsell}">
+								<td th:text="${orderline.productName}">Last Action Hero</td>
+								<td th:text="${orderline.quantity.amount}">9000</td>
+								<td th:text="${orderline.price}">10</td>
+							</tr>
+						</tbody>
+					</table>
+					<table class="medium-4 medium-offset-1 small-12 columns">
+						<thead>
+							<tr>
+								<th class="small-4" th:text="#{statistics.event}">Titel</th>
+								<th class="small-4" th:text="#{statistics.sell}">Gekauft</th>
+								<th class="small-4" th:text="#{statistics.income}">Ausgaben</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each=" orderline : ${statisticsReservation}">
 								<td th:text="${orderline.productName}">Last Action Hero</td>
 								<td th:text="${orderline.quantity.amount}">9000</td>
 								<td th:text="${orderline.price}">10</td>

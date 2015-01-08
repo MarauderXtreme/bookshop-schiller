@@ -24,6 +24,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import bookshop.model.CalendarManagement;
 import bookshop.model.OrderManagement;
 import bookshop.model.StatisticsManagement;
 
@@ -81,21 +82,16 @@ public class StatisticController {
 		}
 		
 		// PROTOTYP FÜR KUNDENWUNSCH
-		/*
-		String[] test = new String[2];
-		test[0] = "";
-		test[1] = "";
-		String event = "";
 		
-		for(String test1 : test){
-			
+		for(String event : CalendarManagement.getInstance().getCalendar().getAllEventIDs()){
 			OrderLine orderLine = sm.statisticOfReservation(event);
+			System.out.println(orderLine);
 			reservations.add(orderLine);
 		}
-		*/
+		
 		// ENDE
 		
-		profit = sellOrder.getTotalPrice().minus(statisticOrder.getTotalPrice());
+		profit = sellOrder.getTotalPrice().minus(statisticOrder.getTotalPrice()).plus(reservations.getTotalPrice());
 		profittotal = profit;
 		
 		modelMap.addAttribute("profit", profit);
