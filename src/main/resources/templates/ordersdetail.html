@@ -16,9 +16,9 @@
 		        </div>
 		      </header>
 	        <div class="large-12">&nbsp;</div>
-	        <div class="large-12 medium-12 small-12 columns">
+	        <div class="large-12 medium-12 small-12 row">
 	          <h3>Ihre Bestellung</h3>
-	          <table>
+	          <table class="small-12">
 							<thead>
 								<tr>
 									<th th:text="#{statistics.article}">Artikel</th>
@@ -32,7 +32,8 @@
 								</tr>
 							</tbody>
 						</table>
-					 <a class="small button" target="_blank" href="/" th:href="@{'/resources/orders/' + ${detailordersID}}">Rechnung</a>
+					 	<a class="small-2 small button columns" target="_blank" href="/" th:href="@{'/resources/orders/' + ${detailordersID}}">Rechnung</a>
+					 	<a class="small-2 small button columns" target="_blank" href="/" th:href="@{'/resources/orders/' + ${detailordersID}}">Zurück zur Übersicht</a>
 	        </div>
 	    	</div>
 	    </div>

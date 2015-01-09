@@ -18,13 +18,13 @@
 	        <div class="large-12">&nbsp;</div>
 	        <div class="large-12 medium-12 small-12 row">
 	          <h3>Bestellübersicht</h3>
-	          <table class="medium-5 medium-offset-1 small-12 columns">
+	          <table class="medium-6 small-12 columns">
 							<caption th:text="#{orders.open}"></caption>
 							<thead>
 								<tr>
-									<th class="small-6" th:text="#{orders.customerBill}">Kunde</th>
+									<th class="small-5" th:text="#{orders.customerBill}">Kunde</th>
 									<th class="small-2" th:text="#{orders.payed}">Bezahlt</th>
-									<th class="small-3">Quicklinks</th>
+									<th class="small-5">Quicklinks</th>
 									<th> </th>
 								</tr>
 							</thead>
@@ -35,25 +35,25 @@
 										<td>
 											<form class="salespoint" method="POST" action="/order/complete">
 											  <input type="hidden" name="orderComplete" value="0" th:value="${order.identifier}"/>
-												<input class="small button" type="submit" value="Versenden"/> 
+												<input class="tiny button" type="submit" value="Versenden"/> 
 											</form>
 										</td>											
 									<td>
 										<form method="POST" action="/order/detail">
 										  <input type="hidden" name="orderdetail" value="0" th:value="${order.identifier}"/>
-											<input class="small button" type="submit" value="Detailansicht"/> 
+											<input class="tiny button" type="submit" value="Detailansicht"/> 
 										</form>
 									</td>
 								</tr>
 							</tbody>
 						</table>
-						<table class="medium-5 medium-offset-1 small-12 columns">
+						<table class="medium-6 small-12 columns">
 							<caption th:text="#{orders.completed}"></caption>
 							<thead>
 								<tr>
-									<th class="small-6" th:text="#{orders.customerBill}">Kunde</th>
+									<th class="small-5" th:text="#{orders.customerBill}">Kunde</th>
 									<th class="small-2" th:text="#{orders.payed}">Bezahlt</th>
-									<th class="small-4">Quicklinks</th>
+									<th class="small-5">Quicklinks</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -63,7 +63,7 @@
 									<td>
 										<form method="POST" action="/order/detail">
 										  <input type="hidden" name="orderdetail" value="0" th:value="${order.identifier}"/>
-											<input class="small button" type="submit" value="Detailansicht"/> 
+											<input class="tiny button" type="submit" value="Detailansicht"/> 
 										</form>
 									</td>								
 								</tr>
