@@ -16,40 +16,39 @@
 		        </div>
 		      </header>
 	        <div class="large-12">&nbsp;</div>
-	        <div class="large-12 medium-12 small-12 columns">
+	        <div class="large-12 medium-12 small-12 row">
 	          <h3>Bestellübersicht</h3>
-	          <table>
+	          <table class="medium-6 small-12 columns">
 							<caption th:text="#{orders.myorders}"></caption>
 							<thead>
 								<tr>
-									<th th:text="#{orders.status}">Status</th>
-									<th th:text="#{orders.date}">Datum</th>
-									<th th:text="#{orders.payed}">Bezahlt</th>	
-									<th>Quicklinks</th>		
-									<th> </th>									
+									<th class="small-2" th:text="#{orders.status}">Status</th>
+									<th class="small-2" th:text="#{orders.date}">Datum</th>
+									<th class="small-2" th:text="#{orders.payed}">Bezahlt</th>	
+									<th class="small-6">Quicklinks</th>					
 								</tr>
 							</thead>
 							<tbody>
-									<tr th:each="order : ${myOrders}">
-											<td th:unless="${order.paid}" th:text="${order.orderStatus}"></td>
-											<td th:unless="${order.paid}" th:text="${order.dateCreated}"></td>
-											<td th:unless="${order.paid}" th:text="${order.totalPrice}"></td>
-											<td th:if="${order.open}">
-												<form class="salespoint" method="POST" action="/order/cancel">
-												  <input type="hidden" name="orderDelete" value="0" th:value="${order.identifier}"/>
-													<input class="small button" type="submit" value="Stornieren"/>  
-												</form>
-											</td>
-											<td th:unless="${order.paid}">
-												<form class="salespoint" method="POST" action="/order/detail">
-												  <input type="hidden" name="orderdetail" value="0" th:value="${order.identifier}"/>
-													<input class="small button" type="submit" value="Detailansicht"/> 
-												</form>
-											</td>	
-									</tr>
+								<tr th:each="order : ${myOrders}">
+									<td th:unless="${order.paid}" th:text="${order.orderStatus}"></td>
+									<td th:unless="${order.paid}" th:text="${order.dateCreated}"></td>
+									<td th:unless="${order.paid}" th:text="${order.totalPrice}"></td>
+									<td th:if="${order.open}">
+										<form method="POST" action="/order/cancel">
+										  <input type="hidden" name="orderDelete" value="0" th:value="${order.identifier}"/>
+											<input class="small button" type="submit" value="Stornieren"/>  
+										</form>
+										<form method="POST" action="/order/detail">
+										  <input type="hidden" name="orderdetail" value="0" th:value="${order.identifier}"/>
+											<input class="small button" type="submit" value="Detailansicht"/> 
+										</form>
+									</td>
+									<td th:unless="${order.paid}">
+									</td>	
+								</tr>
 							</tbody>
 						</table>
-						<table>
+						<table class="medium-6 small-12 columns">
 							<caption th:text="#{orders.myreservations}"></caption>
 							<thead>
 								<tr>
@@ -58,15 +57,15 @@
 								</tr>
 							</thead>
 							<tbody>
-									<tr th:each="order : ${myOrders}">
-											<td th:if="${order.paid}" th:text="${order.dateCreated}"></td>			
-											<td th:if="${order.paid}">
-												<form class="salespoint" method="POST" action="/order/detailreservation">
-												  <input type="hidden" name="orderdetail" value="0" th:value="${order.identifier}"/>
-													<input class="small button" type="submit" value="Detailansicht"/> 
-												</form>
-											</td>
-									</tr>
+								<tr th:each="order : ${myOrders}">
+									<td th:if="${order.paid}" th:text="${order.dateCreated}"></td>			
+									<td th:if="${order.paid}">
+										<form class="salespoint" method="POST" action="/order/detailreservation">
+										  <input type="hidden" name="orderdetail" value="0" th:value="${order.identifier}"/>
+											<input class="small button" type="submit" value="Detailansicht"/> 
+										</form>
+									</td>
+								</tr>
 							</tbody>
 						</table>
 	        </div>

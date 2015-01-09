@@ -10,16 +10,15 @@
 	    		<nav th:include="navigation :: navigation"></nav>
 	    	</aside>
 	    	<div class="main-content">
-		    	<header class="large-12 medium-12 show-for-landscape show-for-medium-up">
+		    	<!-- <header class="large-12 medium-12 show-for-landscape show-for-medium-up">
 		        <div class="panel">
 		          <div class="header-slider row" th:include="slider :: slider"></div>
 		        </div>
-		      </header>
-		      <div class="large-12 medium-12 small-12 row">
+		      </header> -->
 	        <div class="large-12">&nbsp;</div>
-	        	<br />
-	        	<br />
-	        	<div th:include="profiletabs :: profiletabs"></div>
+		      <div class="large-12 medium-12 small-12 columns">
+	        	<h3 th:text="@{'Profil von ' + ${user.userAccount.firstname} + ' ' + ${user.userAccount.lastname}}">Profil von Nutzer</h3>
+	        	<div class="row" th:include="profiletabs :: profiletabs"></div>
 	        	<div class="row panel">
 		        	<p class="large-6 medium-6 small-12 columns">
 			        	<label>Aktueller Status:</label>
