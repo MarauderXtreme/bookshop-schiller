@@ -16,52 +16,55 @@
 		        </div>
 		      </header>
 	        <div class="large-12">&nbsp;</div>
-	        <div class="large-12 medium-12 small-12 columns">
+	        <div class="large-12 medium-12 small-12 row">
 	          <h3>Warenkorb</h3>
-	          <div th:unless="${cart.empty}">
-	          	<div class="salespoint" sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_SALESMANAGER', 'ROLE_USERMANAGER', 'ROLE_EVENTMANAGER', 'ROLE_ARTICLEMANAGER')">
-								<table class="large-12 medium-12 small-12">
-									<thead class="panel">
-										<tr>
-											<th class="large-4 medium-4 small-4" th:text="#{cart.title}">Titel</th>
-											<th class="large-2 medium-2 small-2" th:text="#{cart.count}">Anzahl</th>
-											<th class="large-2 medium-2 small-2" th:text="#{cart.price}">Preis</th>
-											<th class="large-2 medium-2 small-2">Links</th>
-										</tr>
-									</thead>
-									<tbody th:remove="all-but-first">
-				
-										<tr th:each="orderline : ${cart} ">
-											<td class="large-4 medium-4 small-4" th:text="${orderline.productName}">Last Action Hero</td>
-											<td class="large-2 medium-2 small-2" th:text="${orderline.quantity.amount}">10</td>
-											<td class="large-2 medium-2 small-2" th:text="${orderline.price}">10 Euro</td>
-											<td class="large-2 medium-2 small-2"> 
-												<div class="salespoint" sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_SALESMANAGER','ROLE_USERMANAGER','ROLE_EVENTMANAGER','ROLE_ARTICLEMANAGER')">
-													<form class="salespoint" method="POST" action="/cart/delete" >
-													  <input type="hidden" name="delete" value="0" th:value="${orderline.identifier}"/>
-														<input class="button" type="submit" value="löschen"/> 
-													</form>
-												</div>	
-											</td>
-										</tr>				
-									</tbody>
-								</table>
-								<p th:text="#{cart.total} + ': ' + ${cart.price}">Summe: 100 Euro</p>
-								<div class="salespoint" sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_SALESMANAGER','ROLE_EMPLOYEE','ROLE_USERMANAGER','ROLE_ARTICLEMANAGER','ROLE_EVENTMANAGER')">
-									<form method="post" action="/cart/checkout">
-										<input class="button secondary" type="submit" th:value="#{cart.buy}" value="Kaufen" />
-									</form>
-								</div>
-								
-								<div class="salespoint" >
-									<form action="/cart/clear">	
-										<input class="button secondary" type="submit" th:value="#{cart.clear}" value="Löschen" />
-									</form>
-								</div>
+	          <div th:unless="${cart.empty}" sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_SALESMANAGER', 'ROLE_USERMANAGER', 'ROLE_EVENTMANAGER', 'ROLE_ARTICLEMANAGER')">
+							<table class="small-12">
+								<thead class="panel">
+									<tr>
+										<th class="small-6" th:text="#{cart.title}">Titel</th>
+										<th class="small-2" th:text="#{cart.count}">Anzahl</th>
+										<th class="small-2" th:text="#{cart.price}">Preis</th>
+										<th class="small-2">Links</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="orderline : ${cart} ">
+										<td th:text="${orderline.productName}">Last Action Hero</td>
+										<td th:text="${orderline.quantity.amount}">10</td>
+										<td th:text="${orderline.price}">10 Euro</td>
+										<td>
+											<form method="POST" action="/cart/delete">
+											  <input type="hidden" name="delete" value="0" th:value="${orderline.identifier}"/>
+												<input class="tiny button" type="submit" value="löschen"/> 
+											</form>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<table class="small-12">
+								<tbody>
+									<tr>
+										<td class="small-6">
+											<form class="medium-3 small-6 columns" method="post" action="/cart/checkout">
+												<input class="tiny button" type="submit" th:value="#{cart.buy}" value="Kaufen" />
+											</form>
+											<form class="medium-3 small-6 columns" action="/cart/clear">	
+												<input class="tiny button" type="submit" th:value="#{cart.clear}" value="Löschen" />
+											</form>
+											<p class="medium-6"></p>
+										</td>
+										<td class="small-2"></td>
+										<td class="small-2 panel" th:text="#{cart.total} + ': ' + ${cart.price}"></td>
+										<td class="small-2"></td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="row">
 							</div>
 						</div>
 						<p sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_SALESMANAGER','ROLE_USERMANAGER','ROLE_EVENTMANAGER','ROLE_ARTICLEMANAGER')" th:if="${cart.empty}" th:text="#{cart.empty}">Leer</p>
-						<p sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_SALESMANAGER','ROLE_USERMANAGER','ROLE_EVENTMANAGER','ROLE_ARTICLEMANAGER')" th:text="#{cart.troll}">�tsch b�tsch</p>
+						<p sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_SALESMANAGER','ROLE_USERMANAGER','ROLE_EVENTMANAGER','ROLE_ARTICLEMANAGER')" th:text="#{cart.troll}">Ätsch bätsch</p>
 					</div>
 	    	</div>
 	    </div>
