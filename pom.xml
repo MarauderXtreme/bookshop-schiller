@@ -17,19 +17,7 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.swinglabs</groupId>
-			<artifactId>pdf-renderer</artifactId>
-			<version>1.0.5</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.apache.pdfbox</groupId>
-			<artifactId>pdfbox</artifactId>
-			<version>1.8.8</version>
-		</dependency>
-		
-		
+
 		<dependency>
 	    <groupId>com.itextpdf</groupId>
 	    <artifactId>itextpdf</artifactId>

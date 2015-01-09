@@ -14,6 +14,7 @@ import org.salespointframework.order.Order;
 import org.salespointframework.order.OrderLine;
 import org.salespointframework.order.OrderManager;
 import org.salespointframework.order.OrderStatus;
+import org.salespointframework.payment.Cash;
 import org.salespointframework.quantity.Quantity;
 import org.salespointframework.time.BusinessTime;
 import org.salespointframework.useraccount.UserAccount;
@@ -58,12 +59,14 @@ public class StatisticController {
 		
 		Money profit;
 		Money profittotal;
+		Money sellWeek,sellAll,buyWeek,buyAll;
 		
-		Order statisticOrder = new Order(userAccount.get());
+		Order statisticOrder = new Order(userAccount.get(), Cash.CASH);
 		Order gesOrderBuy = new Order(userAccount.get());
 		Order gesOrderSell = new Order(userAccount.get());
-		Order sellOrder = new Order(userAccount.get());
+		Order sellOrder = new Order(userAccount.get(), Cash.CASH);
 		Order reservations = new Order(userAccount.get());
+		Order gesReservations = new Order(userAccount.get());
 		
 		StatisticsManagement sm = new StatisticsManagement(orderManager, inventory, date);
 		
@@ -71,8 +74,7 @@ public class StatisticController {
 
 		gesOrderBuy = sm.getGesOrdersBuy(userAccount.get());
 		
-		for(InventoryItem item : inventory.findAll()){			
-			
+		for(InventoryItem item : inventory.findAll()){					
 			
 			OrderLine orderLine = sm.getStatistic(true, item);
 			OrderLine orderLine1 = sm.getStatistic(false, item);
@@ -81,29 +83,35 @@ public class StatisticController {
 			sellOrder.add(orderLine1);
 		}
 		
-		// PROTOTYP FÜR KUNDENWUNSCH
 		
 		for(String event : CalendarManagement.getInstance().getCalendar().getAllEventIDs()){
+			
 			OrderLine orderLine = sm.statisticOfReservation(event);
-			System.out.println(orderLine);
+			OrderLine orderLine1 = sm.gesStatisticsOfReservations(event);
+	
 			reservations.add(orderLine);
+			gesReservations.add(orderLine1);
 		}
 		
-		// ENDE
 		
-		profit = sellOrder.getTotalPrice().minus(statisticOrder.getTotalPrice()).plus(reservations.getTotalPrice());
-		profittotal = profit;
+		sellWeek = sellOrder.getTotalPrice().plus(reservations.getTotalPrice());
+		sellAll = gesOrderSell.getTotalPrice();
+		buyWeek = statisticOrder.getTotalPrice();
+		buyAll = sm.getPrice(gesOrderBuy);
+		
+		profit = sellOrder.getTotalPrice().minus(buyWeek).plus(reservations.getTotalPrice());
+		profittotal = gesOrderSell.getTotalPrice().minus(buyAll);
 		
 		modelMap.addAttribute("profit", profit);
 		modelMap.addAttribute("profittotal", profittotal);
 		
 		modelMap.addAttribute("statisticsell", statisticOrder.getOrderLines());
-		modelMap.addAttribute("statisticPriceSell", statisticOrder.getTotalPrice());
+		modelMap.addAttribute("statisticPriceSell", buyWeek);
 		modelMap.addAttribute("statisticbuy", sellOrder.getOrderLines());
-		modelMap.addAttribute("statisticPriceBuy", sellOrder.getTotalPrice());
+		modelMap.addAttribute("statisticPriceBuy", sellWeek);
 		
-		modelMap.addAttribute("statisticPriceSellAll", gesOrderBuy.getTotalPrice());		
-		modelMap.addAttribute("statisticPriceBuyAll", gesOrderSell.getTotalPrice());
+		modelMap.addAttribute("statisticPriceSellAll", buyAll);		
+		modelMap.addAttribute("statisticPriceBuyAll", sellAll);
 		
 		modelMap.addAttribute("statisticsReservation", reservations.getOrderLines());
 		return "/statistics";

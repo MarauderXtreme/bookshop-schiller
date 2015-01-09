@@ -20,6 +20,7 @@ import org.salespointframework.order.OrderStatus;
 import org.salespointframework.quantity.Quantity;
 import org.salespointframework.quantity.Units;
 import org.salespointframework.time.BusinessTime;
+import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
 import org.springframework.stereotype.Component;
@@ -39,35 +40,66 @@ public class StatisticsManagement {
 		this.date = date;
 	}
 	
+	/**
+	 * Return an Order of all articles sold and reservations booked
+	 * @param userAccount
+	 * @return Order
+	 */
 	public Order getGesOrdersSell(UserAccount userAccount){
 		Order order1 = new Order(userAccount);
+		Role role = new Role("ROLE_CUSTOMER");
 		
 		for(Order order : orderManager.find(OrderStatus.COMPLETED)){
 			for(OrderLine orderLine : order.getOrderLines()){
 				order1.add(orderLine);
 			}
 		}
-		return order1;
-	}
-	
-	public Order getGesOrdersBuy(UserAccount userAccount){
-		Order order1 = new Order(userAccount);
-		
 		for(Order order : orderManager.find(OrderStatus.PAID)){
-			for(OrderLine orderLine : order.getOrderLines()){
-				order1.add(orderLine);
+			if(order.getUserAccount().hasRole(role) == true){
+				for(OrderLine orderLine : order.getOrderLines()){				
+						order1.add(orderLine);	
+				}
 			}
 		}
 		return order1;
 	}
 	
+	/**
+	 * Return an Order of all restock orders
+	 * @param userAccount
+	 * @return Order
+	 */
+	public Order getGesOrdersBuy(UserAccount userAccount){
+		Order order1 = new Order(userAccount);
+		Role role = new Role("ROLE_CUSTOMER");
+		
+		for(Order order : orderManager.find(OrderStatus.PAID)){
+
+			if(order.getUserAccount().hasRole(role) == false){
+				for(OrderLine orderLine : order.getOrderLines()){				
+						order1.add(orderLine);	
+				}
+			}
+		}	
+		return order1;
+	}
+	
+	/**
+	 * Return an OrderLine, which collect all orders of a given item.
+	 * If type = true, you get all orders of restock an article 
+	 * If type = false, you get all orders of sell an article 
+	 * @param type
+	 * @param item
+	 * @return OrderLine
+	 */
 	public OrderLine getStatistic(boolean type, InventoryItem item){
 		LocalDateTime time = date.getTime();
 		time = time.minusDays(7);
 		Quantity quantity = item.getQuantity();
 		quantity = quantity.subtract(item.getQuantity());
 		Quantity quantity1 = quantity;
-		
+		Article article = (Article) item.getProduct();
+		Product product = new Product(item.getProduct().getName(), item.getProduct().getPrice(), Units.METRIC);		
 		for(Order order : orderManager.find(time, date.getTime())){
 
 			if(order.isPaid()==true){
@@ -78,9 +110,9 @@ public class StatisticsManagement {
 					ProductIdentifier name1 = item.getProduct().getIdentifier();
 					ProductIdentifier name2 = orderLine.getProductIdentifier();
 					
-					
 					if(name1.equals(name2)== true){
-							quantity = quantity.add(orderLine.getQuantity());
+							quantity = quantity.add(orderLine.getQuantity());							
+							product.setPrice(article.getStockPrice());
 					}
 						
 				}	
@@ -103,10 +135,9 @@ public class StatisticsManagement {
 			}
 		}	
 	
-		OrderLine returnOrderLineBuy = new OrderLine(item.getProduct(),quantity);
+		OrderLine returnOrderLineBuy = new OrderLine(product,quantity);
 		OrderLine returnOrderLineSell = new OrderLine(item.getProduct(),quantity1);
-		
-		
+
 	if(type == true){
 		return returnOrderLineBuy;
 	}else{
@@ -114,6 +145,11 @@ public class StatisticsManagement {
 	}
 	}
 	
+	/**
+	 * Return an OrderLine, which collect all reservations of a given event. (last Week)
+	 * @param event
+	 * @return OrderLine
+	 */
 	public OrderLine statisticOfReservation(String event){
 		LocalDateTime time = date.getTime();
 		time = time.minusDays(7);
@@ -140,4 +176,60 @@ public class StatisticsManagement {
 		OrderLine orderLine = new OrderLine(product ,quantity);		
 		return orderLine;	
 	}
+	
+	/**
+	 * Return an OrderLine, which collect all reservations of a given event. (All time)
+	 * @param event
+	 * @return OrderLine
+	 */
+	public OrderLine gesStatisticsOfReservations(String event){
+		LocalDateTime time = date.getTime();
+		time = time.minusDays(7);
+		Quantity quantity = Units.of(0);
+		Product product = new Product(event, Money.of(EUR, 5.00), Units.METRIC);
+		Role role = new Role("ROLE_CUSTOMER");
+		
+		for(Order order : orderManager.find(OrderStatus.PAID)){
+
+			if(order.getUserAccount().hasRole(role) == true){
+			
+			
+				for(OrderLine orderLine : order.getOrderLines()){
+					String event2 = orderLine.getProductName();
+					
+					
+					if(event.equals(event2)== true){
+							quantity = quantity.add(orderLine.getQuantity());
+					}
+						
+				}	
+			}
+		}
+		
+		OrderLine orderLine = new OrderLine(product ,quantity);		
+		return orderLine;	
+	}
+	
+	/**
+	 * Return your profit (all time)
+	 * @param order
+	 * @return Money
+	 */
+	public Money getPrice(Order order){
+		Money result = Money.of(EUR, 0.00);
+		Optional<InventoryItem> item;
+		Article article;
+		for(OrderLine orderLine : order.getOrderLines()){
+			Quantity quantity = Units.of(0);
+			Quantity add = Units.of(1);
+			item = inventory.findByProductIdentifier(orderLine.getProductIdentifier());
+			article = (Article) item.get().getProduct();	
+				while(quantity.isLessThan(orderLine.getQuantity())){
+					result = result.plus(article.getStockPrice());
+					quantity = quantity.add(add);
+				}	
+		}
+		return result;
+	}
+
 }
