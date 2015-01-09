@@ -81,3 +81,7 @@ table tbody tr:nth-child(even) {
 .top-bar i {
 	font-size: 25px;
 }
+
+.charts {
+	height: 300px;
+}

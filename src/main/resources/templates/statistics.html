@@ -21,74 +21,82 @@
 				<div class="large-12">&nbsp;</div>
 				<div class="large-12 medium-12 small-12 row">
 					<h3>Verkaufsbilanz</h3>
-					<table class="medium-4 medium-offset-1 small-12 columns">
-						<thead>
-							<tr>
-								<th class="small-4" th:text="#{statistics.article}">Titel</th>
-								<th class="small-4" th:text="#{statistics.sell}">Verkauft</th>
-								<th class="small-4" th:text="#{statistics.income}">Einnahmen</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each=" orderline : ${statisticbuy}">
-								<td th:text="${orderline.productName}">Last Action Hero</td>
-								<td th:text="${orderline.quantity.amount}">9000</td>
-								<td th:text="${orderline.price}">10</td>
-							</tr>
-						</tbody>
-					</table>
-					<table class="medium-4 medium-offset-1 small-12 columns">
-						<thead>
-							<tr>
-								<th class="small-4" th:text="#{statistics.article}">Titel</th>
-								<th class="small-4" th:text="#{statistics.buy}">Gekauft</th>
-								<th class="small-4" th:text="#{statistics.outcome}">Ausgaben</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each=" orderline : ${statisticsell}">
-								<td th:text="${orderline.productName}">Last Action Hero</td>
-								<td th:text="${orderline.quantity.amount}">9000</td>
-								<td th:text="${orderline.price}">10</td>
-							</tr>
-						</tbody>
-					</table>
-					<table class="medium-4 medium-offset-1 small-12 columns">
-						<thead>
-							<tr>
-								<th class="small-4" th:text="#{statistics.event}">Titel</th>
-								<th class="small-4" th:text="#{statistics.sell}">Gekauft</th>
-								<th class="small-4" th:text="#{statistics.income}">Ausgaben</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each=" orderline : ${statisticsReservation}">
-								<td th:text="${orderline.productName}">Last Action Hero</td>
-								<td th:text="${orderline.quantity.amount}">9000</td>
-								<td th:text="${orderline.price}">10</td>
-							</tr>
-						</tbody>
-					</table>
-					<canvas id="statistics" class="small-12" height="200"></canvas>
-					<div class="small-12 row">
-						<p th:text="#{statistics.totalweeksell} + ': ' + ${statisticPriceSell}">
-							Summe: 100 Euro
+					<div class="row">
+						<div id="complete-stats" class="small-12 columns charts"></div>
+						<div class="small-12 columns">&nbsp;</div>
+						<div id="weekly-stats" class="small-6 columns charts"></div>
+						<div id="total-stats" class="small-6 columns charts"></div>
+					</div>
+					<div id="plain-statistics" class="small-12 row">
+						<p>
+							<span th:text="#{statistics.totalweeksell} + ': '">Summe</span><span id="sell-stats" th:text="${statisticPriceSell}">100€</span>
 						</p>
-						<p th:text="#{statistics.totalsell} + ': ' + ${statisticPriceSellAll}">
-							Summe: 100 Euro
+						<p>
+							<span th:text="#{statistics.totalsell} + ': '">Summe</span><span id="total-sell-stats" th:text="${statisticPriceSellAll}">100€</span>
 						</p>
-						<p th:text="#{statistics.totalweekbuy} + ': ' + ${statisticPriceBuy}">
-							Summe: 100 Euro
+						<p>
+							<span th:text="#{statistics.totalweekbuy} + ': '">Summe</span><span id="buy-stats" th:text="${statisticPriceBuy}">100€</span>
 						</p>
-						<p th:text="#{statistics.totalbuy} + ': ' + ${statisticPriceBuyAll}">
-							Summe: 100 Euro
+						<p>
+							<span th:text="#{statistics.totalbuy} + ': '">Summe</span><span id="total-buy-stats" th:text="${statisticPriceBuyAll}">100€</span>
 						</p>
-						<p th:text="#{statistics.profit} + ': ' + ${profit}">
-							Summe: 100 Euro
+						<p>
+							<span th:text="#{statistics.profit} + ': '">Summe</span><span id="profit-stats" th:text="${profit}">100€</span>
 						</p>
-						<p th:text="#{statistics.profittotal} + ': ' + ${profittotal}">
-							Summe: 100 Euro
+						<p>
+							<span th:text="#{statistics.profittotal} + ': '">Summe</span><span id="total-profit-stats" th:text="${profittotal}">100€</span>
 						</p>
+					</div>
+					<div class="small-12 row">&nbsp;</div>
+					<div class="row">
+						<table class="medium-4 small-12 columns">
+							<thead>
+								<tr>
+									<th class="small-4" th:text="#{statistics.article}">Titel</th>
+									<th class="small-4" th:text="#{statistics.sell}">Verkauft</th>
+									<th class="small-4" th:text="#{statistics.income}">Einnahmen</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each=" orderline : ${statisticbuy}">
+									<td th:text="${orderline.productName}">Last Action Hero</td>
+									<td th:text="${orderline.quantity.amount}">9000</td>
+									<td th:text="${orderline.price}">10</td>
+								</tr>
+							</tbody>
+						</table>
+						<table class="medium-4 small-12 columns">
+							<thead>
+								<tr>
+									<th class="small-4" th:text="#{statistics.article}">Titel</th>
+									<th class="small-4" th:text="#{statistics.buy}">Gekauft</th>
+									<th class="small-4" th:text="#{statistics.outcome}">Ausgaben</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each=" orderline : ${statisticsell}">
+									<td th:text="${orderline.productName}">Last Action Hero</td>
+									<td th:text="${orderline.quantity.amount}">9000</td>
+									<td th:text="${orderline.price}">10</td>
+								</tr>
+							</tbody>
+						</table>
+						<table class="medium-4 small-12 columns">
+							<thead>
+								<tr>
+									<th class="small-4" th:text="#{statistics.event}">Titel</th>
+									<th class="small-4" th:text="#{statistics.sell}">Gekauft</th>
+									<th class="small-4" th:text="#{statistics.income}">Ausgaben</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each=" orderline : ${statisticsReservation}">
+									<td th:text="${orderline.productName}">Last Action Hero</td>
+									<td th:text="${orderline.quantity.amount}">9000</td>
+									<td th:text="${orderline.price}">10</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>

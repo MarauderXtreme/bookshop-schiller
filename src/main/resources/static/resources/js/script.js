@@ -29,6 +29,83 @@ $(document).ready(function(){
 		language: 'de'
 	})
 	
+	var test = 13.37;
+	
+	var sellStats = $('#sell-stats').text().substring(4);
+	var buyStats = $('#buy-stats').text().substring(4);
+	var profitStats = $('#profit-stats').text().substring(4);
+	
+	var totalSellStats = $('#total-sell-stats').text().substring(4);
+	var totalBuyStats = $('#total-buy-stats').text().substring(4);
+	var totalProfitStats = $('#total-profit-stats').text().substring(4);
+	
+	$('#weekly-stats').highcharts({
+		chart: {
+			type: 'column'
+		},
+		title: {
+			text: 'Wochenübersicht'
+		},
+		xAxis: {
+			categories: ['Einnahmen', 'Ausgaben', 'Profit']
+		},
+		yAxis: {
+			title: {
+				text: '€'
+			}
+		},
+		series: [{
+			data: [sellStats, buyStats, profitStats]
+		}]
+	});
+	
+	$('#total-stats').highcharts({
+		chart: {
+			type: 'column'
+		},
+		title: {
+			text: 'Gesamtübersicht'
+		},
+		xAxis: {
+			categories: ['Einnahmen', 'Ausgaben', 'Profit']
+		},
+		yAxis: {
+			title: {
+				text: '€'
+			}
+		},
+		series: [{
+			data: [totalSellStats, totalBuyStats, totalProfitStats]
+		}]
+	});
+	
+	$('#complete-stats').highcharts({
+		chart: {
+			type: 'column'
+		},
+		title: {
+			text: 'Übersicht'
+		},
+		xAxis: {
+			categories: ['Einnahmen', 'Ausgaben', 'Profit']
+		},
+		yAxis: {
+			title: {
+				text: '€'
+			}
+		},
+		series: [{
+			name: 'Woche',
+			data: [sellStats, buyStats, profitStats]
+		},
+		{
+			name: 'Gesamt',
+			data: [totalSellStats, totalBuyStats, totalProfitStats]
+		}]
+	});
+	
+	$('#plain-statistics').hide();
+	
 	/**
 	 * Spring HTML escapes 
 	 */
