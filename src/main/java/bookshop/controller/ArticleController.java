@@ -145,8 +145,19 @@ public class ArticleController {
 	public String deleteCategory(ModelMap modelMap, @RequestParam("categorytodelete") String category){
 		
 		if(category=="1"){}
-		else
+		else{
+			
+			Iterable<Article> articles = articleCatalog.findByCategory(category);
+			
+			for(Article art : articles){
+				articleCatalog.findOne(art.getIdentifier()).get().removeCategory(category);
+			}
+				
+			
 			categories.delete(categories.findByCategoryName(category));
+							
+			
+		}
 		
 		return "redirect:/editcategories";
 	}
@@ -395,8 +406,17 @@ public class ArticleController {
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
 	@RequestMapping(value="/article/book/new", method=RequestMethod.POST)
 	public String addBook(@ModelAttribute("articleForm") @Valid ArticleForm articleForm, BindingResult result, @RequestParam("newcategory") String category){
+				
+		List<String> list = new LinkedList<String>();
+		Iterable<Article> articles = articleCatalog.findByType(ArticleId.BOOK);
 		
-
+		for(Article art : articles){
+			list.add(art.getName());
+		}
+		
+		if(list.contains(articleForm.getName())){
+			result.addError(new ObjectError("name", "Der Artikel existiert bereits"));
+		}
 		
 		if (articleForm.getPrice()<0) {
 			result.addError(new ObjectError("price", "Der Preis muss grosser als 0 sein"));
@@ -445,6 +465,17 @@ public class ArticleController {
 	@RequestMapping(value="/article/cd/new", method=RequestMethod.POST)
 	public String addCD(@ModelAttribute("articleForm") @Valid ArticleForm articleForm, BindingResult result, @RequestParam("newcategory") String category){
 		
+		List<String> list = new LinkedList<String>();
+		Iterable<Article> articles = articleCatalog.findByType(ArticleId.CD);
+		
+		for(Article art : articles){
+			list.add(art.getName());
+		}
+		
+		if(list.contains(articleForm.getName())){
+			result.addError(new ObjectError("name", "Der Artikel existiert bereits"));
+		}
+		
 		if (articleForm.getPrice()<0) {
 			result.addError(new ObjectError("price", "Der Preis muss grosser als 0 sein"));
 		}
@@ -491,6 +522,17 @@ public class ArticleController {
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_ARTICLEMANAGER')")
 	@RequestMapping(value="/article/dvd/new", method=RequestMethod.POST)
 	public String addDVD(@ModelAttribute("articleForm") @Valid ArticleForm articleForm, BindingResult result, @RequestParam("newcategory") String category){
+		
+		List<String> list = new LinkedList<String>();
+		Iterable<Article> articles = articleCatalog.findByType(ArticleId.DVD);
+		
+		for(Article art : articles){
+			list.add(art.getName());
+		}
+		
+		if(list.contains(articleForm.getName())){
+			result.addError(new ObjectError("name", "Der Artikel existiert bereits"));
+		}
 		
 		if (articleForm.getPrice()<0) {
 			result.addError(new ObjectError("price", "Der Preis muss grosser als 0 sein"));
