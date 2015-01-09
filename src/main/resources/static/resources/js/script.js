@@ -28,57 +28,15 @@ $(document).ready(function(){
 		format: 'dd.mm.yyyy',
 		language: 'de'
 	})
+		
+	var sellStats = parseFloat($('#sell-stats').text().substring(4));
+	var buyStats = parseFloat($('#buy-stats').text().substring(4));
+	var profitStats = parseFloat($('#profit-stats').text().substring(4));
 	
-	var test = 13.37;
-	
-	var sellStats = $('#sell-stats').text().substring(4);
-	var buyStats = $('#buy-stats').text().substring(4);
-	var profitStats = $('#profit-stats').text().substring(4);
-	
-	var totalSellStats = $('#total-sell-stats').text().substring(4);
-	var totalBuyStats = $('#total-buy-stats').text().substring(4);
-	var totalProfitStats = $('#total-profit-stats').text().substring(4);
-	
-	$('#weekly-stats').highcharts({
-		chart: {
-			type: 'column'
-		},
-		title: {
-			text: 'Wochenübersicht'
-		},
-		xAxis: {
-			categories: ['Einnahmen', 'Ausgaben', 'Profit']
-		},
-		yAxis: {
-			title: {
-				text: '€'
-			}
-		},
-		series: [{
-			data: [sellStats, buyStats, profitStats]
-		}]
-	});
-	
-	$('#total-stats').highcharts({
-		chart: {
-			type: 'column'
-		},
-		title: {
-			text: 'Gesamtübersicht'
-		},
-		xAxis: {
-			categories: ['Einnahmen', 'Ausgaben', 'Profit']
-		},
-		yAxis: {
-			title: {
-				text: '€'
-			}
-		},
-		series: [{
-			data: [totalSellStats, totalBuyStats, totalProfitStats]
-		}]
-	});
-	
+	var totalSellStats = parseFloat($('#total-sell-stats').text().substring(4));
+	var totalBuyStats = parseFloat($('#total-buy-stats').text().substring(4));
+	var totalProfitStats = parseFloat($('#total-profit-stats').text().substring(4));
+		
 	$('#complete-stats').highcharts({
 		chart: {
 			type: 'column'
@@ -96,11 +54,11 @@ $(document).ready(function(){
 		},
 		series: [{
 			name: 'Woche',
-			data: [sellStats, buyStats, profitStats]
+			data: [buyStats, sellStats, profitStats]
 		},
 		{
 			name: 'Gesamt',
-			data: [totalSellStats, totalBuyStats, totalProfitStats]
+			data: [totalBuyStats, totalSellStats, totalProfitStats]
 		}]
 	});
 	
