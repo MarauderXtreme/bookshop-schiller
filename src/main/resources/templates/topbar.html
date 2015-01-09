@@ -100,15 +100,15 @@
     		</li>
     		<li sec:authorize="hasAnyRole('ROLE_CUSTOMER')" class="divider"></li>
     		<li>
-    			<a sec:authorize="hasAnyRole('ROLE_CUSTOMER')" th:href="@{/user/order}" href="myorders.html"><i class="fi-shopping-bag"></i></a>
+    			<a class="topbar-fi" sec:authorize="hasAnyRole('ROLE_CUSTOMER')" th:href="@{/user/order}" href="myorders.html"><i class="fi-shopping-bag"></i></a>
     		</li>
     		<li sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE')" class="divider"></li>
     		<li sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE')">
-    			<a th:href="@{/cart}" href="cart.html"><i class="fi-shopping-cart"></i></a>
+    			<a class="topbar-fi" th:href="@{/cart}" href="cart.html"><i class="fi-shopping-cart"></i></a>
     		</li>
     		<li sec:authorize="hasAnyRole('ROLE_CUSTOMER','ROLE_EMPLOYEE')" class="divider"></li>
     		<li>
-    			<a sec:authorize="hasAnyRole('ROLE_CUSTOMER','ROLE_EMPLOYEE')" th:href="@{/user}" href="profile.html"><i class="fi-torso"></i></a>
+    			<a class="topbar-fi" sec:authorize="hasAnyRole('ROLE_CUSTOMER','ROLE_EMPLOYEE')" th:href="@{/user}" href="profile.html"><i class="fi-torso"></i></a>
     		</li>
     		<li sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')" class="divider"></li>
     		<li>

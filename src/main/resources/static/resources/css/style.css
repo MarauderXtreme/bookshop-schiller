@@ -73,3 +73,11 @@ table tbody tr:nth-child(even) {
 .slider-picture {
 	max-height: 200px;
 }
+
+.top-bar .top-bar-section ul li a.topbar-fi {
+	line-height: 41px;
+}
+
+.top-bar i {
+	font-size: 25px;
+}
