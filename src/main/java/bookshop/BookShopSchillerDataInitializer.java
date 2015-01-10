@@ -307,7 +307,7 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 										ArticleId.CD, 
 										categories.findById("CDRock").get().getCategoryName(), 
 										"The White Stripes",
-										"ickyThumb.jpg",
+										"ickyThumb.png",
 										"15.06.2007", 
 										Money.of(EUR, 0.99))
 		);
