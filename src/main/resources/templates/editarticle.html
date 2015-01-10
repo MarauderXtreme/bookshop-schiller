@@ -54,7 +54,7 @@
 								<div class="large-6 medium-6 small-12 columns">					
 									<label for="image">Bild:</label>
 									<input th:errorclass="fieldError" type="text" id="newimage" name="image" th:value="${article.image}" pattern="image" required="" />
-									<small class="alert-box alert error">Bitte validen Dateinamen eingeben, welcher der Form xx.jpg, xx.png, xx.gif entspricht.</small>
+									<small class="alert-box alert error">Bitte validen Dateinamen eingeben, welcher der Form xx.jpg, xx.png, xx.gif, xx.jpeg entspricht.</small>
 									<small class="alert-box alert" th:if="${#fields.hasErrors('image')}" th:errors="*{image}">Bitte Dateinamen eingeben.</small>
 								</div>
 								<div class="large-6 medium-6 small-12 columns">
