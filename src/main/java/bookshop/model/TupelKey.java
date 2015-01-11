@@ -1,4 +1,12 @@
 package bookshop.model;
+
+/**
+ * 
+ * @author Maximilian
+ *
+ * @param <X> First key
+ * @param <Y> Second key
+ */
 public class TupelKey<X , Y>{
 	public  Room x ;
 	public  MyDate y;

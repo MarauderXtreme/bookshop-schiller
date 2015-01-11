@@ -16,9 +16,19 @@ import bookshop.model.Room;
 import bookshop.model.RoomManagement;
 import bookshop.model.TupelKey;
 
+/**
+ * 
+ * @author Maximilian
+ *
+ */
 @Controller
 public class CalendarController {
 	
+	/**
+	 * shows the add-event-interface
+	 * @param model
+	 * @return 
+	 */
 	@PreAuthorize("hasRole('ROLE_EVENTMANAGER') || hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/event/add")
 	public String addEvent(Model model) 
@@ -29,16 +39,33 @@ public class CalendarController {
 		return "addevent";
 	}
 	
+	/**
+	 * adds an event to the calendar
+	 * @param model
+	 * @param name
+	 * @param dated
+	 * @param datet
+	 * @param room
+	 * @return
+	 */
 	@PreAuthorize("hasRole('ROLE_EVENTMANAGER') || hasRole('ROLE_ADMIN')")
 	@RequestMapping(value="/admin/event/new", method = RequestMethod.POST)
 	public String add(Model model, @RequestParam("name") String name, @RequestParam("dated") String dated , @RequestParam("datet") String datet, @RequestParam("selectedRoom")String room)
 	{
-		CalendarManagement.getInstance().addEvent(name, new MyDate(dated,datet), new Room(RoomManagement.getInstance().getRoom(room).getName(),RoomManagement.getInstance().getRoom(room).getNumber(),Integer.parseInt(RoomManagement.getInstance().getRoom(room).getChairNum())));
+		String conDateD = CalendarManagement.getInstance().convertInputDate(dated);
+		String conDateT = CalendarManagement.getInstance().convertInputTime(datet);
+		CalendarManagement.getInstance().addEvent(name, new MyDate(conDateD,conDateT), new Room(RoomManagement.getInstance().getRoom(room).getName(),RoomManagement.getInstance().getRoom(room).getNumber(),Integer.parseInt(RoomManagement.getInstance().getRoom(room).getChairNum())), "20");
 		model.addAttribute("allEvents", CalendarManagement.getInstance().getCalendar().getEventList());
 		return "/addevent";
 	}
 	
-	
+	/**
+	 * shows the calendar
+	 * @param date
+	 * @param event
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/calendar")
 	public String calendar(MyDate date, Event event, Model model)
 	{
@@ -69,6 +96,13 @@ public class CalendarController {
 		return "redirect:/calendar";
 	}
 	*/
+	
+	/**
+	 * removes an event from the calendar
+	 * @param model
+	 * @param eventName
+	 * @return
+	 */
 	@PreAuthorize("hasRole('ROLE_EVENTMANAGER') || hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/event/remove", method = RequestMethod.POST)
 	public String deleteEvent(Model model, @RequestParam("name")String eventName)

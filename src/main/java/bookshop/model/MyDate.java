@@ -1,5 +1,10 @@
 package bookshop.model;
 
+/**
+ * 
+ * @author Maximilian
+ *
+ */
 public class MyDate extends Object{
 	private String date;
 	private String time;

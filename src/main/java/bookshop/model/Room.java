@@ -1,5 +1,10 @@
 package bookshop.model;
 
+/**
+ * 
+ * @author Maximilian
+ *
+ */
 public class Room {
 	private String name;
 	private String number;
@@ -64,7 +69,6 @@ public class Room {
 			return false;
 		}
 	}
-	
 	
 	public int hashCode()
 	{

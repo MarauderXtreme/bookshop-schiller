@@ -8,7 +8,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-
+/**
+ * 
+ * @author Maximilian
+ *
+ */
 
 public class MyCalendar {
 	
@@ -117,39 +121,44 @@ public class MyCalendar {
 	public List<Event> getSortedEvents()
 	{
 		//System.out.println(eventMap.size());
-		List<Event> eventList = getEventList();
-		List<Event> tempSortedEventList = new ArrayList<Event>();
-		Iterator<Event> itr = eventList.iterator();
-		tempSortedEventList.add(itr.next());
-		while(itr.hasNext())
+		if(eventMap.size()>0)
 		{
-			Event tempev = (Event) itr.next();
-			int year = Integer.parseInt(tempev.getDate().getYear());
-			int month = Integer.parseInt(tempev.getDate().getMonth());
-			int day = Integer.parseInt(tempev.getDate().getDay());
-			int hour = Integer.parseInt(tempev.getDate().getHours());
-			int minute = Integer.parseInt(tempev.getDate().getMinutes());
-			
-			for (int i=0; i<tempSortedEventList.size(); i++)
+			List<Event> eventList = getEventList();
+			List<Event> tempSortedEventList = new ArrayList<Event>();
+			Iterator<Event> itr = eventList.iterator();
+			tempSortedEventList.add(itr.next());
+			while(itr.hasNext())
 			{
-				int compYear = Integer.parseInt(tempSortedEventList.get(i).getDate().getYear());
-				int compMonth = Integer.parseInt(tempSortedEventList.get(i).getDate().getMonth());
-				int compDay = Integer.parseInt(tempSortedEventList.get(i).getDate().getDay());
-				int compHour = Integer.parseInt(tempSortedEventList.get(i).getDate().getHours());
-				int compMinute = Integer.parseInt(tempSortedEventList.get(i).getDate().getMinutes());
-			
-				if((year < compYear) || (year == compYear && month < compMonth) || ((year == compYear && month == compMonth && day < compDay )) || (year == compYear && month == compMonth && day == compDay && hour < compHour) || (year == compYear && month == compMonth && day == compDay && hour == compHour && minute < compMinute))
+				Event tempev = (Event) itr.next();
+				int year = Integer.parseInt(tempev.getDate().getYear());
+				int month = Integer.parseInt(tempev.getDate().getMonth());
+				int day = Integer.parseInt(tempev.getDate().getDay());
+				int hour = Integer.parseInt(tempev.getDate().getHours());
+				int minute = Integer.parseInt(tempev.getDate().getMinutes());
+				
+				for (int i=0; i<tempSortedEventList.size(); i++)
 				{
-					tempSortedEventList.add(i, tempev);
-					break;
-				} else if(i == tempSortedEventList.size()-1)
-				{
-					tempSortedEventList.add(tempev);
-					break;
-				} 
+					int compYear = Integer.parseInt(tempSortedEventList.get(i).getDate().getYear());
+					int compMonth = Integer.parseInt(tempSortedEventList.get(i).getDate().getMonth());
+					int compDay = Integer.parseInt(tempSortedEventList.get(i).getDate().getDay());
+					int compHour = Integer.parseInt(tempSortedEventList.get(i).getDate().getHours());
+					int compMinute = Integer.parseInt(tempSortedEventList.get(i).getDate().getMinutes());
+				
+					if((year < compYear) || (year == compYear && month < compMonth) || ((year == compYear && month == compMonth && day < compDay )) || (year == compYear && month == compMonth && day == compDay && hour < compHour) || (year == compYear && month == compMonth && day == compDay && hour == compHour && minute < compMinute))
+					{
+						tempSortedEventList.add(i, tempev);
+						break;
+					} else if(i == tempSortedEventList.size()-1)
+					{
+						tempSortedEventList.add(tempev);
+						break;
+					} 
+				}
 			}
+			return tempSortedEventList;
+		} else {
+			return new ArrayList<Event>();
 		}
-		return tempSortedEventList;
 	}
 	
 	/**
@@ -161,7 +170,7 @@ public class MyCalendar {
 	{
 		List<Event> eventList = getEventList();
 		Iterator<Event> ite = eventList.iterator();
-		Event event = new Event("Hallo",new MyDate("11111111","1111"),new Room("Hey","123123",12));
+		Event event = new Event("Hallo",new MyDate("11111111","1111"),new Room("Hey","123123",12),"125");
 		while(ite.hasNext())
 		{
 			event= ite.next();

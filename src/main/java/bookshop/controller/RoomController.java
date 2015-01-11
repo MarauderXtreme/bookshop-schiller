@@ -10,10 +10,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import bookshop.model.RoomManagement;
-
+/**
+ * 
+ * @author Maximilian
+ *
+ */
 @Controller
 public class RoomController {
 
+	/**
+	 * adds a room to the roomlist
+	 * @param rName
+	 * @param rNum
+	 * @param chairs
+	 * @return
+	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value="/admin/room/new", method = RequestMethod.POST)
 	public String add(@RequestParam("rName") String rName, @RequestParam("rNum") String rNum, @RequestParam("rChairs") String chairs)
@@ -22,6 +33,11 @@ public class RoomController {
 		return "redirect:/admin/room/add";
 	}
 	
+	/**
+	 * interface for adding rooms
+	 * @param model
+	 * @return
+	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/room/add")
 	public String rooms(Model model) {
@@ -31,6 +47,12 @@ public class RoomController {
 		return "addroom";
 	}
 	
+	/**
+	 * removes a room from the roomlist
+	 * @param model
+	 * @param rName
+	 * @return
+	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value= "/admin/room/remove", method=RequestMethod.POST)
 	public String removeRoom(Model model, @RequestParam("deleteRoom")String rName)

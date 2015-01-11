@@ -6,15 +6,28 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * 
+ * @author Maximilian
+ *
+ */
 public class RoomManagement {
+	
 	private static RoomManagement instance;
 	private Map<String, Room> rooms = new HashMap<String , Room>();
 	
+	/**
+	 * creates the RoomManagement-instance
+	 */
 	private RoomManagement()
 	{
 		
 	}
 	
+	/**
+	 * 
+	 * @return the instance of RoomManagement or creates a new one if there is none
+	 */
 	public static synchronized RoomManagement getInstance()
 	{
 		if(instance == null)
@@ -25,6 +38,13 @@ public class RoomManagement {
 	}
 
 	
+	/**
+	 * adds a Room-object to the room-map
+	 * @param name Name of the room that is to be added. It has to be unique
+	 * @param number Number of the room that is to be added. It has to be unique
+	 * @param chairNum Number of chairs in the room
+	 * @return
+	 */
 	public boolean addRoom(String name , String number, String chairNum)
 	{
 		if(!rooms.containsKey(name))
@@ -90,18 +110,24 @@ public class RoomManagement {
 		return null;
 	}
 	
+	/**
+	 * 
+	 * @return A list of all rooms
+	 */
 	public List<Room> getAllRooms()
 	{
 		List<Room> allRooms = new ArrayList<Room>(rooms.values());
 		return allRooms;
 	}
 	
+	/**
+	 * 
+	 * @return A list of all room names
+	 */
 	public List<String> getAllRoomNames()
 	{
 		List<String> allNames = new ArrayList<String>();
 		allNames.addAll(rooms.keySet());
 		return allNames;
 	}
-	
-
 }

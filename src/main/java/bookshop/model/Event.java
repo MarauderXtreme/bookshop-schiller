@@ -1,11 +1,17 @@
 package bookshop.model;
 
+/**
+ * 
+ * @author Maximilian
+ *
+ */
 public class Event extends Object {
 	private String name;
 	private MyDate date;
 	private Room room;
 	private int takenSeats;
 	private String eventID;
+	private String duration;
 	
 	@Deprecated
 	protected Event() {}
@@ -16,11 +22,12 @@ public class Event extends Object {
 	 * @param date date of the event
 	 * @param room room where the event takes place
 	 */
-	public Event(String name, MyDate date, Room room)
+	public Event(String name, MyDate date, Room room, String duration)
 	{
 		this.name = name;
 		this.date = date;
 		this.room = room;
+		this.duration=duration;
 		this.takenSeats = 0;
 		this.eventID = (name+"("+date.getWholeDate()+","+room.getName()+room.getNumber()+")");
 	}
@@ -41,6 +48,11 @@ public class Event extends Object {
 	public String getDateD()
 	{
 		return date.getDate();
+	}
+	
+	public String getDuration()
+	{
+		return duration;
 	}
 	
 	/**
