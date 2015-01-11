@@ -75,6 +75,11 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		initializeCatalog(articleCatalog, inventory);
 	}
 	
+	/**
+	 * Create some articles and events.
+	 * @param articleCatalog
+	 * @param inventory
+	 */
 	private void initializeCatalog(ArticleManagement articleCatalog, Inventory<InventoryItem> inventory) {
 		
 		
