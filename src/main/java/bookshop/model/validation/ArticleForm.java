@@ -14,8 +14,6 @@ public class ArticleForm {
 	@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
 	private String name;
 	
-	//@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
-	//@Pattern(regexp="([0-9]+\\.{0,1}[0-9]*)", message = "{ArticleForm.Price.Format}")
 	private double price;
 	
 	@Column(length=1000)
@@ -27,25 +25,17 @@ public class ArticleForm {
 	
 	//EAN-Code oder ISBN-Nr.
 	@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
-	//@Pattern(regexp="([0-9]{3}\\-[0-9]{1}\\-[0-9]{3}\\-[0-9]{5}\\-[0-9]{1})|([0-9]{1}\\-[0-9]{6}\\-[0-9]{6})", message = "{ArticleForm.Id.Format}")
+	@Pattern(regexp="([0-9]{13})", message = "{ArticleForm.Id.Format}")
 	private String id;
 	
 	@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
 	@Pattern(regexp="([A-Za-z0-9]+\\.(jpg|png|gif))", message = "{ArticleForm.Image.Format}")
 	private String image;
 	
-	/*@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
-	@Pattern(regexp="([0-9]+)", message = "{ArticleForm.Amount.Format}")
-	private int amount;
-	*/
 	
 	//spezifische Variablen
 	@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
 	private String artist;
-	
-	//@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
-	//@Pattern(regexp="([a-zA-Z]+)", message = "{ArticleForm.name.NotEmpty}")
-	//private String category;
 	
 	private double stockPrice;
 	
