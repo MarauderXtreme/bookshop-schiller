@@ -60,7 +60,7 @@ public class OrderController {
 	 */
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN') || hasRole('ROLE_EMPLOYEE')")
 	@RequestMapping("/admin/orders")
-	public String getOrders(HttpSession session, ModelMap modelMap){
+	public String getOrders(ModelMap modelMap){
 		
 		modelMap.addAttribute("ordersOpen", orderManager.find(OrderStatus.OPEN));
 		modelMap.addAttribute("ordersCompleted", orderManager.find(OrderStatus.COMPLETED));
@@ -156,7 +156,7 @@ public class OrderController {
 	 */
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN') || hasRole('ROLE_SALESMANAGER')")
 	@RequestMapping("/admin/stock")
-	public String stock(HttpSession session, ModelMap modelMap){
+	public String stock(ModelMap modelMap){
 
 		modelMap.addAttribute("stock", inventory.findAll());
 		return "stock";
@@ -204,7 +204,7 @@ public class OrderController {
 		
 		
 		OrderManagement management = new OrderManagement(orderManager);
-		modelMap.addAttribute("reservation", management.orders(event));
+		modelMap.addAttribute("reservation", management.collectReservations(event));
 		return "reservations";
 	}
 	
