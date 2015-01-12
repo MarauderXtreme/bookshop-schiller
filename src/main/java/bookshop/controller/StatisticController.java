@@ -6,16 +6,12 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 
 import org.joda.money.Money;
-import org.salespointframework.catalog.ProductIdentifier;
 import org.salespointframework.inventory.Inventory;
 import org.salespointframework.inventory.InventoryItem;
-import org.salespointframework.order.Cart;
 import org.salespointframework.order.Order;
 import org.salespointframework.order.OrderLine;
 import org.salespointframework.order.OrderManager;
-import org.salespointframework.order.OrderStatus;
 import org.salespointframework.payment.Cash;
-import org.salespointframework.quantity.Quantity;
 import org.salespointframework.time.BusinessTime;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
@@ -26,7 +22,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import bookshop.model.CalendarManagement;
-import bookshop.model.OrderManagement;
 import bookshop.model.StatisticsManagement;
 
 @Controller
