@@ -93,7 +93,7 @@ public class StatisticController {
 		for(String event : CalendarManagement.getInstance().getCalendar().getAllEventIDs()){
 			
 			OrderLine orderLine = sm.statisticOfReservation(event);
-			OrderLine orderLine1 = sm.gesStatisticsOfReservations(event);
+			OrderLine orderLine1 = sm.getGesStatisticsOfReservation(event);
 	
 			reservations.add(orderLine);
 			gesReservations.add(orderLine1);
@@ -103,7 +103,7 @@ public class StatisticController {
 		sellWeek = sellOrder.getTotalPrice().plus(reservations.getTotalPrice());
 		sellAll = gesOrderSell.getTotalPrice();
 		buyWeek = statisticOrder.getTotalPrice();
-		buyAll = sm.getPrice(gesOrderBuy);
+		buyAll = sm.getProfit(gesOrderBuy);
 		
 		profit = sellOrder.getTotalPrice().minus(buyWeek).plus(reservations.getTotalPrice());
 		profittotal = gesOrderSell.getTotalPrice().minus(buyAll);

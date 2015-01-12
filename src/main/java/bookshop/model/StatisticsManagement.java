@@ -188,7 +188,7 @@ public class StatisticsManagement {
 	 * @param event
 	 * @return OrderLine
 	 */
-	public OrderLine gesStatisticsOfReservations(String event){
+	public OrderLine getGesStatisticsOfReservation(String event){
 		LocalDateTime time = date.getTime();
 		time = time.minusDays(7);
 		Quantity quantity = Units.of(0);
@@ -221,7 +221,7 @@ public class StatisticsManagement {
 	 * @param order
 	 * @return Money
 	 */
-	public Money getPrice(Order order){
+	public Money getProfit(Order order){
 		Money result = Money.of(EUR, 0.00);
 		Optional<InventoryItem> item;
 		Article article;
