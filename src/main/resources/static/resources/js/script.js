@@ -10,7 +10,7 @@ $(document).ready(function(){
 				custom_date: /^(0[1-9]|[12]\d|3[0-1])\.(0[1-9]|1[0-2])\.\d{4}$/,
 				custom_eventdate: /^(0[1-9]|[12]\d|3[0-1])\.(0[1-9]|1[0-2])\.\d{4}$/,
 				custom_time: /^(0[1-9]|1\d|2[0-3]):([0-5]\d)$/,
-				image: /^([0-9a-zA-Z]*\.(jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF))$/
+				image: /^([0-9a-zA-Z\-\_]*\.(jpg|jpeg|png|gif|JPG|JPEG|PNG|GIF))$/
 			}
 		}
 	});

@@ -28,7 +28,7 @@ public class EditArticleForm {
 		
 		
 		@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
-		@Pattern(regexp="([A-Za-z0-9]+\\.(jpg|png|gif))", message = "{ArticleForm.Image.Format}")
+		@Pattern(regexp="([A-Za-z0-9\\-\\_]+\\.(jpg|png|gif|jpeg|JPG|PNG|GIF|JPEG))", message = "{ArticleForm.Image.Format}")
 		private String image;
 				
 		

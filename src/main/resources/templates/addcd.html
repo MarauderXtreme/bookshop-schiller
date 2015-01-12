@@ -84,7 +84,7 @@
 								<div class="row">
 									<div class="large-6 medium-6 small-12 columns">								
 										<label for="image">Bild:</label>
-										<input th:field="*{image}" th:errorclass="fieldError" type="text" id="newimage" name="newimage" value="notAvaliableCd.jpg" placeholder="Image" pattern="image" required="" />
+										<input th:errorclass="fieldError" type="text" id="newimage" name="image" value="notAvaliableCd.jpg" placeholder="Image" pattern="image" required="" />
 										<small class="alert-box alert error">Bitte validen Dateinamen eingeben, welcher der Form xx.jpg, xx.png, xx.gif, xx.jpeg entspricht.</small>
 										<small class="alert-box alert" th:if="${#fields.hasErrors('image')}" th:errors="*{image}">Das Bild darf nicht leer sein.</small>
 									</div>
