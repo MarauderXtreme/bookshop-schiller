@@ -50,11 +50,12 @@ public class CalendarController {
 	 */
 	@PreAuthorize("hasRole('ROLE_EVENTMANAGER') || hasRole('ROLE_ADMIN')")
 	@RequestMapping(value="/admin/event/new", method = RequestMethod.POST)
-	public String add(Model model, @RequestParam("name") String name, @RequestParam("dated") String dated , @RequestParam("datet") String datet, @RequestParam("selectedRoom")String room)
+	public String add(Model model, @RequestParam("name") String name, @RequestParam("dated") String dated , @RequestParam("datet") String datet,@RequestParam("datetend")String endTime, @RequestParam("selectedRoom")String room)
 	{
 		String conDateD = CalendarManagement.getInstance().convertInputDate(dated);
 		String conDateT = CalendarManagement.getInstance().convertInputTime(datet);
-		CalendarManagement.getInstance().addEvent(name, new MyDate(conDateD,conDateT), new Room(RoomManagement.getInstance().getRoom(room).getName(),RoomManagement.getInstance().getRoom(room).getNumber(),Integer.parseInt(RoomManagement.getInstance().getRoom(room).getChairNum())), "20");
+		MyDate end = new MyDate(conDateD,CalendarManagement.getInstance().convertInputTime(endTime));
+		CalendarManagement.getInstance().addEvent(name, new MyDate(conDateD,conDateT), new Room(RoomManagement.getInstance().getRoom(room).getName(),RoomManagement.getInstance().getRoom(room).getNumber(),Integer.parseInt(RoomManagement.getInstance().getRoom(room).getChairNum())), end);
 		model.addAttribute("allEvents", CalendarManagement.getInstance().getCalendar().getEventList());
 		return "/addevent";
 	}
@@ -109,7 +110,7 @@ public class CalendarController {
 	{		
 		Event temp = CalendarManagement.getInstance().getCalendar().getEventByName(eventName);
 		System.out.println("test");
-		CalendarManagement.getInstance().removeEvent(new TupelKey<Room,MyDate>(temp.getRoom(),temp.getDate()));
+		CalendarManagement.getInstance().removeEvent(new TupelKey<Room,MyDate>(temp.getRoom(),temp.getStartDate()));
 		return"redirect:/admin/event/add";
 	}
 }

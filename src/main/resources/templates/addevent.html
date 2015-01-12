@@ -30,6 +30,11 @@
 								<small class="alert-box alert error">Zeit muss Form hh:mm entsprechen.</small>
 		          </div>
 		          <div class="large-6 medium-6 small-12 columns">
+		          	<label>Endzeit:*</label>
+		            <input type="text" name="datetend" required="" pattern="custom_time"/>
+								<small class="alert-box alert error">Zeit muss Form hh:mm entsprechen.</small>
+		          </div>
+		          <div class="large-6 medium-6 small-12 columns">
 		          	<label>Veranstaltungsname:</label>
 		            <input type="text" name="name" required=""/>
 								<small class="alert-box alert error">Veranstaltungsname darf nicht leer sein.</small>
@@ -50,7 +55,8 @@
 			        	<thead class="panel">
 			          	<tr>
 			            	<th class="small-1">Datum</th>
-			              <th class="small-1">Zeit</th>
+			              <th class="small-1">Startzeit</th>
+			              <th class="small-2">Endzeit</th>
 			             	<th class="small-4">Event</th>
 			             	<th class="small-1">Raumnummer</th>
 			             	<th class="small-2">Raum</th>
@@ -59,8 +65,9 @@
 			          </thead>
 			          <tbody th:remove="all-but-first">
 			          	<tr th:each="event : ${allEvents}">
-			            	<td th:text="${event.getDate().getEventDate()}"></td>
-			            	<td th:text="${event.getDate().getEventTime()}">0000</td>
+			            	<td th:text="${event.getStartDate().getEventDate()}"></td>
+			            	<td th:text="${event.getStartDate().getEventTime()}" >0000</td>
+			            	<td th:text="${event.getEndDate().getEventTime()}">0000</td>
 			              	<td th:text="${event.getName()}">Testtext</td>
 			              	<td th:text="${event.getRoom().getNumber()}">Testtext</td>
 			              	<td th:text="${event.getRoom().getName()}">Testtext</td>

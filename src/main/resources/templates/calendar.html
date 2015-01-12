@@ -22,7 +22,8 @@
 			        	<thead class="panel">
 			          	<tr>
 			            	<th class="small-2">Datum</th>
-			                <th class="small-1">Zeit</th>
+			                <th class="small-1">Start</th>
+			                <th class="small-2">Ende</th>
 			             	<th class="small-3">Event</th>
 			             	<th class="small-1">Raumnummer</th>
 			             	<th class="small-2">Raum</th>
@@ -32,8 +33,9 @@
 			          </thead>
 			          <tbody th:remove="all-but-first">
 			          	<tr th:each="event : ${eventList}">
-			            	<td th:text="${event.getDate().getEventDate()}"></td>
-			              <td th:text="${event.getDate().getEventTime()}">0000</td>
+			            	<td th:text="${event.getStartDate().getEventDate()}"></td>
+			              <td th:text="${event.getStartDate().getEventTime()}">0000</td>
+			              <td th:text="${event.getEndDate().getEventTime()}">0000</td>
 			              <td th:text="${event.getName()}">Testtext</td>
 			              <td th:text="${event.getRoom().getNumber()}">Testtext</td>
 			              <td th:text="${event.getRoom().getName()}">Testtext</td>
@@ -66,8 +68,8 @@
 			          </thead>
 			          <tbody th:remove="all-but-first">
 			          	<tr th:each="event : ${allEvents}">
-			            	<td th:text="${event.getDate().getEventDate()}"></td>
-			              <td th:text="${event.getDate().getEventTime()}">0000</td>
+			            <td th:text="${event.getStartDate().getEventDate()}"></td>
+			              <td th:text="${event.getStartDate().getEventTime()}">0000</td>
 			              <td th:text="${event.getName()}">Testtext</td>
 			              <td th:text="${event.getRoom().getNumber()}">Testtext</td>
 			              <td th:text="${event.getRoom().getName()}">Testtext</td>

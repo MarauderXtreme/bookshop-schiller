@@ -7,7 +7,8 @@ package bookshop.model;
  */
 public class Event extends Object {
 	private String name;
-	private MyDate date;
+	private MyDate startDate;
+	private MyDate endDate;
 	private Room room;
 	private int takenSeats;
 	private String eventID;
@@ -22,14 +23,15 @@ public class Event extends Object {
 	 * @param date date of the event
 	 * @param room room where the event takes place
 	 */
-	public Event(String name, MyDate date, Room room, String duration)
+	public Event(String name, MyDate startDate, Room room, MyDate endDate)
 	{
 		this.name = name;
-		this.date = date;
+		this.startDate = startDate;
+		this.endDate = endDate;
 		this.room = room;
-		this.duration=duration;
 		this.takenSeats = 0;
-		this.eventID = (name+"("+date.getWholeDate()+","+room.getName()+room.getNumber()+")");
+		this.eventID = (name+"("+startDate.getWholeDate()+","+room.getName()+room.getNumber()+")");
+		this.duration=durationInMinutes(startDate, endDate);
 	}
 	
 	/**
@@ -45,9 +47,9 @@ public class Event extends Object {
 	 * 
 	 * @return returns the date of the Event-object
 	 */
-	public String getDateD()
+	public String getStartDateD()
 	{
-		return date.getDate();
+		return startDate.getDate();
 	}
 	
 	public String getDuration()
@@ -61,16 +63,21 @@ public class Event extends Object {
 	 */
 	public String getDateT()
 	{
-		return date.getTime();
+		return startDate.getTime();
 	}
 	
 	/**
 	 * 
 	 * @return the MyDate-object assigned to the Event-object
 	 */
-	public MyDate getDate()
+	public MyDate getStartDate()
 	{
-		return date;
+		return startDate;
+	}
+	
+	public MyDate getEndDate()
+	{
+		return endDate;
 	}
 	
 	/**
@@ -112,5 +119,30 @@ public class Event extends Object {
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * Converts the duration into Minutes
+	 * @param start MyDate-representation of the startdate
+	 * @param end MyDate-representation of the enddate
+	 * @return the duration in minutes
+	 */
+	private String durationInMinutes(MyDate start, MyDate end)
+	{
+		int startDay = Integer.parseInt(start.getDay());
+		int endDay = Integer.parseInt(end.getDay());
+		
+		int startHour = Integer.parseInt(start.getHours());
+		int endHour = Integer.parseInt(end.getHours());
+		
+		int startMinutes = Integer.parseInt(start.getMinutes());
+		int endMinutes = Integer.parseInt(end.getMinutes());
+		
+		int beginningInMinutes = (startDay*24*60)+(startHour*60)+startMinutes;
+		int endInMinutes = (endDay*24*60)+(endHour*60)+endMinutes;
+		
+		int duration = endInMinutes - beginningInMinutes;
+		
+		return Integer.toString(duration);
 	}
 }

@@ -85,13 +85,30 @@ public class MyCalendar {
 	 */
 	public boolean addEvent(Event event)
 	{
-		if (!eventMap.containsKey(new TupelKey<Room,MyDate>(event.getRoom(), event.getDate())))
-		{
-			eventMap.put(new TupelKey<Room,MyDate>(event.getRoom(), event.getDate()), event);
-			return true;
-		} else {
-			return false;
+		if(eventMap.size()>0){
+			Iterator<Event> ite = eventMap.values().iterator();
+			while(ite.hasNext())
+			{
+				Event next = ite.next();
+				if(event.getRoom().equals(next.getRoom()))
+				{
+					System.out.println(next.getName());
+					int iteStart = Integer.parseInt(next.getStartDate().getHours())+Integer.parseInt(next.getStartDate().getMinutes());
+					int iteEnd = Integer.parseInt(next.getEndDate().getHours())+Integer.parseInt(next.getEndDate().getMinutes());
+					int eventStart = Integer.parseInt(event.getStartDate().getHours())+Integer.parseInt(event.getStartDate().getMinutes());
+					int eventEnd = Integer.parseInt(event.getEndDate().getHours())+Integer.parseInt(event.getEndDate().getMinutes());
+					if(next.getStartDateD().equals(event.getStartDateD()))
+					{
+						if ( (eventStart>iteStart&&eventStart<iteEnd) || eventEnd>iteStart  )
+						{
+							return false;
+						}
+					}
+				}
+			}
 		}
+		eventMap.put(new TupelKey<Room,MyDate>(event.getRoom(), event.getStartDate()), event);
+		return true;		
 	}
 	
 	/**
@@ -130,19 +147,19 @@ public class MyCalendar {
 			while(itr.hasNext())
 			{
 				Event tempev = (Event) itr.next();
-				int year = Integer.parseInt(tempev.getDate().getYear());
-				int month = Integer.parseInt(tempev.getDate().getMonth());
-				int day = Integer.parseInt(tempev.getDate().getDay());
-				int hour = Integer.parseInt(tempev.getDate().getHours());
-				int minute = Integer.parseInt(tempev.getDate().getMinutes());
+				int year = Integer.parseInt(tempev.getStartDate().getYear());
+				int month = Integer.parseInt(tempev.getStartDate().getMonth());
+				int day = Integer.parseInt(tempev.getStartDate().getDay());
+				int hour = Integer.parseInt(tempev.getStartDate().getHours());
+				int minute = Integer.parseInt(tempev.getStartDate().getMinutes());
 				
 				for (int i=0; i<tempSortedEventList.size(); i++)
 				{
-					int compYear = Integer.parseInt(tempSortedEventList.get(i).getDate().getYear());
-					int compMonth = Integer.parseInt(tempSortedEventList.get(i).getDate().getMonth());
-					int compDay = Integer.parseInt(tempSortedEventList.get(i).getDate().getDay());
-					int compHour = Integer.parseInt(tempSortedEventList.get(i).getDate().getHours());
-					int compMinute = Integer.parseInt(tempSortedEventList.get(i).getDate().getMinutes());
+					int compYear = Integer.parseInt(tempSortedEventList.get(i).getStartDate().getYear());
+					int compMonth = Integer.parseInt(tempSortedEventList.get(i).getStartDate().getMonth());
+					int compDay = Integer.parseInt(tempSortedEventList.get(i).getStartDate().getDay());
+					int compHour = Integer.parseInt(tempSortedEventList.get(i).getStartDate().getHours());
+					int compMinute = Integer.parseInt(tempSortedEventList.get(i).getStartDate().getMinutes());
 				
 					if((year < compYear) || (year == compYear && month < compMonth) || ((year == compYear && month == compMonth && day < compDay )) || (year == compYear && month == compMonth && day == compDay && hour < compHour) || (year == compYear && month == compMonth && day == compDay && hour == compHour && minute < compMinute))
 					{
@@ -170,7 +187,7 @@ public class MyCalendar {
 	{
 		List<Event> eventList = getEventList();
 		Iterator<Event> ite = eventList.iterator();
-		Event event = new Event("Hallo",new MyDate("11111111","1111"),new Room("Hey","123123",12),"125");
+		Event event = new Event("Hallo",new MyDate("11111111","1111"),new Room("Hey","123123",12),new MyDate("11111111","1150"));
 		while(ite.hasNext())
 		{
 			event= ite.next();
@@ -211,7 +228,7 @@ public class MyCalendar {
 		List<Event> sorted = getSortedEvents();
 		for(int i=0; i<sorted.size(); i++)
 		{
-			if(Integer.parseInt(sorted.get(i).getDate().getYear())==year)
+			if(Integer.parseInt(sorted.get(i).getStartDate().getYear())==year)
 			{
 				byYear.add(sorted.get(i));
 			}
@@ -232,7 +249,7 @@ public class MyCalendar {
 		List<Event>byMonth = new ArrayList<Event>();
 		for(int i=0; i<byYear.size();i++)
 		{
-			if(Integer.parseInt(byYear.get(i).getDate().getMonth())==month);
+			if(Integer.parseInt(byYear.get(i).getStartDate().getMonth())==month);
 			{
 				byMonth.add(byYear.get(i));
 			}
@@ -280,11 +297,11 @@ public class MyCalendar {
 		List<Event> future = new ArrayList<Event>();
 		for(int i=0; i<all.size();i++)
 		{
-			if(!( Integer.parseInt(all.get(i).getDate().getYear()) < Integer.parseInt(getCurrentYear())) )
+			if(!( Integer.parseInt(all.get(i).getStartDate().getYear()) < Integer.parseInt(getCurrentYear())) )
 			{
-				if(Integer.parseInt(all.get(i).getDate().getYear()) == Integer.parseInt(getCurrentYear()))
+				if(Integer.parseInt(all.get(i).getStartDate().getYear()) == Integer.parseInt(getCurrentYear()))
 				{
-					if(!(Integer.parseInt(all.get(i).getDate().getMonth()) < Integer.parseInt(getCurrentMonth())) )
+					if(!(Integer.parseInt(all.get(i).getStartDate().getMonth()) < Integer.parseInt(getCurrentMonth())) )
 					{
 						future.add(all.get(i));
 					}

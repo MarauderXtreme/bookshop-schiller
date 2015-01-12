@@ -1,8 +1,5 @@
 package bookshop.model;
 
-import java.util.Arrays;
-
-import org.apache.activemq.filter.function.splitFunction;
 
 /**
  * 
@@ -71,14 +68,14 @@ public class CalendarManagement {
 	 * @param date
 	 * @param room
 	 */	
-	public boolean addEvent (String name, MyDate date, Room room,String duration)
+	public boolean addEvent (String name, MyDate startDate, Room room,MyDate endDate)
 	{
 		if(room != null)
 		{
-			if(calendar.getEvent(new TupelKey<Room,MyDate>(room, date)) == null)
+			if(calendar.getEvent(new TupelKey<Room,MyDate>(room, startDate)) == null)
 			{
 				//System.out.println("Event zum Kalender hinzugefuegt!");
-				return calendar.addEvent(new Event(name,date, room,duration));
+				return calendar.addEvent(new Event(name,startDate, room,endDate));
 			} else {
 				return false;
 			}
@@ -119,6 +116,21 @@ public class CalendarManagement {
 		split[1]=input.substring(3, 5);
 		output=(split[0]+split[1]);
 		return output;
+	}
+	
+	public String calculateDurationInMinutes(String start, String end)
+	{
+		String duration;
+		String startHours=start.substring(0, 2);
+		String startMinutes=start.substring(3, 5);
+		String endHours=end.substring(0, 2);
+		String endMinutes=end.substring(3, 5);
+		
+		int startInMinutes = Integer.parseInt(startHours)*60 + Integer.parseInt(startMinutes);
+		int endInMinutes = Integer.parseInt(endHours)*60 + Integer.parseInt(endMinutes);
+		int occupationTime=endInMinutes-startInMinutes;
+		duration=Integer.toString(occupationTime);
+		return duration;
 	}
 
 }
