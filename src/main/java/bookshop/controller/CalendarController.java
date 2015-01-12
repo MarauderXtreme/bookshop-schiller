@@ -57,7 +57,7 @@ public class CalendarController {
 		MyDate end = new MyDate(conDateD,CalendarManagement.getInstance().convertInputTime(endTime));
 		CalendarManagement.getInstance().addEvent(name, new MyDate(conDateD,conDateT), new Room(RoomManagement.getInstance().getRoom(room).getName(),RoomManagement.getInstance().getRoom(room).getNumber(),Integer.parseInt(RoomManagement.getInstance().getRoom(room).getChairNum())), end);
 		model.addAttribute("allEvents", CalendarManagement.getInstance().getCalendar().getEventList());
-		return "/addevent";
+		return "redirect:/admin/event/add";
 	}
 	
 	/**
