@@ -21,6 +21,10 @@ public class PDFCreator extends HttpServlet {
 	
 	private final Inventory<InventoryItem> inventory;
 	
+	/**
+	 * Constructor for PDFCreator
+	 * @param inventory
+	 */
 	public PDFCreator(Inventory<InventoryItem> inventory){
 		this.inventory = inventory;
 	}

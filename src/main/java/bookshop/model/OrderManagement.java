@@ -26,12 +26,18 @@ public class OrderManagement extends OrderLine{
 	 * Constructor for OrderManagement
 	 * @param oderManager
 	 * 	 */
-
+	
 	@Autowired
 	public OrderManagement(OrderManager<Order> orderManager) {
 		this.orderManager = orderManager;
 	}
 	
+	/**
+	 * Create a reservation for given user
+	 * @param title
+	 * @param userAccount
+	 * @param number
+	 */
 	public void reservation(String title, Optional<UserAccount> userAccount, int number){
 		System.out.println(number);
 		Quantity quantity = Units.of(number);
@@ -42,7 +48,14 @@ public class OrderManagement extends OrderLine{
 		orderManager.payOrder(order);
 		orderManager.add(order);
 
+	
 	}
+	
+	/**
+	 * Returns an arraylist of all reservations
+	 * @param event
+	 * @return ArrayList<Order>
+	 */
 	public ArrayList<Order> orders(String event){
 		ArrayList<Order> list = new ArrayList<Order>();
 		

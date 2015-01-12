@@ -36,6 +36,12 @@ public class StatisticController {
 	private final Inventory<InventoryItem> inventory;
 	private final BusinessTime date;
 	
+	/**
+	 * Constructor for StatisticController
+	 * @param orderManager
+	 * @param inventory
+	 * @param date
+	 */
 	@Autowired
 	public StatisticController(OrderManager<Order> orderManager, Inventory<InventoryItem> inventory, BusinessTime date){
 		this.inventory = inventory;

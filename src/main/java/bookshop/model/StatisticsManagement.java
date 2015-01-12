@@ -34,6 +34,12 @@ public class StatisticsManagement {
 	private final Inventory<InventoryItem> inventory;
 	private final BusinessTime date;
 	
+	/**
+	 * Constructor for StatisticsManagement
+	 * @param orderManager
+	 * @param inventory
+	 * @param date
+	 */
 	public StatisticsManagement(OrderManager<Order> orderManager, Inventory<InventoryItem> inventory, BusinessTime date){
 		this.orderManager = orderManager;
 		this.inventory = inventory;
@@ -41,7 +47,7 @@ public class StatisticsManagement {
 	}
 	
 	/**
-	 * Return an Order of all articles sold and reservations booked
+	 * Return an order of all articles sold and reservations booked
 	 * @param userAccount
 	 * @return Order
 	 */
@@ -65,7 +71,7 @@ public class StatisticsManagement {
 	}
 	
 	/**
-	 * Return an Order of all restock orders
+	 * Return an order of all restock orders
 	 * @param userAccount
 	 * @return Order
 	 */
@@ -85,9 +91,9 @@ public class StatisticsManagement {
 	}
 	
 	/**
-	 * Return an OrderLine, which collect all orders of a given item.
-	 * If type = true, you get all orders of restock an article 
-	 * If type = false, you get all orders of sell an article 
+	 * Return an orderLine, which collect all orders of a given item.
+	 * If type = true, you get all orders of restock an given item 
+	 * If type = false, you get all orders of sell an given item 
 	 * @param type
 	 * @param item
 	 * @return OrderLine
@@ -146,7 +152,7 @@ public class StatisticsManagement {
 	}
 	
 	/**
-	 * Return an OrderLine, which collect all reservations of a given event. (last Week)
+	 * Return an orderline, which collect all reservations of a given event. (last Week)
 	 * @param event
 	 * @return OrderLine
 	 */
@@ -178,7 +184,7 @@ public class StatisticsManagement {
 	}
 	
 	/**
-	 * Return an OrderLine, which collect all reservations of a given event. (All time)
+	 * Return an orderline, which collect all reservations of a given event. (all time)
 	 * @param event
 	 * @return OrderLine
 	 */
