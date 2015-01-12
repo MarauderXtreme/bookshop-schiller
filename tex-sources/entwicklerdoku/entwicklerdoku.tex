@@ -167,7 +167,7 @@ Als zusätzliches Feature wünscht der Buchhandel SCHILLER sich einen Kalender a
 
 \subsection{Verteilungskontext}
 
-\paragraph{I have no f-ing idea what I have to write here.}
+\paragraph{Es wird nicht auf andere Systeme zugegriffen.}
 
 \subsection{Externe Schnittstellen}
 
@@ -234,7 +234,13 @@ Als zusätzliches Feature wünscht der Buchhandel SCHILLER sich einen Kalender a
 
 \section{Bausteinsicht}
 
-\paragraph{Something. Something. Blumenkohl.}
+\subsubsection{Kontextdiagramm}
+
+\includegraphics[width=350px]{kontextmodell.jpg}
+
+\subsubsection{Top-Level-Architektur}
+
+\includegraphics[width=350px]{top-level-architektur.jpg}
 
 \section{Laufzeitsicht}
 
@@ -322,7 +328,11 @@ Als zusätzliches Feature wünscht der Buchhandel SCHILLER sich einen Kalender a
 
 \subsection{Persistenz}
 
-\paragraph{Resitance}
+\begin{itemize}
+	\item[Speicherung] Crud-Repositories für die jeweiligen Model
+	\item[Konsistenz] Formvalidation durch JavaScript und Java
+	\item[Initialisierung] Im DataInitializer werden enige Testdatensätze angelegt. Diese dienen sowohl der Veranschaulichung als auch der Befüllung.
+\end{itemize}
 
 \subsection{Benutzeroberfläche}
 
@@ -406,7 +416,9 @@ In diesem Beispiel handelt es sich um den Bildschirm eines Artikelverwalters, da
 \subsection{Transaktionsbehandlung}
 
 \begin{itemize}
-	\item 42
+	\item[Wann?] Beim Aufruf der jeweiligen Seite oder dem Absenden der Formulare
+	\item[Wo?] In den jeweiligen Controllern oder Models
+	\item[Wie?] 
 \end{itemize}
 
 \subsection{Sessionbehandlung}
@@ -425,13 +437,12 @@ In diesem Beispiel handelt es sich um den Bildschirm eines Artikelverwalters, da
 
 \begin{itemize}
 	\item Ein Apache lässt sich mit ProxyPassReverse als vorgeschaltete Instanz zum Web betreiben
+	\item Dadurch wird eine Portspezifizierung ":8080" überflüssig
 \end{itemize}
 
 \subsection{Verteilung}
 
-\begin{itemize}
-	\item hmm
-\end{itemize}
+\paragraph{Diese Anwedung läuft nur auf einem Server}
 
 \subsection{Plausibilisierung und Validierung}
 

@@ -23,23 +23,27 @@
 					<div class="large-12 medium-12 small-12 row">
 						<h3>Raum hinzufügen</h3>
 						<form class="row" method="post" action="/admin/room/new" data-abide="">
-							<div class="large-6 medium-6 small-12 columns">
-								<label>Name:*</label>
-								<input type="text" name="rName" required="" />
-								<small class="alert-box alert error">Name darf nicht leer sein.</small>
+							<div class="row">
+								<div class="large-6 medium-6 small-12 columns">
+									<label>Name:*</label>
+									<input type="text" name="rName" required="" />
+									<small class="alert-box alert error">Name darf nicht leer sein.</small>
+								</div>
+								<div class="large-6 medium-6 small-12 columns">			
+									<label>Nummer:*</label>				
+									<input type="text" name="rNum" required="" />
+									<small class="alert-box alert error">Nummer darf nicht leer sein.</small>
+								</div>
 							</div>
-							<div class="large-6 medium-6 small-12 columns">			
-								<label>Nummer:*</label>				
-								<input type="text" name="rNum" required="" />
-								<small class="alert-box alert error">Nummer darf nicht leer sein.</small>
-							</div>
-							<div class="large-6 medium-6 small-12 columns">
-								<label>Anzahl der Stühle:</label>
-								<input type="number" name="rChairs" min="1" required="" />
-								<small class="alert-box alert error">Anzahl der Stühle darf nicht leer sein.</small>
-							</div>
-							<div class="large-6 medium-6 small-12 columns">							
-								<input class="small round button" type="submit" value="Raum hinzufügen" />
+							<div class="row">
+								<div class="large-6 medium-6 small-12 columns">
+									<label>Anzahl der Stühle:</label>
+									<input type="number" name="rChairs" min="1" value="1" required="" />
+									<small class="alert-box alert error">Anzahl der Stühle darf nicht leer sein.</small>
+								</div>
+								<div class="large-6 medium-6 small-12 columns">							
+									<input class="small round button" type="submit" value="Raum hinzufügen" />
+								</div>
 							</div>
 						</form>
 						<small>*ACHTUNG: Raumname und Raumnummer dürfen nicht doppelt vergeben werden!</small>
