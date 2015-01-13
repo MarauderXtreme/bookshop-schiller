@@ -61,7 +61,7 @@ public class Event extends Object {
 	 * 
 	 * @return the time of the Event-object
 	 */
-	public String getDateT()
+	public String getStartDateT()
 	{
 		return startDate.getTime();
 	}

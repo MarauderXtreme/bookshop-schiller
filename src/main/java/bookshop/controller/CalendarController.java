@@ -1,20 +1,24 @@
 package bookshop.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import bookshop.model.CalendarManagement;
-import bookshop.model.MyDate;
 import bookshop.model.Event;
-import bookshop.model.OrderManagement;
+import bookshop.model.MyDate;
 import bookshop.model.Room;
 import bookshop.model.RoomManagement;
 import bookshop.model.TupelKey;
+import bookshop.model.validation.EventForm;
 
 /**
  * 
@@ -33,6 +37,7 @@ public class CalendarController {
 	@RequestMapping("/admin/event/add")
 	public String addEvent(Model model) 
 	{
+		model.addAttribute("eventForm", new EventForm());
 		model.addAttribute("roonNameList",RoomManagement.getInstance().getAllRoomNames());
 		model.addAttribute("roomList", RoomManagement.getInstance().getAllRooms());
 		model.addAttribute("allEvents", CalendarManagement.getInstance().getCalendar().getSortedEvents());
@@ -50,13 +55,27 @@ public class CalendarController {
 	 */
 	@PreAuthorize("hasRole('ROLE_EVENTMANAGER') || hasRole('ROLE_ADMIN')")
 	@RequestMapping(value="/admin/event/new", method = RequestMethod.POST)
-	public String add(Model model, @RequestParam("name") String name, @RequestParam("dated") String dated , @RequestParam("datet") String datet,@RequestParam("datetend")String endTime, @RequestParam("selectedRoom")String room)
+	public String add(Model model,@ModelAttribute("eventForm") @Valid EventForm eventForm,BindingResult result, @RequestParam("name") String name, @RequestParam("dateD") String dated , @RequestParam("dateT") String datet,@RequestParam("dateTEnd")String endTime, @RequestParam("selectedRoom")String room)
 	{
 		String conDateD = CalendarManagement.getInstance().convertInputDate(dated);
 		String conDateT = CalendarManagement.getInstance().convertInputTime(datet);
+		String conEndDateT = CalendarManagement.getInstance().convertInputTime(endTime);
 		MyDate end = new MyDate(conDateD,CalendarManagement.getInstance().convertInputTime(endTime));
-		CalendarManagement.getInstance().addEvent(name, new MyDate(conDateD,conDateT), new Room(RoomManagement.getInstance().getRoom(room).getName(),RoomManagement.getInstance().getRoom(room).getNumber(),Integer.parseInt(RoomManagement.getInstance().getRoom(room).getChairNum())), end);
-		model.addAttribute("allEvents", CalendarManagement.getInstance().getCalendar().getEventList());
+		if(Integer.parseInt(conDateT)>Integer.parseInt(conEndDateT))
+		{
+			result.addError(new ObjectError("event.negativeDuration","Das Ende des Events muss nach dem Anfang sein!"));
+		}
+		
+		if(result.hasErrors())
+		{
+			System.out.println(result.getAllErrors());
+			return "redirect:/admin/event/add";
+		}
+		
+		if(!CalendarManagement.getInstance().addEvent(name, new MyDate(conDateD,conDateT), new Room(RoomManagement.getInstance().getRoom(room).getName(),RoomManagement.getInstance().getRoom(room).getNumber(),Integer.parseInt(RoomManagement.getInstance().getRoom(room).getChairNum())), end))
+		{
+			result.addError(new ObjectError("event.roomtaken","Der Raum ist Belegt!"));
+		}
 		return "redirect:/admin/event/add";
 	}
 	
@@ -81,22 +100,6 @@ public class CalendarController {
 
 		return "/calendar";
 	}
-	/*
-	@RequestMapping(value="/calendar/bookSeat", method=RequestMethod.POST)
-	public String bookSeat(@RequestParam("eventRoomName")String roomName,@RequestParam("dateD")String date,@RequestParam("dateT")String time)
-	{
-		MyDate tempdate = new MyDate(date, time);
-		if(CalendarManagement.getInstance().getCalendar().getEvent(new TupelKey<Room, MyDate>(RoomManagement.getInstance().getRoom(roomName), tempdate)).increaseTakenSeats())
-			{
-			System.out.println("true");
-			}
-		System.out.println("false");
-		
-		//OrderManagement management = new OrderManagement(null, null);
-		
-		return "redirect:/calendar";
-	}
-	*/
 	
 	/**
 	 * removes an event from the calendar
@@ -106,11 +109,15 @@ public class CalendarController {
 	 */
 	@PreAuthorize("hasRole('ROLE_EVENTMANAGER') || hasRole('ROLE_ADMIN')")
 	@RequestMapping(value = "/admin/event/remove", method = RequestMethod.POST)
-	public String deleteEvent(Model model, @RequestParam("name")String eventName)
-	{		
-		Event temp = CalendarManagement.getInstance().getCalendar().getEventByName(eventName);
-		System.out.println("test");
-		CalendarManagement.getInstance().removeEvent(new TupelKey<Room,MyDate>(temp.getRoom(),temp.getStartDate()));
+	public String deleteEvent(Model model, @RequestParam("dated")String dated, @RequestParam("datet")String datet,@RequestParam("roomname")String roomname)
+	{
+		MyDate tempDate = new MyDate(dated,datet);
+		TupelKey<Room,MyDate>key = new TupelKey<Room,MyDate>(RoomManagement.getInstance().getRoom(roomname),tempDate);
+		Event temp = CalendarManagement.getInstance().getCalendar().getEvent(key);
+		if(temp!=null)
+		{
+			CalendarManagement.getInstance().removeEvent(key);
+		}
 		return"redirect:/admin/event/add";
 	}
 }
