@@ -16,16 +16,9 @@
 		          <div class="header-slider row" th:include="slider :: slider"></div>
 		        </div>
 		      </header> -->
-<<<<<<< HEAD
 				<div class="large-12">&nbsp;</div>
 				<div class="large-12 medium-12 small-12 row">
 					<h3>Event hinzufügen</h3>
-					<div th:if="${#fields.hasErrors('*')}">
-						<p class="alert-box warning">
-							<b>Einige Angaben sind nicht korrekt. Bitte versuchen Sie es
-								erneut!</b>
-						</p>
-					</div>
 					<fieldset>
 						<form method="post" action="/admin/event/new"
 							th:object="${eventForm}" data-abide="">
