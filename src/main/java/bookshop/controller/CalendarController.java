@@ -94,9 +94,6 @@ public class CalendarController {
 		model.addAttribute("date", date);
 		model.addAttribute("eventList", CalendarManagement.getInstance().getCalendar().getFutureEvents());
 		model.addAttribute("allEvents", CalendarManagement.getInstance().getCalendar().getSortedEvents());
-		model.addAttribute("years", CalendarManagement.getInstance().getCalendar().generateYears());
-		model.addAttribute("months", CalendarManagement.getInstance().getCalendar().generateMonths());
-		model.addAttribute("days", CalendarManagement.getInstance().getCalendar().generateDays());
 
 		return "/calendar";
 	}
