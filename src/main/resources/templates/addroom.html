@@ -24,7 +24,7 @@
 						<h3>Raum hinzufügen</h3>
 						<fieldset>
 							<form class="row" th:object="${roomForm}" method="post" action="/admin/room/new" data-abide="">
-							<div th:if="${#fields.hasErrors('*')}">
+							<div th:if="${#fields.hasErrors('global')}">
 							<p class="alert-box warning">
 								<b>Einige Angaben sind nicht korrekt. Bitte versuchen Sie es
 									erneut!</b>

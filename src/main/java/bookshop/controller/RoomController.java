@@ -36,6 +36,10 @@ public class RoomController {
 		if(Integer.parseInt(chairs)<1)
 		{
 			result.addError(new ObjectError("RoomForm.chairNum", "No negative chairnumbers allowed! Must be a Number!"));
+		}
+		if(result.hasErrors())
+		{
+			System.out.println(result.getAllErrors());
 			return "redirect:/admin/room/add";
 		}
 		RoomManagement.getInstance().addRoom(rName, rNum, chairs);
