@@ -39,6 +39,12 @@ public class OrderController {
 	private final Inventory<InventoryItem> inventory;
 	private final BusinessTime date;
 	
+	/**
+	 * Constructor for OrderController
+	 * @param orderManager
+	 * @param inventory
+	 * @param date
+	 */
 	@Autowired
 	public OrderController(OrderManager<Order> orderManager, Inventory<InventoryItem> inventory, BusinessTime date){
 		this.orderManager = orderManager;
@@ -54,7 +60,7 @@ public class OrderController {
 	 */
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN') || hasRole('ROLE_EMPLOYEE')")
 	@RequestMapping("/admin/orders")
-	public String getOrders(HttpSession session, ModelMap modelMap){
+	public String getOrders(ModelMap modelMap){
 		
 		modelMap.addAttribute("ordersOpen", orderManager.find(OrderStatus.OPEN));
 		modelMap.addAttribute("ordersCompleted", orderManager.find(OrderStatus.COMPLETED));
@@ -65,7 +71,7 @@ public class OrderController {
 
 
 	/**
-	 * Get Orders from logged in User
+	 * Get orders from logged in user
 	 * @param modelMap
 	 * @param userAccount
 	 * @throws IOException 
@@ -97,6 +103,12 @@ public class OrderController {
 		
 		return "/ordersdetail";
 	}
+	
+	/**
+	 * Shows a detailed list for given reservation
+	 * @param modelMap
+	 * @param order
+	 */
 	@PreAuthorize("hasRole('ROLE_CUSTOMER') || hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN') || hasRole('ROLE_SALESMANAGER')")
 	@RequestMapping(value="/order/detailreservation")
 	public String getReservationDetails(ModelMap modelMap, @RequestParam("orderdetail") Order order){
@@ -144,12 +156,18 @@ public class OrderController {
 	 */
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN') || hasRole('ROLE_SALESMANAGER')")
 	@RequestMapping("/admin/stock")
-	public String stock(HttpSession session, ModelMap modelMap){
+	public String stock(ModelMap modelMap){
 
 		modelMap.addAttribute("stock", inventory.findAll());
 		return "stock";
 	}
 	
+	/**
+	 * Reorder given article
+	 * @param number
+	 * @param article
+	 * @param userAccount
+	 */
 	@PreAuthorize("hasRole('ROLE_BOSS') || hasRole('ROLE_ADMIN') || hasRole('ROLE_SALESMANAGER')")
 	@RequestMapping("/article/reorder")
 	public String makeAnOrder(@RequestParam("number") int number, @RequestParam("article") Article article, @LoggedIn Optional<UserAccount> userAccount){
@@ -175,16 +193,30 @@ public class OrderController {
 		return"redirect:/admin/stock";
 	}
 	
+	/**
+	 * Show all reservations for given event 
+	 * @param modelMap
+	 * @param event
+	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_BOSS') || hasRole('ROLE_EVENTMANAGER')")
 	@RequestMapping("/calendar/reservations")
 	public String showReservations(ModelMap modelMap, @RequestParam("eventID") String event){
 		
 		
 		OrderManagement management = new OrderManagement(orderManager);
-		modelMap.addAttribute("reservation", management.orders(event));
+		modelMap.addAttribute("reservation", management.collectReservations(event));
 		return "reservations";
 	}
 	
+	/**
+	 * Create a reservation for given event
+	 * @param userAccount
+	 * @param roomName
+	 * @param date
+	 * @param time
+	 * @param event
+	 * @param number
+	 */
 	@PreAuthorize("hasRole('ROLE_CUSTOMER')")
 	@RequestMapping(value="/calendar/bookSeat", method=RequestMethod.POST)
 	public String bookSeat(@LoggedIn Optional<UserAccount> userAccount, @RequestParam("eventRoomName")String roomName,@RequestParam("dateD")String date,@RequestParam("dateT")String time, @RequestParam("eventID") String event, @RequestParam("number") int number)

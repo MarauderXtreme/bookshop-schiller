@@ -28,12 +28,13 @@
 							<tbody>
 								<tr th:each="orderline : ${detailorders}">
 									<td th:text="${orderline.productName}" ></td>
-									<td th:text="${orderline.quantity}"></td>
+									<td th:text="${orderline.quantity.amount}"></td>
 								</tr>
 							</tbody>
 						</table>
 					 	<a class="small-2 small button columns" target="_blank" href="/" th:href="@{'/resources/orders/' + ${detailordersID}}">Rechnung</a>
-					 	<a class="small-2 small button columns" target="_blank" href="/" th:href="@{'/resources/orders/' + ${detailordersID}}">Zurück zur Übersicht</a>
+					 	<a sec:authorize="!hasAnyRole('ROLE_EMPLOYEE')" class="small-2 small button columns" href="/user/order">Zurück zur Übersicht</a>
+					 	<a sec:authorize="hasAnyRole('ROLE_EMPLOYEE')" class="small-2 small button columns" href="/admin/orders">Zurück zur Übersicht</a>
 	        </div>
 	    	</div>
 	    </div>

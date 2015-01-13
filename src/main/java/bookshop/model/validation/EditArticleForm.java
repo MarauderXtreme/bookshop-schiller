@@ -12,8 +12,6 @@ public class EditArticleForm {
 		@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
 		private String name;
 		
-		//@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
-		//@Pattern(regexp="([0-9]+\\.{0,1}[0-9]*)", message = "{ArticleForm.Price.Format}")
 		private double price;
 		
 		@Column(length=1000)
@@ -25,12 +23,12 @@ public class EditArticleForm {
 		
 		//EAN-Code oder ISBN-Nr.
 		@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
-		//@Pattern(regexp="([0-9]{3}\\-[0-9]{1}\\-[0-9]{3}\\-[0-9]{5}\\-[0-9]{1})|([0-9]{1}\\-[0-9]{6}\\-[0-9]{6})", message = "{ArticleForm.Id.Format}")
+		@Pattern(regexp="([0-9]{13})", message = "{ArticleForm.Id.Format}")
 		private String id;
 		
 		
-		//@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
-		@Pattern(regexp="([A-Za-z0-9]+\\.(jpg|png|gif))", message = "{ArticleForm.Image.Format}")
+		@NotEmpty(message = "{ArticleForm.name.NotEmpty}")
+		@Pattern(regexp="([A-Za-z0-9\\-\\_]+\\.(jpg|png|gif|jpeg|JPG|PNG|GIF|JPEG))", message = "{ArticleForm.Image.Format}")
 		private String image;
 				
 		

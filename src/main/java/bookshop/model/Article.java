@@ -2,7 +2,6 @@ package bookshop.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.validation.constraints.Size;
 
 import org.joda.money.Money;
 import org.salespointframework.catalog.Product;

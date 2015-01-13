@@ -23,14 +23,14 @@
 								<tr>
 									<th class="small-3" th:text="#{shoppingBasket.articleTitle}">Titel</th>
 									<th class="small-3" th:text="#{shoppingBasket.count}">Anzahl</th>
-									<th class="small-3" th:text="#{cataloc.price}">Preis</th>
+									<th class="small-3" th:text="#{catalog.price}">Preis</th>
 									<th class="small-3">Nachbestellen</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr th:each=" item : ${stock}">
 									<td th:text="${item.product.name}">Last Action Hero</td>
-									<td th:text="${item.quantity}">9000</td>
+									<td th:text="${item.quantity.amount}">9000</td>
 									<td th:text="${item.product.stockPrice}">10</td>
 									<td>
 									  <div class="salespoint" sec:authorize="hasRole('ROLE_EMPLOYEE')">

@@ -36,6 +36,11 @@ public class CartController {
 	private final OrderManager<Order> orderManager;
 	private final Inventory<InventoryItem> inventory;
 	
+	/**
+	 * Constructor for CartController
+	 * @param orderManager
+	 * @param inventory
+	 */
 	@Autowired
 	public CartController(OrderManager<Order> orderManager, Inventory<InventoryItem> inventory) {
 		
@@ -49,7 +54,6 @@ public class CartController {
 	 * @param modelMap
 	 * @param name
 	 * @param session
-	 * @return
 	 */
 	//@PreAuthorize("!hasRole('ROLE_BOSS') || !hasRole('ROLE_ADMIN') || !hasRole('ROLE_EMPLOYEE') || !hasRole('ROLE_SALESMANAGER') || !hasRole('ROLE_ARTICLEMANAGER') || !hasRole('ROLE_USERMANAGER') || !hasRole('ROLE_EVENTMANAGER')")
 	@RequestMapping(value="/cart")
@@ -60,7 +64,7 @@ public class CartController {
 	}
 	
 	/**
-	 * Sets the current state of your cart to an order and create a pdf file
+	 * Sets the current state of your cart to an order and create a PDF file
 	 * @param session
 	 * @param userAccount
 	 */
@@ -80,30 +84,6 @@ public class CartController {
 		PDFCreator pdf = new PDFCreator(inventory);
 		pdf.pdfCreate(order, userAccount.get());
 		
-		/*
-		return userAccount.map(account -> {
-			
-				Order order = new Order(account, Cash.CASH);
-				Cart cart = getCart(session);
-				cart.addItemsTo(order);
-				
-				
-				orderManager.add(order);
-				cart.clear();
-				PDFCreator pdf = new PDFCreator();
-				pdf.pdfCreate(order, userAccount.get());
-				
-				for(OrderLine orderLine : order.getOrderLines()){
-					System.out.println(inventory.findByProductIdentifier(orderLine.getProductIdentifier()).get().getQuantity());
-					inventory.findByProductIdentifier(orderLine.getProductIdentifier()).get().decreaseQuantity(orderLine.getQuantity());
-					System.out.println(inventory.findByProductIdentifier(orderLine.getProductIdentifier()).get().getQuantity());
-				}
-				
-				
-				
-				return "redirect:/";
-			}).orElse("redirect:/cart");
-		*/
 		return "redirect:/";
 	}
 	
@@ -122,7 +102,6 @@ public class CartController {
 		HttpSession session){
 		Quantity quantity1 = Units.of(number);
 		if(number < 1  || quantity1.isGreaterThan(inventory.findByProductIdentifier(article.getIdentifier()).get().getQuantity())){
-			//number = 0;
 
 		}else{
 			Quantity quantity = Units.of(number);
@@ -168,7 +147,7 @@ public class CartController {
 	}
 	
 	/**
-	 * get the current state of your card
+	 * Get the current state of your card
 	 * @param session
 	 */
 	//@PreAuthorize("!hasRole('ROLE_BOSS') || !hasRole('ROLE_ADMIN') || !hasRole('ROLE_EMPLOYEE') || !hasRole('ROLE_SALESMANAGER') || !hasRole('ROLE_ARTICLEMANAGER') || !hasRole('ROLE_USERMANAGER') || !hasRole('ROLE_EVENTMANAGER')")

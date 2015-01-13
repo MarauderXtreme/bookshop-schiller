@@ -18,6 +18,11 @@ public class StaticController {
 	
 	ArticleManagement articleCatalog;
 	
+	
+	/**
+	 * Constructor for the StaticController.
+	 * @param articleCatalog
+	 */
 	@Autowired
 	public StaticController(ArticleManagement articleCatalog) {
 		this.articleCatalog = articleCatalog;
@@ -43,7 +48,9 @@ public class StaticController {
 	}
 	
 	/**
-	 * Maps the index page.
+	 * Maps the index page with a list of randomly selected articles to the Model Map.
+	 * @param modelMap
+	 * @return
 	 */
 	@RequestMapping({ "/", "/index" })
 	public String index(ModelMap modelMap) {
@@ -85,11 +92,21 @@ public class StaticController {
 		return "index";
 	}
 	
+	/**
+	 * Maps the contact page to the Model Map.
+	 * @param modelMap
+	 * @return
+	 */
 	@RequestMapping("contact")
 	public String contact(ModelMap modelMap) {
 		return "contact";
 	}
 	
+	/**
+	 * Maps the history page to the Model Map.
+	 * @param modelMap
+	 * @return
+	 */
 	@RequestMapping("history")
 	public String history(ModelMap modelMap) {
 		return "history";

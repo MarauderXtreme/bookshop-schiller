@@ -21,6 +21,10 @@ public class PDFCreator extends HttpServlet {
 	
 	private final Inventory<InventoryItem> inventory;
 	
+	/**
+	 * Constructor for PDFCreator
+	 * @param inventory
+	 */
 	public PDFCreator(Inventory<InventoryItem> inventory){
 		this.inventory = inventory;
 	}
@@ -46,6 +50,7 @@ public class PDFCreator extends HttpServlet {
 	        document.add(new Paragraph("Kunde:"));
 	        document.add(new Paragraph(userAccount.getFirstname()));
 	        document.add(new Paragraph(userAccount.getLastname()));
+	        document.add(Chunk.NEWLINE);
 	        
 	        PdfPTable table = new PdfPTable(4);
 	        PdfPCell cell1 = new PdfPCell(new Paragraph("Menge"));
@@ -60,7 +65,7 @@ public class PDFCreator extends HttpServlet {
 	        table.addCell(cell4);
 	        
 	        for(OrderLine orderLine : order.getOrderLines()){
-	        	table.addCell(orderLine.getQuantity().toString());
+	        	table.addCell(orderLine.getQuantity().getAmount().toString());
 	        	table.addCell(orderLine.getProductName());
 	        	table.addCell(inventory.findByProductIdentifier(orderLine.getProductIdentifier()).get().getProduct().getPrice().toString());
 	        	table.addCell(orderLine.getPrice().toString());
@@ -69,7 +74,18 @@ public class PDFCreator extends HttpServlet {
 	        document.add(table);
 	        document.add(new Paragraph("Gesamtbetrag:"));
 	        document.add(new Paragraph(order.getTotalPrice().toString()));
-
+	        
+	        document.add(Chunk.NEWLINE);
+	        document.add(Chunk.NEWLINE);
+	        
+	        document.add(new Paragraph("Bitte Überweisen sie den Betrag an folgendes Konto:"));
+	        document.add(new Paragraph("Konto Nr:"));
+	        document.add(new Paragraph("0000000000"));
+	        document.add(new Paragraph("BLZ:"));
+	        document.add(new Paragraph("00000000"));
+	        document.add(new Paragraph("Verwendungszweck:"));
+	        document.add(new Paragraph(order.getIdentifier().toString()));
+	        
 	        document.close();
 	        
 	    } catch (DocumentException e) {

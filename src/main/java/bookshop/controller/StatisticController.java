@@ -6,16 +6,12 @@ import java.util.Optional;
 import javax.servlet.http.HttpSession;
 
 import org.joda.money.Money;
-import org.salespointframework.catalog.ProductIdentifier;
 import org.salespointframework.inventory.Inventory;
 import org.salespointframework.inventory.InventoryItem;
-import org.salespointframework.order.Cart;
 import org.salespointframework.order.Order;
 import org.salespointframework.order.OrderLine;
 import org.salespointframework.order.OrderManager;
-import org.salespointframework.order.OrderStatus;
 import org.salespointframework.payment.Cash;
-import org.salespointframework.quantity.Quantity;
 import org.salespointframework.time.BusinessTime;
 import org.salespointframework.useraccount.UserAccount;
 import org.salespointframework.useraccount.web.LoggedIn;
@@ -26,7 +22,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import bookshop.model.CalendarManagement;
-import bookshop.model.OrderManagement;
 import bookshop.model.StatisticsManagement;
 
 @Controller
@@ -36,6 +31,12 @@ public class StatisticController {
 	private final Inventory<InventoryItem> inventory;
 	private final BusinessTime date;
 	
+	/**
+	 * Constructor for StatisticController
+	 * @param orderManager
+	 * @param inventory
+	 * @param date
+	 */
 	@Autowired
 	public StatisticController(OrderManager<Order> orderManager, Inventory<InventoryItem> inventory, BusinessTime date){
 		this.inventory = inventory;
@@ -87,7 +88,7 @@ public class StatisticController {
 		for(String event : CalendarManagement.getInstance().getCalendar().getAllEventIDs()){
 			
 			OrderLine orderLine = sm.statisticOfReservation(event);
-			OrderLine orderLine1 = sm.gesStatisticsOfReservations(event);
+			OrderLine orderLine1 = sm.getGesStatisticsOfReservation(event);
 	
 			reservations.add(orderLine);
 			gesReservations.add(orderLine1);
@@ -97,7 +98,7 @@ public class StatisticController {
 		sellWeek = sellOrder.getTotalPrice().plus(reservations.getTotalPrice());
 		sellAll = gesOrderSell.getTotalPrice();
 		buyWeek = statisticOrder.getTotalPrice();
-		buyAll = sm.getPrice(gesOrderBuy);
+		buyAll = sm.getProfit(gesOrderBuy);
 		
 		profit = sellOrder.getTotalPrice().minus(buyWeek).plus(reservations.getTotalPrice());
 		profittotal = gesOrderSell.getTotalPrice().minus(buyAll);
