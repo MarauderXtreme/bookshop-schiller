@@ -31,8 +31,9 @@ public class RoomController {
 	 */
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value="/admin/room/new", method = RequestMethod.POST)
-	public String add(@RequestParam("roomName") String rName, @RequestParam("roomNumber") String rNum, @RequestParam("chairNum") String chairs, @ModelAttribute("roomForm") @Valid RoomForm roomForm,BindingResult result)
+	public String add(Model model,@RequestParam("roomName") String rName, @RequestParam("roomNumber") String rNum, @RequestParam("chairNum") String chairs, @ModelAttribute("roomForm") @Valid RoomForm roomForm,BindingResult result)
 	{
+		model.addAttribute("roomList" , RoomManagement.getInstance().getAllRooms());
 		if(Integer.parseInt(chairs)<1)
 		{
 			result.addError(new ObjectError("RoomForm.chairNum", "No negative chairnumbers allowed! Must be a Number!"));
@@ -40,7 +41,7 @@ public class RoomController {
 		if(result.hasErrors())
 		{
 			System.out.println(result.getAllErrors());
-			return "redirect:/admin/room/add";
+			return "/addroom";
 		}
 		RoomManagement.getInstance().addRoom(rName, rNum, chairs);
 		return "redirect:/admin/room/add";

@@ -42,6 +42,7 @@
 									name="datetend" required="" pattern="custom_time" /> <small
 									class="alert-box alert error">Zeit muss Form hh:mm
 									entsprechen.</small>
+									<small class="alert-box alert" th:if="${#fields.hasErrors('dateTEnd')}" th:errors="*{dateTEnd}">Endzeit darf nicht vor Startzeit liegen</small>
 							</div>
 							<div class="large-6 medium-6 small-12 columns">
 								<label>Veranstaltungsname:</label> <input type="text"

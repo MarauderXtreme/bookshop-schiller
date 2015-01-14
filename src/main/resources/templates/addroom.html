@@ -44,6 +44,7 @@
 									<label>Anzahl der Stühle:</label>
 									<input type="number" name="chairNum" th:field="*{chairNum}" th:errorclass="fieldError" min="1" required="" />
 									<small class="alert-box alert error">Anzahl der Stühle darf nicht leer sein.</small>
+									<small class="alert-box alert" th:if="${#fields.hasErrors('chairNum')}" th:errors="*{chairNum}">Stuhlanzahl ung�ltig</small>
 								</div>
 								<div class="large-6 medium-6 small-12 columns">							
 									<input class="small round button" type="submit" value="Raum hinzufügen" />

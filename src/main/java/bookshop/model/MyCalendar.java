@@ -179,27 +179,6 @@ public class MyCalendar {
 	}
 	
 	/**
-	 * 
-	 * @param name name of the event(only works when there are no two events with the same name)
-	 * @return Event with the given name
-	 */
-	public Event getEventByName(String name)
-	{
-		List<Event> eventList = getEventList();
-		Iterator<Event> ite = eventList.iterator();
-		Event event = new Event("Hallo",new MyDate("11111111","1111"),new Room("Hey","123123",12),new MyDate("11111111","1150"));
-		while(ite.hasNext())
-		{
-			event= ite.next();
-			if(ite.next().getName().equals(name))
-			{
-				break;
-			}
-		}
-		return event;
-	}
-	
-	/**
 	 * sorts the eventList so that the oldest elements are on top
 	 */
 	public void sortEvents()

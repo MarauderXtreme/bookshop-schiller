@@ -41,6 +41,8 @@ public class CalendarController {
 		model.addAttribute("roonNameList",RoomManagement.getInstance().getAllRoomNames());
 		model.addAttribute("roomList", RoomManagement.getInstance().getAllRooms());
 		model.addAttribute("allEvents", CalendarManagement.getInstance().getCalendar().getSortedEvents());
+		model.addAttribute("eventList", CalendarManagement.getInstance().getCalendar().getFutureEvents());
+		model.addAttribute("allEvents", CalendarManagement.getInstance().getCalendar().getSortedEvents());
 		return "addevent";
 	}
 	
@@ -57,25 +59,33 @@ public class CalendarController {
 	@RequestMapping(value="/admin/event/new", method = RequestMethod.POST)
 	public String add(Model model,@ModelAttribute("eventForm") @Valid EventForm eventForm,BindingResult result, @RequestParam("name") String name, @RequestParam("dateD") String dated , @RequestParam("dateT") String datet,@RequestParam("dateTEnd")String endTime, @RequestParam("selectedRoom")String room)
 	{
+		model.addAttribute("eventList", CalendarManagement.getInstance().getCalendar().getFutureEvents());
+		model.addAttribute("allEvents", CalendarManagement.getInstance().getCalendar().getSortedEvents());
+		model.addAttribute("eventForm", new EventForm());
+		model.addAttribute("roonNameList",RoomManagement.getInstance().getAllRoomNames());
+		model.addAttribute("roomList", RoomManagement.getInstance().getAllRooms());
+		model.addAttribute("allEvents", CalendarManagement.getInstance().getCalendar().getSortedEvents());
 		String conDateD = CalendarManagement.getInstance().convertInputDate(dated);
 		String conDateT = CalendarManagement.getInstance().convertInputTime(datet);
-		String conEndDateT = CalendarManagement.getInstance().convertInputTime(endTime);
 		MyDate end = new MyDate(conDateD,CalendarManagement.getInstance().convertInputTime(endTime));
-		if(Integer.parseInt(conDateT)>Integer.parseInt(conEndDateT))
+		if(Integer.parseInt(CalendarManagement.getInstance().convertInputTime(eventForm.getDateT()))>Integer.parseInt(CalendarManagement.getInstance().convertInputTime(eventForm.getDateTEnd())))
 		{
-			result.addError(new ObjectError("event.negativeDuration","Das Ende des Events muss nach dem Anfang sein!"));
-		}
-		
-		if(result.hasErrors())
-		{
+			result.addError(new ObjectError("dateTEnd","Das Ende des Events muss nach dem Anfang sein!"));
 			System.out.println(result.getAllErrors());
-			return "redirect:/admin/event/add";
+			return "/addevent";
 		}
 		
 		if(!CalendarManagement.getInstance().addEvent(name, new MyDate(conDateD,conDateT), new Room(RoomManagement.getInstance().getRoom(room).getName(),RoomManagement.getInstance().getRoom(room).getNumber(),Integer.parseInt(RoomManagement.getInstance().getRoom(room).getChairNum())), end))
 		{
 			result.addError(new ObjectError("event.roomtaken","Der Raum ist Belegt!"));
 		}
+		
+		if(result.hasErrors())
+		{
+			System.out.println(result.getAllErrors());
+			return "/addevent";
+		}
+		
 		return "redirect:/admin/event/add";
 	}
 	

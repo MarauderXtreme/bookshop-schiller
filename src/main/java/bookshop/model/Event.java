@@ -9,7 +9,7 @@ public class Event extends Object {
 	private String name;
 	private MyDate startDate;
 	private MyDate endDate;
-	private Room room;
+	private Room reventRoom;
 	private int takenSeats;
 	private String eventID;
 	private String duration;
@@ -28,7 +28,7 @@ public class Event extends Object {
 		this.name = name;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.room = room;
+		this.reventRoom = room;
 		this.takenSeats = 0;
 		this.eventID = (name+"("+startDate.getWholeDate()+","+room.getName()+room.getNumber()+")");
 		this.duration=durationInMinutes(startDate, endDate);
@@ -86,7 +86,7 @@ public class Event extends Object {
 	 */
 	public Room getRoom()
 	{
-		return room;
+		return reventRoom;
 	}
 	
 	/**
