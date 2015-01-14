@@ -30,7 +30,7 @@ public class Event extends Object {
 		this.endDate = endDate;
 		this.reventRoom = room;
 		this.takenSeats = 0;
-		this.eventID = (name+"("+startDate.getWholeDate()+","+room.getName()+room.getNumber()+")");
+		this.eventID = (name+"("+startDate.getWholeDate()+" "+room.getName()+" "+room.getNumber()+")");
 		this.duration=durationInMinutes(startDate, endDate);
 	}
 	
