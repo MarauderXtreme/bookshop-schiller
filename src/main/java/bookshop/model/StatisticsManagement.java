@@ -5,9 +5,6 @@ import static org.joda.money.CurrencyUnit.EUR;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-import javax.persistence.Entity;
-import javax.servlet.http.HttpSession;
-
 import org.joda.money.Money;
 import org.salespointframework.catalog.Product;
 import org.salespointframework.catalog.ProductIdentifier;
@@ -22,10 +19,6 @@ import org.salespointframework.quantity.Units;
 import org.salespointframework.time.BusinessTime;
 import org.salespointframework.useraccount.Role;
 import org.salespointframework.useraccount.UserAccount;
-import org.salespointframework.useraccount.web.LoggedIn;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 
 
 public class StatisticsManagement {
