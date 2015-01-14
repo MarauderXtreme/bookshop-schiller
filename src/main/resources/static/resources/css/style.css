@@ -82,6 +82,10 @@ table tbody tr:nth-child(even) {
 	font-size: 25px;
 }
 
+.off-canvas-list i[class^="ep-"] {
+	font-size: 2rem;
+}
+
 .charts {
 	height: 300px;
 }
