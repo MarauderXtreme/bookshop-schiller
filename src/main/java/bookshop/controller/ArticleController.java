@@ -317,15 +317,15 @@ public class ArticleController {
 		
 		
 		Iterable<Article> articles = articleCatalog.findAll();
-		
+				
 		if(typeInput == 1){
 			for(Article a : articles){
 				if(input.length()<=3){
-					if(a.getName().startsWith(input))
+					if(a.getName().toLowerCase().startsWith(input.toLowerCase()))
 						li.add(a);
 				}
 				else{
-				if(a.getName().contains(input)){
+				if(a.getName().toLowerCase().contains(input.toLowerCase())){
 					li.add(a);
 				}
 				}
@@ -335,11 +335,11 @@ public class ArticleController {
 		if(typeInput == 2){
 			for(Article a : articles){
 				if(input.length()<=3){
-					if(a.getPublisher().startsWith(input))
+					if(a.getPublisher().toLowerCase().startsWith(input.toLowerCase()))
 						li.add(a);
 				}
 				else{
-				if(a.getPublisher().contains(input)){
+				if(a.getPublisher().toLowerCase().contains(input.toLowerCase())){
 					li.add(a);
 				}
 				}
@@ -349,11 +349,11 @@ public class ArticleController {
 		if(typeInput == 3){
 			for(Article a : articles){
 				if(input.length()<=8){
-					if(a.getId().startsWith(input))
+					if(a.getId().toLowerCase().startsWith(input.toLowerCase()))
 						li.add(a);
 				}
 				else{
-				if(a.getId().contains(input)){
+				if(a.getId().toLowerCase().contains(input.toLowerCase())){
 					li.add(a);
 					}
 				}
@@ -364,13 +364,13 @@ public class ArticleController {
 
 			for(Article a : articles){
 				if(input.length()<=3){
-					if(a.getArtist().startsWith(input))
+					if(a.getArtist().toLowerCase().startsWith(input.toLowerCase()))
 						li.add(a);
 				}
 				else{
-				if(a.getArtist().contains(input)){
+				if(a.getArtist().toLowerCase().contains(input.toLowerCase())){
 					li.add(a);
-				}
+					}
 				}
 			}
 			
@@ -379,10 +379,8 @@ public class ArticleController {
 		if(typeInput == 5){
 			
 			for(Article a : articles){
-				
-				if(a.getCategoryList().contains(input)){
+				if(a.getCategoryList().toLowerCase().contains(input.toLowerCase())){
 					li.add(a);
-			
 				}
 			}
 		}
