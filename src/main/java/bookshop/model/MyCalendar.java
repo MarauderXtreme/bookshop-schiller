@@ -179,41 +179,13 @@ public class MyCalendar {
 	}
 	
 	/**
-	 * 
-	 * @param name name of the event(only works when there are no two events with the same name)
-	 * @return Event with the given name
-	 */
-	public Event getEventByName(String name)
-	{
-		List<Event> eventList = getEventList();
-		Iterator<Event> ite = eventList.iterator();
-		Event event = new Event("Hallo",new MyDate("11111111","1111"),new Room("Hey","123123",12),new MyDate("11111111","1150"));
-		while(ite.hasNext())
-		{
-			event= ite.next();
-			if(ite.next().getName().equals(name))
-			{
-				break;
-			}
-		}
-		return event;
-	}
-	
-	/**
 	 * sorts the eventList so that the oldest elements are on top
 	 */
 	public void sortEvents()
 	{
 		this.sortedEventList = getSortedEvents();
 	}
-	
-	public void showList()
-	{
-		for(int i=0; i<sortedEventList.size(); i++)
-		{
-			//System.out.println(sortedEventList.get(i).getName()+" Datum:"+" "+sortedEventList.get(i).getDateD());
-		}
-	} 
+
 	
 	//Gibt alle Events eines gewählten Jahres zurück
 	/**
@@ -221,7 +193,6 @@ public class MyCalendar {
 	 * @param year Specifies the year from which all elements shall be retrieved
 	 * @return
 	 */
-	
 	public List<Event> getEventsByYear(int year)
 	{
 		List<Event>byYear = new ArrayList<Event>();
@@ -288,7 +259,7 @@ public class MyCalendar {
 	}
 	
 	/**
-	 * 
+	 * Gets a List of all Future Events
 	 * @return a List of Recent and Future events
 	 */
 	public List<Event> getFutureEvents()
@@ -311,36 +282,5 @@ public class MyCalendar {
 		}
 		
 		return future;
-	}
-	
-	public List<String>generateDays()
-	{
-		List<String> days = new ArrayList<String>();
-		for(int i=0; i<31; i++)
-		{
-			days.add(""+i);
-		}
-		return days;
-	}
-	
-	public List<String>generateMonths()
-	{
-		List<String> months = new ArrayList<String>();
-		for(int i=0; i<12; i++)
-		{
-			months.add(""+i);
-		}
-		return months;
-	}
-	
-	public List<String>generateYears()
-	{
-		List<String> years = new ArrayList<String>();
-		for(int i=2000; i<2099; i++)
-		{
-			years.add(""+i);
-			//System.out.println(""+i);
-		}
-		return years;
 	}
 }

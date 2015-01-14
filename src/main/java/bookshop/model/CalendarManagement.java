@@ -30,19 +30,7 @@ public class CalendarManagement {
 		return CalendarManagement.instance;
 	}
 	
-	/**
-	 * Returns the name of the given Event
-	 * @param event
-	 */
-	public String getEventName(Event event)
-	{
-		return event.getName();
-	}
-	
-	public boolean changeEvent(String name)
-	{
-		return false;
-	}
+
 	
 	/**
 	 *Removes an event event from the eventlist.

@@ -82,19 +82,7 @@ public class RoomManagement {
 		}
 		System.out.println("Raum nicht entfernt");
 		return false;
-	}
-	
-	
-	/**
-	 * Edits the Room with the given name
-	 * @param name
-	 * @return
-	 */
-	public boolean changeRoom(String name)
-	{
-		return false;
-	}
-	
+	}	
 	
 	/**
 	 * @param userAccountManager

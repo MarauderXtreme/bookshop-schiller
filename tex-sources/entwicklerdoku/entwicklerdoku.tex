@@ -12,6 +12,7 @@
 \usepackage[table,xcdraw]{xcolor}
 \usepackage{graphicx}
 \usepackage{longtable}
+\usepackage{hyperref}
 
 \DeclareGraphicsExtensions{.pdf,.png,.jpg,.jpeg,.gif}
 \newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
@@ -50,6 +51,7 @@
 	\rowcolor[HTML]{C0C0C0} 
 	Version & Status    & Datum      & Bearbeiter       & Erläuterung    	\\ \hline
 	0.1     & In Arbeit & 04.01.2015 & Christoph Kepler & Initial Commit 	\\ \hline
+	1.0     & Fertig 	& 14.01.2015 & Christoph Kepler & Fertigstellung 	\\ \hline
 \end{tabular}
 
 \newpage
@@ -74,18 +76,18 @@ Als zusätzliches Feature wünscht der Buchhandel SCHILLER sich einen Kalender a
 
 \subsection{Stakeholder}
 
-\begin{longtable}{|l|p{75px}|p{75px}|l|p{75px}|}
+\begin{longtable}{|l|p{125px}|p{125px}|}
 	\hline
 	\rowcolor[HTML]{C0C0C0}
-	Rolle	& Beschreibung	& Ziel/Intention		& Kontakt	& Bemerkung	\\ \hline
-	Admin	& Administrativer Benutzer der Anwendung	& Administrieren der Anwendung	& N.A.	&	Keine Kontaktdaten da paranoid und menschenscheu	\\ \hline
-	Boss	& Account des CEOs	& Einsehen von Statistiken	& N.A.	& Kontaktdaten auf der Website	\\ \hline
-	Article Manager	& Account des Article Mangers	& Verwaltung der Artikel	& N.A.	& Keine Kontaktdaten. Hat Angst vor der NSA	\\ \hline
-	Event Manager	& Account des Event Mangers	& Verwaltung der Events	& N.A.	& Keine Kontaktdaten. Hat Angst vorm Schwarzen Mann	\\ \hline
-	User Manager	& Account des User Mangers	& Verwaltung von Nutzern	& N.A.	& Keine Kontaktdaten. Hat Angst vor seiner Nutzerschaft	\\ \hline
-	Employee	& Accounts der Angestellten	& generelle Aufgaben	& N.A.	& Keine Kontaktdaten da zu viele	\\ \hline
-	Customer	& Accounts der Kunden	& Für bestellen	& N.A.	& Keine Kontaktdaten da zu viele	\\ \hline
-	Guest	& anonymer Websitebesucher	& surfen	& N.A.	& Keine Kontaktdaten da anonym	\\ \hline
+	Rolle	& Beschreibung	& Ziel/Intention	\\ \hline
+	Admin	& Administrativer Benutzer der Anwendung	& Administrieren der Anwendung	\\ \hline
+	Boss	& Account des CEOs	& Einsehen von Statistiken	\\ \hline
+	Article Manager	& Account des Article Mangers	& Verwaltung der Artikel	\\ \hline
+	Event Manager	& Account des Event Mangers	& Verwaltung der Events	\\ \hline
+	User Manager	& Account des User Mangers	& Verwaltung von Nutzern	\\ \hline
+	Employee	& Accounts der Angestellten	& generelle Aufgaben	\\ \hline
+	Customer	& Accounts der Kunden	& Für bestellen	\\ \hline
+	Guest	& anonymer Websitebesucher	& surfen	\\ \hline
 	
 \end{longtable}
 
@@ -111,11 +113,11 @@ Als zusätzliches Feature wünscht der Buchhandel SCHILLER sich einen Kalender a
 	& konfigurierte Domain	\\ \hline
 	\rowcolor[HTML]{C0C0C0}
 	\multicolumn{2}{|l|}{Vorgaben des Systembetriebs}	\\ \hline
-	& CSS und JS Framework ZURB Foundation	\\ \hline
+	& CSS und JS Framework ZURB Foundation 5	\\ \hline
 	& Foundation Date Picker	\\ \hline
 	& Slick Image Slider	\\ \hline
-	& Spring Framework	\\ \hline
-	& Salespoint Framework	\\ \hline
+	& Spring Framework 4	\\ \hline
+	& Salespoint Framework 6	\\ \hline
 	& itext PDF	\\ \hline
 	& CK Editor	\\ \hline
 	& Thymeleaf	\\ \hline
@@ -261,8 +263,6 @@ Als zusätzliches Feature wünscht der Buchhandel SCHILLER sich einen Kalender a
 \includegraphics[width=350px]{sd-registration.jpg}
 
 \section{Konzepte}
-
-\paragraph{I can Spring.}
 
 \subsection{Fachliche Strukturen und Modelle}
 
@@ -418,7 +418,7 @@ In diesem Beispiel handelt es sich um den Bildschirm eines Artikelverwalters, da
 \begin{itemize}
 	\item[Wann?] Beim Aufruf der jeweiligen Seite oder dem Absenden der Formulare
 	\item[Wo?] In den jeweiligen Controllern oder Models
-	\item[Wie?] 
+	\item[Wie?] Getter und Setter
 \end{itemize}
 
 \subsection{Sessionbehandlung}
@@ -431,6 +431,7 @@ In diesem Beispiel handelt es sich um den Bildschirm eines Artikelverwalters, da
 
 \begin{itemize}
 	\item Spring Security wurde umfassend und erschöpfend implemnetiert
+	\item \url{http://projects.spring.io/spring-security/}
 \end{itemize}
 
 \subsection{Kommunikation und Integration mit anderen IT-Systemen}
@@ -442,7 +443,9 @@ In diesem Beispiel handelt es sich um den Bildschirm eines Artikelverwalters, da
 
 \subsection{Verteilung}
 
-\paragraph{Diese Anwedung läuft nur auf einem Server}
+\begin{itemize}
+	\item Diese Anwedung läuft nur auf einem Server.
+\end{itemize}
 
 \subsection{Plausibilisierung und Validierung}
 
@@ -461,20 +464,20 @@ In diesem Beispiel handelt es sich um den Bildschirm eines Artikelverwalters, da
 \subsection{Logging, Protokollierung, Tracing}
 
 \begin{itemize}
-	\item Das Serverlog
+	\item Serverlog
 \end{itemize}
 
 \subsection{Konfigurierbarkeit}
 
 \begin{itemize}
-	\item Es können neue Nodes hinzuigefügt, geändert und gelöscht werden.
+	\item Es können neue Nodes hinzugefügt, geändert und gelöscht werden.
 	\item im Datainitializer werden Grundkonfigurationen vorgenommen.
 \end{itemize}
 
 \subsection{Internationalisierung}
 
 \begin{itemize}
-	\item Konfigurierbar durch die in-de.xml
+	\item Konfigurierbar durch die messages.properties
 \end{itemize}
 
 \subsection{Testbarkeit}

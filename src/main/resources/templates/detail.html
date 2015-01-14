@@ -17,7 +17,7 @@
 		      </header>
 	        <div class="large-12">&nbsp;</div>
 	        <div class="large-12 medium-12 small-12 columns">
-	        	<div sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')" th:include="articletabs :: articletabs"></div>
+	        	<div class="row" sec:authorize="hasRole('ROLE_EMPLOYEE') || hasRole('ROLE_ADMIN')" th:include="articletabs :: articletabs"></div>
 	          <div class="large-3 columns">
   						<img alt="cover" class="detail cover" th:src="@{'/resources/img/' + ${article.image}}" src="/resources/img/no-cover.jpg" />
 						</div>

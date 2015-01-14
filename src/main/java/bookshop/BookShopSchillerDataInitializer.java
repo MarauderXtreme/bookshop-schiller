@@ -102,7 +102,6 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		
 		CalendarManagement.getInstance().addEvent("Praesentation", new MyDate("26112014","1110"), RoomManagement.getInstance().getRoom("Computerraum"),new MyDate("26112014","1120"));
 		CalendarManagement.getInstance().getCalendar().sortEvents();
-		CalendarManagement.getInstance().getCalendar().showList();		
 		
 		//Categories
 		

@@ -43,8 +43,8 @@
 			              <td sec:authorize="hasRole('ROLE_CUSTOMER')">
 			             	 <form action="/calendar/bookSeat" method="post">
 			             		<input type="hidden" name="eventRoomName" th:value="${event.getRoom().getName()}"/>
-			            		 <input type="hidden" name="dateD" th:value="${event.getDateD()}"/>
-			            		 <input type="hidden" name="dateT" th:value="${event.getDateT()}"/>
+			            		 <input type="hidden" name="dateD" th:value="${event.getStartDateD()}"/>
+			            		 <input type="hidden" name="dateT" th:value="${event.getStartDateT()}"/>
 			            		 <input type="hidden" name="eventID" th:value="${event.getID()}"/> 
 			            		 <input id="number" type="number" name="number" min="1" placeholder="Anzahl" />
 			            		 <input class="small button" type="submit" value="Buchen" />

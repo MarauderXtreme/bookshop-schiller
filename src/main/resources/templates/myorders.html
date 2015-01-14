@@ -29,7 +29,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:each="order : ${myOrders}">
+								<tr th:each="order : ${myOrders}" th:unless="${order.paid}">
 									<td th:unless="${order.paid}" th:text="${order.orderStatus}"></td>
 									<td th:unless="${order.paid}" th:text="${order.dateCreated}"></td>
 									<td th:unless="${order.paid}" th:text="${order.totalPrice}"></td>
