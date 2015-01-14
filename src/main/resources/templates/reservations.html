@@ -21,12 +21,14 @@
 						<table class="large-6 medium-6 small-12 columns">
 							<thead>
 								<tr>
-									<th class="small-4">Name</th>
+									<th class="small-6">Name</th>
+									<th class="small-6">Anzahl</th>
 								</tr>
 							</thead>
 							<tbody>
 									<tr th:each=" order : ${reservation}">
 										<td th:text="${order.userAccount.identifier}">Last Action Hero</td>
+										<td th:test="${order.quantity.amount}">10</td>
 									</tr>																
 							</tbody>
 						</table>					
