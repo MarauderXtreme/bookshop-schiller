@@ -55,13 +55,13 @@
 								<div class="row">
 									<div class="large-6 medium-6 small-12 columns">
 										<label for="price">Preis:</label>
-										<input th:field="*{price}" th:errorclass="fieldError" type="text" name="priceArticle" placeholder="Preis" required="" pattern="custom_price" />
+										<input th:errorclass="fieldError" type="text" name="price" placeholder="Preis" required="" pattern="custom_price" />
 										<small class="alert-box alert error">Bitte neuen Preis im Format "xx.xx" eingeben.</small>
 										<small class="alert-box alert" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Der Vorname darf nicht leer sein.</small>
 									</div>
 									<div class="large-6 medium-6 small-12 columns">
 										<label for="price">Einkaufspreis:</label>
-										<input th:field="*{stockPrice}" th:errorclass="fieldError" type="text" name="stockPrice" placeholder="Preis" required="" pattern="custom_price" />
+										<input th:errorclass="fieldError" type="text" name="stockPrice" placeholder="Preis" required="" pattern="custom_price" />
 										<small class="alert-box alert error">Bitte neuen Preis im Format "xx.xx" eingeben.</small>
 										<small class="alert-box alert" th:if="${#fields.hasErrors('stockPrice')}" th:errors="*{stockPrice}">Der Vorname darf nicht leer sein.</small>
 									</div>
@@ -83,7 +83,7 @@
 								<div class="row">
 									<div class="large-6 medium-6 small-12 columns">								
 										<label for="image">Bild:</label>
-										<input th:errorclass="fieldError" type="text" id="newimage" name="image" value="notAvaliableDvd.jpg" placeholder="Image" pattern="image" required="" />
+										<input th:errorclass="fieldError" type="text" id="newimage" name="image" value="no-cover.jpg" placeholder="Image" pattern="image" required="" />
 										<small class="alert-box alert error">Bitte validen Dateinamen eingeben, welcher der Form xx.jpg, xx.png, xx.gif, xx.jpeg entspricht.</small>
 										<small class="alert-box alert" th:if="${#fields.hasErrors('image')}" th:errors="*{image}">Das Bild darf nicht leer sein.</small>
 									</div>

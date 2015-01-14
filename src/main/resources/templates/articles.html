@@ -16,6 +16,28 @@
 		        </div>
 		      </header>
 	        <div class="large-12">&nbsp;</div>
+	        <div class="row" sec:authorize="hasAnyRole('ROLE_EMPLOYEE')">
+	        	<form method="get" action="/article/search">
+	        		<fieldset>
+	        			<legend>Suche:</legend>
+		        		<div class="large-3 medium-3 columns">
+									<select name="typeInput">
+										<option value="1">Titel</option>
+										<option value="2">Verlag</option>
+										<option value="3">ISBN/EAN</option>
+										<option value="4">Künstler</option>
+										<option value="5">Kategorie</option>
+									</select>
+								</div>
+		   					<div class="large-5 medium-5 large-offset-1 medium-offset-1 columns">
+									<input type="text" name="input" placeholder="Suche" />
+		   					</div>
+		   					<div class="large-3 medium-3 columns">
+		   						<input class="tiny alert button expand" type="submit" value="Los geht's!" />
+		   					</div>	
+	        		</fieldset>
+	        	</form>
+	        </div>
 	        <div class="row full-width">
 				    <div th:each="article : ${catalog}" class="large-2 medium-4 small-12 columns article-box">
 	          	<div class="large-centered">

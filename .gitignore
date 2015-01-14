@@ -157,3 +157,6 @@ sympy-plots-for-*.tex/
 .project
 .DS_Store
 /bin/
+
+# Exclude order pdfs
+/src/main/resources/static/resources/orders/*.pdf
