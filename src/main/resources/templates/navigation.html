@@ -133,13 +133,13 @@
     		<a th:href="@{/user}" href="profile.html"><i class="fi-torso"></i> Profil</a>
     	</li>
    		<li class="hide-for-large-up" sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')">
-   			<a class="round button" th:href="@{/user/register}" href="register.html">Registrieren</a>
+   			<a class="round button" th:href="@{/user/register}" href="register.html"><i class="fi-pencil"></i> Registrieren</a>
    		</li>
    		<li class="hide-for-large-up" sec:authorize="!hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')">
-   			<a class="round secondary button" th:href="@{/user/login}" href="login.html">Login</a>
+   			<a class="round secondary button" th:href="@{/user/login}" href="login.html"><i class="ep-sign-in"></i> Login</a>
    		</li>
    		<li class="hide-for-large-up" sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EMPLOYEE','ROLE_CUSTOMER')">
-   			<a  class="round secondary button" th:href="@{/logout}" href="logout.html">Logout</a>
+   			<a  class="round secondary button" th:href="@{/logout}" href="logout.html"><i class="ep-sign-out"></i> Logout</a>
    		</li>
 		</ul>
 	</nav>
