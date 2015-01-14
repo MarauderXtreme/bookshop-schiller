@@ -35,10 +35,10 @@ public class CalendarController {
 	 */
 	@PreAuthorize("hasRole('ROLE_EVENTMANAGER') || hasRole('ROLE_ADMIN')")
 	@RequestMapping("/admin/event/add")
-	public String addEvent(Model model) 
+	public String addEvent(Model model, @Valid EventForm eventForm,BindingResult result) 
 	{
 		model.addAttribute("eventForm", new EventForm());
-		model.addAttribute("roonNameList",RoomManagement.getInstance().getAllRoomNames());
+		model.addAttribute("roomNameList",RoomManagement.getInstance().getAllRoomNames());
 		model.addAttribute("roomList", RoomManagement.getInstance().getAllRooms());
 		model.addAttribute("allEvents", CalendarManagement.getInstance().getCalendar().getSortedEvents());
 		model.addAttribute("eventList", CalendarManagement.getInstance().getCalendar().getFutureEvents());
@@ -61,8 +61,7 @@ public class CalendarController {
 	{
 		model.addAttribute("eventList", CalendarManagement.getInstance().getCalendar().getFutureEvents());
 		model.addAttribute("allEvents", CalendarManagement.getInstance().getCalendar().getSortedEvents());
-		model.addAttribute("eventForm", new EventForm());
-		model.addAttribute("roonNameList",RoomManagement.getInstance().getAllRoomNames());
+		model.addAttribute("roomNameList",RoomManagement.getInstance().getAllRoomNames());
 		model.addAttribute("roomList", RoomManagement.getInstance().getAllRooms());
 		model.addAttribute("allEvents", CalendarManagement.getInstance().getCalendar().getSortedEvents());
 		String conDateD = CalendarManagement.getInstance().convertInputDate(dated);
@@ -83,7 +82,7 @@ public class CalendarController {
 		if(result.hasErrors())
 		{
 			System.out.println(result.getAllErrors());
-			return "/addevent";
+			return "addevent";
 		}
 		
 		return "redirect:/admin/event/add";

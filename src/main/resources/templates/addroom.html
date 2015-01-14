@@ -34,6 +34,7 @@
 									<label>Name:*</label>
 									<input type="text" name="roomName" th:field="*{roomName}" th:errorclass="fieldError" required="" />
 									<small class="alert-box alert error">Name darf nicht leer sein.</small>
+									<small class="alert-box alert" th:if="${#fields.hasErrors('roomName')}" th:errors="*{roomName}">Stuhlanzahl ungültig</small>
 								</div>
 								<div class="large-6 medium-6 small-12 columns">			
 									<label>Nummer:*</label>				

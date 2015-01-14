@@ -6,7 +6,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,10 +33,7 @@ public class RoomController {
 	public String add(Model model,@RequestParam("roomName") String rName, @RequestParam("roomNumber") String rNum, @RequestParam("chairNum") String chairs, @ModelAttribute("roomForm") @Valid RoomForm roomForm,BindingResult result)
 	{
 		model.addAttribute("roomList" , RoomManagement.getInstance().getAllRooms());
-		if(Integer.parseInt(chairs)<1)
-		{
-			result.addError(new ObjectError("RoomForm.chairNum", "No negative chairnumbers allowed! Must be a Number!"));
-		}
+
 		if(result.hasErrors())
 		{
 			System.out.println(result.getAllErrors());
@@ -58,6 +54,11 @@ public class RoomController {
 	{
 		model.addAttribute("roomForm", new RoomForm());
 		model.addAttribute("roomList" , RoomManagement.getInstance().getAllRooms());
+		if(result.hasErrors())
+		{
+			System.out.println(result.getAllErrors());
+			return "/addroom";
+		}
 		return "addroom";
 	}
 	
