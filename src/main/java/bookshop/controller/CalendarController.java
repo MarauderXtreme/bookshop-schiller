@@ -70,9 +70,9 @@ public class CalendarController {
 		MyDate end = new MyDate(conDateD,CalendarManagement.getInstance().convertInputTime(endTime));
 		if(Integer.parseInt(CalendarManagement.getInstance().convertInputTime(eventForm.getDateT()))>Integer.parseInt(CalendarManagement.getInstance().convertInputTime(eventForm.getDateTEnd())))
 		{
-			result.addError(new ObjectError("dateTEnd","Das Ende des Events muss nach dem Anfang sein!"));
+			result.addError(new ObjectError("dateTEnd.wrongTime","Das Ende des Events muss nach dem Anfang sein!"));
 			System.out.println(result.getAllErrors());
-			return "/addevent";
+			return "addevent";
 		}
 		
 		if(!CalendarManagement.getInstance().addEvent(name, new MyDate(conDateD,conDateT), new Room(RoomManagement.getInstance().getRoom(room).getName(),RoomManagement.getInstance().getRoom(room).getNumber(),Integer.parseInt(RoomManagement.getInstance().getRoom(room).getChairNum())), end))

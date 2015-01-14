@@ -22,6 +22,11 @@
 					<fieldset>
 						<form method="post" action="/admin/event/new"
 							th:object="${eventForm}" data-abide="">
+							<div th:if="${#fields.hasErrors('global')}">
+							<p class="alert-box warning">
+								<b>Ungueltige Eingabe! Mögliche fehler: Raum ist belegt oder Endzeit vor Startzeit!</b>
+							</p>
+							</div>
 							<div class="large-6 medium-6 small-12 columns">
 								<label>Datum:*</label> <input type="text" th:field="*{dateD}"
 									th:errorclass="fieldError" name="dated" required=""
