@@ -270,15 +270,18 @@ public class MyCalendar {
 				{
 					if(!(Integer.parseInt(all.get(i).getStartDate().getMonth()) < Integer.parseInt(getCurrentMonth())) )
 					{
-						if(!(Integer.parseInt(all.get(i).getStartDateD())<Integer.parseInt(getCurrentDay())))
+						if(!(Integer.parseInt(all.get(i).getStartDate().getDay())<Integer.parseInt(getCurrentDay())))
 						{
-							if((Integer.parseInt(all.get(i).getStartDateD()) == Integer.parseInt(getCurrentDay())))
+							System.out.println(all.get(i).getStartDate().getDay()+" "+getCurrentDay());
+							if((Integer.parseInt(all.get(i).getStartDate().getDay()) == Integer.parseInt(getCurrentDay())))
 							{
-								if(Integer.parseInt(all.get(i).getEndDate().getHours()) > Calendar.getInstance().get(Calendar.HOUR_OF_DAY))
+								if(Integer.parseInt(all.get(i).getEndDate().getHours()) >= Calendar.getInstance().get(Calendar.HOUR_OF_DAY))
 								{
-									future.add(all.get(i));
-								}
-								
+									if(Integer.parseInt(all.get(i).getEndDate().getMinutes()) > Calendar.getInstance().get(Calendar.MINUTE))
+									{
+										future.add(all.get(i));
+									}
+								}	
 							}
 							else if(Integer.parseInt(all.get(i).getStartDate().getDay()) > Integer.parseInt(getCurrentDay()))
 							{
