@@ -2,6 +2,7 @@ package bookshop.model;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -55,18 +56,13 @@ public class MyCalendar {
 	 */
 	public boolean removeEvent(TupelKey<Room,MyDate>tk)
 	{
-		System.out.println(""+tk.getRoom().getName());
 		if (eventMap.containsKey(tk))
 		{
-			System.out.println(eventMap.size());
 			eventMap.put(tk, null);
 			eventMap.remove(tk);
 			sortEvents();
-			System.out.println("Event entfernt: "+tk.x.getName());
-			System.out.println(eventMap.size());
 			return true;
 		}
-		System.out.println("Event nicht entfernt");
 		return false;
 	}
 	
@@ -92,14 +88,13 @@ public class MyCalendar {
 				Event next = ite.next();
 				if(event.getRoom().equals(next.getRoom()))
 				{
-					System.out.println(next.getName());
-					int iteStart = Integer.parseInt(next.getStartDate().getHours())+Integer.parseInt(next.getStartDate().getMinutes());
-					int iteEnd = Integer.parseInt(next.getEndDate().getHours())+Integer.parseInt(next.getEndDate().getMinutes());
-					int eventStart = Integer.parseInt(event.getStartDate().getHours())+Integer.parseInt(event.getStartDate().getMinutes());
-					int eventEnd = Integer.parseInt(event.getEndDate().getHours())+Integer.parseInt(event.getEndDate().getMinutes());
+					int iteStart = Integer.parseInt(next.getStartDate().getHours())*60+Integer.parseInt(next.getStartDate().getMinutes());
+					int iteEnd = Integer.parseInt(next.getEndDate().getHours())*60+Integer.parseInt(next.getEndDate().getMinutes());
+					int eventStart = Integer.parseInt(event.getStartDate().getHours())*60+Integer.parseInt(event.getStartDate().getMinutes());
+					int eventEnd = Integer.parseInt(event.getEndDate().getHours())*60+Integer.parseInt(event.getEndDate().getMinutes());
 					if(next.getStartDateD().equals(event.getStartDateD()))
 					{
-						if ( (eventStart>=iteStart&&eventStart<=iteEnd) || (eventEnd>=iteStart&&eventEnd<=iteEnd))
+						if ( (eventStart>=iteStart&&eventStart<=iteEnd) || (eventEnd>=iteStart&&eventEnd<=iteEnd) || (eventStart<=iteStart&&eventEnd>=iteStart) )
 						{
 							return false;
 						}
@@ -137,7 +132,6 @@ public class MyCalendar {
 	 */
 	public List<Event> getSortedEvents()
 	{
-		//System.out.println(eventMap.size());
 		if(eventMap.size()>0)
 		{
 			List<Event> eventList = getEventList();
@@ -258,6 +252,7 @@ public class MyCalendar {
 		return date.substring(0,2);
 	}
 	
+	
 	/**
 	 * Gets a List of all Future Events
 	 * @return a List of Recent and Future events
@@ -274,11 +269,30 @@ public class MyCalendar {
 				{
 					if(!(Integer.parseInt(all.get(i).getStartDate().getMonth()) < Integer.parseInt(getCurrentMonth())) )
 					{
-						future.add(all.get(i));
+						if(!(Integer.parseInt(all.get(i).getStartDate().getDay())<Integer.parseInt(getCurrentDay())))
+						{
+							if((Integer.parseInt(all.get(i).getStartDate().getDay()) == Integer.parseInt(getCurrentDay())))
+							{
+								if(Integer.parseInt(all.get(i).getEndDate().getHours()) >= Calendar.getInstance().get(Calendar.HOUR_OF_DAY))
+								{
+									if((Integer.parseInt(all.get(i).getEndDate().getHours())== Calendar.getInstance().get(Calendar.HOUR_OF_DAY))&&(Integer.parseInt(all.get(i).getEndDate().getMinutes()) > Calendar.getInstance().get(Calendar.MINUTE)))
+									{
+										future.add(all.get(i));
+									}
+									else if(Integer.parseInt(all.get(i).getEndDate().getHours())> Calendar.getInstance().get(Calendar.HOUR_OF_DAY))
+									{
+										future.add(all.get(i));
+									}
+								}	
+							}
+							else if(Integer.parseInt(all.get(i).getStartDate().getDay()) > Integer.parseInt(getCurrentDay()))
+							{
+								future.add(all.get(i));
+							}
+						}
 					}
 				}
 			}
-			
 		}
 		
 		return future;

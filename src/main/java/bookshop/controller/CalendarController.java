@@ -70,7 +70,6 @@ public class CalendarController {
 		if(Integer.parseInt(CalendarManagement.getInstance().convertInputTime(eventForm.getDateT()))>Integer.parseInt(CalendarManagement.getInstance().convertInputTime(eventForm.getDateTEnd())))
 		{
 			result.addError(new ObjectError("dateTEnd.wrongTime","Das Ende des Events muss nach dem Anfang sein!"));
-			System.out.println(result.getAllErrors());
 			return "addevent";
 		}
 		
@@ -81,7 +80,6 @@ public class CalendarController {
 		
 		if(result.hasErrors())
 		{
-			System.out.println(result.getAllErrors());
 			return "addevent";
 		}
 		

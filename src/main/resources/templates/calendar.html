@@ -28,7 +28,7 @@
 			             	<th class="small-1">Raumnummer</th>
 			             	<th class="small-2">Raum</th>
 			             	<th class="small-1">Belegte Sitze</th>
-			             	<th class="small-2"></th>
+			             	<th class="small-1" sec:authorize="hasRole('ROLE_CUSTOMER')">Buchen*</th>
 			            </tr>
 			          </thead>
 			          <tbody th:remove="all-but-first">
@@ -53,6 +53,7 @@
 			            </tr>
 			          </tbody>
 			        </table>
+			        <small sec:authorize="hasRole('ROLE_CUSTOMER')">*ACHTUNG: Das Buchen eines Sitzplatzes kostet verbindlich 5 Euro!</small>
 			        
 			        <table class="large-12 medium-12 small-12 calendar" sec:authorize="hasAnyRole('ROLE_BOSS','ROLE_ADMIN','ROLE_EVENTMANAGER')" >
 			        	<thead class="panel">

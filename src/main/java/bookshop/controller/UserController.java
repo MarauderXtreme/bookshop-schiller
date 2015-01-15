@@ -250,7 +250,6 @@ public class UserController {
 		}
 		
 		if (result.hasErrors()) {
-			System.out.println(result.getAllErrors());
 			return "editprofile";
 		}
 		

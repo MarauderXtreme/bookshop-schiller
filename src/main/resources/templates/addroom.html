@@ -26,26 +26,25 @@
 							<form class="row" th:object="${roomForm}" method="post" action="/admin/room/new" data-abide="">
 							<div th:if="${#fields.hasErrors('global')}">
 							<p class="alert-box warning">
-								<b>Einige Angaben sind nicht korrekt. Bitte versuchen Sie es
-									erneut!</b>
+								<b>Einige Angaben sind nicht korrekt. Bitte versuchen Sie es erneut!</b>
 							</p>
 							</div>
 								<div class="large-6 medium-6 small-12 columns">
 									<label>Name:*</label>
 									<input type="text" name="roomName" th:field="*{roomName}" th:errorclass="fieldError" required="required" />
-									<small class="alert-box alert error">Name darf nicht leer sein.</small>
-									<small class="alert-box alert" th:if="${#fields.hasErrors('roomName')}" th:errors="*{roomName}">Stuhlanzahl ung�ltig</small>
+									<small class="alert-box alert error">Der Raumname darf nicht leer sein.</small>
+									<small class="alert-box alert" th:if="${#fields.hasErrors('roomName')}" th:errors="*{roomName}">Die Stuhlanzahl ist ung�ltig.</small>
 								</div>
 								<div class="large-6 medium-6 small-12 columns">			
 									<label>Nummer:*</label>				
 									<input type="text" name="roomNum" th:field="*{roomNumber}" th:errorclass="fieldError" required="required" />
-									<small class="alert-box alert error">Nummer darf nicht leer sein.</small>
+									<small class="alert-box alert error">Die Nummer darf nicht leer sein.</small>
 								</div>
 								<div class="large-6 medium-6 small-12 columns">
 									<label>Anzahl der Stühle:</label>
 									<input type="number" name="chairNum" th:field="*{chairNum}" th:errorclass="fieldError" min="1" required="required" />
-									<small class="alert-box alert error">Anzahl der Stühle darf nicht leer sein.</small>
-									<small class="alert-box alert" th:if="${#fields.hasErrors('chairNum')}" th:errors="*{chairNum}">Stuhlanzahl ung�ltig</small>
+									<small class="alert-box alert error">Die Anzahl der Stühle darf nicht leer sein.</small>
+									<small class="alert-box alert" th:if="${#fields.hasErrors('chairNum')}" th:errors="*{chairNum}">Die Stuhlanzahl ist ung�ltig.</small>
 								</div>
 								<div class="large-6 medium-6 small-12 columns">							
 									<input class="small round button" type="submit" value="Raum hinzufügen" />
@@ -67,18 +66,18 @@
 								<tr th:each="room : ${roomList}">
 									<td th:text="${room.getName()}">0000</td>
 									<td th:text="${room.getNumber()}">Testtext</td>
-									<td th:text="${room.getChairNum()}">Stuhlanzalh</td>
+									<td th:text="${room.getChairNum()}">Stuhlanzahl</td>
 								</tr>
 							</tbody>
 						</table>
 						<form class="row" method="post" action="/admin/room/remove" data-abide="">
-						<select required="required" name="deleteRoom">
-						<option th:each="room : ${roomList}" value="Empty" th:value="${room.getName()}" th:text="${room.getName()}">Empty</option>
-						</select>
-						<div class="large-6 medium-6 small-12 columns">							
-						<input class="small round button" type="submit" value="Raum entfernen" />
-						</div>
-		            </form>
+						  <select required="required" name="deleteRoom">
+						   <option th:each="room : ${roomList}" value="Empty" th:value="${room.getName()}" th:text="${room.getName()}">Empty</option>
+						  </select>
+						  <div class="large-6 medium-6 small-12 columns">							
+						   <input class="small round button" type="submit" value="Raum entfernen" />
+						  </div>
+		        </form>
 					</div>
 				</div>
 			</div>
