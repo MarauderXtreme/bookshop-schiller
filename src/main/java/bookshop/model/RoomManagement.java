@@ -77,10 +77,8 @@ public class RoomManagement {
 		if(rooms.containsKey(name))
 		{
 			rooms.remove(name);
-			System.out.println("Raum entfernt");
 			return true;
 		}
-		System.out.println("Raum nicht entfernt");
 		return false;
 	}	
 	

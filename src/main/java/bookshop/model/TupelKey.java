@@ -19,21 +19,17 @@ public class TupelKey<X , Y>{
 	public boolean equals(Object tk)
 	{
 		TupelKey<Room, MyDate> tuke = (TupelKey<Room, MyDate>)tk;
-		//System.out.println("Tupel equals wird geprueft");
 		Room ro = tuke.x;
 		MyDate da = tuke.y;
 		
 		if (tuke ==this) {
-			//System.out.println("Gleiche instanz von TupelKey!");
 			return true;
 		}
 		
 		
 		if(this.x.equals(ro) && this.y.equals(da)) {
-			//System.out.println("TupelKey ist gleich dem anderen");
 			return true;
 		} else {
-			//System.out.println("Neuer TupelKey");
 		return false;
 		}
 	}

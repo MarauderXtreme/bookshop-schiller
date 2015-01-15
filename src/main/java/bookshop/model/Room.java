@@ -61,8 +61,6 @@ public class Room {
 	 * @return true when the Room-object either has the same name or roomnumber than the other (or both)
 	 */
 	public boolean equals(Room r) {
-		
-		//System.out.println("Room equals wird geprueft");
 		if(this.name.equals(r.getName())|| this.number.equals(r.getNumber())) {
 			return true;
 		} else {
