@@ -1,4 +1,3 @@
-% Version 0.2
 \documentclass[a4paper]{article}
  
 \usepackage[english,german]{babel}
@@ -52,11 +51,10 @@
 	Version & Status    & Datum      & Bearbeiter       & Erläuterung    	\\ \hline
 	0.1     & In Arbeit & 04.01.2015 & Christoph Kepler & Initial Commit 	\\ \hline
 	1.0     & Fertig 	& 14.01.2015 & Christoph Kepler & Fertigstellung 	\\ \hline
+	1.1     & Fertig 	& 15.01.2015 & Christoph Kepler & Ausformulierungen 	\\ \hline
 \end{tabular}
 
 \newpage
-
-% Platzierung des Inhaltsverzeichnisses
 
 \tableofcontents
 
@@ -90,6 +88,8 @@ Als zusätzliches Feature wünscht der Buchhandel SCHILLER sich einen Kalender a
 	Guest	& anonymer Websitebesucher	& surfen	\\ \hline
 	
 \end{longtable}
+
+\newpage
 
 \section{Randbedingungen}
 
@@ -328,11 +328,7 @@ Als zusätzliches Feature wünscht der Buchhandel SCHILLER sich einen Kalender a
 
 \subsection{Persistenz}
 
-\begin{itemize}
-	\item[Speicherung] Crud-Repositories für die jeweiligen Model
-	\item[Konsistenz] Formvalidation durch JavaScript und Java
-	\item[Initialisierung] Im DataInitializer werden enige Testdatensätze angelegt. Diese dienen sowohl der Veranschaulichung als auch der Befüllung.
-\end{itemize}
+\paragraph{Die Daten werden alle in einzelnen Crud Repositories gespeichert. Die Validierung erfolgt im auf der Website über eine Formvalidation Suite, welche durch das Framework ZURB Foundation bereitgestellt wird. Die eingegebenen Daten werden dann in einer zweiten Ebene im Java Backend validiert und notfalls zurückgewiesen. Sind die Daten korrekt, werden sie in ihre jeweiligen Datensätze gespeichert. Die Attribute werden über Setter gesetzt und dann mit repo.save() gespeichert. Beim Start der Applikation werden einige Beispieldatensätze initialisiert. Diese dienen sowohl der Befüllung, Tests als auch der Veranschaulichung}
 
 \subsection{Benutzeroberfläche}
 
@@ -413,19 +409,9 @@ In diesem Beispiel handelt es sich um den Bildschirm eines Artikelverwalters, da
 	\item Oma-Tests: Mitbewohner, Eltern
 \end{itemize}
 
-\subsection{Transaktionsbehandlung}
+\subsection{Transaktions- und Sessionbehandlung}
 
-\begin{itemize}
-	\item[Wann?] Beim Aufruf der jeweiligen Seite oder dem Absenden der Formulare
-	\item[Wo?] In den jeweiligen Controllern oder Models
-	\item[Wie?] Getter und Setter
-\end{itemize}
-
-\subsection{Sessionbehandlung}
-
-\begin{itemize}
-	\item unverschlüsselt
-\end{itemize}
+\paragraph{Die Nutzer interagiert mit der Anwendung nur über die Weboberfläche. Es gibt zwei grunsätzliche Methoden. Diese sind \textit{GET} und \textit{POST}. Der Nutzer sendet alle seine Anfragen über diese Methoden an den Server. Größtenteils enthält diese Anwendung Formulare, welche per \textit{POST} übermittelt werden. Es gibt aber auch Requests welche über \textit{GET} gemappt wurden. Der Server behandelt diese Anfragen über die jeweiligen Controller und und schickt die Daten an die Model, welche dann Ihre Zustände ändern. Jeder Nutzer kann sich auch einen Benutzeraccount anlegen, welcher ihm authentifiziert und weitere Aktionen ermöglicht.}
 
 \subsection{Sicherheit}
 
