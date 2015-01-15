@@ -93,13 +93,14 @@ public class MyCalendar {
 				if(event.getRoom().equals(next.getRoom()))
 				{
 					System.out.println(next.getName());
-					int iteStart = Integer.parseInt(next.getStartDate().getHours())+Integer.parseInt(next.getStartDate().getMinutes());
-					int iteEnd = Integer.parseInt(next.getEndDate().getHours())+Integer.parseInt(next.getEndDate().getMinutes());
-					int eventStart = Integer.parseInt(event.getStartDate().getHours())+Integer.parseInt(event.getStartDate().getMinutes());
-					int eventEnd = Integer.parseInt(event.getEndDate().getHours())+Integer.parseInt(event.getEndDate().getMinutes());
+					int iteStart = Integer.parseInt(next.getStartDate().getHours())*60+Integer.parseInt(next.getStartDate().getMinutes());
+					int iteEnd = Integer.parseInt(next.getEndDate().getHours())*60+Integer.parseInt(next.getEndDate().getMinutes());
+					int eventStart = Integer.parseInt(event.getStartDate().getHours())*60+Integer.parseInt(event.getStartDate().getMinutes());
+					int eventEnd = Integer.parseInt(event.getEndDate().getHours())*60+Integer.parseInt(event.getEndDate().getMinutes());
 					if(next.getStartDateD().equals(event.getStartDateD()))
 					{
-						if ( (eventStart>=iteStart&&eventStart<=iteEnd) || (eventEnd>=iteStart&&eventEnd<=iteEnd) || (eventStart<=iteStart&&eventEnd>=iteStart))
+						System.out.println("evStart: "+eventStart+","+	"iteStart: "+iteStart+","+"eventEnd: "+eventEnd+","+"iteEnd: "+eventEnd);
+						if ( (eventStart>=iteStart&&eventStart<=iteEnd) || (eventEnd>=iteStart&&eventEnd<=iteEnd) || (eventStart<=iteStart&&eventEnd>=iteStart) )
 						{
 							return false;
 						}
