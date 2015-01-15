@@ -2,6 +2,7 @@ package bookshop.model;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -251,12 +252,14 @@ public class MyCalendar {
 		return date.substring(0,2);
 	}
 	
+	
 	/**
 	 * Gets a List of all Future Events
 	 * @return a List of Recent and Future events
 	 */
 	public List<Event> getFutureEvents()
 	{
+		System.out.println(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
 		List<Event> all = getSortedEvents();
 		List<Event> future = new ArrayList<Event>();
 		for(int i=0; i<all.size();i++)
@@ -267,11 +270,24 @@ public class MyCalendar {
 				{
 					if(!(Integer.parseInt(all.get(i).getStartDate().getMonth()) < Integer.parseInt(getCurrentMonth())) )
 					{
-						future.add(all.get(i));
+						if(!(Integer.parseInt(all.get(i).getStartDateD())<Integer.parseInt(getCurrentDay())))
+						{
+							if((Integer.parseInt(all.get(i).getStartDateD()) == Integer.parseInt(getCurrentDay())))
+							{
+								if(Integer.parseInt(all.get(i).getEndDate().getHours()) > Calendar.getInstance().get(Calendar.HOUR_OF_DAY))
+								{
+									future.add(all.get(i));
+								}
+								
+							}
+							else if(Integer.parseInt(all.get(i).getStartDate().getDay()) > Integer.parseInt(getCurrentDay()))
+							{
+								future.add(all.get(i));
+							}
+						}
 					}
 				}
 			}
-			
 		}
 		
 		return future;
