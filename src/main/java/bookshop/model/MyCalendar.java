@@ -55,18 +55,13 @@ public class MyCalendar {
 	 */
 	public boolean removeEvent(TupelKey<Room,MyDate>tk)
 	{
-		System.out.println(""+tk.getRoom().getName());
 		if (eventMap.containsKey(tk))
 		{
-			System.out.println(eventMap.size());
 			eventMap.put(tk, null);
 			eventMap.remove(tk);
 			sortEvents();
-			System.out.println("Event entfernt: "+tk.x.getName());
-			System.out.println(eventMap.size());
 			return true;
 		}
-		System.out.println("Event nicht entfernt");
 		return false;
 	}
 	
@@ -92,14 +87,12 @@ public class MyCalendar {
 				Event next = ite.next();
 				if(event.getRoom().equals(next.getRoom()))
 				{
-					System.out.println(next.getName());
 					int iteStart = Integer.parseInt(next.getStartDate().getHours())*60+Integer.parseInt(next.getStartDate().getMinutes());
 					int iteEnd = Integer.parseInt(next.getEndDate().getHours())*60+Integer.parseInt(next.getEndDate().getMinutes());
 					int eventStart = Integer.parseInt(event.getStartDate().getHours())*60+Integer.parseInt(event.getStartDate().getMinutes());
 					int eventEnd = Integer.parseInt(event.getEndDate().getHours())*60+Integer.parseInt(event.getEndDate().getMinutes());
 					if(next.getStartDateD().equals(event.getStartDateD()))
 					{
-						System.out.println("evStart: "+eventStart+","+	"iteStart: "+iteStart+","+"eventEnd: "+eventEnd+","+"iteEnd: "+eventEnd);
 						if ( (eventStart>=iteStart&&eventStart<=iteEnd) || (eventEnd>=iteStart&&eventEnd<=iteEnd) || (eventStart<=iteStart&&eventEnd>=iteStart) )
 						{
 							return false;
@@ -138,7 +131,6 @@ public class MyCalendar {
 	 */
 	public List<Event> getSortedEvents()
 	{
-		//System.out.println(eventMap.size());
 		if(eventMap.size()>0)
 		{
 			List<Event> eventList = getEventList();
