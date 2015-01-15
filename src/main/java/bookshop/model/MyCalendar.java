@@ -275,7 +275,11 @@ public class MyCalendar {
 							{
 								if(Integer.parseInt(all.get(i).getEndDate().getHours()) >= Calendar.getInstance().get(Calendar.HOUR_OF_DAY))
 								{
-									if(Integer.parseInt(all.get(i).getEndDate().getMinutes()) > Calendar.getInstance().get(Calendar.MINUTE))
+									if((Integer.parseInt(all.get(i).getEndDate().getHours())== Calendar.getInstance().get(Calendar.HOUR_OF_DAY))&&(Integer.parseInt(all.get(i).getEndDate().getMinutes()) > Calendar.getInstance().get(Calendar.MINUTE)))
+									{
+										future.add(all.get(i));
+									}
+									else if(Integer.parseInt(all.get(i).getEndDate().getHours())> Calendar.getInstance().get(Calendar.HOUR_OF_DAY))
 									{
 										future.add(all.get(i));
 									}
