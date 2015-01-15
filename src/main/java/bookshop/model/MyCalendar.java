@@ -259,7 +259,6 @@ public class MyCalendar {
 	 */
 	public List<Event> getFutureEvents()
 	{
-		System.out.println(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
 		List<Event> all = getSortedEvents();
 		List<Event> future = new ArrayList<Event>();
 		for(int i=0; i<all.size();i++)
@@ -272,7 +271,6 @@ public class MyCalendar {
 					{
 						if(!(Integer.parseInt(all.get(i).getStartDate().getDay())<Integer.parseInt(getCurrentDay())))
 						{
-							System.out.println(all.get(i).getStartDate().getDay()+" "+getCurrentDay());
 							if((Integer.parseInt(all.get(i).getStartDate().getDay()) == Integer.parseInt(getCurrentDay())))
 							{
 								if(Integer.parseInt(all.get(i).getEndDate().getHours()) >= Calendar.getInstance().get(Calendar.HOUR_OF_DAY))
