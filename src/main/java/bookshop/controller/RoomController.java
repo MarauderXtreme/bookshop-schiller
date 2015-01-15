@@ -36,7 +36,6 @@ public class RoomController {
 
 		if(result.hasErrors())
 		{
-			System.out.println(result.getAllErrors());
 			return "/addroom";
 		}
 		RoomManagement.getInstance().addRoom(rName, rNum, chairs);
@@ -56,7 +55,6 @@ public class RoomController {
 		model.addAttribute("roomList" , RoomManagement.getInstance().getAllRooms());
 		if(result.hasErrors())
 		{
-			System.out.println(result.getAllErrors());
 			return "/addroom";
 		}
 		return "addroom";
