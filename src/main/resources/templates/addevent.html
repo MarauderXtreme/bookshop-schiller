@@ -29,26 +29,26 @@
 							</div>
 							<div th:if="${#fields.hasErrors('global')}">
 							<p class="alert-box alert">
-								<b>Die Endzeit liegt vor der Startzeit oder es schneidet sich mit einem anderen Event!</b>
+								<b>Die Endzeit liegt vor der Startzeit oder das eingegebene Event schneidet sich mit einem anderen Event!</b>
 							</p>
 							</div>
 							<div class="large-6 medium-6 small-12 columns">
 								<label>Datum:*</label>
 								<input type="text" th:field="*{dateD}" th:errorclass="fieldError" name="dated" required="required" pattern="custom_date" id="datepicker" />
-								<small class="alert-box alert error">Datum muss Form dd.mm.yyyy entsprechen.</small>
+								<small class="alert-box alert error">Das Datum muss der Form dd.mm.yyyy entsprechen.</small>
 							</div>
-							<div class="lar									ge-6 medium-6 small-12 columns">
-								<label>Uhrzeit:*</label> <input type="text" id="dateT" th:field="*{dateT}" th:errorclass="fieldError" name="datet" required="required" pattern="custom_time" />
-								<small class="alert-box alert error">Zeit muss Form hh:mm entsprechen.</small>
+							<div class="large-6 medium-6 small-12 columns">
+								<label>Startzeit:*</label> <input type="text" id="dateT" th:field="*{dateT}" th:errorclass="fieldError" name="datet" required="required" pattern="custom_time" />
+								<small class="alert-box alert error">Die Startzeit muss der Form hh:mm entsprechen.</small>
 							</div>
 							<div class="large-6 medium-6 small-12 columns">
 								<label>Endzeit:*</label> <input type="text" id="dateTEnd" th:field="*{dateTEnd}" th:errorclass="fieldError" name="dateTEnd" required="required" pattern="custom_time" />
-								<small class="alert-box alert error">Zeit muss Form hh:mm entsprechen.</small>
+								<small class="alert-box alert error">Die Endzeit muss der Form hh:mm entsprechen.</small>
 							</div>
 							<div class="large-6 medium-6 small-12 columns">
 								<label>Veranstaltungsname:</label>
 								<input type="text" name="name" required="required" />
-								<small class="alert-box alert error">Veranstaltungsname darf nicht leer sein.</small>
+								<small class="alert-box alert error">Der Veranstaltungsname darf nicht leer sein.</small>
 							</div>
 							<div class="large-6 medium-6 small-12 columns">
 								<label>Raum:*</label>
@@ -57,13 +57,11 @@
 								</select>
 							</div>
 							<div class="large-12 medium-12 small-12">
-								<input class="small round button" type="submit" name="add"
-									value="Event hinzufügen" />
+								<input class="small round button" type="submit" name="add" value="Event hinzufügen" />
 							</div>
 						</form>
 					</fieldset>
-					<small>*ACHTUNG: Es ist nur ein Event pro Raum und Zeit
-						erlaubt!</small>
+					<small>*ACHTUNG: Es ist nur ein Event pro Raum und Zeit erlaubt!</small>
 
 					<table class="large-12 medium-12 small-12 calendar">
 						<thead class="panel">
@@ -87,12 +85,10 @@
 								<td th:text="${event.getRoom().getName()}">Testtext</td>
 								<td>
 									<form action="/admin/event/remove" method="post">
-										<input type="hidden" name="roomname"
-											th:value="${event.getRoom().getName()}" /> <input
-											type="hidden" name="dated"
-											th:value="${event.getStartDateD()}" /> <input type="hidden"
-											name="datet" th:value="${event.getStartDateT()}" /> <input
-											class="small button" type="submit" value="Löschen" />
+										<input type="hidden" name="roomname" th:value="${event.getRoom().getName()}" />
+										<input type="hidden" name="dated" th:value="${event.getStartDateD()}" />
+										<input type="hidden" name="datet" th:value="${event.getStartDateT()}" />
+										<input class="small button" type="submit" value="Löschen" />
 									</form>
 								</td>
 							</tr>
