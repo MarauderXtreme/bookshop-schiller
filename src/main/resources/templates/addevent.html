@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:include="head :: head"></head>
 <body>
 	<div class="off-canvas-wrap" data-offcanvas="">
@@ -20,8 +19,7 @@
 				<div class="large-12 medium-12 small-12 row">
 					<h3>Event hinzufügen</h3>
 					<fieldset>
-						<form method="post" action="/admin/event/new"
-							th:object="${eventForm}" data-abide="">
+						<form method="post" action="/admin/event/new" th:object="${eventForm}" data-abide="">
 							<div th:if="${#fields.hasErrors('*')}">
 							<p class="alert-box warning">
 								<b>Einige Angaben sind nicht korrekt. Bitte versuchen Sie es erneut!</b>
@@ -38,11 +36,13 @@
 								<small class="alert-box alert error">Das Datum muss der Form dd.mm.yyyy entsprechen.</small>
 							</div>
 							<div class="large-6 medium-6 small-12 columns">
-								<label>Startzeit:*</label> <input type="text" id="dateT" th:field="*{dateT}" th:errorclass="fieldError" name="datet" required="required" pattern="custom_time" />
+								<label>Startzeit:*</label>
+								<input type="text" id="dateT" th:field="*{dateT}" th:errorclass="fieldError" name="datet" required="required" pattern="custom_time" />
 								<small class="alert-box alert error">Die Startzeit muss der Form hh:mm entsprechen.</small>
 							</div>
 							<div class="large-6 medium-6 small-12 columns">
-								<label>Endzeit:*</label> <input type="text" id="dateTEnd" th:field="*{dateTEnd}" th:errorclass="fieldError" name="dateTEnd" required="required" pattern="custom_time" />
+								<label>Endzeit:*</label>
+								<input type="text" id="dateTEnd" th:field="*{dateTEnd}" th:errorclass="fieldError" name="dateTEnd" required="required" pattern="custom_time" />
 								<small class="alert-box alert error">Die Endzeit muss der Form hh:mm entsprechen.</small>
 							</div>
 							<div class="large-6 medium-6 small-12 columns">
