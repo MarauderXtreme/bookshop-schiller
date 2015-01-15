@@ -46,11 +46,11 @@
 						
 							<div>
 							<label>Kategorie hinzufügen</label>
-								<input th:field="*{category}" th:errorclass="fieldError" type="text" id="newcategory" name="newcategory" placeholder="Kategorie" required="" />
+								<input th:field="*{category}" th:errorclass="fieldError" type="text" id="newcategory" name="newcategory" placeholder="Kategorie" required="required" />
 								<small class="alert-box alert error">Bitte den Namen der Kategorie eingeben.</small>
 								<small class="alert-box alert" th:if="${#fields.hasErrors('category')}" th:errors="*{category}">Der Vorname darf nicht leer sein.</small>
 								
-								<select th:field="*{type}" th:errorclass="fieldError" id="type" name="type" required="">
+								<select th:field="*{type}" th:errorclass="fieldError" id="type" name="type" required="required">
 									<option value="Buch">Buch</option>
 									<option value="CD">CD</option>
 									<option value="DVD">DVD</option>
@@ -66,7 +66,7 @@
 						<form method="POST" action="/editcategories/delete" data-abide="">				
 							<div>
 								<label>Kategorie entfernen</label>
-								<select name="categorytodelete" required="">
+								<select name="categorytodelete" required="required">
 									<option value="1">Keine</option>
 									<option th:each="category : ${categories}" th:text="${category.categoryName}" th:value="${category.categoryName}" value="2">category</option>
 								</select>	
@@ -77,12 +77,12 @@
 						<!--<form method="POST" action="/editcategories/edit" data-abide="">
 							<div>
 								<label>Kategorie bearbeiten</label>
-								<select name="oldcategory" required="">
+								<select name="oldcategory" required="required">
 									<option th:each="category : ${categories}" th:text="${category.categoryName}" th:value="${category.id}" value="2">category</option>	
 								</select>	
 								
 								<label>Änderung</label>
-								<input type="text" name="editcategory" placeholder="Kategorie" required="" />
+								<input type="text" name="editcategory" placeholder="Kategorie" required="required" />
 								<small class="alert-box alert error">Bitte Namen eingeben.</small>
 							</div>
 								 <input class="small button" type="submit" value="Ändern" />

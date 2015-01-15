@@ -29,42 +29,42 @@
 									
 									<div>
 										<label th:text="#{register.firstname}" for="firstname">Vorname</label>
-										<input id="firstname" th:field="*{firstname}" th:errorclass="fieldError" type="text" name="firstname" required="" />
+										<input id="firstname" th:field="*{firstname}" th:errorclass="fieldError" type="text" name="firstname" required="required" />
 										<small class="alert-box alert error">Der Vorname darf nicht leer sein.</small>
 										<small class="alert-box alert" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">Der Vorname darf nicht leer sein.</small>
 									</div>
 									
 									<div>
 										<label th:text="#{register.lastname}" for="lastname">Nachname</label>
-										<input id="lastname" th:field="*{lastname}" th:errorclass="fieldError" type="text" name="lastname" required="" />
+										<input id="lastname" th:field="*{lastname}" th:errorclass="fieldError" type="text" name="lastname" required="required" />
 										<small class="alert-box alert error">Der Nachname darf nicht leer sein.</small>
 										<small class="alert-box alert" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">Der Nachname darf nicht leer sein.</small>
 									</div>
 									
 									<div>
 										<label th:text="#{register.street}" for="street">Straße</label>
-										<input id="street" th:field="*{street}" th:errorclass="fieldError" type="text" name="street" required="" />
+										<input id="street" th:field="*{street}" th:errorclass="fieldError" type="text" name="street" required="required" />
 										<small class="alert-box alert error">Die Straße darf nicht leer sein.</small>
 										<small class="alert-box alert" th:if="${#fields.hasErrors('street')}" th:errors="*{street}">Die Straße darf nicht leer sein.</small>
 									</div>
 									
 									<div>
 										<label th:text="#{register.streetnumber}" for="streetnumber">Hausnummer</label>
-										<input id="streetnumber" th:field="*{streetnumber}" th:errorclass="fieldError" type="text" name="streetnumber" required="" />
+										<input id="streetnumber" th:field="*{streetnumber}" th:errorclass="fieldError" type="text" name="streetnumber" required="required" />
 										<small class="alert-box alert error">Die Hausnummer darf nicht leer sein.</small>
 										<small class="alert-box alert" th:if="${#fields.hasErrors('streetnumber')}" th:errors="*{streetnumber}">Die Hausnummer darf nicht leer sein.</small>
 									</div>
 									
 									<div>
 										<label th:text="#{register.plz}" for="plz">PLZ</label>
-										<input id="plz" th:field="*{plz}" th:errorclass="fieldError" type="text" name="plz" required="" pattern="plz" />
+										<input id="plz" th:field="*{plz}" th:errorclass="fieldError" type="text" name="plz" required="required" pattern="plz" />
 										<small class="alert-box alert error">Bitte geben sie eine valide Postleitzahl ein.</small>
 										<small class="alert-box alert" th:if="${#fields.hasErrors('plz')}" th:errors="*{plz}">Die PLZ darf nicht leer sein.</small>
 									</div>
 									
 									<div>
 										<label th:text="#{register.city}" for="city">Ort</label>
-										<input id="town" th:field="*{city}" th:errorclass="fieldError" type="text" name="city" required="" />
+										<input id="town" th:field="*{city}" th:errorclass="fieldError" type="text" name="city" required="required" />
 										<small class="alert-box alert error">Der Ort darf nicht leer sein.</small>
 										<small class="alert-box alert" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">Der Ort darf nicht leer sein.</small>
 									</div>
@@ -81,35 +81,35 @@
 									</div>
 									
 									<label>Rolle</label>
-   								<input id="customer" type="radio" name="roleInput" value="ROLE_CUSTOMER" checked="" required="" />
+   								<input id="customer" type="radio" name="roleInput" value="ROLE_CUSTOMER" checked="checked" required="required" />
    								<label for="customer">Kunde</label>
-   								<input id="employee" type="radio" name="roleInput" value="ROLE_EMPLOYEE" required="" />
+   								<input id="employee" type="radio" name="roleInput" value="ROLE_EMPLOYEE" required="required" />
    								<label for="employee">Angestellter</label>
    								
    								<div>
 										<label th:text="#{register.username}" for="username">Nutzername</label>
-										<input id="username" th:field="*{username}" th:errorclass="fieldError" type="text" name="username" required="" />
+										<input id="username" th:field="*{username}" th:errorclass="fieldError" type="text" name="username" required="required" />
 										<small class="alert-box alert error">Der Nutzername darf nicht leer sein.</small>
 										<small class="alert-box alert" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Der Nutzername darf nicht leer sein.</small>
 									</div>
 									
 									<div>
 										<label th:text="#{register.email}" for="email">E-Mail</label>
-										<input id="email" th:field="*{email}" th:errorclass="fieldError" type="email" name="email" required="" placeholder="max@mustermann.de" />
+										<input id="email" th:field="*{email}" th:errorclass="fieldError" type="email" name="email" required="required" placeholder="max@mustermann.de" />
 										<small class="alert-box alert error">Bitte geben sie eine valide Email ein.</small>
 										<small class="alert-box alert" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Die E-Mail-Adresse darf nicht leer sein.</small>
 									</div>
 									
 									<div>
 										<label th:text="#{register.password}" for="password">Passwort</label>
-										<input id="password" th:field="*{password}" th:errorclass="fieldError" type="password" name="password" required="" pattern="custom_password" />
+										<input id="password" th:field="*{password}" th:errorclass="fieldError" type="password" name="password" required="required" pattern="custom_password" />
 										<small class="alert-box alert error">Das Passwort muss zwischen 8 und 32 Zeichen lang sein und mindestens einen Großbuchstaben, einen Kleinbuchstaben, eine Zahl und ein Sonderzeichen enthalten.</small>
 										<small class="alert-box alert" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Das Passwort darf nicht leer sein.</small>
 									</div>
 									
 									<div>
 										<label th:text="#{register.passwordRepeat}" for="passwordRepeat">Passwort</label>
-										<input id="passwordRepeat" th:field="*{passwordRepeat}" th:errorclass="fieldError" type="password" name="passwordRepeat" required="" data-equalto="password" />
+										<input id="passwordRepeat" th:field="*{passwordRepeat}" th:errorclass="fieldError" type="password" name="passwordRepeat" required="required" data-equalto="password" />
 										<small class="alert-box alert error">Passwörter nicht identisch.</small>
 										<small class="alert-box alert" th:if="${#fields.hasErrors('passwordRepeat')}" th:errors="*{passwordRepeat}">Passwörter nicht identlisch.</small>
 									</div>

@@ -30,42 +30,42 @@
 									
 									<div>
 										<label th:text="#{register.firstname}" for="firstname">Vorname</label>
-										<input id="firstname" th:errorclass="fieldError" type="text" name="firstname" th:value="${user.userAccount.firstname}" required="" />
+										<input id="firstname" th:errorclass="fieldError" type="text" name="firstname" th:value="${user.userAccount.firstname}" required="required" />
 										<small class="alert-box alert error">Der Vorname darf nicht leer sein.</small>
 										<small class="alert-box alert" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}">Der Vorname darf nicht leer sein.</small>
 									</div>
 									
 									<div>
 										<label th:text="#{register.lastname}" for="lastname">Nachname</label>
-										<input id="lastname" th:errorclass="fieldError" type="text" name="lastname" th:value="${user.userAccount.lastname}" required="" />
+										<input id="lastname" th:errorclass="fieldError" type="text" name="lastname" th:value="${user.userAccount.lastname}" required="required" />
 										<small class="alert-box alert error">Der Nachname darf nicht leer sein.</small>
 										<small class="alert-box alert" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}">Der Nachname darf nicht leer sein.</small>
 									</div>
 									
 									<div>
 										<label th:text="#{register.street}" for="street">Straße</label>
-										<input id="street" th:errorclass="fieldError" type="text" name="street" th:value="${user.address.street}" required="" />
+										<input id="street" th:errorclass="fieldError" type="text" name="street" th:value="${user.address.street}" required="required" />
 										<small class="alert-box alert error">Die Straße darf nicht leer sein.</small>
 										<small class="alert-box alert" th:if="${#fields.hasErrors('street')}" th:errors="*{street}">Die Straße darf nicht leer sein.</small>
 									</div>
 									
 									<div>
 										<label th:text="#{register.streetnumber}" for="streetnumber">Hausnummer</label>
-										<input id="streetnumber" th:errorclass="fieldError" type="text" name="streetnumber" th:value="${user.address.streetnumber}" required="" />
+										<input id="streetnumber" th:errorclass="fieldError" type="text" name="streetnumber" th:value="${user.address.streetnumber}" required="required" />
 										<small class="alert-box alert error">Die Hausnummer darf nicht leer sein.</small>
 										<small class="alert-box alert" th:if="${#fields.hasErrors('streetnumber')}" th:errors="*{streetnumber}">Die Hausnummer darf nicht leer sein.</small>
 									</div>
 									
 									<div>
 										<label th:text="#{register.plz}" for="plz">PLZ</label>
-										<input id="plz" th:errorclass="fieldError" type="text" name="plz" th:value="${user.address.plz}" required="" pattern="plz" />
+										<input id="plz" th:errorclass="fieldError" type="text" name="plz" th:value="${user.address.plz}" required="required" pattern="plz" />
 										<small class="alert-box alert error">Bitte geben sie eine valide Postleitzahl ein.</small>
 										<small class="alert-box alert" th:if="${#fields.hasErrors('plz')}" th:errors="*{plz}">Die PLZ darf nicht leer sein.</small>
 									</div>
 									
 									<div>
 										<label th:text="#{register.city}" for="city">Ort</label>
-										<input id="town" th:errorclass="fieldError" type="text" name="city" th:value="${user.address.city}" required="" />
+										<input id="town" th:errorclass="fieldError" type="text" name="city" th:value="${user.address.city}" required="required" />
 										<small class="alert-box alert error">Der Ort darf nicht leer sein.</small>
 										<small class="alert-box alert" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">Der Ort darf nicht leer sein.</small>
 									</div>
@@ -83,14 +83,14 @@
 									
 									<div>
 										<label th:text="#{register.email}" for="email">E-Mail</label>
-										<input id="email" th:errorclass="fieldError" type="email" name="email" th:value="${user.userAccount.email}" required="" />
+										<input id="email" th:errorclass="fieldError" type="email" name="email" th:value="${user.userAccount.email}" required="required" />
 										<small class="alert-box alert error">Bitte geben sie eine valide Email ein.</small>
 										<small class="alert-box alert" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Die E-Mail-Adresse darf nicht leer sein.</small>
 									</div>
 									
 									<div>
 										<label th:text="#{editprofile.oldPassword}" for="oldPassword">Passwort</label>
-										<input id="oldPassword" th:field="*{oldPassword}" th:errorclass="fieldError" type="password" name="oldPassword" required="" />
+										<input id="oldPassword" th:field="*{oldPassword}" th:errorclass="fieldError" type="password" name="oldPassword" required="required" />
 										<small class="alert-box alert error">Das alte Passwort darf nicht leer sein.</small>
 									</div>
 									

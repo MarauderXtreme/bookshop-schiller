@@ -29,55 +29,55 @@
 								
 								<div class="large-6 medium-6 small-12 columns">
 									<label for="name">Titel:</label>
-									<input th:errorclass="fieldError" type="text" id="newame" name="name" th:value="${article.name}" required="" />
+									<input th:errorclass="fieldError" type="text" id="newame" name="name" th:value="${article.name}" required="required" />
 									<small class="alert-box alert error">Bitte Titel eingeben.</small>
 									<small class="alert-box alert" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Bitte Titel eingeben.</small>
 								</div>
 								<div class="large-6 medium-6 small-12 columns">
 									<label for="artist">Künstler:</label>
-									<input th:errorclass="fieldError" type="text" id="newauthor" name="artist" th:value="${article.artist}" required="" />
+									<input th:errorclass="fieldError" type="text" id="newauthor" name="artist" th:value="${article.artist}" required="required" />
 									<small class="alert-box alert error">Bitte Künstler eingeben.</small>
 									<small class="alert-box alert" th:if="${#fields.hasErrors('artist')}" th:errors="*{artist}">Bitte Künstler eingeben.</small>
 								</div>
 								<div class="large-6 medium-6 small-12 columns">
 									<label for="publisher">Verlag:</label>
-									<input th:errorclass="fieldError" type="text" id="newpublisher" name="publisher" th:value="${article.publisher}" required="" />
+									<input th:errorclass="fieldError" type="text" id="newpublisher" name="publisher" th:value="${article.publisher}" required="required" />
 									<small class="alert-box alert error">Bitte Verlag eingeben.</small>
 									<small class="alert-box alert" th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}">Bitte Verlag eingeben.</small>
 								</div>
 								<div class="large-6 medium-6 small-12 columns">
 									<label for="id">ISBN/EAN:</label>
-									<input th:errorclass="fieldError" type="text" id="newisbn" name="id" th:value="${article.id}" required="" pattern="isbn13" />
+									<input th:errorclass="fieldError" type="text" id="newisbn" name="id" th:value="${article.id}" required="required" pattern="isbn13" />
 									<small class="alert-box alert error">Bitte ISBN 13 ohne Trennstriche eingeben.</small>
 									<small class="alert-box alert" th:if="${#fields.hasErrors('id')}" th:errors="*{id}">Bitte ISBN 13 ohne Trennstriche eingeben.</small>
 								</div>
 								<div class="large-6 medium-6 small-12 columns">					
 									<label for="image">Bild:</label>
-									<input th:errorclass="fieldError" type="text" id="newimage" name="image" th:value="${article.image}" pattern="image" required="" />
+									<input th:errorclass="fieldError" type="text" id="newimage" name="image" th:value="${article.image}" pattern="image" required="required" />
 									<small class="alert-box alert error">Bitte validen Dateinamen eingeben, welcher der Form xx.jpg, xx.png, xx.gif, xx.jpeg entspricht.</small>
 									<small class="alert-box alert" th:if="${#fields.hasErrors('image')}" th:errors="*{image}">Bitte Dateinamen eingeben.</small>
 								</div>
 								<div class="large-6 medium-6 small-12 columns">
 									<label for="price">Preis:</label>
-									<input th:errorclass="fieldError" type="text" id="newprice" name="price" th:value="${article.price.amount}" required="" />
+									<input th:errorclass="fieldError" type="text" id="newprice" name="price" th:value="${article.price.amount}" required="required" />
 									<small class="alert-box alert error">Bitte neuen Preis eingeben.</small>
 									<small class="alert-box alert" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Bitte neuen Preis eingeben.</small>
 								</div>
 								<div class="large-6 medium-6 small-12 columns">
 									<label for="price">Einkaufspreis:</label>
-									<input th:errorclass="fieldError" type="text" name="stockPrice" th:value="${article.stockPrice.amount}" required="" />
+									<input th:errorclass="fieldError" type="text" name="stockPrice" th:value="${article.stockPrice.amount}" required="required" />
 									<small class="alert-box alert error">Bitte neuen Preis im Format xx.xx eingeben.</small>
 									<small class="alert-box alert" th:if="${#fields.hasErrors('stockPrice')}" th:errors="*{stockPrice}">Bitte neuen Preis im Format xx.xx eingeben.</small>
 								</div>
 								<div class="large-6 medium-6 small-12 columns">
 									<label for="releaseDate">Erscheinungsdatum</label>
-									<input th:errorclass="fieldError" type="text" name="releaseDate" th:value="${article.releaseDate}" required="" pattern="custom_date" id="datepicker" />
+									<input th:errorclass="fieldError" type="text" name="releaseDate" th:value="${article.releaseDate}" required="required" pattern="custom_date" id="datepicker" />
 									<small class="alert-box alert error">Datum muss Form dd.mm.yyyy entsprechen.</small>
 									<small class="alert-box alert" th:if="${#fields.hasErrors('releaseDate')}" th:errors="*{releaseDate}">Datum muss Form dd.mm.yyyy entsprechen.</small>
 								</div>
 								<div class="large-3 medium-3 small-6 columns">
 									<label for="newcategory">Kategorie:</label>
-									<select name="newcategory"  required="">
+									<select name="newcategory"  required="required">
 										<option value="1">Keine</option>
 										<option th:each="category : ${addable}" th:text="${category.categoryName}" th:value="${category.categoryName}" value="1">category</option>
 									</select>
@@ -85,7 +85,7 @@
 								</div>
 								<div class="large-12 medium-12 small-12 columns">
 									<label for="beschreibung">Beschreibung</label>
-									<textarea th:errorclass="fieldError" id="descriptiontext" name="beschreibung" cols="40" rows="5" th:text="${article.beschreibung}" required=""></textarea>
+									<textarea th:errorclass="fieldError" id="descriptiontext" name="beschreibung" cols="40" rows="5" th:text="${article.beschreibung}" required="required"></textarea>
 									<small class="alert-box alert error">Bitte Beschreibung eingeben.</small>
 									<small class="alert-box alert" th:if="${#fields.hasErrors('beschreibung')}" th:errors="*{beschreibung}">Der Vorname darf nicht leer sein.</small>
 								</div>
