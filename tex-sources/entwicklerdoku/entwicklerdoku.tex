@@ -52,6 +52,7 @@
 	0.1     & In Arbeit & 04.01.2015 & Christoph Kepler & Initial Commit 	\\ \hline
 	1.0     & Fertig 	& 14.01.2015 & Christoph Kepler & Fertigstellung 	\\ \hline
 	1.1     & Fertig 	& 15.01.2015 & Christoph Kepler & Ausformulierungen 	\\ \hline
+	1.2     & Fertig 	& 15.01.2015 & Christoph Kepler & Ausformulierungen 	\\ \hline
 \end{tabular}
 
 \newpage
@@ -404,10 +405,7 @@ In diesem Beispiel handelt es sich um den Bildschirm eines Artikelverwalters, da
 
 \subsection{Ergonomie}
 
-\begin{itemize}
-	\item Crosstesting: Gruppe 16
-	\item Oma-Tests: Mitbewohner, Eltern
-\end{itemize}
+\paragraph{Das Crosstesting wurde durch die Gruppe 16 durchgeführt und ein Testbericht angefertigt. Die dort aufgeführten Bugs wurden untersucht und in vollem Umfang behoben. Um den höchsten Standards gerecht zu werden, wurden auch sogenannte Omatests durchgeführt. Die Applikation wurde verschiedenen Zielgruppen vorgelegt. Als Erstes den Eltern eines Teammitglieds und als Zweites den Mitbewohnern eines anderen Teammitglieds.}
 
 \subsection{Transaktions- und Sessionbehandlung}
 
@@ -415,37 +413,23 @@ In diesem Beispiel handelt es sich um den Bildschirm eines Artikelverwalters, da
 
 \subsection{Sicherheit}
 
-\begin{itemize}
-	\item Spring Security wurde umfassend und erschöpfend implemnetiert
-	\item \url{http://projects.spring.io/spring-security/}
-\end{itemize}
+\paragraph{Spring Security wurde umfassend und erschöpfend verwendet. Näheres zu den Funktionen ist unter \url{http://projects.spring.io/spring-security/} zu finden.}
 
 \subsection{Kommunikation und Integration mit anderen IT-Systemen}
 
-\begin{itemize}
-	\item Ein Apache lässt sich mit ProxyPassReverse als vorgeschaltete Instanz zum Web betreiben
-	\item Dadurch wird eine Portspezifizierung ":8080" überflüssig
-\end{itemize}
+\paragraph{Ein Apache lässt sich mit ProxyPassReverse als vorgeschaltete Instanz zum Web betreiben. Dadurch wird eine Portspezifizierung ":8080" überflüssig.}
 
 \subsection{Verteilung}
 
-\begin{itemize}
-	\item Diese Anwedung läuft nur auf einem Server.
-\end{itemize}
+\paragraph{Diese Anwedung ist eigenständig und läuft nur auf einem Server.}
 
 \subsection{Plausibilisierung und Validierung}
 
-\begin{itemize}
-	\item Jegliche Benutzereingaben werden sowohl durch Javascript als auch durch das Java-Backend validiert.
-\end{itemize}
+\paragraph{Jegliche Benutzereingaben werden sowohl durch Javascript als auch durch das Java-Backend validiert.}
 
 \subsection{Ausnahme-/Fehlerbehandlung}
 
-\begin{itemize}
-	\item Es wurde eine Standardfehlerseite implementiert
-	\item Eine weitere Asuwertung ist zumindest für den Websitebesucher nicht sinnvoll
-	\item Admins haben das Serverlog
-\end{itemize}
+\paragraph{Es wurde eine Standardfehlerseite implementiert. Eine weitere Asuwertung ist zumindest für den normalen Websitebesucher nicht sinnvoll. Für Administratoren steht das Serverlog zur Verfügung.}
 
 \subsection{Logging, Protokollierung, Tracing}
 
@@ -455,16 +439,11 @@ In diesem Beispiel handelt es sich um den Bildschirm eines Artikelverwalters, da
 
 \subsection{Konfigurierbarkeit}
 
-\begin{itemize}
-	\item Es können neue Nodes hinzugefügt, geändert und gelöscht werden.
-	\item im Datainitializer werden Grundkonfigurationen vorgenommen.
-\end{itemize}
+\paragraph{Es können neue Nodes hinzugefügt, geändert und gelöscht werden. Im Datainitializer werden die Grundkonfigurationen für die Anwendung vorgenommen.}
 
 \subsection{Internationalisierung}
 
-\begin{itemize}
-	\item Konfigurierbar durch die messages.properties
-\end{itemize}
+\paragraph{Internationalisierung ist konfigurierbar durch die messages.properties.}
 
 \subsection{Testbarkeit}
 
@@ -553,11 +532,6 @@ In diesem Beispiel handelt es sich um den Bildschirm eines Artikelverwalters, da
 
 \subsection{Buildmanagement}
 
-\begin{itemize}
-	\item Git bookshop-schiller beinhaltet die komplette Applikation
-	\item die pom.xml liegt im Root-Verzeichnis
-	\item Maven kümmert sich um die Dependencies aus der pom.xml
-	\item Travis CI buildet jeden Commit und gibt Warnungen oder Fehlermeldungen aus
-\end{itemize}
+\paragraph{Das Github Repository bookshop-schiller beinhaltet die komplette Applikation. Die pom.xml für Maven befindet sich im Rootverzeichnis der Anwendung. Über diese werden die Dependencies durch Maven gemanaged. Travis CI buildet jeden Commit und gibt Warnungen oder Fehlermeldungen aus.}
 
 \end{document}
