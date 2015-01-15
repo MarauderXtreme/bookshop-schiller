@@ -88,10 +88,10 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		}
 		
 		
-		RoomManagement.getInstance().addRoom("Computerraum","067","42");
-		RoomManagement.getInstance().addRoom("Ratssaal","1335","1337");
-		RoomManagement.getInstance().addRoom("ASCII","0123","21");
-		RoomManagement.getInstance().addRoom("FSR-Buero","042","21");
+		RoomManagement.getInstance().addRoom("Großer Konferenzsaal","001","1337");
+		RoomManagement.getInstance().addRoom("Kleiner Konferenzsaal","101","100");
+		RoomManagement.getInstance().addRoom("Computerpool","007","42");
+		RoomManagement.getInstance().addRoom("Raum 102","102","10");
 		
 		MyDate testdate = new MyDate("17122014","1910");
 		testdate.getDay();
@@ -100,7 +100,12 @@ public class BookShopSchillerDataInitializer implements DataInitializer {
 		testdate.getHours();
 		testdate.getMinutes();	
 		
-		CalendarManagement.getInstance().addEvent("Praesentation", new MyDate("26112014","1110"), RoomManagement.getInstance().getRoom("Computerraum"),new MyDate("26112014","1120"));
+		CalendarManagement.getInstance().addEvent("Seminar - Wie schreibe ich mein eigenes Buch?", new MyDate("09012015","1000"), RoomManagement.getInstance().getRoom("Computerpool"),new MyDate("09012015","1200"));
+		CalendarManagement.getInstance().addEvent("Buchvorstellung - 'Begotten'", new MyDate("07012015","1400"), RoomManagement.getInstance().getRoom("Großer Konferenzsaal"),new MyDate("07012014","1530"));
+		CalendarManagement.getInstance().addEvent("Buchvorstellung - 'Trost und Rat'", new MyDate("14012015","1400"), RoomManagement.getInstance().getRoom("Kleiner Konferenzsaal"),new MyDate("14012014","1530"));
+		CalendarManagement.getInstance().addEvent("Buchvorstellung - 'The Last Resort'", new MyDate("21012015","1400"), RoomManagement.getInstance().getRoom("Großer Konferenzsaal"),new MyDate("21012015","1530"));
+		CalendarManagement.getInstance().addEvent("Buchvorstellung - 'Der Bro-Code'", new MyDate("28012015","1400"), RoomManagement.getInstance().getRoom("Großer Konferenzsaal"),new MyDate("28012015","1530"));
+		CalendarManagement.getInstance().addEvent("Gesprächsrunde - Von Autor zu Autor", new MyDate("19012015","1800"), RoomManagement.getInstance().getRoom("Raum 102"),new MyDate("19012015","2200"));
 		CalendarManagement.getInstance().getCalendar().sortEvents();
 		
 		//Categories
