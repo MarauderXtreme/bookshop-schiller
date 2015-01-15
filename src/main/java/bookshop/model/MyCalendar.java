@@ -99,7 +99,7 @@ public class MyCalendar {
 					int eventEnd = Integer.parseInt(event.getEndDate().getHours())+Integer.parseInt(event.getEndDate().getMinutes());
 					if(next.getStartDateD().equals(event.getStartDateD()))
 					{
-						if ( (eventStart>=iteStart&&eventStart<=iteEnd) || (eventEnd>=iteStart&&eventEnd<=iteEnd))
+						if ( (eventStart>=iteStart&&eventStart<=iteEnd) || (eventEnd>=iteStart&&eventEnd<=iteEnd) || (eventStart<=iteStart&&eventEnd>=iteStart))
 						{
 							return false;
 						}
