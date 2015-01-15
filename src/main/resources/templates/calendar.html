@@ -28,7 +28,7 @@
 			             	<th class="small-1">Raumnummer</th>
 			             	<th class="small-2">Raum</th>
 			             	<th class="small-1">Belegte Sitze</th>
-			             	<th class="small-2"></th>
+			             	<th class="small-1" sec:authorize="hasRole('ROLE_CUSTOMER')">Buchen(5 Euro pro Platz)</th>
 			            </tr>
 			          </thead>
 			          <tbody th:remove="all-but-first">
