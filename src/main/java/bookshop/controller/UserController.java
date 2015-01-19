@@ -85,7 +85,7 @@ public class UserController {
 	 * @param role
 	 * @return
 	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
 	@RequestMapping("/admin/user/add/new")
 	public String registerNewUser(@ModelAttribute("registrationForm") @Valid RegistrationForm registrationForm,
 			BindingResult result, @RequestParam("roleInput") String role) {
@@ -128,7 +128,7 @@ public class UserController {
 	 * Maps the administrator registration form for users to modelMap.
 	 * @param modelMap
 	 */
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') || hasRole('ROLE_USERMANAGER')")
 	@RequestMapping("/admin/user/add")
 	public String registerUser(ModelMap modelMap) {
 		
