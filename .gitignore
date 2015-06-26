@@ -160,3 +160,4 @@ sympy-plots-for-*.tex/
 
 # Exclude order pdfs
 /src/main/resources/static/resources/orders/*.pdf
+/bin1/

@@ -148,7 +148,22 @@ public class ArticleForm {
 	 * @param Productnumber
 	 */
 	public void setId(String id){
-		this.id = id;
+		boolean set = false;
+		
+		// is isbn
+		if(id.length() == 13){
+			if(isIsbnValid(id)){
+				this.id = id;
+			}else{
+				this.id = null;
+			}
+			
+			set = true;
+		}
+		
+		if(!set){
+			this.id = id;
+		}
 	}
 	
 	//Spezifische Variablen
@@ -183,4 +198,40 @@ public class ArticleForm {
 		this.image = image;
 	}
 	
+	/**
+	 * check the idbn
+	 * 
+	 * @author Marcel Liebgott <marcelœmliebgott.de>
+	 * @param isbn String
+	 * @return boolean
+	 * @throws Exception 
+	 */
+	private boolean isIsbnValid(String isbn){
+		boolean valid = false;
+		
+		if(isbn != null){
+			int x = 0, g = 0, u = 0, s1 = 0, s2 = 0;
+
+	        // remove all '-'
+	        isbn.replace("-", "");
+	
+	        // get the sum of even numbers
+	        for(g = 0; g < 13; g += 2){
+	            s1 += isbn.charAt(g);
+	        }
+	
+	        // get the sum of odd numbers
+	        for(u = 1; u < 13; u += 2){
+	            s2 += isbn.charAt(u);
+	        }
+	
+	        x = (10 - ((s1 + 3*(s2))) % 10);
+	
+	        if((x % 10) == 0){
+	            return true;
+	        }
+	    }
+		
+		return valid;
+	}
 }
